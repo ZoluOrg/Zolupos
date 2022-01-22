@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Zolupos.Modules.Transaction.Infrustructure\Zolupos.Modules.Transaction.Infrustructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

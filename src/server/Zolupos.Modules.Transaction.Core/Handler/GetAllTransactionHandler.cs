@@ -21,8 +21,8 @@ namespace Zolupos.Modules.Transaction.Core.Handler
         }
         public async Task<IEnumerable<UserTransaction>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
         {
-            var Transactions = await _context.UserTransactions.ToListAsync();
-            if (Transactions != null)
+            var Transactions = await _context.UserTransactions.Include(ut=>ut.OrderedProducts).ToListAsync();
+            if (Transactions == null)
             {
                 return null;
             }
