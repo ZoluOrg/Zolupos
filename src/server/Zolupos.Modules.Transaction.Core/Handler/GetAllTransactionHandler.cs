@@ -1,20 +1,32 @@
 ﻿using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Zolupos.Modules.Transaction.Core.Entity;
+using Zolupos.Modules.Transaction.Core.Interface;
 using Zolupos.Modules.Transaction.Core.Queries;
-using Zolupos.Modules.Transaction.Core.Access;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class GetAllTransactionHandler : IRequestHandler<GetAllListQuery, List<UserTransaction>>
+    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, IEnumerable<UserTransaction>>
     {
-        private readonly IDbTransactionAccess _transactionAccess;
-        public GetAllTransactionHandler(IDbTransactionAccess transactionAccess)
+        public readonly ITransactionDbContext _context;
+
+        public GetAllTransactionHandler(ITransactionDbContext context)
         {
-            _transactionAccess = transactionAccess;
+            _context = context;
         }
-        public async Task<List<UserTransaction>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserTransaction>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
         {
-            return await _transactionAccess.GetAllUserTransactions();
+            var Transactions = await _context.UserTransactions.ToListAsync();
+            if (Transactions != null)
+            {
+                return null;
+            }
+            return Transactions.AsReadOnly();
         }
     }
 }

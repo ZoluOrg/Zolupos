@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Zolupos.Modules.Transaction\Zolupos.Modules.Transaction.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

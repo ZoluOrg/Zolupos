@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Transaction
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Shared.Core", "Zolupos.Shared.Core\Zolupos.Shared.Core.csproj", "{780479A2-7813-48AB-BD7B-15816502E675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zolupos.Shared.Infrustructure", "Zolupos.Shared.Infrustructure\Zolupos.Shared.Infrustructure.csproj", "{061B202F-99D4-467A-BF65-C23B2668D356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Shared.Infrustructure", "Zolupos.Shared.Infrustructure\Zolupos.Shared.Infrustructure.csproj", "{061B202F-99D4-467A-BF65-C23B2668D356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
