@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Zolupos.Modules.Transaction.Core.Queries;
 using Zolupos.Modules.Transaction.Core.Command;
 
@@ -24,7 +25,7 @@ namespace Zolupos.Modules.Transaction.Controllers
         public async Task<object> GetAllTransaction()
         {
             var Transactions = await _mediator.Send(new GetAllTransactionQuery());
-            return new { res = Transactions };
+            return new { res = Transactions};
         }
     }
 }

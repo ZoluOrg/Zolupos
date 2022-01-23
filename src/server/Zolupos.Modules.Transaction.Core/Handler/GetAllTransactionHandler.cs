@@ -11,7 +11,7 @@ using Zolupos.Modules.Transaction.Core.Queries;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, IEnumerable<UserTransaction>>
+    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, IEnumerable<object>>
     {
         public readonly ITransactionDbContext _context;
 
@@ -19,14 +19,29 @@ namespace Zolupos.Modules.Transaction.Core.Handler
         {
             _context = context;
         }
-        public async Task<IEnumerable<UserTransaction>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<object>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
         {
-            var Transactions = await _context.UserTransactions.Include(ut=>ut.OrderedProducts).ToListAsync();
+            var Transactions = await _context.UserTransactions
+                .Select(
+                    ut => new
+                    {
+                        ut.TransactionId,
+                        ut.Date,
+                        OrderedProducts = ut.OrderedProducts.Select(op => new
+                        {
+                            op.TransactionId,
+                            op.Id,
+                            op.Product,
+                            op.ProductId,
+                            op.Quantity,
+                            op.Returned,
+                        }).ToList()
+                    }).ToListAsync();
             if (Transactions == null)
             {
                 return null;
             }
-            return Transactions.AsReadOnly();
+            return Transactions;
         }
     }
 }
