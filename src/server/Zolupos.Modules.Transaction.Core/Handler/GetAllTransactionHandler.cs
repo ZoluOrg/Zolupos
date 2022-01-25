@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,40 +9,26 @@ using Microsoft.EntityFrameworkCore;
 using Zolupos.Modules.Transaction.Core.Entity;
 using Zolupos.Modules.Transaction.Core.Interface;
 using Zolupos.Modules.Transaction.Core.Queries;
+using Zolupos.Modules.Transaction.Core.DTO;
+using System.Text.Json;
+
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, IEnumerable<object>>
+    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, ICollection<GetAllTransactionRes>>
     {
         public readonly ITransactionDbContext _context;
-
-        public GetAllTransactionHandler(ITransactionDbContext context)
+        public readonly IMapper _mapper;
+        public GetAllTransactionHandler(ITransactionDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
-        public async Task<IEnumerable<object>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<ICollection<GetAllTransactionRes>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
         {
-            var Transactions = await _context.UserTransactions
-                .Select(
-                    ut => new
-                    {
-                        ut.TransactionId,
-                        ut.Date,
-                        OrderedProducts = ut.OrderedProducts.Select(op => new
-                        {
-                            op.TransactionId,
-                            op.Id,
-                            op.Product,
-                            op.ProductId,
-                            op.Quantity,
-                            op.Returned,
-                        }).ToList()
-                    }).ToListAsync();
-            if (Transactions == null)
-            {
-                return null;
-            }
-            return Transactions;
+            var Transactions = await _context.UserTransactions.Include(ut => ut.OrderedProducts).ToListAsync();
+            var mapped = _mapper.Map<ICollection<UserTransaction>, ICollection<GetAllTransactionRes>>(Transactions);
+            return mapped;
         }
     }
 }

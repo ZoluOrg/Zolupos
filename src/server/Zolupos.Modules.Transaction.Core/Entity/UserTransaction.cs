@@ -11,6 +11,6 @@ namespace Zolupos.Modules.Transaction.Core.Entity
         public int TransactionId { get; set; }
         public DateTime Date { get; set; }
 
-        public List<OrderedProduct> OrderedProducts { get; set; }
+        public virtual ICollection<OrderedProduct> OrderedProducts { get; set; }
     }
 }

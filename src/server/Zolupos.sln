@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos", "Zolupos\Zolupos.csproj", "{59C845BF-348B-40F7-B850-D42022F55281}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Transaction.Infrustructure", "Zolupos.Modules.Transaction.Infrustructure\Zolupos.Modules.Transaction.Infrustructure.csproj", "{ABC38162-382B-4CBF-9EF5-E735D6D118E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Transaction.Infrastructure", "Zolupos.Modules.Transaction.Infrastructure\Zolupos.Modules.Transaction.Infrastructure.csproj", "{ABC38162-382B-4CBF-9EF5-E735D6D118E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Transaction.Core", "Zolupos.Modules.Transaction.Core\Zolupos.Modules.Transaction.Core.csproj", "{563B0C7A-71D9-4FEE-8B1E-DDFD193006E0}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Transaction
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Shared.Core", "Zolupos.Shared.Core\Zolupos.Shared.Core.csproj", "{780479A2-7813-48AB-BD7B-15816502E675}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Shared.Infrustructure", "Zolupos.Shared.Infrustructure\Zolupos.Shared.Infrustructure.csproj", "{061B202F-99D4-467A-BF65-C23B2668D356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Shared.Infrastructure", "Zolupos.Shared.Infrastructure\Zolupos.Shared.Infrastructure.csproj", "{061B202F-99D4-467A-BF65-C23B2668D356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

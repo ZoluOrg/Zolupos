@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zolupos.Modules.Transaction.Core\Zolupos.Modules.Transaction.Core.csproj" />
-    <ProjectReference Include="..\Zolupos.Modules.Transaction.Infrustructure\Zolupos.Modules.Transaction.Infrustructure.csproj" />
+    <ProjectReference Include="..\Zolupos.Modules.Transaction.Infrastructure\Zolupos.Modules.Transaction.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

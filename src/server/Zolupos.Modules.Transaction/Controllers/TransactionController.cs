@@ -1,19 +1,13 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Zolupos.Modules.Transaction.Core.Queries;
-using Zolupos.Modules.Transaction.Core.Command;
 
 
 namespace Zolupos.Modules.Transaction.Controllers
 {
     [Route("api/[controller]")]
-    public class TransactionController
+    [ApiController]
+    public class TransactionController : Controller
     {
         private readonly IMediator _mediator;
         public TransactionController(IMediator mediator)
@@ -22,10 +16,11 @@ namespace Zolupos.Modules.Transaction.Controllers
         }
 
         [HttpGet]
-        public async Task<object> GetAllTransaction()
+        public async Task<ActionResult> GetAllTransaction()
         {
             var Transactions = await _mediator.Send(new GetAllTransactionQuery());
-            return new { res = Transactions};
+            Console.WriteLine(Transactions);
+            return Ok(Transactions);
         }
     }
 }

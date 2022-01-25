@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Zolupos.Modules.Transaction.Infrustructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Zolupos.Modules.Transaction.Core\Zolupos.Modules.Transaction.Core.csproj" />
     <ProjectReference Include="..\Zolupos.Shared.Core\Zolupos.Shared.Core.csproj" />
-    <ProjectReference Include="..\Zolupos.Shared.Infrustructure\Zolupos.Shared.Infrustructure.csproj" />
+    <ProjectReference Include="..\Zolupos.Shared.Infrastructure\Zolupos.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

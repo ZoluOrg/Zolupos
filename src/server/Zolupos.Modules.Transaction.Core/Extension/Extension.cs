@@ -13,9 +13,8 @@ namespace Zolupos.Modules.Transaction.Core.Extension
     {
         public static IServiceCollection AddTransactionCoreModule (this IServiceCollection services)
         {
-            var asm = Assembly.GetExecutingAssembly();
-            Console.Write($"{asm.FullName}");
-            services.AddMediatR(asm);
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;
         }
     }
