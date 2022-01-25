@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Zolupos.Modules.Transaction.Core.Queries;
-
+using Zolupos.Modules.Transaction.Core.Command;
+using Zolupos.Shared.Core.Utilities;
 
 namespace Zolupos.Modules.Transaction.Controllers
 {
@@ -19,8 +20,15 @@ namespace Zolupos.Modules.Transaction.Controllers
         public async Task<ActionResult> GetAllTransaction()
         {
             var Transactions = await _mediator.Send(new GetAllTransactionQuery());
-            Console.WriteLine(Transactions);
             return Ok(Transactions);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostTransaction()
+        {
+            var body = await BodyUtilities.GetBody(HttpContext);
+            var id = await _mediator.Send(new AddTransactionCommand(body));
+            return Ok(id);
         }
     }
 }

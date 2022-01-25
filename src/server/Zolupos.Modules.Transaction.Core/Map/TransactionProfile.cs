@@ -13,7 +13,8 @@ namespace Zolupos.Modules.Transaction.Core.Map
     {
         public TransactionProfile()
         {
-            CreateMap<UserTransaction, GetAllTransactionRes>().ForMember(s => s.OrderedProducts, c => c.MapFrom(m => m.OrderedProducts));
+            CreateMap<UserTransaction, GetAllTransactionRes>()
+                .ForMember(s => s.OrderedProducts, c => c.MapFrom(m => m.OrderedProducts));
             CreateMap<OrderedProduct, AllOrderedProductDTO>();
         }
     }

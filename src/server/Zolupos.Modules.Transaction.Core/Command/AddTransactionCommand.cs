@@ -8,5 +8,5 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Command
 {
-    public record AddTransactionCommand(UserTransaction transaction) : IRequest<int>;
+    public record AddTransactionCommand(string transaction) : IRequest<int>;
 }
