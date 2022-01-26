@@ -7,14 +7,14 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.DTO
 {
-    public class TransactionRes
+    public class TransactionDto
     {
         public int TransactionId { get; set; }
         public DateTime Date { get; set; }
-        public virtual ICollection<AllOrderedProductDTO> OrderedProducts { get; set; }
+        public virtual ICollection<OrderedProductDto> OrderedProducts { get; set; }
     };
 
-    public class AllOrderedProductDTO
+    public class OrderedProductDto
     {
         public int Id { get; set; }
         public string Product { get; set; }

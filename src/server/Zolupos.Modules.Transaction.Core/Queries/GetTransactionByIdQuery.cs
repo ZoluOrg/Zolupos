@@ -4,5 +4,5 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Queries
 {
-    public record GetTransactionByIdQuery (int Id) : IRequest<TransactionRes>;
+    public record GetTransactionByIdQuery (int Id) : IRequest<TransactionDto>;
 }

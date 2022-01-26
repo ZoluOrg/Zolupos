@@ -8,7 +8,7 @@ using Zolupos.Modules.Transaction.Core.Queries;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class GetTransactionByIdHandler : IRequestHandler<GetTransactionByIdQuery, TransactionRes>
+    public class GetTransactionByIdHandler : IRequestHandler<GetTransactionByIdQuery, TransactionDto>
     {
         public ITransactionDbContext _context;
         public IMapper _mapper;
@@ -21,10 +21,10 @@ namespace Zolupos.Modules.Transaction.Core.Handler
             _mediator = mediator;
         }
 
-        public async Task<TransactionRes> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TransactionDto> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
         {
             var Transaction = await _context.UserTransactions.Include(ut=>ut.OrderedProducts).FirstOrDefaultAsync(ut => ut.TransactionId == request.Id);
-            var mapped = _mapper.Map<UserTransaction, TransactionRes>(Transaction);
+            var mapped = _mapper.Map<UserTransaction, TransactionDto>(Transaction);
             return mapped;
         }
     }
