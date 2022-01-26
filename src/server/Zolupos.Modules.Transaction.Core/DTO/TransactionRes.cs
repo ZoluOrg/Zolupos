@@ -7,7 +7,7 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.DTO
 {
-    public class GetAllTransactionRes
+    public class TransactionRes
     {
         public int TransactionId { get; set; }
         public DateTime Date { get; set; }

@@ -15,7 +15,7 @@ using System.Text.Json;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, ICollection<GetAllTransactionRes>>
+    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, ICollection<TransactionRes>>
     {
         public readonly ITransactionDbContext _context;
         public readonly IMapper _mapper;
@@ -24,10 +24,10 @@ namespace Zolupos.Modules.Transaction.Core.Handler
             _mapper = mapper;
             _context = context;
         }
-        public async Task<ICollection<GetAllTransactionRes>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<ICollection<TransactionRes>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
         {
             var Transactions = await _context.UserTransactions.Include(ut => ut.OrderedProducts).ToListAsync();
-            var mapped = _mapper.Map<ICollection<UserTransaction>, ICollection<GetAllTransactionRes>>(Transactions);
+            var mapped = _mapper.Map<ICollection<UserTransaction>, ICollection<TransactionRes>>(Transactions);
             return mapped;
         }
     }

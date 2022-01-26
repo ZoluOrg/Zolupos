@@ -23,6 +23,13 @@ namespace Zolupos.Modules.Transaction.Controllers
             return Ok(Transactions);
         }
 
+        [HttpGet("{Id:int}")]
+        public async Task<ActionResult> GetTransactionById(int Id)
+        {
+            var Transaction = await _mediator.Send(new GetTransactionByIdQuery(Id));
+            return Ok(Transaction);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostTransaction()
         {

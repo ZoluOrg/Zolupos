@@ -9,5 +9,5 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Queries
 {
-    public record GetAllTransactionQuery () : IRequest<ICollection<GetAllTransactionRes>>;
+    public record GetAllTransactionQuery () : IRequest<ICollection<TransactionRes>>;
 }
