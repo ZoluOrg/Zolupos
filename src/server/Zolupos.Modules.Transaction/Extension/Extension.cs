@@ -15,7 +15,7 @@ namespace Zolupos.Modules.Transaction.Extension
         public static IServiceCollection AddTransactionModule(this IServiceCollection services)
         {
             Console.Write($"{Assembly.GetExecutingAssembly()}");
-            services.AddTransactionInfrustructureModule();
+            services.AddTransactionInfrastructureModule();
             services.AddTransactionCoreModule();
             return services;
         }

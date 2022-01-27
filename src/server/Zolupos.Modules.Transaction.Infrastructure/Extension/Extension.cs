@@ -13,9 +13,8 @@ namespace Zolupos.Modules.Transaction.Infrustructure.Extension
 {
     public static class Extension
     {
-        public static IServiceCollection AddTransactionInfrustructureModule(this IServiceCollection services)
+        public static IServiceCollection AddTransactionInfrastructureModule(this IServiceCollection services)
         {
-            Console.Write($"{Assembly.GetExecutingAssembly()}");
             services.AddDatabase<TransactionDbContext>();
             services.AddScoped<ITransactionDbContext>(prov => prov.GetService<TransactionDbContext>());
             return services;
