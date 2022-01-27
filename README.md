@@ -10,6 +10,9 @@ Zolupos is a **modern** POS system built with ASP.net core, React JS and Electro
 - .Net 6
 - Postgres SQL  
 
+### Migration
+Read the docs for migration at `docs/Migration.md`
+
 ### Server Guide Using Visual Studio
 - Open the `sln` file using Visual Studio (Visual studio 2022 is Recommended)
 - Then run it on `Debug` or `Release`.
