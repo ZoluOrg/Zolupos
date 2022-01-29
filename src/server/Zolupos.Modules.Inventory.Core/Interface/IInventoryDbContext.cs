@@ -6,5 +6,7 @@ namespace Zolupos.Modules.Inventory.Core.Interface
     public interface IInventoryDbContext
     {
         DbSet<Product> Products { get; set; }
+
+        Task<int> SaveChanges();
     }
 }

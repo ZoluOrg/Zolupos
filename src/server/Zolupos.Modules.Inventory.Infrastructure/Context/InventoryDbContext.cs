@@ -14,5 +14,10 @@ namespace Zolupos.Modules.Inventory.Infrastructure.Context
         {
             modelBuilder.Entity<Product>();
         }
+
+        public async Task<int> SaveChanges()
+        {
+            return await this.SaveChangesAsync();
+        }
     }
 }

@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Queries;
+using Zolupos.Shared.Core.Utilities;
 
 namespace Zolupos.Modules.Inventory.Controllers
 {
@@ -31,5 +33,13 @@ namespace Zolupos.Modules.Inventory.Controllers
             var Product = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(Product);
         }
+        [HttpPost]
+        public async Task<ActionResult<List<int>>> AddProducts()
+        {
+            var body = await BodyUtilities.GetBody(HttpContext);
+            var ids = await _mediator.Send(new AddProductCommand(body));
+            return ids;
+        }
+
     }
 }
