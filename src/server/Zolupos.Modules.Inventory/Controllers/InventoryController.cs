@@ -25,5 +25,11 @@ namespace Zolupos.Modules.Inventory.Controllers
             var Products =await _mediator.Send(new GetAllProductQuery());
             return Ok(Products);
         }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProductDTO>> GetProductById(int id)
+        {
+            var Product = await _mediator.Send(new GetProductByIdQuery(id));
+            return Ok(Product);
+        }
     }
 }
