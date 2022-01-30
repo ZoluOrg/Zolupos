@@ -33,7 +33,7 @@ namespace Zolupos.Modules.Transaction.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> PostTransaction()
+        public async Task<ActionResult<List<int>>> PostTransaction()
         {
             var body = await BodyUtilities.GetBody(HttpContext);
             var id = await _mediator.Send(new AddTransactionCommand(body));

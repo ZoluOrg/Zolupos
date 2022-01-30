@@ -3,24 +3,32 @@ using MediatR;
 using Zolupos.Modules.Transaction.Core.Command;
 using Zolupos.Modules.Transaction.Core.Entity;
 using Zolupos.Modules.Transaction.Core.Interface;
+using Zolupos.Modules.Transaction.Core.Model;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, int>
+    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, List<int>>
     {
         private readonly ITransactionDbContext _context;
         public AddTransactionHandler(ITransactionDbContext context)
         {
             _context = context;
         }
-        public async Task<int> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<List<int>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {
-            var Transaction = JsonSerializer.Deserialize<UserTransaction>(request.transaction);
-            Transaction.Date = DateTime.UtcNow;
-            _context.UserTransactions.Add(Transaction);
-            await _context.SaveChanges();
+            var ids = new List<int>();
+            var reqDeserialized = JsonSerializer.Deserialize<AddTransactionRequestModel>(request.transaction);
+            for(int i = 0; i != reqDeserialized.Transactions.Count; i++)
+            {
+                var toSave = reqDeserialized.Transactions[i];
+                toSave.Date = DateTime.UtcNow;
+                await _context.UserTransactions.AddAsync(toSave);
+                await _context.SaveChanges();
 
-            return Transaction.TransactionId;
+                ids.Add(toSave.TransactionId);
+            }
+
+            return ids;
         }
     }
 }
