@@ -7,7 +7,7 @@ using Zolupos.Modules.Inventory.Core.Entity;
 
 namespace Zolupos.Modules.Inventory.Core.Model
 {
-    public class AddProductRequestModel
+    public class ProductRequestModel
     {
         public List<Product> Products { get; set; }
     }

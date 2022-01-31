@@ -19,5 +19,11 @@ namespace Zolupos.Modules.Inventory.Infrastructure.Context
         {
             return await this.SaveChangesAsync();
         }
+
+        public async Task Update(Product toEdit, Product toSave)
+        {
+            toSave.ProductId = toEdit.ProductId;
+            this.Entry(toEdit).CurrentValues.SetValues(toSave);
+        }
     }
 }

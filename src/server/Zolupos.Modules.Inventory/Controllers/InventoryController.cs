@@ -40,6 +40,12 @@ namespace Zolupos.Modules.Inventory.Controllers
             var ids = await _mediator.Send(new AddProductCommand(body));
             return ids;
         }
-
+        [HttpPost("edit/{prid:int}")]
+        public async Task<ActionResult<int>> EditProducts(int prid)
+        {
+            var body = await BodyUtilities.GetBody(HttpContext);
+            var id = await _mediator.Send(new EditProductCommand(body, prid));
+            return id;
+        }
     }
 }

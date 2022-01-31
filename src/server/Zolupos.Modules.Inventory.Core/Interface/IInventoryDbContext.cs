@@ -8,5 +8,6 @@ namespace Zolupos.Modules.Inventory.Core.Interface
         DbSet<Product> Products { get; set; }
 
         Task<int> SaveChanges();
+        Task Update(Product toEdit, Product toSave);
     }
 }
