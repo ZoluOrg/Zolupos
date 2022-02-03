@@ -30,5 +30,11 @@ namespace Zolupos.Modules.Transaction.Infrustructure.Contexts
         {
             return await base.SaveChangesAsync();
         }
+
+        public async Task Update(UserTransaction toEdit, UserTransaction toSave)
+        {
+            toSave.TransactionId = toEdit.TransactionId;
+            this.Entry(toEdit).CurrentValues.SetValues(toSave);
+        }
     }
 }
