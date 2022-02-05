@@ -26,9 +26,10 @@ namespace Zolupos.Modules.Inventory.Core.Handler
 
         public async Task<int> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
-            var toEdit = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == request.id);
             var edit = JsonSerializer.Deserialize<Product>(request.editedTransaction);
-            await _context.Update(toEdit, edit);
+            edit.LastEdit = DateTime.UtcNow;
+            edit.ProductId = request.id;
+            _context.Products.Update(edit);
             await _context.SaveChanges();
             return request.id;
         }
