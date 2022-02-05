@@ -9,5 +9,8 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Queries
 {
+    /// <summary>
+    /// Get all transaction from database.
+    /// </summary>
     public record GetAllTransactionQuery () : IRequest<ICollection<TransactionDto>>;
 }

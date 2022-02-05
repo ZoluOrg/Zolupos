@@ -25,14 +25,12 @@ namespace Zolupos.Modules.Inventory.Core.Handler
         }
         public async Task<List<int>> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            Console.WriteLine(request.productString);
             var reqDeserialize = JsonSerializer.Deserialize<ProductRequestModel>(request.productString);
             var idList = new List<int>();
             for(int i = 0; i != reqDeserialize.Products.Count; i++)
             {
                 await _context.Products.AddAsync(reqDeserialize.Products[i]);
                 await _context.SaveChanges();
-                Console.WriteLine(reqDeserialize.Products[i].ProductId);
                 idList.Add(reqDeserialize.Products[i].ProductId);
             }
             return idList;

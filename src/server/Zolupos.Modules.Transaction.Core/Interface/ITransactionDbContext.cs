@@ -9,6 +9,5 @@ namespace Zolupos.Modules.Transaction.Core.Interface
         DbSet<UserTransaction> UserTransactions { get; set; }
 
         Task<int> SaveChanges();
-        Task Update(UserTransaction toEdit, UserTransaction toSave);
     }
 }

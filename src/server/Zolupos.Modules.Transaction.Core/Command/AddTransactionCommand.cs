@@ -8,5 +8,9 @@ using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Command
 {
+    /// <summary>
+    /// Creates new transaction then save it to the database.
+    /// </summary>
+    /// <param name="transaction">Transaction to save.</param>
     public record AddTransactionCommand(string transaction) : IRequest<List<int>>;
 }
