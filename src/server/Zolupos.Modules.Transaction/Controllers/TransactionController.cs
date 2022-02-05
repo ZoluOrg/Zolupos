@@ -42,6 +42,7 @@ namespace Zolupos.Modules.Transaction.Controllers
         [HttpPost("edit/{utid:int}")]
         public async Task<ActionResult<int>> Update(int utid)
         {
+            Console.WriteLine(utid);
             var body = await BodyUtilities.GetBody(HttpContext);
             var id = await _mediator.Send(new EditTransactionCommand(body, utid));
             return id;
