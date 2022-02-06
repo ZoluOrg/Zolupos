@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zolupos.Modules.Employee.Core\Zolupos.Modules.Employee.Core.csproj" />
+    <ProjectReference Include="..\Zolupos.Shared.Infrastructure\Zolupos.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -26,7 +26,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
 
         public async Task<int> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
-            var edit = JsonSerializer.Deserialize<Product>(request.editedTransaction);
+            var edit = JsonSerializer.Deserialize<Product>(request.editedProduct);
             edit.LastEdit = DateTime.UtcNow;
             edit.ProductId = request.id;
             _context.Products.Update(edit);
