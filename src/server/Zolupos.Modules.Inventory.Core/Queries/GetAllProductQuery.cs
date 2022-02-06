@@ -8,5 +8,8 @@ using Zolupos.Modules.Inventory.Core.DTO;
 
 namespace Zolupos.Modules.Inventory.Core.Queries
 {
+    /// <summary>
+    /// Return All Products
+    /// </summary>
     public record GetAllProductQuery: IRequest<ICollection<ProductDTO>>;
 }

@@ -9,5 +9,9 @@ using Zolupos.Modules.Inventory.Core.Entity;
 
 namespace Zolupos.Modules.Inventory.Core.Command
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="productString"></param>
     public record AddProductCommand(string productString) : IRequest<List<int>>;
 }

@@ -7,5 +7,10 @@ using System.Threading.Tasks;
 
 namespace Zolupos.Modules.Inventory.Core.Command
 {
-    public record EditProductCommand(string editedTransaction, int id) : IRequest<int>;
+    /// <summary>
+    /// Edit Product Details
+    /// </summary>
+    /// <param name="editedProduct">Product with the desired changes.</param>
+    /// <param name="id">Id of the product to edit.</param>
+    public record EditProductCommand(string editedProduct, int id) : IRequest<int>;
 }
