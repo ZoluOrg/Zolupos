@@ -38,7 +38,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         {
             var body = await BodyUtilities.GetBody(HttpContext);
             var ids = await _mediator.Send(new AddProductCommand(body));
-            return ids;
+            return Ok(ids);
         }
         [HttpPatch("edit/{id:int}")]
         public async Task<ActionResult<int>> EditProducts(int id)
