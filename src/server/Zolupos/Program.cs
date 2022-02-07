@@ -1,6 +1,6 @@
 using Zolupos.Modules.Transaction.Extension;
 using Zolupos.Modules.Inventory.Extension;
-
+using Zolupos.Modules.Employee.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransactionModule();
 builder.Services.AddInventoryModule();
+builder.Services.AddEmployeeModule();
 
 var app = builder.Build();
 

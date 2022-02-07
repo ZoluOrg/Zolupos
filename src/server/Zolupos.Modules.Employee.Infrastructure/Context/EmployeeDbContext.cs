@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Employee.Core.Entity;
+using Zolupos.Modules.Employee.Core.Enum;
 
 namespace Zolupos.Modules.Employee.Infrastructure.Context
 {
@@ -14,11 +15,12 @@ namespace Zolupos.Modules.Employee.Infrastructure.Context
         public DbSet<Employees> Employees { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Employees>();
+            builder.Entity<Employees>().Property(e => e.Level)
+                .HasConversion(e => e.ToString(),e => (EmployeeLevel)Enum.Parse(typeof(EmployeeLevel),e));
         }
         public async Task<int> SaveChanges()
         {
-            return await this.SaveChangesAsync();
+            return await SaveChangesAsync();
         }
     }
 }
