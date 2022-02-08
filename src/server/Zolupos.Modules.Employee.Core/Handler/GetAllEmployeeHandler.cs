@@ -13,7 +13,7 @@ using Zolupos.Modules.Employee.Infrastructure.Context;
 
 namespace Zolupos.Modules.Employee.Core.Handler
 {
-    public class GetAllEmployeeHandler : IRequestHandler<GetAllEmployees, ICollection<EmployeesDTO>>
+    public class GetAllEmployeeHandler : IRequestHandler<GetAllEmployeesQuery, ICollection<EmployeesDTO>>
     {
         private readonly IMapper _mapper;
         private readonly IEmployeeDbContext _context;
@@ -23,7 +23,7 @@ namespace Zolupos.Modules.Employee.Core.Handler
             _context = context;
         }
 
-        public async Task<ICollection<EmployeesDTO>> Handle(GetAllEmployees request, CancellationToken cancellationToken)
+        public async Task<ICollection<EmployeesDTO>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)
         {
             var employees = await _context.Employees.ToListAsync();
             var mapped = _mapper.Map<ICollection<EmployeesDTO>>(employees);

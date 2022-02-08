@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Modules.Employee.Core.DTO;
 using Zolupos.Modules.Employee.Core.Entity;
 
-namespace Zolupos.Modules.Employee.Core.Queries
+namespace Zolupos.Shared.Core.Session.Command
 {
-    public record class GetAllEmployeesQuery () : IRequest<ICollection<EmployeesDTO>>;
+    public record LoginCommand (string employee) : IRequest<string>;
 }

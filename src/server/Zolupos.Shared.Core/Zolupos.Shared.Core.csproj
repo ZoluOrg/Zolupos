@@ -9,10 +9,17 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Middleware" />
+    <Folder Include="Session\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zolupos.Modules.Employee.Core\Zolupos.Modules.Employee.Core.csproj" />
   </ItemGroup>
 
 </Project>
