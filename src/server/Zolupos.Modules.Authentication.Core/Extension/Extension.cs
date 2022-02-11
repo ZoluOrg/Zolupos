@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Zolupos.Shared.Core.Extension
+namespace Zolupos.Modules.Authentication.Core.Extension
 {
     public static class Extension
     {
-        public static IServiceCollection AddSharedCoreModule(this IServiceCollection services)
+        public static IServiceCollection AddAuthenticationCoreModule(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;

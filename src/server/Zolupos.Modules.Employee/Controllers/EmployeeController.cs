@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Zolupos.Modules.Employee.Core.DTO;
 using Zolupos.Modules.Employee.Core.Entity;
 using Zolupos.Modules.Employee.Core.Queries;
-using Zolupos.Shared.Core.Session;
-using Zolupos.Shared.Core.Session.Command;
+using Zolupos.Shared.Core.Attributes;
 using Zolupos.Shared.Core.Utilities;
 
 namespace Zolupos.Modules.Employee.Controllers
@@ -29,10 +30,11 @@ namespace Zolupos.Modules.Employee.Controllers
             return Ok(result);
         }
         [HttpGet("/login")]
-        public async Task<ActionResult<string>> Login()
+        [Auth]
+        public async Task<ActionResult<List<EmployeesDTO>>> Login()
         {
-            var body = await BodyUtilities.GetBody(HttpContext);
-            return await _mediator.Send(new LoginCommand(body));
+            var result = await _mediator.Send(new GetAllEmployeesQuery());
+            return Ok(result);
         }
     }
 }
