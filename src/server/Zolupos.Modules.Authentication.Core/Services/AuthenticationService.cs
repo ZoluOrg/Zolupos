@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Authentication.Core.Model;
 using Zolupos.Modules.Employee.Core.Entity;
+using Zolupos.Shared.Core.Model;
 
 namespace Zolupos.Modules.Authentication.Core.Services
 {
-    public class AuthenticationService
+    public static class AuthenticationService
     {
-        public async Task<string> GenerateToken(Employees employee, Settings settings)
+        public static async Task<string> GenerateToken(Employees employee, Settings settings)
         {
+            Console.WriteLine($"In Generate Token: {settings.Secret}");
             var handler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(settings.Secret);
             var descriptor = new SecurityTokenDescriptor

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zolupos.Modules.Employee.Core\Zolupos.Modules.Employee.Core.csproj" />
+    <ProjectReference Include="..\Zolupos.Shared.Core\Zolupos.Shared.Core.csproj" />
   </ItemGroup>
 
 </Project>

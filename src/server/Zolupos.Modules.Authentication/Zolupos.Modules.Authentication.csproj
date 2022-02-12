@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zolupos.Modules.Authentication.Core\Zolupos.Modules.Authentication.Core.csproj" />
+    <ProjectReference Include="..\Zolupos.Shared.Core\Zolupos.Shared.Core.csproj" />
   </ItemGroup>
 
 </Project>

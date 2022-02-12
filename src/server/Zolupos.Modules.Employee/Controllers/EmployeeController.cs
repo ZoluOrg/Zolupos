@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Zolupos.Modules.Employee.Core.Annotation;
+using Zolupos.Modules.Employee.Core.Command;
 using Zolupos.Modules.Employee.Core.DTO;
 using Zolupos.Modules.Employee.Core.Entity;
 using Zolupos.Modules.Employee.Core.Queries;
 using Zolupos.Shared.Core.Attributes;
+using Zolupos.Shared.Core.Model;
 using Zolupos.Shared.Core.Utilities;
 
 namespace Zolupos.Modules.Employee.Controllers
@@ -19,16 +17,28 @@ namespace Zolupos.Modules.Employee.Controllers
     public class EmployeeController : Controller
     {
         private readonly IMediator _mediator;
-        public EmployeeController(IMediator mediator)
+        private readonly Settings _settings;
+        public EmployeeController(IMediator mediator, IOptions<Settings> settings)
         {
             _mediator = mediator;
+            _settings = settings.Value;
         }
         [HttpGet]
         public async Task<ActionResult<List<Employees>>> GetAllEmployees()
         {
+            Console.WriteLine(_settings.Secret);
             var result = await _mediator.Send(new GetAllEmployeesQuery());
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> AddEmployee(AddEmployeeRequest employee)
+        {
+            if (employee == null) return BadRequest(new { message = "Employee Invalid" });
+            var id = await _mediator.Send(new AddEmployeeCommand(employee));
+            return Ok(id);
+        }
+
         [HttpGet("/login")]
         [Auth]
         public async Task<ActionResult<List<EmployeesDTO>>> Login()

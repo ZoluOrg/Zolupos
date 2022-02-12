@@ -9,23 +9,25 @@ using System.Threading.Tasks;
 using Zolupos.Modules.Authentication.Core.Command;
 using Zolupos.Modules.Authentication.Core.Model;
 using Zolupos.Modules.Employee.Infrastructure.Context;
+using Zolupos.Modules.Authentication.Core.Services;
 
 namespace Zolupos.Modules.Authentication.Core.Handler
 {
-    public  class AuthenticateHandler : IRequestHandler<AuthenticateCommand, AuthResponse>
+    public class AuthenticateHandler : IRequestHandler<AuthenticateCommand, AuthResponse>
     {
         private readonly IEmployeeDbContext _context;
-        private readonly Settings _settings;
-        public AuthenticateHandler(IEmployeeDbContext context, IOptions<Settings> settings)
+        public AuthenticateHandler(IEmployeeDbContext context)
         {
             _context = context;
-            _settings = settings.Value;
         }
 
         public async Task<AuthResponse> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
+            Console.WriteLine($"In Handler: {request.settings.Secret}");
             var employee = await _context.Employees.SingleOrDefaultAsync(emp => emp.PinHashed == request.model.Pin);
-            throw new NotImplementedException();
+            if (employee == null) return null;
+            var token = await AuthenticationService.GenerateToken(employee, request.settings);
+            return new AuthResponse(employee, token);
         }
     }
 }

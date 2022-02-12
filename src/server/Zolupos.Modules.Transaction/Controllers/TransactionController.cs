@@ -5,6 +5,8 @@ using Zolupos.Modules.Transaction.Core.Queries;
 using Zolupos.Modules.Transaction.Core.Command;
 using Zolupos.Modules.Transaction.Core.DTO;
 using Zolupos.Shared.Core.Utilities;
+using Zolupos.Shared.Core.Model;
+using Microsoft.Extensions.Options;
 
 namespace Zolupos.Modules.Transaction.Controllers
 {
@@ -13,14 +15,17 @@ namespace Zolupos.Modules.Transaction.Controllers
     public class TransactionController : Controller
     {
         private readonly IMediator _mediator;
-        public TransactionController(IMediator mediator)
+        private readonly Settings _setting;
+        public TransactionController(IMediator mediator, IOptions<Settings> setting)
         {
             _mediator = mediator;
+            _setting = setting.Value;
         }
 
         [HttpGet]
         public async Task<ActionResult<ICollection<TransactionDto>>> GetAllTransaction()
         {
+            Console.WriteLine(_setting.Secret);
             var Transactions = await _mediator.Send(new GetAllTransactionQuery());
             return Ok(Transactions);
         }
