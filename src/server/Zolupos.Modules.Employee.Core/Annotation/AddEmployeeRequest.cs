@@ -12,6 +12,6 @@ namespace Zolupos.Modules.Employee.Core.Annotation
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PinHashed { get; set; }
-        public EmployeeLevel Level { get; set; }
+        public string Role { get; set; }
     }
 }

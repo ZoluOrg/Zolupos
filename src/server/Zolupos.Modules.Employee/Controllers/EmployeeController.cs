@@ -6,7 +6,6 @@ using Zolupos.Modules.Employee.Core.Command;
 using Zolupos.Modules.Employee.Core.DTO;
 using Zolupos.Modules.Employee.Core.Entity;
 using Zolupos.Modules.Employee.Core.Queries;
-using Zolupos.Shared.Core.Attributes;
 using Zolupos.Shared.Core.Model;
 using Zolupos.Shared.Core.Utilities;
 
@@ -40,7 +39,6 @@ namespace Zolupos.Modules.Employee.Controllers
         }
 
         [HttpGet("/login")]
-        [Auth]
         public async Task<ActionResult<List<EmployeesDTO>>> Login()
         {
             var result = await _mediator.Send(new GetAllEmployeesQuery());

@@ -14,6 +14,6 @@ namespace Zolupos.Modules.Employee.Core.Entity
         public string LastName { get; set; }
         public DateTime LastLogin {get; set;}
         public string PinHashed { get; set; } 
-        public EmployeeLevel Level { get; set; }
+        public string Role { get; set; }
     }
 }

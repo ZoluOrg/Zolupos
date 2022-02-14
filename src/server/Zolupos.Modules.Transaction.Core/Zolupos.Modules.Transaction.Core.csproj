@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Zolupos.Shared.Core\Zolupos.Shared.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
 </Project>

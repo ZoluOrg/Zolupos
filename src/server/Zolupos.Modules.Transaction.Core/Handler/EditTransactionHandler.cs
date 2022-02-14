@@ -25,7 +25,7 @@ namespace Zolupos.Modules.Transaction.Core.Handler
 
         public async Task<int> Handle(EditTransactionCommand request, CancellationToken cancellationToken)
         {
-            var toSave = JsonSerializer.Deserialize<UserTransaction>(request.editedTransaction);
+            var toSave = request.model.editedTransaction;
             toSave.TransactionId = request.id;
             toSave.Date = DateTime.UtcNow;
             _context.UserTransactions.Update(toSave);

@@ -2,38 +2,72 @@ using Zolupos.Modules.Transaction.Extension;
 using Zolupos.Modules.Inventory.Extension;
 using Zolupos.Modules.Employee.Extension;
 using Zolupos.Shared.Core.Model;
-using Zolupos.Shared.Core.Middleware;
 using Zolupos.Modules.Authentication.Extension;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Service Configuration. Like DI stuffs
+{
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransactionModule();
-builder.Services.AddInventoryModule();
-builder.Services.AddEmployeeModule();
-builder.Services.AddAuthenticationModule();
+    builder.Services.AddTransactionModule();
+    builder.Services.AddInventoryModule();
+    builder.Services.AddEmployeeModule();
+    builder.Services.AddAuthenticationModule();
 
-// DI settings
-builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
+    var settingSection = builder.Configuration.GetSection("Settings");
+    builder.Services.Configure<Settings>(settingSection);
+
+    var settings = settingSection.Get<Settings>();
+    var keyByte = Encoding.ASCII.GetBytes(settings.Secret);
+
+    builder.Services.AddAuthentication(auth =>
+    {
+        auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(bearer =>
+    {
+        bearer.RequireHttpsMetadata = true;
+        bearer.SaveToken = true;
+        bearer.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(keyByte),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+}
 
 var app = builder.Build();
 
 
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.MapControllers();
+
+    app.UseRouting();
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.UseCors(cors =>
+    {
+        cors.AllowAnyOrigin();
+        cors.AllowAnyMethod();
+        cors.AllowAnyHeader();
+    });
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.UseMiddleware<AuthMiddleware>();
-
-app.MapControllers();
-
-app.Run();

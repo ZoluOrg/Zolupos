@@ -12,8 +12,8 @@ using Zolupos.Modules.Employee.Infrastructure.Context;
 namespace Zolupos.Modules.Employee.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20220207131651_Initial")]
-    partial class Initial
+    [Migration("20220213135914_NewRoleMigration")]
+    partial class NewRoleMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,11 +43,11 @@ namespace Zolupos.Modules.Employee.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Level")
+                    b.Property<string>("PinHashed")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PinHashed")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("text");
 

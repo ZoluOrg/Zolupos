@@ -1,34 +1,28 @@
 ﻿using System.Text.Json;
+using AutoMapper;
 using MediatR;
 using Zolupos.Modules.Transaction.Core.Command;
 using Zolupos.Modules.Transaction.Core.Entity;
 using Zolupos.Modules.Transaction.Core.Interface;
-using Zolupos.Modules.Transaction.Core.Model;
 
 namespace Zolupos.Modules.Transaction.Core.Handler
 {
-    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, List<int>>
+    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, int>
     {
         private readonly ITransactionDbContext _context;
-        public AddTransactionHandler(ITransactionDbContext context)
+        private readonly IMapper _mapper;
+        public AddTransactionHandler(ITransactionDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<List<int>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {
-            var ids = new List<int>();
-            var reqDeserialized = JsonSerializer.Deserialize<AddTransactionRequestModel>(request.transaction);
-            for(int i = 0; i != reqDeserialized.Transactions.Count; i++)
-            {
-                var toSave = reqDeserialized.Transactions[i];
-                toSave.Date = DateTime.UtcNow;
-                await _context.UserTransactions.AddAsync(toSave);
-                await _context.SaveChanges();
-
-                ids.Add(toSave.TransactionId);
-            }
-
-            return ids;
+            var mapped = _mapper.Map<UserTransaction>(request.Products);
+            mapped.Date = DateTime.UtcNow;
+            await _context.UserTransactions.AddAsync(mapped);
+            await _context.SaveChanges();
+            return mapped.TransactionId;
         }
     }
 }

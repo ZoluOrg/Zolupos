@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zolupos.Modules.Authentication.Core.Interface
+namespace Zolupos.Shared.Core.Wrapper
 {
-    internal interface IAuthenticationDbContext
+    public class Req<T>
     {
     }
 }

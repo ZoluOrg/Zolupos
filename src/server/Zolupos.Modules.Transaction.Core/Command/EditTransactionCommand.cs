@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Modules.Transaction.Core.Annotation;
 
 namespace Zolupos.Modules.Transaction.Core.Command
 {
@@ -12,5 +13,5 @@ namespace Zolupos.Modules.Transaction.Core.Command
     /// </summary>
     /// <param name="editedTransaction">Transaction with the desired changes</param>
     /// <param name="id">Id of the transaction that will be updated</param>
-    public record EditTransactionCommand(string editedTransaction, int id) : IRequest<int>;
+    public record EditTransactionCommand(EditTransactionRequest model, int id) : IRequest<int>;
 }

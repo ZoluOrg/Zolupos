@@ -41,11 +41,11 @@ namespace Zolupos.Modules.Employee.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Level")
+                    b.Property<string>("PinHashed")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PinHashed")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("text");
 

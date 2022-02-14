@@ -13,15 +13,4 @@ namespace Zolupos.Modules.Transaction.Core.DTO
         public DateTime Date { get; set; }
         public virtual ICollection<OrderedProductDto> OrderedProducts { get; set; }
     };
-
-    public class OrderedProductDto
-    {
-        public int Id { get; set; }
-        public string Product { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-        public bool Returned { get; set; }
-
-        public int TransactionId { get; set; }
-    }
 };

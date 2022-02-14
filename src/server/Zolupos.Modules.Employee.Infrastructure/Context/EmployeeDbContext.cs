@@ -13,11 +13,6 @@ namespace Zolupos.Modules.Employee.Infrastructure.Context
     {
         public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options) { }
         public DbSet<Employees> Employees { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Employees>().Property(e => e.Level)
-                .HasConversion(e => e.ToString(),e => (EmployeeLevel)Enum.Parse(typeof(EmployeeLevel),e));
-        }
         public async Task<int> SaveChanges()
         {
             return await SaveChangesAsync();

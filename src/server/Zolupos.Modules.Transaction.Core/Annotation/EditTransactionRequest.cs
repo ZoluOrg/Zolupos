@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Transaction.Core.Entity;
 
-namespace Zolupos.Modules.Transaction.Core.Model
+namespace Zolupos.Modules.Transaction.Core.Annotation
 {
-    public class AddTransactionRequestModel
+    public class EditTransactionRequest
     {
-        public List<UserTransaction> Transactions { get; set; }
+        public UserTransaction editedTransaction { get; set; }
     }
 }

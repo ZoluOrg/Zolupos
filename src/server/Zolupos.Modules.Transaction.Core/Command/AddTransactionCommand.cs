@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Modules.Transaction.Core.Annotation;
 using Zolupos.Modules.Transaction.Core.Entity;
 
 namespace Zolupos.Modules.Transaction.Core.Command
@@ -12,5 +13,5 @@ namespace Zolupos.Modules.Transaction.Core.Command
     /// Creates new transaction then save it to the database.
     /// </summary>
     /// <param name="transaction">Transaction to save.</param>
-    public record AddTransactionCommand(string transaction) : IRequest<List<int>>;
+    public record AddTransactionCommand(AddTransactionRequest Products) : IRequest<int>;
 }

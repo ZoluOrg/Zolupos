@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Modules.Employee.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class NewRoleMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,7 @@ namespace Zolupos.Modules.Employee.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PinHashed = table.Column<string>(type: "text", nullable: false),
-                    Level = table.Column<string>(type: "text", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

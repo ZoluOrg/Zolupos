@@ -7,6 +7,8 @@ using Zolupos.Modules.Transaction.Core.DTO;
 using Zolupos.Shared.Core.Utilities;
 using Zolupos.Shared.Core.Model;
 using Microsoft.Extensions.Options;
+using Zolupos.Modules.Transaction.Core.Entity;
+using Zolupos.Modules.Transaction.Core.Annotation;
 
 namespace Zolupos.Modules.Transaction.Controllers
 {
@@ -16,7 +18,7 @@ namespace Zolupos.Modules.Transaction.Controllers
     {
         private readonly IMediator _mediator;
         private readonly Settings _setting;
-        public TransactionController(IMediator mediator, IOptions<Settings> setting)
+        public TransactionController(IMediator mediator, IOptions<Settings> setting, [FromHeader] string token)
         {
             _mediator = mediator;
             _setting = setting.Value;
@@ -38,19 +40,19 @@ namespace Zolupos.Modules.Transaction.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<int>>> PostTransaction()
+        public async Task<ActionResult<int>> AddTransaction(AddTransactionRequest transactions)
         {
-            var body = await BodyUtilities.GetBody(HttpContext);
-            var id = await _mediator.Send(new AddTransactionCommand(body));
+            if (transactions == null) return BadRequest(new { message = "Invalid Body" });
+            var id = await _mediator.Send(new AddTransactionCommand(transactions));
             return Ok(id);
         }
-        [HttpPost("edit/{utid:int}")]
-        public async Task<ActionResult<int>> Update(int utid)
+
+        [HttpPost("edit/{id:int}")]
+        public async Task<ActionResult<int>> Update(int id, EditTransactionRequest editedTransaction)
         {
-            Console.WriteLine(utid);
             var body = await BodyUtilities.GetBody(HttpContext);
-            var id = await _mediator.Send(new EditTransactionCommand(body, utid));
-            return id;
+            var result = await _mediator.Send(new EditTransactionCommand(editedTransaction, id));
+            return result;
         }
     }
 }
