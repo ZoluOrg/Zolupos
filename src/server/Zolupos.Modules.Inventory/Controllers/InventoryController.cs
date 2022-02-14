@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,18 +23,21 @@ namespace Zolupos.Modules.Inventory.Controllers
             _mediator = mediator;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult<IList<ProductDTO>>> GetAllProduct()
         {
             var Products = await _mediator.Send(new GetAllProductQuery());
             return Ok(Products);
         }
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult<ProductDTO>> GetProductById(int id)
         {
             var Product = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(Product);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<int>>> AddProducts()
         {
             var body = await BodyUtilities.GetBody(HttpContext);
@@ -41,6 +45,7 @@ namespace Zolupos.Modules.Inventory.Controllers
             return Ok(ids);
         }
         [HttpPatch("edit/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<int>> EditProducts(int id)
         {
             var body = await BodyUtilities.GetBody(HttpContext);
@@ -48,6 +53,7 @@ namespace Zolupos.Modules.Inventory.Controllers
             return Ok(result);
         }
         [HttpPatch("restock")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Restock(int id, int amount)
         {
             var result = await _mediator.Send(new RestockCommand(id, amount));
