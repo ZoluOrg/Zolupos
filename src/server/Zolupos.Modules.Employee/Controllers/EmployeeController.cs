@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Zolupos.Modules.Employee.Core.Annotation;
@@ -23,6 +24,7 @@ namespace Zolupos.Modules.Employee.Controllers
             _settings = settings.Value;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<ActionResult<List<Employees>>> GetAllEmployees()
         {
             Console.WriteLine(_settings.Secret);
@@ -31,18 +33,12 @@ namespace Zolupos.Modules.Employee.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AddEmployee(AddEmployeeRequest employee)
         {
             if (employee == null) return BadRequest(new { message = "Employee Invalid" });
             var id = await _mediator.Send(new AddEmployeeCommand(employee));
             return Ok(id);
-        }
-
-        [HttpGet("/login")]
-        public async Task<ActionResult<List<EmployeesDTO>>> Login()
-        {
-            var result = await _mediator.Send(new GetAllEmployeesQuery());
-            return Ok(result);
         }
     }
 }
