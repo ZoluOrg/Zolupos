@@ -30,6 +30,10 @@ namespace Zolupos.Modules.Inventory.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
 
+                    b.Property<string>("BrandName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("LastEdit")
                         .HasColumnType("timestamp with time zone");
 

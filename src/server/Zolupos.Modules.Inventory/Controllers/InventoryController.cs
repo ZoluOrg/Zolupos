@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Modules.Inventory.Core.Annotation;
 using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Queries;
@@ -38,11 +39,10 @@ namespace Zolupos.Modules.Inventory.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<int>>> AddProducts()
+        public async Task<ActionResult<List<ProductDTO>>> AddProduct(AddProductRequest request)
         {
-            var body = await BodyUtilities.GetBody(HttpContext);
-            var ids = await _mediator.Send(new AddProductCommand(body));
-            return Ok(ids);
+            var prods = await _mediator.Send(new AddProductCommand(request));
+            return Ok(prods);
         }
         [HttpPatch("edit/{id:int}")]
         [Authorize(Roles = "Admin")]

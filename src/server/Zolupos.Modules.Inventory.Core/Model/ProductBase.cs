@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Modules.Inventory.Core.Entity;
 
 namespace Zolupos.Modules.Inventory.Core.Model
 {
-    public class ProductRequestModel
+    public class ProductBase
     {
-        public List<Product> Products { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public string BrandName { get; set; }
     }
 }

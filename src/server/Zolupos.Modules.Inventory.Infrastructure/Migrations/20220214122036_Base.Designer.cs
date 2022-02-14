@@ -12,8 +12,8 @@ using Zolupos.Modules.Inventory.Infrastructure.Context;
 namespace Zolupos.Modules.Inventory.Infrastructure.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20220127134235_Initial")]
-    partial class Initial
+    [Migration("20220214122036_Base")]
+    partial class Base
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,10 @@ namespace Zolupos.Modules.Inventory.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
+
+                    b.Property<string>("BrandName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("LastEdit")
                         .HasColumnType("timestamp with time zone");
