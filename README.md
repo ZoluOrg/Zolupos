@@ -2,11 +2,11 @@
 Zolupos is a **modern** POS system built with ASP.net core, React JS and Electron
 
 ## Currently Working On
-- Making Transaction API Work [Done]
-- Re Writing Authentication System To Use Role Based Authentication System [Done]
-- Refactoring Code
-- Securing Endpoints [Working on ⚙️]
-- Fixing Bugs
+- [x] Making Transaction API Work
+- [x] Re Writing Authentication System To Use Role Based Authentication System [Done]
+- [ ] Refactoring Code
+- [ ] Securing Endpoints [Working on ⚙️]
+- [ ] Fixing Bugs
 
 ## Getting Started
 ### Prerequisite
