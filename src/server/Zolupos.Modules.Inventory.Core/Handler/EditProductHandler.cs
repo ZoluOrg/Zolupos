@@ -10,10 +10,11 @@ using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.Interface;
 using Zolupos.Modules.Inventory.Core.Model;
 using Zolupos.Modules.Inventory.Core.Entity;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Handler
 {
-    public class EditProductHandler : IRequestHandler<EditProductCommand, int>
+    public class EditProductHandler : IRequestHandler<EditProductCommand, ResultWrapper<Product>>
     {
         public readonly IMapper _mapper;
         public readonly IInventoryDbContext _context;
@@ -24,14 +25,14 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             _context = context;
         }
 
-        public async Task<int> Handle(EditProductCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<Product>> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
-            var edit = JsonSerializer.Deserialize<Product>(request.editedProduct);
-            edit.LastEdit = DateTime.UtcNow;
-            edit.ProductId = request.id;
-            _context.Products.Update(edit);
+            var prodcut = await _context.Products.Where(prod => prod.ProductId == request.model.EditedProduct.ProductId).SingleOrDefaultAsync(cancellationToken);
+            if (prodcut == null) return new ResultWrapper<Product> { Data = null, Message = "Product does not exist.", Code = System.Net.HttpStatusCode.NotFound };
+
+            prodcut.Copy(request.model.EditedProduct);
             await _context.SaveChanges();
-            return request.id;
+            return new ResultWrapper<Product>() { Data = prodcut, Message = "Updated", Code = System.Net.HttpStatusCode.OK };
         }
     }
 }
