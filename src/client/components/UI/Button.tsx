@@ -2,24 +2,26 @@ import React, {ButtonHTMLAttributes} from 'react'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
   Color?: keyof typeof ColorSelection;
-  Size?: keyof typeof SizeCollection;
+  Size?: keyof typeof SizeSelection;
 }
 
 const ColorSelection = {
-  coal: "bg-coal-700 hover:bg-coal-600 active:bg-coal-500 text-white",
-  ghost: "bg-vanilla-100 bg-opacity-0 hover:bg-opacity-50 active:bg-opacity-100 text-black "
+  black: "bg-black hover:bg-white border-opacity-0 border hover:text-black hover:border-opacity-100 border-black",
+  blood: "bg-blood-darker hover:bg-blood-base"
 }
 
-const SizeCollection = {
-  base: "px-4 py-1.5"
+const SizeSelection = {
+  base: "px-8 py-1.5",
+  small: "px-4 py-1 text-xs"
 }
 
 export const Button: React.FC<Props> = ({
   children,
-  Color="coal",
-  Size="base"
+  Color="blood",
+  Size="base",
+  ...props
 }) => {
   return (
-    <button className={`${ColorSelection[Color]}, ${SizeCollection[Size]} hover:bg-opacity-50 rounded-sm text-white font-bold`}>{children}</button>
+    <button className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white font-bold transition ease-in-out`} {...props}>{children}</button>
   )
 }

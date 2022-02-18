@@ -6,23 +6,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "coal": {
-          100: "#999999",
-          200: "#808080",
-          300: "#666666",
-          400: "#4d4d4d",
-          500: "#333333",
-          600: "#1a1a1a",
-          700: "#000000"
+        "light": "#FDFDFD",
+        "text": "#343A40",
+        "blood": {
+          "darker": "#cc5050",
+          "base": "#ff6464",
+          "lighter": "#ff8383",
+          "lightest": "#ffa2a2"
         },
-        "vanilla": {
-          100: "#e0e0e0",
-          200: "#cacaca" ,
-          300: "#b3b3b3",
-          400: "#9d9d9d",
-          500: "#868686",
-          600: "#707070",
-          700: "#5a5a5a"
+        "sun": {
+          "darker": "#ccb44e",
+          "base": "#ffe162",
+          "lighter": "#ffe781",
+          "lightest": "#ffeda1"
+        },
+        "leaf": {
+          "darker": "#749d69",
+          "base": "#91c483",
+          "lighter": "#a7d09c",
+          "lightest": "#bddcb5"
+        },
+        "ocean": {
+          "darker": "#107fa4",
+          "base": "#149fcd",
+          "lighter": "#43b2d7",
+          "lightest": "#72c5e1"
         }
       }
     },
