@@ -6,7 +6,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
 }
 
 const ColorSelection = {
-  coal: "bg-coal-700 hover:bg-coal-600 focus:bg-coal-500 text-white"
+  coal: "bg-coal-700 hover:bg-coal-600 active:bg-coal-500 text-white",
+  ghost: "bg-vanilla-100 bg-opacity-0 hover:bg-opacity-50 active:bg-opacity-100 text-black "
 }
 
 const SizeCollection = {
@@ -19,6 +20,6 @@ export const Button: React.FC<Props> = ({
   Size="base"
 }) => {
   return (
-    <button className={`${ColorSelection[Color]}, ${SizeCollection[Size]} rounded-sm text-white font-bold`}>{children}</button>
+    <button className={`${ColorSelection[Color]}, ${SizeCollection[Size]} hover:bg-opacity-50 rounded-sm text-white font-bold`}>{children}</button>
   )
 }

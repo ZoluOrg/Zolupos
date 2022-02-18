@@ -6,7 +6,7 @@ import { Button } from '../components/UI/Button'
 const Home: NextPage = () => {
   return (
     <div className="">
-      <Button>Test</Button>
+      <Button Color="ghost">Test</Button>
     </div>
   )
 }
