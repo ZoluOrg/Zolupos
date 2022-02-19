@@ -1,27 +1,45 @@
-import React, {ButtonHTMLAttributes} from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
+import { Spinner } from './Spinner';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Color?: keyof typeof ColorSelection;
   Size?: keyof typeof SizeSelection;
+  IsLoading?: boolean;
 }
 
 const ColorSelection = {
-  black: "bg-black hover:bg-white border-opacity-0 border hover:text-black hover:border-opacity-100 border-black",
-  blood: "bg-blood-darker hover:bg-blood-base"
+  primary: "bg-ocean-darker hover:bg-ocean-base active:bg-ocean-dark",
+  danger: "bg-berry-darker hover:bg-berry-base active:bg-berry-dark",
+  subtle: "text-ocean-darker hover:bg-ocean-lighter active:bg-ocean-light"
 }
 
 const SizeSelection = {
-  base: "px-8 py-1.5",
-  small: "px-4 py-1 text-xs"
+  base: "px-4 py-1.5",
+  small: "px-2 py-0.5 text-sm"
 }
 
 export const Button: React.FC<Props> = ({
   children,
-  Color="blood",
-  Size="base",
+  Color = "primary",
+  Size = "base",
+  IsLoading,
   ...props
 }) => {
   return (
-    <button className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white font-bold transition ease-in-out`} {...props}>{children}</button>
+    <button
+      className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white 
+      transition ease-in-out flex items-center justify-center`}
+      disabled={IsLoading}
+      {...props}
+    >
+      <span className={IsLoading ? "opacity-0" : ""}>
+        {children}
+      </span>
+      {IsLoading ?
+        <span className="absolute">
+          <Spinner />
+        </span>
+        : null}
+    </button>
   )
 }

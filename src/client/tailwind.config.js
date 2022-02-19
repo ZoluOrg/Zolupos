@@ -8,29 +8,26 @@ module.exports = {
       colors: {
         "light": "#FDFDFD",
         "text": "#343A40",
-        "blood": {
-          "darker": "#cc5050",
-          "base": "#ff6464",
-          "lighter": "#ff8383",
-          "lightest": "#ffa2a2"
+        "bush": {
+          lighter:"#EBEFEB",
+          light:"#C7D7C7",
+          base:"#9EBC9F",
+          dark:"#75A075",
+          darker:"#518751"
         },
-        "sun": {
-          "darker": "#ccb44e",
-          "base": "#ffe162",
-          "lighter": "#ffe781",
-          "lightest": "#ffeda1"
+        "berry": {
+          lighter:"#F391AA",
+          light:"#EB6587",
+          base:"#DA4167",
+          dark:"#CC1845",
+          darker:"#9C0C30"
         },
-        "leaf": {
-          "darker": "#749d69",
-          "base": "#91c483",
-          "lighter": "#a7d09c",
-          "lightest": "#bddcb5"
-        },
-        "ocean": {
-          "darker": "#107fa4",
-          "base": "#149fcd",
-          "lighter": "#43b2d7",
-          "lightest": "#72c5e1"
+        "ocean":{
+          lighter:"#E4EFFD",
+          light:"#B1CEF4",
+          base:"#84AFE6",
+          dark:"#5E91D3",
+          darker:"#3D73B8"
         }
       }
     },
