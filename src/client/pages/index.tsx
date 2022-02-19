@@ -7,10 +7,11 @@ import { Input } from '../components/UI/Input'
 import { Spinner } from '../components/UI/Spinner'
 
 const Home: NextPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className="h-screen flex justify-center items-center">
-      <Button Color="subtle" Size='base'  IsLoading={isLoading}>Test</Button>
+      <Input placeholder="sample"></Input>
+      <Button>Search</Button>
     </div>
   )
 }

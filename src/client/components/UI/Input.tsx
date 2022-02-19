@@ -1,15 +1,22 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, useEffect, useState } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	Size?: keyof typeof SizeSelection;
 }
 
 const SizeSelection = {
-	base: "px-2 py-2"
-}
+	base: "px-2.5 py-1.5"
+};
 
-export const Input: React.FC<Props> = ({Size="base"}) => {
+export const Input: React.FC<Props> = ({Size="base",className, ...props}) => {
+	const [isFocused, setIsFocused] = useState(false);
 	return (
-		<input className={`${SizeSelection[Size]} bg-vanilla-100 rounded-md border-0 focus:animate-bounce focus:border-2 focus:bg-light transition ease-in-out duration-150`} placeholder="bruh"/>
+		<input className={`${SizeSelection[Size]} ring-2 ring-inset rounded ring-slate-300 
+		${isFocused?"":"hover:bg-slate-200"} focus:ring-ocean-light focus:outline-none
+		transition ease-in-out disabled:bg-slate-300 disabled:hover:cursor-not-allowed
+		${className}`}
+		onFocus={()=>setIsFocused(true)}
+		onBlur={()=>setIsFocused(false)}
+		{...props}/>
 	)
 }

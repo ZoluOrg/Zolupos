@@ -8,8 +8,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ColorSelection = {
-  primary: "bg-ocean-darker hover:bg-ocean-base active:bg-ocean-dark",
-  danger: "bg-berry-darker hover:bg-berry-base active:bg-berry-dark",
+  primary: "bg-ocean-base hover:bg-ocean-light active:bg-ocean-dark",
+  danger: "bg-berry-base hover:bg-berry-light active:bg-berry-dark",
   subtle: "text-ocean-darker hover:bg-ocean-lighter active:bg-ocean-light"
 }
 
@@ -27,7 +27,7 @@ export const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white 
+      className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white
       transition ease-in-out flex items-center justify-center`}
       disabled={IsLoading}
       {...props}
@@ -37,7 +37,7 @@ export const Button: React.FC<Props> = ({
       </span>
       {IsLoading ?
         <span className="absolute">
-          <Spinner />
+          <Spinner IsDark={Color=="subtle"? true:false }/>
         </span>
         : null}
     </button>

@@ -23,11 +23,11 @@ module.exports = {
           darker:"#9C0C30"
         },
         "ocean":{
-          lighter:"#E4EFFD",
-          light:"#B1CEF4",
-          base:"#84AFE6",
-          dark:"#5E91D3",
-          darker:"#3D73B8"
+          lighter:"#4582D6",
+          light:"#1B69D5",
+          base:"#0858C6",
+          dark:"#064193",
+          darker:"#043373"
         }
       }
     },
