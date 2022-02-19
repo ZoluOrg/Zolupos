@@ -13,10 +13,8 @@ import {
 import { ILoginForm } from "../../interfaces/FormValues";
 
 export const Form = () => {
-  const [nameError, setNameError] = useState<string | null>(null);
-  const [pinError, setPinError] = useState<string | null>(null);
   return (
-    <div className="logcont w-2/12 p-5 border rounded">
+    <div className="logcont w-96 h-80 p-5 border rounded flex flex-col justify-center">
       <span className="Header text-2xl font-bold">Login</span>
       <div className="form mt-3">
         <Formik
