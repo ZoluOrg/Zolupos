@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -29,7 +31,10 @@ module.exports = {
           dark:"#064193",
           darker:"#043373"
         }
-      }
+      },
+      fontFamily: {
+        sans: ["Prompt", ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],
