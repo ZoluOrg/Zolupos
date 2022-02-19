@@ -23,11 +23,12 @@ export const Button: React.FC<Props> = ({
   Color = "primary",
   Size = "base",
   IsLoading,
+  className,
   ...props
 }) => {
   return (
     <button
-      className={`${ColorSelection[Color]} ${SizeSelection[Size]} rounded text-white
+      className={`${ColorSelection[Color]} ${SizeSelection[Size]} ${className} rounded text-white
       transition ease-in-out flex items-center justify-center`}
       disabled={IsLoading}
       {...props}
