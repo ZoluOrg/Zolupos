@@ -10,7 +10,18 @@ import {
   FormikHelpers,
 } from "formik";
 import { ILoginForm } from "../../interfaces/FormValues";
-import {BsEye,BsEyeSlash} from "react-icons/bs";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
+import { Login } from "../../SDK/Login";
+
+const HandleSubmit = async (form: ILoginForm) => {
+  let AuthRequest: IAuthenticationRequest = {
+    FirstName: form.name,
+    Pin: form.pin,
+  };
+  let response = await Login(AuthRequest);
+  document.cookie = `zoluken=${response}`;
+};
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
@@ -33,58 +44,60 @@ export const Form = () => {
             }
             return errors;
           }}
-          onSubmit={(
+          onSubmit={async (
             values: ILoginForm,
             { setSubmitting }: FormikHelpers<ILoginForm>
           ) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 500);
+            await HandleSubmit(values);
+            setSubmitting(false);
           }}
         >
-          <FormikForm className="flex flex-col gap-3">
-            <div className="flex flex-col">
-              <label htmlFor="Name">Name</label>
-              <Field
-                id="Name"
-                name="name"
-                placeholder="John"
-                type="text"
-                as={Input}
-              />
-              <ErrorMessage name="name">
-                {(msg) => <p className="text-berry-dark">{msg}</p>}
-              </ErrorMessage>
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="Pin">Pin</label>
-              <div className="flex flex-row gap-1">
+          {({ isSubmitting }) => (
+            <FormikForm className="flex flex-col gap-3">
+              <div className="flex flex-col">
+                <label htmlFor="Name">Name</label>
                 <Field
-                  id="Pin"
-                  name="pin"
-                  placeholder="Pin"
-                  type={showPassword ? "text" : "password"}
+                  id="Name"
+                  name="name"
+                  placeholder="John"
+                  type="text"
                   as={Input}
-                  className="w-full"
                 />
-                <Button
-                  Color="danger"
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <BsEyeSlash/> : <BsEye/>}
-                </Button>
+                <ErrorMessage name="name">
+                  {(msg) => <p className="text-berry-dark">{msg}</p>}
+                </ErrorMessage>
               </div>
 
-              <ErrorMessage name="pin">
-                {(msg) => <p className="text-berry-dark">{msg}</p>}
-              </ErrorMessage>
-            </div>
+              <div className="flex flex-col">
+                <label htmlFor="Pin">Pin</label>
+                <div className="flex flex-row gap-1">
+                  <Field
+                    id="Pin"
+                    name="pin"
+                    placeholder="Pin"
+                    type={showPassword ? "text" : "password"}
+                    as={Input}
+                    className="w-full"
+                  />
+                  <Button
+                    Color="danger"
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </Button>
+                </div>
 
-            <Button type="submit">Continue</Button>
-          </FormikForm>
+                <ErrorMessage name="pin">
+                  {(msg) => <p className="text-berry-dark">{msg}</p>}
+                </ErrorMessage>
+              </div>
+
+              <Button type="submit" IsLoading={isSubmitting}>
+                Continue
+              </Button>
+            </FormikForm>
+          )}
         </Formik>
       </div>
     </div>
