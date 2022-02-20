@@ -10,7 +10,9 @@
   "dependencies": {
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
+    "cookie": "^0.4.2",
     "formik": "^2.2.9",
+    "framer-motion": "^6.2.6",
     "next": "12.0.10",
     "postcss": "^8.4.6",
     "react": "17.0.2",
