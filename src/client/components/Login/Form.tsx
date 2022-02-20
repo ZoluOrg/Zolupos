@@ -13,6 +13,8 @@ import { ILoginForm } from "../../interfaces/FormValues";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
 import { Login } from "../../SDK/Login";
+import Cookie from "cookie";
+import { useRouter } from "next/router";
 
 const HandleSubmit = async (form: ILoginForm) => {
   let AuthRequest: IAuthenticationRequest = {
@@ -20,11 +22,12 @@ const HandleSubmit = async (form: ILoginForm) => {
     Pin: form.pin,
   };
   let response = await Login(AuthRequest);
-  document.cookie = `zoluken=${response}`;
+  document.cookie = `zoluken=${response};path=/`
 };
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const router = useRouter();
   return (
     <div className="logcont w-96 h-80 p-5 border rounded flex flex-col justify-center">
       <span className="Header text-2xl font-bold">Login</span>
@@ -50,6 +53,7 @@ export const Form = () => {
           ) => {
             await HandleSubmit(values);
             setSubmitting(false);
+            router.push("/");
           }}
         >
           {({ isSubmitting }) => (

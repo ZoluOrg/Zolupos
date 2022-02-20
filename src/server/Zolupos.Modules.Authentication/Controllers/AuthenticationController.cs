@@ -35,5 +35,6 @@ namespace Zolupos.Modules.Authentication.Controllers
             if (token == null) return BadRequest(new { message = "Missing or Invalid Credentials" });
             return Ok(token);
         }
+        
     }
 }
