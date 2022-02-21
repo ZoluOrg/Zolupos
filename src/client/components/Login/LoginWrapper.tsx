@@ -1,8 +1,8 @@
 import React from "react";
-import { Logo } from "../icons/Logo";
-import { Button } from "../UI/Button";
-import { Input } from "../UI/Input";
-import { Link } from "../UI/Link";
+import { Logo } from "../../components/icons/Logo";
+import { Button } from "../../components/UI/Button";
+import { Input } from "../../components/UI/Input";
+import { Link } from "../../components/UI/Link";
 import { Form } from "./Form";
 import { Navbar } from "./Navbar";
 

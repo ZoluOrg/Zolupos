@@ -1,6 +1,6 @@
 import React from "react";
-import { Logo } from "../icons/Logo";
-import { Link } from "../UI/Link";
+import { Logo } from "../../components/icons/Logo";
+import { Link } from "../../components/UI/Link";
 
 export const Navbar = () => {
   return (

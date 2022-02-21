@@ -26,7 +26,7 @@ export const getServerSideProps = async (
     if (parsedToken["exp"] * 1000 <= Date.now()) {
       return { redirect: { destination: "/employee/login" } };
     }
-    return { props: {} };
+    return { redirect: { destination:"/home"} };
   } else {
     return { redirect: { destination: "/employee/login" } };
   }

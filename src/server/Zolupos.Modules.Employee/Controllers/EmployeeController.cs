@@ -25,10 +25,17 @@ namespace Zolupos.Modules.Employee.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Admin, Employee")]
-        public async Task<ActionResult<List<Employees>>> GetAllEmployees()
+        public async Task<ActionResult> GetAllEmployees()
         {
-            Console.WriteLine(_settings.Secret);
             var result = await _mediator.Send(new GetAllEmployeesQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin,Employee")]
+        public async Task<ActionResult> GetEmployeeById(int id)
+        {
+            var result = await _mediator.Send(new GetEmployeeByIdQuery(id));
             return Ok(result);
         }
 

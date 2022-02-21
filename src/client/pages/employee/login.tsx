@@ -7,7 +7,7 @@ import { Button } from "../../components/UI/Button";
 import { Input } from "../../components/UI/Input";
 import { Link } from "../../components/UI/Link";
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   const [firstName, setFirstName] = useState("");
   const [pin, setPin] = useState("");
   return (
@@ -20,4 +20,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Login;
