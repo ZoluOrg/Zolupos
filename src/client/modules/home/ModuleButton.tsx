@@ -29,9 +29,9 @@ export const ModuleButton: React.FC<Props> = ({ Title, Sub }) => {
       <AnimatePresence>
         {IsHovering && (
           <motion.div
-            initial={{ x: -300 }}
+            initial={{ x: -250 }}
             animate={{ x: 0 }}
-            exit={{ x: 500 }}
+            exit={{ x: 250 }}
             transition={transitionSettings}
             className="absolute h-full w-full top-0 left-0 flex items-center justify-center bg-ocean-light backdrop-filter backdrop-blur-sm"
           >
