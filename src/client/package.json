@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/cookie": "^0.4.1",
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
     "cookie": "^0.4.2",

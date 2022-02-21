@@ -22,7 +22,7 @@ const HandleSubmit = async (form: ILoginForm) => {
     Pin: form.pin,
   };
   let response = await Login(AuthRequest);
-  document.cookie = `zoluken=${response};path=/`
+  document.cookie = Cookie.serialize("zoluken", response, { path: "/" });
 };
 
 export const Form = () => {
