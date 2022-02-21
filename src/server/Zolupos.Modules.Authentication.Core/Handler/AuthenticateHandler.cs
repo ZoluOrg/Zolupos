@@ -32,6 +32,10 @@ namespace Zolupos.Modules.Authentication.Core.Handler
             var employee = await _context.Employees.SingleOrDefaultAsync(e => e.PinHashed == authRequest.Pin && e.FirstName == authRequest.FirstName);
             if (employee == null) return null;
             var token = await AuthService.GenerateToken(employee, _settings);
+            
+            employee.LastLogin = DateTime.UtcNow;
+            await _context.SaveChanges();
+
             return new ResultWrapper<string>(){Data=token, Code = System.Net.HttpStatusCode.OK, Message = ""};
         }
     }
