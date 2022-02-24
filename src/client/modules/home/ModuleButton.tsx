@@ -15,6 +15,7 @@ export const ModuleButton: React.FC<Props> = ({ Title, Sub }) => {
   return (
     <motion.div
       className="w w-56 relative rounded overflow-hidden p-2 border cursor-pointer "
+      whileHover={{scale:1.05}}
       onMouseOver={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -33,7 +34,7 @@ export const ModuleButton: React.FC<Props> = ({ Title, Sub }) => {
             animate={{ x: 0 }}
             exit={{ x: 250 }}
             transition={transitionSettings}
-            className="absolute h-full w-full top-0 left-0 flex items-center justify-center bg-ocean-light backdrop-filter backdrop-blur-sm"
+            className="absolute h-full w-full top-0 left-0 flex items-center justify-center bg-primary-light backdrop-filter backdrop-blur-sm"
           >
             <div className="flex flex-col gap-0 justify-center items-center">
               <div className="icon">

@@ -8,8 +8,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ColorSelection = {
-  primary: "bg-ocean-base hover:bg-ocean-light active:bg-ocean-dark",
-  danger: "bg-berry-base hover:bg-berry-light active:bg-berry-dark",
+  primary: "bg-primary-base hover:bg-primary-dark active:bg-primary-darker",
+  secondary: "bg-secondary-base hover:bg-secondary-dark active:bg-secondary-darker",
   subtle: "text-ocean-darker hover:bg-ocean-lighter active:bg-ocean-light"
 }
 

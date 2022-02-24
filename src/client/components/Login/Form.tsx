@@ -12,22 +12,41 @@ import {
 import { ILoginForm } from "../../interfaces/FormValues";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
-import { Login } from "../../SDK/Login";
+import { Login } from "../../modules/authentication/Login";
 import Cookie from "cookie";
 import { useRouter } from "next/router";
-
-const HandleSubmit = async (form: ILoginForm) => {
-  let AuthRequest: IAuthenticationRequest = {
-    FirstName: form.name,
-    Pin: form.pin,
-  };
-  let response = await Login(AuthRequest);
-  document.cookie = Cookie.serialize("zoluken", response, { path: "/" });
-};
+import { toast } from "react-toastify";
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
   const router = useRouter();
+
+  const HandleSubmit = async (form: ILoginForm) => {
+    let AuthRequest: IAuthenticationRequest = {
+      FirstName: form.name,
+      Pin: form.pin,
+    };
+    let response = await Login(AuthRequest);
+    if (response != null) {
+      document.cookie = Cookie.serialize("zoluken", response!, { path: "/" });
+      console.log("creds");
+      router.push("/");
+    } else {
+      console.log("wring");
+    }
+  };
+
+  const wrongCredentials = () =>
+    toast.error("Credentials Wrong!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   return (
     <div className="logcont w-96 h-80 p-5 border rounded flex flex-col justify-center">
       <span className="Header text-2xl font-bold">Login</span>
@@ -53,7 +72,6 @@ export const Form = () => {
           ) => {
             await HandleSubmit(values);
             setSubmitting(false);
-            router.push("/");
           }}
         >
           {({ isSubmitting }) => (
@@ -84,7 +102,7 @@ export const Form = () => {
                     className="w-full"
                   />
                   <Button
-                    Color="danger"
+                    Color="secondary"
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                   >

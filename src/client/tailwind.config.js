@@ -31,10 +31,32 @@ module.exports = {
           base:"#0858C6",
           dark:"#064193",
           darker:"#043373"
+        },
+        "secondary": {
+          light: "#477BE9",
+          base: "#336CE6",
+          dark: "#2E61CF",
+          darker: "#2956B8"
+        },
+        "primary": {
+          light: "#F15449",
+          base: "#EF4135",
+          dark: "#D73B30",
+          darker: "#BF342A"
+        },
+        "bg": {
+          dark: {
+            base: "#0F0F0F",
+            lighter: "#2D3137"
+          },
+          light: {
+            base: "#FFFFFF",
+            darker: "#F2F2F2"
+          }
         }
       },
       fontFamily: {
-        sans: ["Prompt", ...defaultTheme.fontFamily.sans],
+        sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },
