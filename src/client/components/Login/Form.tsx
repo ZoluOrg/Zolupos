@@ -32,7 +32,7 @@ export const Form = () => {
       console.log("creds");
       router.push("/");
     } else {
-      console.log("wring");
+      wrongCredentials();
     }
   };
 
@@ -85,9 +85,6 @@ export const Form = () => {
                   type="text"
                   as={Input}
                 />
-                <ErrorMessage name="name">
-                  {(msg) => <p className="text-berry-dark">{msg}</p>}
-                </ErrorMessage>
               </div>
 
               <div className="flex flex-col">
@@ -109,9 +106,13 @@ export const Form = () => {
                     {showPassword ? <BsEyeSlash /> : <BsEye />}
                   </Button>
                 </div>
-
+              </div>
+              <div className="errors">
+                <ErrorMessage name="name">
+                  {(msg) => <p className="text-primary-dark">{msg}</p>}
+                </ErrorMessage>
                 <ErrorMessage name="pin">
-                  {(msg) => <p className="text-berry-dark">{msg}</p>}
+                  {(msg) => <p className="text-primary-dark">{msg}</p>}
                 </ErrorMessage>
               </div>
 
