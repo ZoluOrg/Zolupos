@@ -5,15 +5,15 @@ import { ILoginForm } from "../../interfaces/FormValues";
 import { IResultWrapper } from "../../wrapper/ResultWrapper";
 
 export const Login = async (request: IAuthenticationRequest) => {
-  axios
+  let response = await axios
     .post<IResultWrapper<string>>(
       "https://localhost:7116/api/Authentication",
       request
     )
-    .then((response) => {
-      return response.data.data;
-    }).catch((error) => {
-			console.log("error");
-			return null;
-		});
+    .catch((error) => {
+      console.log("error");
+      return null;
+    });
+  console.log(response);
+  return response?.data.data;
 };

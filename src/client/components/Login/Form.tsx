@@ -27,11 +27,13 @@ export const Form = () => {
       Pin: form.pin,
     };
     let response = await Login(AuthRequest);
+    console.log(response);
     if (response != null) {
       document.cookie = Cookie.serialize("zoluken", response!, { path: "/" });
       console.log("creds");
       router.push("/");
     } else {
+      console.log("error!!");
       wrongCredentials();
     }
   };
