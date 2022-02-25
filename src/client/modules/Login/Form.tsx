@@ -12,10 +12,11 @@ import {
 import { ILoginForm } from "../../interfaces/FormValues";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
-import { Login } from "../../modules/authentication/Login";
-import Cookie from "cookie";
+import { Login } from "../authentication/Login";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
+import Cookie from "cookie";
+import { wrongCredentials } from "./Helper";
+
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
@@ -37,17 +38,6 @@ export const Form = () => {
       wrongCredentials();
     }
   };
-
-  const wrongCredentials = () =>
-    toast.error("Credentials Wrong!", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
 
   return (
     <div className="logcont w-96 h-80 p-5 border rounded flex flex-col justify-center">
