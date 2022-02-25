@@ -13,9 +13,10 @@ export const Home = () => {
         <span className="sub">Pick any module module to get started.</span>
       </div>
       <div className="flex items-center justify-center gap-2">
-        <ModuleButton Title="POS" Sub="Start Making Sales" />
+        <ModuleButton Title="POS" Sub="Start Making Sales" goto="/sales/pos" />
         <ModuleButton Title="Customers" Sub="Manage Customers" />
         <ModuleButton Title="Office" Sub="Manage Inventory" />
+        <ModuleButton Title="Dashboard" Sub="View your stats" />
       </div>
     </div>
   );

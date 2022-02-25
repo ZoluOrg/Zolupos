@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { IconContext } from "react-icons";
 import { BsArrowRightShort } from "react-icons/bs";
@@ -6,18 +7,21 @@ import { BsArrowRightShort } from "react-icons/bs";
 interface Props {
   Title: string;
   Sub: string;
+  goto?: string;
 }
 
 const transitionSettings = { type: "Inertia" };
 
-export const ModuleButton: React.FC<Props> = ({ Title, Sub }) => {
+export const ModuleButton: React.FC<Props> = ({ Title, Sub, goto="" }) => {
   const [IsHovering, setIsHovering] = useState(false);
+  const router = useRouter();
   return (
     <motion.div
       className="w w-56 relative rounded overflow-hidden p-2 border cursor-pointer "
       whileHover={{scale:1.05}}
       onMouseOver={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onClick={()=>router.push(goto)}
     >
       <div>
         <div className="header">
