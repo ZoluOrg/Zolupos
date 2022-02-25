@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import { Logo } from "../../components/icons/Logo";
-import { LoginWrapper } from "../../components/Login/LoginWrapper";
+import { LoginWrapper } from "../../modules/Login/LoginWrapper";
 import { Button } from "../../components/UI/Button";
 import { Input } from "../../components/UI/Input";
 import { Link } from "../../components/UI/Link";
