@@ -11,6 +11,7 @@ const defaultValues: ICredentialContext = {
 export const CredentialContext = () => {
   const [creds, setCreds] = useState<IEmployee | null>(null);
   useEffect(() => {
+    let zoluken = ""
   });
 
   return <div>CredentialContext</div>;
