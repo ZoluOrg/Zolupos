@@ -5,17 +5,19 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Authentication.Core.Annotation;
 using Zolupos.Modules.Authentication.Core.Command;
 using Zolupos.Shared.Core.Model;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Authentication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : Controller
+    public class AuthenticationController : ControllerBase
     {
 
         private readonly Settings _settings;
@@ -29,10 +31,14 @@ namespace Zolupos.Modules.Authentication.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<string>> Authenticate(AuthenticateRequest authenticationRequest)
+        public async Task<IActionResult> Authenticate(AuthenticateRequest authenticationRequest)
         {
             var token = await _meidator.Send(new AuthenticateCommand(authenticationRequest));
-            if (token == null) return BadRequest(new { message = "Missing or Invalid Credentials" });
+            if (token == null)
+            {
+                Console.WriteLine("error");
+                return Unauthorized(token);
+            };
             return Ok(token);
         }
         

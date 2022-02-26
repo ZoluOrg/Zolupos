@@ -24,7 +24,7 @@ namespace Zolupos.Modules.Authentication.Core.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, employee.FirstName),
+                    new Claim(ClaimTypes.Name, employee.Id.ToString()),
                     new Claim(ClaimTypes.Role, employee.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
