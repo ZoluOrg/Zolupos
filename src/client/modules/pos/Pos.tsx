@@ -5,7 +5,9 @@ import { PageTransition } from "../animations/PageTransition";
 export const Pos = () => {
   return (
     <PageTransition>
-      <div>Pos</div>
+      <div className="PosWrapper h-screen">
+        pos
+      </div>
     </PageTransition>
   );
 };
