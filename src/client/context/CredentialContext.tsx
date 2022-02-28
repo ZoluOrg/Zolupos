@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { ICredentialContext } from "../interfaces/CredentialContext/ICredentialContext";
 import { IEmployee } from "../interfaces/IEmployee";
 import Cookies from "js-cookie";
@@ -10,23 +10,34 @@ const defaultValues: ICredentialContext = {
   updateCreds: (employee: IEmployee) => null,
 };
 
+const credCtx = createContext(defaultValues);
+
 export const CredentialContext: React.FC = ({ children }) => {
   const [creds, setCreds] = useState<IEmployee | null>(null);
+
   useEffect(() => {
-    let zoluken = Cookies.get("zoluken");
     const getEmployee = async () => {
+      let zoluken = Cookies.get("zoluken");
       if (zoluken != null) {
         const id = parseJwt(zoluken)["unique_name"];
         const userCredential = await getEmployeeById(id, zoluken);
         if (userCredential != null) {
-          let toSet = JSON.stringify(userCredential.data);
-          console.log(toSet);
-          Cookies.set("zolucreds", toSet);
+          console.log(userCredential.data.firstName);
+          setCreds(userCredential.data);
+          console.log(creds);
         }
       }
     };
     getEmployee();
-  });
+  },[creds]);
 
-  return <div>{children}</div>;
+  const updateCreds = (employee: IEmployee) => {
+    setCreds(employee);
+  }
+
+  return <credCtx.Provider value={{creds, updateCreds}}>{children}</credCtx.Provider>;
 };
+
+export const useCredentialContext = () => {
+  return useContext(credCtx);
+}
