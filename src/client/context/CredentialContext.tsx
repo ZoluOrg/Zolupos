@@ -32,7 +32,7 @@ export const CredentialContext: React.FC = ({ children }) => {
     const parsedToken = parseJwt(token!);
     const employee = await getEmployeeById(parsedToken["unique_name"], token!);
     setCreds(employee?.data!);
-    Cookies.set("zolucreds",employee?.data!);
+    Cookies.set("zolucreds",JSON.stringify(employee?.data!));
   }
 
   return <credCtx.Provider value={{creds, updateCreds}}>{children}</credCtx.Provider>;

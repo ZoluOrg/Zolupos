@@ -8,7 +8,7 @@ export const Pos = () => {
   return (
     <PageTransition>
       <div className="PosWrapper h-screen">
-        {crds.creds?.firstName}
+        {crds.creds?.lastLogin}
       </div>
     </PageTransition>
   );
