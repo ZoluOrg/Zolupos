@@ -7,7 +7,7 @@ import { getEmployeeById } from "../modules/employee/services";
 
 const defaultValues: ICredentialContext = {
   creds: null,
-  updateCreds: (employee: IEmployee) => null,
+  updateCreds: () => null,
 };
 
 const credCtx = createContext(defaultValues);
@@ -17,22 +17,22 @@ export const CredentialContext: React.FC = ({ children }) => {
 
   useEffect(() => {
     const getEmployee = async () => {
-      let zoluken = Cookies.get("zoluken");
-      if (zoluken != null) {
-        const id = parseJwt(zoluken)["unique_name"];
-        const userCredential = await getEmployeeById(id, zoluken);
-        if (userCredential != null) {
-          console.log(userCredential.data.firstName);
-          setCreds(userCredential.data);
-          console.log(creds);
-        }
+      let employee  = Cookies.get("zolucreds");
+      if (employee) {
+        let parsedEmployee: IEmployee = JSON.parse(employee);
+        setCreds(parsedEmployee);
       }
     };
     getEmployee();
-  },[creds]);
+  },[]);
 
-  const updateCreds = (employee: IEmployee) => {
-    setCreds(employee);
+  // pass cookie if cookie.set is slow
+  const updateCreds = async () => {
+    const token = Cookies.get("zoluken");
+    const parsedToken = parseJwt(token!);
+    const employee = await getEmployeeById(parsedToken["unique_name"], token!);
+    setCreds(employee?.data!);
+    Cookies.set("zolucreds",employee?.data!);
   }
 
   return <credCtx.Provider value={{creds, updateCreds}}>{children}</credCtx.Provider>;

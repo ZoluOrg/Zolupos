@@ -16,10 +16,13 @@ import { Login } from "../authentication/Login";
 import { useRouter } from "next/router";
 import Cookie from "cookie";
 import { wrongCredentials } from "./Helper";
+import Cookies from "js-cookie";
+import { useCredentialContext } from "../../context/CredentialContext";
 
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const credsCtx = useCredentialContext();
   const router = useRouter();
 
   const HandleSubmit = async (form: ILoginForm) => {
@@ -30,8 +33,8 @@ export const Form = () => {
     let response = await Login(AuthRequest);
     console.log(response);
     if (response != null) {
-      document.cookie = Cookie.serialize("zoluken", response!, { path: "/" });
-      console.log("creds");
+      Cookies.set("zoluken", response);
+      await credsCtx.updateCreds();
       router.push("/");
     } else {
       console.log("error!!");
