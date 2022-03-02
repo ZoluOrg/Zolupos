@@ -1,9 +1,10 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes, ReactNode } from 'react'
 import { Spinner } from './Spinner';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Color?: keyof typeof ColorSelection;
   Size?: keyof typeof SizeSelection;
+  Icon?: ReactNode;
   IsLoading?: boolean;
 }
 
@@ -24,6 +25,7 @@ export const Button: React.FC<Props> = ({
   Size = "base",
   IsLoading,
   className,
+  Icon,
   ...props
 }) => {
   return (
@@ -33,7 +35,8 @@ export const Button: React.FC<Props> = ({
       disabled={IsLoading}
       {...props}
     >
-      <span className={IsLoading ? "opacity-0" : ""}>
+      <span className={IsLoading ? "opacity-0" : "flex items-center"}>
+        {Icon? <div className="mr-1 flex items-center">{Icon}</div> : null}
         {children}
       </span>
       {IsLoading ?
