@@ -2,12 +2,7 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import { useState } from "react";
 import { parseJwt } from "../utils/JWT";
 import { ScreenLoader } from "../components/UI/ScreenLoader";
-
-
-const Home: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  return <ScreenLoader />;
-};
+import { Home } from "../modules/home/Home";
 
 export default Home;
 
@@ -19,7 +14,7 @@ export const getServerSideProps = async (
     if (parsedToken["exp"] * 1000 <= Date.now()) {
       return { redirect: { destination: "/employee/login" } };
     }
-    return { redirect: { destination:"/home"} };
+    return { props: {} };
   } else {
     return { redirect: { destination: "/employee/login" } };
   }

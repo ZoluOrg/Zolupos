@@ -14,7 +14,7 @@ export const Home = () => {
       <div className="h-screen flex flex-col justify-evenly">
         <div className="Header flex flex-col justify-center items-center">
           <span className="text-4xl font-bold">Welcome {credsCtx.creds?.firstName} {credsCtx.creds?.lastName}</span>
-          <span className="sub">Pick any module module to get started.</span>
+          <span className="sub">Pick any module to get started.</span>
         </div>
         <div className="flex items-center justify-center gap-2">
           <ModuleButton

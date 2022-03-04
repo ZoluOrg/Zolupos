@@ -11,7 +11,7 @@ export const TopBar = () => {
       <Button
         Color="primary"
         Icon={<BiHome />}
-        onClick={() => router.push("../home")}
+        onClick={() => router.push("../")}
       >
         Home
       </Button>
