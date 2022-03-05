@@ -3,7 +3,7 @@ import { ICredentialContext } from "../interfaces/CredentialContext/ICredentialC
 import { IEmployee } from "../interfaces/IEmployee";
 import Cookies from "js-cookie";
 import { parseJwt } from "../utils/JWT";
-import { getEmployeeById } from "../modules/employee/services";
+import { getEmployeeById } from "../modules/employee/employeeService";
 
 const defaultValues: ICredentialContext = {
   creds: null,
