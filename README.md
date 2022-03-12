@@ -7,6 +7,7 @@ Zolupos is a **modern** POS system built with ASP.net core, React JS and Electro
 - [X] Refactoring Code
 - [X] Securing Endpoints [Working on ⚙️]
 - [ ] Creating A UserInterface
+- [ ] Refactoring Backend
 - [ ] Fixing Bugs
 
 ## Getting Started
