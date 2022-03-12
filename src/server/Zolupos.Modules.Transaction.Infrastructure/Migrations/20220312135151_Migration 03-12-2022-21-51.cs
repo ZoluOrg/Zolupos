@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Modules.Transaction.Infrustructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Migration031220222151 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

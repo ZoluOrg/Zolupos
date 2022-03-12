@@ -17,9 +17,7 @@ namespace Zolupos.Modules.Transaction.Infrustructure.Contexts
         public DbSet<OrderedProduct> OrderedProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<UserTransaction>().Property(ut=>ut.Date).HasDefaultValueSql("getdate()");
-            
+        {            
             modelBuilder.Entity<UserTransaction>().HasKey(ut => ut.TransactionId);
             modelBuilder.Entity<OrderedProduct>().HasKey(op => op.Id);
             modelBuilder.Entity<UserTransaction>().HasMany(ut => ut.OrderedProducts).WithOne(op => op.UserTransaction);

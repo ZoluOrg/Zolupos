@@ -62,9 +62,7 @@ namespace Zolupos.Modules.Transaction.Infrustructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransactionId"));
 
                     b.Property<DateTime>("Date")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TransactionId");
 

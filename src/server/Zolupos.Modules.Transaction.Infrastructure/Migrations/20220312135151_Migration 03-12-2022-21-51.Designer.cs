@@ -12,8 +12,8 @@ using Zolupos.Modules.Transaction.Infrustructure.Contexts;
 namespace Zolupos.Modules.Transaction.Infrustructure.Migrations
 {
     [DbContext(typeof(TransactionDbContext))]
-    [Migration("20220122130735_Initial")]
-    partial class Initial
+    [Migration("20220312135151_Migration 03-12-2022-21-51")]
+    partial class Migration031220222151
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

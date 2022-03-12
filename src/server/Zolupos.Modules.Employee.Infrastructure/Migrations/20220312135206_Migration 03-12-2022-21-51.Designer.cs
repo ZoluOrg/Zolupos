@@ -12,8 +12,8 @@ using Zolupos.Modules.Employee.Infrastructure.Context;
 namespace Zolupos.Modules.Employee.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20220213135914_NewRoleMigration")]
-    partial class NewRoleMigration
+    [Migration("20220312135206_Migration 03-12-2022-21-51")]
+    partial class Migration031220222151
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

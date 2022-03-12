@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Modules.Inventory.Infrastructure.Migrations
 {
-    public partial class Base : Migration
+    public partial class Migration031220222151 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,8 +19,9 @@ namespace Zolupos.Modules.Inventory.Infrastructure.Migrations
                     LastEdit = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastRestock = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ProductName = table.Column<string>(type: "text", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    BrandName = table.Column<string>(type: "text", nullable: false)
+                    ProductManufacturer = table.Column<string>(type: "text", nullable: false),
+                    ProductType = table.Column<string>(type: "text", nullable: false),
+                    ProductQuantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
