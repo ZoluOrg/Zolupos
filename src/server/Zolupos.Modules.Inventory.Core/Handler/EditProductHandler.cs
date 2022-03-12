@@ -30,7 +30,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             var prodcut = await _context.Products.Where(prod => prod.ProductId == request.model.EditedProduct.ProductId).SingleOrDefaultAsync(cancellationToken);
             if (prodcut == null) return new ResultWrapper<Product> { Data = null, Message = "Product does not exist.", Code = System.Net.HttpStatusCode.NotFound };
 
-            prodcut.Copy(request.model.EditedProduct);
+            var product = _mapper.Map<Product>(request.model.EditedProduct);
             await _context.SaveChanges();
             return new ResultWrapper<Product>() { Data = prodcut, Message = "Updated", Code = System.Net.HttpStatusCode.OK };
         }

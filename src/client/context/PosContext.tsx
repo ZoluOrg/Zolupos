@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { IProduct } from "../interfaces/IProduct";
 import { IPosContext } from "../interfaces/PosContext/IPosContext";
 import { getProducts } from "../modules/inventory/Helper";
+import "react-toastify/dist/ReactToastify.css";
 
 const defaultValues: IPosContext = {
   products: null,
@@ -20,12 +22,12 @@ export const PosContext: React.FC = ({ children }) => {
       let response = await getProducts();
       setProducts(response?.data.data!);
     };
-    console.log("did Effect");
     doEffect();
   }, []);
   const addPunched = async (product: IProduct) => {
     setPunched((old) => [...old!, product]);
     console.log("🤛");
+    
   };
   const removeToPunched = async (product: number) => {
     setPunched(
@@ -43,6 +45,9 @@ export const PosContext: React.FC = ({ children }) => {
       }}
     >
       {children}
+      <div className="absolute">
+        <ToastContainer />
+      </div>
     </posContext.Provider>
   );
 };

@@ -27,7 +27,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             var toEdit = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == request.id);
             toEdit.LastRestock = DateTime.UtcNow;
             toEdit.LastEdit = DateTime.UtcNow;
-            toEdit.Quantity += request.amount;
+            toEdit.ProductQuantity += request.amount;
             _context.Products.Update(toEdit);
             return await _context.SaveChanges();
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Inventory.Core.DTO;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Queries
 {
@@ -12,5 +13,5 @@ namespace Zolupos.Modules.Inventory.Core.Queries
     /// Get product with the given id.
     /// </summary>
     /// <param name="id">Product's id</param>
-    public record GetProductByIdQuery(int id) : IRequest<ProductDTO>;
+    public record GetProductByIdQuery(int id) : IRequest<ResultWrapper<ProductDTO>>;
 }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -22,21 +23,23 @@ namespace Zolupos.Modules.Authentication.Controllers
 
         private readonly Settings _settings;
         private readonly IMediator _meidator;
+        private readonly ILogger _logger;
 
-        public AuthenticationController(IOptions<Settings> settings, IMediator mediator)
+        public AuthenticationController(IOptions<Settings> settings, IMediator mediator, ILogger logger)
         {
             _settings = settings.Value;
             _meidator = mediator;
+            _logger = logger;
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Authenticate(AuthenticateRequest authenticationRequest)
+        public async Task<ActionResult> Authenticate(AuthenticateRequest authenticationRequest)
         {
             var token = await _meidator.Send(new AuthenticateCommand(authenticationRequest));
             if (token == null)
             {
-                Console.WriteLine("error");
+                _logger.LogInformation("Unauthorized");
                 return Unauthorized(token);
             };
             return Ok(token);

@@ -9,7 +9,8 @@ namespace Zolupos.Modules.Inventory.Core.Model
     public class ProductBase
     {
         public string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public string BrandName { get; set; }
+        public string ProductManufacturer { get; set; }
+        public string ProductType { get; set; }
+        public int ProductQuantity { get; set; }
     }
 }

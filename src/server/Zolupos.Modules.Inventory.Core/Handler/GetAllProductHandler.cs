@@ -10,10 +10,11 @@ using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Entity;
 using Zolupos.Modules.Inventory.Core.Interface;
 using Zolupos.Modules.Inventory.Core.Queries;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Handler
 {
-    public class GetAllProductHandler : IRequestHandler<GetAllProductQuery, ICollection<ProductDTO>>
+    public class GetAllProductHandler : IRequestHandler<GetAllProductQuery, ResultWrapper<ICollection<ProductDTO>>>
     {
         public readonly IInventoryDbContext _context;
         public readonly IMapper _mapper;
@@ -22,11 +23,11 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             _context = context;
             _mapper = mapper;
         }
-        public async Task<ICollection<ProductDTO>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<ICollection<ProductDTO>>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
         {
             var Products = await _context.Products.ToListAsync();
             var mapped = _mapper.Map<ICollection<ProductDTO>>(Products);
-            return mapped;
+            return new ResultWrapper<ICollection<ProductDTO>> { Data = mapped, Code = System.Net.HttpStatusCode.OK, Message = "" };
         }
     }
 }

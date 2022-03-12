@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Inventory.Core.DTO;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Queries
 {
     /// <summary>
     /// Return All Products
     /// </summary>
-    public record GetAllProductQuery: IRequest<ICollection<ProductDTO>>;
+    public record GetAllProductQuery: IRequest<ResultWrapper<ICollection<ProductDTO>>>;
 }
