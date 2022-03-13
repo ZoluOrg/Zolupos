@@ -10,6 +10,5 @@ namespace Zolupos.Shared.Core.Interface
     public interface IResultWrapper
     {
         string Message { get; set; }
-        HttpStatusCode Code { get; set; }
     }
 }

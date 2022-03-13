@@ -11,7 +11,6 @@ namespace Zolupos.Shared.Core.Wrapper
     public class ResultWrapper : IResultWrapper
     {
         public string Message { get; set; }
-        public HttpStatusCode Code { get; set; }
     }
 
     public class ResultWrapper<T> : ResultWrapper, IResultWrapper

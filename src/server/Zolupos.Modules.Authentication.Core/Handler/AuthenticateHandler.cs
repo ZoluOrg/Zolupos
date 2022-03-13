@@ -36,7 +36,7 @@ namespace Zolupos.Modules.Authentication.Core.Handler
             employee.LastLogin = DateTime.UtcNow;
             await _context.SaveChanges();
 
-            return new ResultWrapper<string>() { Value = token, Code = System.Net.HttpStatusCode.OK, Message = "" };
+            return new ResultWrapper<string>() { Value = token, Message = "" };
         }
     }
 }
