@@ -27,7 +27,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
         {
             var Products = await _context.Products.ToListAsync();
             var mapped = _mapper.Map<ICollection<ProductDTO>>(Products);
-            return new ResultWrapper<ICollection<ProductDTO>> { Data = mapped, Code = System.Net.HttpStatusCode.OK, Message = "" };
+            return new ResultWrapper<ICollection<ProductDTO>> { Value = mapped, Code = System.Net.HttpStatusCode.OK, Message = "" };
         }
     }
 }

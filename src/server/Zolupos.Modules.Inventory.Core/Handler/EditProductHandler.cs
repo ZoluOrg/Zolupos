@@ -28,11 +28,11 @@ namespace Zolupos.Modules.Inventory.Core.Handler
         public async Task<ResultWrapper<Product>> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
             var prodcut = await _context.Products.Where(prod => prod.ProductId == request.model.EditedProduct.ProductId).SingleOrDefaultAsync(cancellationToken);
-            if (prodcut == null) return new ResultWrapper<Product> { Data = null, Message = "Product does not exist.", Code = System.Net.HttpStatusCode.NotFound };
+            if (prodcut == null) return new ResultWrapper<Product> { Value = null, Message = "Product does not exist.", Code = System.Net.HttpStatusCode.NotFound };
 
             var product = _mapper.Map<Product>(request.model.EditedProduct);
             await _context.SaveChanges();
-            return new ResultWrapper<Product>() { Data = prodcut, Message = "Updated", Code = System.Net.HttpStatusCode.OK };
+            return new ResultWrapper<Product>() { Value = prodcut, Message = "Updated", Code = System.Net.HttpStatusCode.OK };
         }
     }
 }

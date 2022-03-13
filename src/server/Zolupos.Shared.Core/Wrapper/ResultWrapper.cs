@@ -16,6 +16,6 @@ namespace Zolupos.Shared.Core.Wrapper
 
     public class ResultWrapper<T> : ResultWrapper, IResultWrapper
     {
-        public T Data { get; set; }
+        public T Value { get; set; }
     }
 }
