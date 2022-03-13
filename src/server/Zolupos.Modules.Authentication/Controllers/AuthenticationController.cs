@@ -23,13 +23,11 @@ namespace Zolupos.Modules.Authentication.Controllers
 
         private readonly Settings _settings;
         private readonly IMediator _meidator;
-        private readonly ILogger _logger;
 
-        public AuthenticationController(IOptions<Settings> settings, IMediator mediator, ILogger logger)
+        public AuthenticationController(IOptions<Settings> settings, IMediator mediator)
         {
             _settings = settings.Value;
             _meidator = mediator;
-            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -39,7 +37,6 @@ namespace Zolupos.Modules.Authentication.Controllers
             var token = await _meidator.Send(new AuthenticateCommand(authenticationRequest));
             if (token == null)
             {
-                _logger.LogInformation("Unauthorized");
                 return Unauthorized(token);
             };
             return Ok(token);
