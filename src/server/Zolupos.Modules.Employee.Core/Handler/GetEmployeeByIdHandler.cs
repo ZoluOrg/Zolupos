@@ -23,6 +23,6 @@ public class GetEmployeeByIdHandler : IRequestHandler<GetEmployeeByIdQuery, Resu
     public async Task<ResultWrapper<Employees>> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
     {
         var employee = await _context.Employees.SingleOrDefaultAsync(e => e.Id == request.id);
-        return new ResultWrapper<Employees>(){Value = employee, Code = HttpStatusCode.OK, Message = ""};
+        return new ResultWrapper<Employees>(){Value = employee, Message = ""};
     }
 }

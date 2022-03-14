@@ -18,29 +18,28 @@ namespace Zolupos.Modules.Transaction.Controllers
     {
         private readonly IMediator _mediator;
         private readonly Settings _setting;
-        public TransactionController(IMediator mediator, IOptions<Settings> setting, [FromHeader] string token)
+        public TransactionController(IMediator mediator, IOptions<Settings> setting)
         {
             _mediator = mediator;
             _setting = setting.Value;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ICollection<TransactionDto>>> GetAllTransaction()
+        public async Task<ActionResult> GetAllTransaction()
         {
-            Console.WriteLine(_setting.Secret);
             var Transactions = await _mediator.Send(new GetAllTransactionQuery());
             return Ok(Transactions);
         }
 
         [HttpGet("{Id:int}")]
-        public async Task<ActionResult<TransactionDto>> GetTransactionById(int Id)
+        public async Task<ActionResult> GetTransactionById(int Id)
         {
             var Transaction = await _mediator.Send(new GetTransactionByIdQuery(Id));
             return Ok(Transaction);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> AddTransaction(AddTransactionRequest transactions)
+        public async Task<ActionResult> AddTransaction(AddTransactionRequest transactions)
         {
             if (transactions == null) return BadRequest(new { message = "Invalid Body" });
             var id = await _mediator.Send(new AddTransactionCommand(transactions));
@@ -48,11 +47,11 @@ namespace Zolupos.Modules.Transaction.Controllers
         }
 
         [HttpPost("edit/{id:int}")]
-        public async Task<ActionResult<int>> Update(int id, EditTransactionRequest editedTransaction)
+        public async Task<ActionResult> Update(int id, EditTransactionRequest editedTransaction)
         {
-            var body = await BodyUtilities.GetBody(HttpContext);
+            if (id == null || editedTransaction == null) return BadRequest(new { message = "Missing Parameter" });
             var result = await _mediator.Send(new EditTransactionCommand(editedTransaction, id));
-            return result;
+            return Ok(result);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<ActionResult<IList<ProductDTO>>> GetAllProduct()
+        public async Task<ActionResult> GetAllProduct()
         {
             var Products = await _mediator.Send(new GetAllProductQuery());
             return Ok(Products);
@@ -34,7 +34,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<ActionResult<ProductDTO>> GetProductById(int id)
+        public async Task<ActionResult> GetProductById(int id)
         {
             var Product = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(Product);
@@ -42,7 +42,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<ProductDTO>>> AddProduct(AddProductRequest request)
+        public async Task<ActionResult> AddProduct(AddProductRequest request)
         {
             var prods = await _mediator.Send(new AddProductCommand(request));
             return Ok(prods);
@@ -50,7 +50,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         
         [HttpPatch("edit/{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<int>> EditProducts(int id, EditProductRequest request)
+        public async Task<ActionResult> EditProducts(int id, EditProductRequest request)
         {
             var result = await _mediator.Send(new EditProductCommand(request, id));
             return Ok(result);
