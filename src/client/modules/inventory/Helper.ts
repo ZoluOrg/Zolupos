@@ -12,5 +12,5 @@ export const getProducts = async () => {
     .catch((error) => {
       return null;
     });
-	return request;
+	return request?.data;
 };

@@ -20,7 +20,7 @@ export const PosContext: React.FC = ({ children }) => {
   useEffect(() => {
     const doEffect = async () => {
       let response = await getProducts();
-      setProducts(response?.data.data!);
+      setProducts(response?.value!);
     };
     doEffect();
   }, []);
