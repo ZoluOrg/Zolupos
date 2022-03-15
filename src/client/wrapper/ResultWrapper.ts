@@ -1,5 +1,4 @@
 export interface IResultWrapper<T> {
-	data: T,
-	code: number,
+	value: T,
 	message: string
 }

@@ -15,5 +15,5 @@ export const Login = async (request: IAuthenticationRequest) => {
       return null;
     });
   console.log(response);
-  return response?.data.data;
+  return response?.data.value;
 };

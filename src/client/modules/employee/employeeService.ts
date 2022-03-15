@@ -13,5 +13,6 @@ export const getEmployeeById = async (id: number, token: string) => {
     .catch((error) => {
       return null;
     });
+  console.log(response?.data);
   return response?.data;
 };

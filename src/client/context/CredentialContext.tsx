@@ -19,6 +19,7 @@ export const CredentialContext: React.FC = ({ children }) => {
     const getEmployee = async () => {
       let employee  = Cookies.get("zolucreds");
       if (employee) {
+        console.log(employee);
         let parsedEmployee: IEmployee = JSON.parse(employee);
         setCreds(parsedEmployee);
       }
@@ -31,8 +32,8 @@ export const CredentialContext: React.FC = ({ children }) => {
     const token = Cookies.get("zoluken");
     const parsedToken = parseJwt(token!);
     const employee = await getEmployeeById(parsedToken["unique_name"], token!);
-    setCreds(employee?.data!);
-    Cookies.set("zolucreds",JSON.stringify(employee?.data!));
+    setCreds(employee?.value!);
+    Cookies.set("zolucreds",JSON.stringify(employee?.value!));
   }
 
   return <credCtx.Provider value={{creds, updateCreds}}>{children}</credCtx.Provider>;

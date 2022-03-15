@@ -27,7 +27,6 @@ export const PosContext: React.FC = ({ children }) => {
   const addPunched = async (product: IProduct) => {
     setPunched((old) => [...old!, product]);
     console.log("🤛");
-    
   };
   const removeToPunched = async (product: number) => {
     setPunched(

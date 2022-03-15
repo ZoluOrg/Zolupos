@@ -34,7 +34,7 @@ export const Form = () => {
     console.log(response);
     if (response != null) {
       Cookies.set("zoluken", response);
-      await credsCtx.updateCreds();
+      credsCtx.updateCreds();
       router.push("/");
     } else {
       console.log("error!!");
