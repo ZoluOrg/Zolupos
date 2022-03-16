@@ -17,7 +17,7 @@ export const ModuleButton: React.FC<Props> = ({ Title, Sub, goto="" }) => {
   const router = useRouter();
   return (
     <motion.div
-      className="w w-56 relative rounded overflow-hidden p-2 border cursor-pointer "
+      className="w-56 relative rounded overflow-hidden p-2 border cursor-pointer "
       whileHover={{scale:1.05}}
       onMouseOver={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

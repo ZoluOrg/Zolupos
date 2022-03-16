@@ -6,17 +6,23 @@ import { getProducts } from "../modules/inventory/Helper";
 import "react-toastify/dist/ReactToastify.css";
 
 const defaultValues: IPosContext = {
-  products: null,
-  punched: null,
+  products: [],
+  punched: [],
+  searched: [],
+  isSearching: false,
   addToPunched: (product: IProduct) => null,
   removeToPunched: (product: number) => null,
+  searchProduct: (barCode: string) => null
 };
 
 let posContext = createContext(defaultValues);
 
 export const PosContext: React.FC = ({ children }) => {
-  const [products, setProducts] = useState<Array<IProduct> | null>([]);
-  const [punched, setPunched] = useState<Array<IProduct> | null>([]);
+  const [products, setProducts] = useState<Array<IProduct>>([]);
+  const [punched, setPunched] = useState<Array<IProduct>>([]);
+  const [searched, setSearch] = useState<Array<IProduct>>([]);
+  const [isSearching, setSearching] = useState<boolean>(true);
+
   useEffect(() => {
     const doEffect = async () => {
       let response = await getProducts();
@@ -34,13 +40,21 @@ export const PosContext: React.FC = ({ children }) => {
     );
     console.log("🤛 out");
   };
+  const search = (barCode: string) => {
+    const similar = products?.filter(pr => pr.barCode == barCode);
+    setSearch(similar);
+    console.log("searched 🔍");
+  }
   return (
     <posContext.Provider
       value={{
         products: products,
         punched: punched,
+        searched: searched,
+        isSearching: isSearching,
         addToPunched: addPunched,
         removeToPunched: removeToPunched,
+        searchProduct: search
       }}
     >
       {children}
