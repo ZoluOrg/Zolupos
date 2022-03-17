@@ -29,7 +29,7 @@ export const SearchProduct = () => {
       <div className="search w-full relative">
         <Input
           placeholder="Enter Barcode Here To Add"
-          className="w-full"
+          className={`w-full ${ctx.isSearching ? "border-x-2 border-t-2 border-b-0 rounded-br-none rounded-bl-none border-slate-300" : null}`}
           onChange={(vt) => changing(vt)}
           onBlur={() => blur()}
         />

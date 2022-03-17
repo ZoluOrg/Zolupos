@@ -16,14 +16,11 @@ export const Input: React.FC<Props> = ({
   const [isFocused, setIsFocused] = useState(false);
   return (
     <input
-      className={`${
-        SizeSelection[Size]
-      } ring-2 ring-inset rounded ring-slate-300 
+      className={`${SizeSelection[Size]} border-2  rounded border-slate-300 
 		${
       isFocused ? "" : "hover:bg-slate-200"
     } focus:ring-ocean-light focus:outline-none
-		transition ease-in-out disabled:bg-slate-300 disabled:hover:cursor-not-allowed
-		${className}`}
+		transition ease-in-out disabled:bg-slate-300 disabled:hover:cursor-not-allowed ${className}`}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       {...props}

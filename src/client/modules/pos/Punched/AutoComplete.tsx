@@ -10,9 +10,9 @@ export const AutoComplete = () => {
       {ctx.isSearching && (
         <motion.div
           className="autocomplete w-full border-b-2 border-x-2 border-slate-300 rounded-b  absolute bg-bg-light-base p-1"
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y:-10, opacity: 0 }}
+          initial={{ y: -10 }}
+          animate={{ y: 0 }}
+          exit={{ y: -10 }}
         >
           {ctx.searched.map((pr) => (
             <AutoCompleteButton
