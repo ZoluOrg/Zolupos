@@ -19,10 +19,10 @@ export const SearchProduct = () => {
     let toSearch = evt.currentTarget.value;
     console.log(`What to search ${toSearch}`);
     ctx.searchProduct(toSearch);
-    ctx.isSearching = true;
+    ctx.setIsSearching(true);
   };
   const blur = () => {
-    ctx.isSearching = false;
+    ctx.setIsSearching(false);
   };
   return (
     <div className="h-14 border-b px-5 items-center flex gap-1">

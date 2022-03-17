@@ -12,7 +12,8 @@ const defaultValues: IPosContext = {
   isSearching: false,
   addToPunched: (product: IProduct) => null,
   removeToPunched: (product: number) => null,
-  searchProduct: (barCode: string) => null
+  searchProduct: (barCode: string) => null,
+  setIsSearching: (setTo:boolean) => null
 };
 
 let posContext = createContext(defaultValues);
@@ -21,7 +22,7 @@ export const PosContext: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Array<IProduct>>([]);
   const [punched, setPunched] = useState<Array<IProduct>>([]);
   const [searched, setSearch] = useState<Array<IProduct>>([]);
-  const [isSearching, setSearching] = useState<boolean>(true);
+  const [isSearching, setSearching] = useState<boolean>(false);
 
   useEffect(() => {
     const doEffect = async () => {
@@ -41,9 +42,14 @@ export const PosContext: React.FC = ({ children }) => {
     console.log("🤛 out");
   };
   const search = (barCode: string) => {
-    const similar = products?.filter(pr => pr.barCode == barCode);
+    const similar = products?.filter(
+      (pr) => pr.barCode.includes(barCode) == true
+    );
     setSearch(similar);
     console.log("searched 🔍");
+  };
+  const setIsSearching = (setTo:boolean) => {
+    setSearching(setTo);
   }
   return (
     <posContext.Provider
@@ -54,7 +60,8 @@ export const PosContext: React.FC = ({ children }) => {
         isSearching: isSearching,
         addToPunched: addPunched,
         removeToPunched: removeToPunched,
-        searchProduct: search
+        searchProduct: search,
+        setIsSearching: setIsSearching
       }}
     >
       {children}
