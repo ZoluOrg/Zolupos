@@ -19,19 +19,19 @@ export const SearchProduct = () => {
     let toSearch = evt.currentTarget.value;
     console.log(`What to search ${toSearch}`);
     ctx.searchProduct(toSearch);
-    ctx.setIsSearching(true);
   };
-  const blur = () => {
-    ctx.setIsSearching(false);
-  };
+  const blur = () => ctx.resetSearched();
   return (
     <div className="h-14 border-b px-5 items-center flex gap-1">
-      <div className="search w-full relative">
+      <div className="search w-full relative" onBlur={() => blur()}>
         <Input
           placeholder="Enter Barcode Here To Add"
-          className={`w-full ${ctx.isSearching ? "border-x-2 border-t-2 border-b-0 rounded-br-none rounded-bl-none border-slate-300" : null}`}
+          className={`w-full ${
+            ctx.searched.length > 0
+              ? "border-x-2 border-t-2 border-b-0 rounded-br-none rounded-bl-none border-slate-300"
+              : null
+          }`}
           onChange={(vt) => changing(vt)}
-          onBlur={() => blur()}
         />
         <AutoComplete />
       </div>

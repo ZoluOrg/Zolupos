@@ -6,7 +6,6 @@ export const CurrentTime = () => {
 	useEffect(() => {
 		const getCurrentTime = setInterval(() => {
 			setTime(dayjs().format("YYYY-MM-DD | HH:mm:ss"));
-			console.log(currentTime);
 		}, 1000);
 		return () => clearInterval(getCurrentTime);
 	},[]);

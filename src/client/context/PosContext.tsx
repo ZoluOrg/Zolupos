@@ -9,11 +9,12 @@ const defaultValues: IPosContext = {
   products: [],
   punched: [],
   searched: [],
-  isSearching: false,
+  selected: 0,
   addToPunched: (product: IProduct) => null,
   removeToPunched: (product: number) => null,
   searchProduct: (barCode: string) => null,
-  setIsSearching: (setTo:boolean) => null
+  setSelected: (idx: number) => null,
+  resetSearched: () => null
 };
 
 let posContext = createContext(defaultValues);
@@ -21,8 +22,9 @@ let posContext = createContext(defaultValues);
 export const PosContext: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Array<IProduct>>([]);
   const [punched, setPunched] = useState<Array<IProduct>>([]);
-  const [searched, setSearch] = useState<Array<IProduct>>([]);
+  const [searched, setSearched] = useState<Array<IProduct>>([]);
   const [isSearching, setSearching] = useState<boolean>(false);
+  const [selected, setSel] = useState<number>(0);
 
   useEffect(() => {
     const doEffect = async () => {
@@ -31,26 +33,35 @@ export const PosContext: React.FC = ({ children }) => {
     };
     doEffect();
   }, []);
+
   const addPunched = async (product: IProduct) => {
     setPunched((old) => [...old!, product]);
     console.log("🤛");
   };
+
   const removeToPunched = async (product: number) => {
     setPunched(
       punched?.filter((prPunched) => prPunched.productId !== product)!
     );
     console.log("🤛 out");
   };
+
   const search = (barCode: string) => {
     const similar = products?.filter(
-      (pr) => pr.barCode.includes(barCode) == true
-      || pr.productName.includes(barCode) == true
+      (pr) =>
+        pr.barCode.includes(barCode) == true ||
+        pr.productName.includes(barCode) == true
     );
-    setSearch(similar);
+    setSearched(similar);
     console.log("searched 🔍");
   };
-  const setIsSearching = (setTo:boolean) => {
-    setSearching(setTo);
+
+  const setSelected = (idx: number) => {
+    setSel(idx);
+  }
+  
+  const resetSearched = () => {
+    
   }
   return (
     <posContext.Provider
@@ -58,11 +69,12 @@ export const PosContext: React.FC = ({ children }) => {
         products: products,
         punched: punched,
         searched: searched,
-        isSearching: isSearching,
+        selected: selected,
         addToPunched: addPunched,
         removeToPunched: removeToPunched,
         searchProduct: search,
-        setIsSearching: setIsSearching
+        setSelected: setSelected,
+        resetSearched: resetSearched
       }}
     >
       {children}
