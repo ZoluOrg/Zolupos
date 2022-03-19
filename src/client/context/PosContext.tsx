@@ -14,7 +14,7 @@ const defaultValues: IPosContext = {
   isSearching: false,
   addToPunched: (product: IProduct) => null,
   removeToPunched: (product: number) => null,
-  searchProduct: (barCode: string) => null,
+  searchProduct: (querry: string) => null,
   setSelected: (idx: number) => null,
   setSearchedInput: (s: string) => null,
   resetSearch: () => null,
@@ -51,7 +51,7 @@ export const PosContext: React.FC = ({ children }) => {
     console.log("🤛 out");
   };
 
-  const search = (barCode: string) => {
+  const search = (querry: string) => {
     const similar = products?.filter(
       (pr) =>
         pr.barCode.toLowerCase().includes(barCode.toLowerCase()) == true ||
