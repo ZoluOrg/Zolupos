@@ -54,8 +54,8 @@ export const PosContext: React.FC = ({ children }) => {
   const search = (barCode: string) => {
     const similar = products?.filter(
       (pr) =>
-        pr.barCode.includes(barCode) == true ||
-        pr.productName.includes(barCode) == true
+        pr.barCode.toLowerCase().includes(barCode.toLowerCase()) == true ||
+        pr.productName.toLowerCase().includes(barCode.toLowerCase()) == true
     );
     setSearched(similar);
     console.log("searched 🔍");
