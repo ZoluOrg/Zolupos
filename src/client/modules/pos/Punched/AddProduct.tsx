@@ -10,32 +10,44 @@ import { AutoCompleteButton } from "./AutoCompleteButton";
 export const SearchProduct = () => {
   const router = useRouter();
   const ctx = usePosContext();
-  const onlick = async () => {
-    let prods = ctx.products![0];
-    console.log(prods);
-    ctx.addToPunched(prods);
+
+  const keyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      if (ctx.selected == 0) return;
+      ctx.setSelected(ctx.selected - 1);
+    } else if (e.key === "ArrowDown") {
+      if (ctx.selected + 1 == ctx.searched.length) return;
+      ctx.setSelected(ctx.selected + 1);
+    } else if (e.key === "Enter") {
+      ctx.setSearchedInput(ctx.searched[ctx.selected].barCode);
+      ctx.setIsSearching(false);
+    }
   };
-  const changing = (evt: React.FormEvent<HTMLInputElement>) => {
-    let toSearch = evt.currentTarget.value;
-    console.log(`What to search ${toSearch}`);
-    ctx.searchProduct(toSearch);
+
+  const inputChanging = (e: React.FormEvent<HTMLInputElement>) => {
+    ctx.searchProduct(e.currentTarget.value);
+    ctx.setSearchedInput(e.currentTarget.value);
+    ctx.setSelected(0);
+    ctx.setIsSearching(true);
   };
-  const blur = () => ctx.resetSearched();
+
   return (
     <div className="h-14 border-b px-5 items-center flex gap-1">
-      <div className="search w-full relative" onBlur={() => blur()}>
+      <div className="search w-full relative">
         <Input
           placeholder="Enter Barcode Here To Add"
           className={`w-full ${
-            ctx.searched.length > 0
+            ctx.isSearching
               ? "border-x-2 border-t-2 border-b-0 rounded-br-none rounded-bl-none border-slate-300"
               : null
           }`}
-          onChange={(vt) => changing(vt)}
+          onChange={inputChanging}
+          onKeyDown={keyDown}
+          value={ctx.searchedInput}
         />
         <AutoComplete />
       </div>
-      <Button onClick={async () => await onlick()}>Add</Button>
+      <Button>Add</Button>
     </div>
   );
 };

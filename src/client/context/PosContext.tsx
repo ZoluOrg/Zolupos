@@ -10,11 +10,15 @@ const defaultValues: IPosContext = {
   punched: [],
   searched: [],
   selected: 0,
+  searchedInput: "",
+  isSearching: false,
   addToPunched: (product: IProduct) => null,
   removeToPunched: (product: number) => null,
   searchProduct: (barCode: string) => null,
   setSelected: (idx: number) => null,
-  resetSearched: () => null
+  setSearchedInput: (s: string) => null,
+  resetSearch: () => null,
+  setIsSearching: (val:boolean) => null
 };
 
 let posContext = createContext(defaultValues);
@@ -23,8 +27,9 @@ export const PosContext: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Array<IProduct>>([]);
   const [punched, setPunched] = useState<Array<IProduct>>([]);
   const [searched, setSearched] = useState<Array<IProduct>>([]);
-  const [isSearching, setSearching] = useState<boolean>(false);
-  const [selected, setSel] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(0);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchedInput, setSearchedInput] = useState<string>("");
 
   useEffect(() => {
     const doEffect = async () => {
@@ -56,13 +61,8 @@ export const PosContext: React.FC = ({ children }) => {
     console.log("searched 🔍");
   };
 
-  const setSelected = (idx: number) => {
-    setSel(idx);
-  }
-  
-  const resetSearched = () => {
-    
-  }
+  const resetSearch = () => setSearched([]);
+
   return (
     <posContext.Provider
       value={{
@@ -70,11 +70,15 @@ export const PosContext: React.FC = ({ children }) => {
         punched: punched,
         searched: searched,
         selected: selected,
+        searchedInput: searchedInput,
+        isSearching: isSearching,
         addToPunched: addPunched,
         removeToPunched: removeToPunched,
         searchProduct: search,
         setSelected: setSelected,
-        resetSearched: resetSearched
+        setSearchedInput: setSearchedInput,
+        resetSearch: resetSearch,
+        setIsSearching: setIsSearching
       }}
     >
       {children}

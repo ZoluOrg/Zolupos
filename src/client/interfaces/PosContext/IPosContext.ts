@@ -5,9 +5,13 @@ export interface IPosContext {
   punched: Array<IProduct>;
   searched: Array<IProduct>;
   selected: number;
+  searchedInput: string;
+  isSearching: boolean;
   addToPunched: (product: IProduct) => void;
   removeToPunched: (product: number) => void;
   searchProduct: (barCode: string) => void;
   setSelected: (idx:number) => void;
-  resetSearched: () => void;
+  setSearchedInput: (s: string) => void;
+  resetSearch: () => void;
+  setIsSearching: (val: boolean) => void;
 }

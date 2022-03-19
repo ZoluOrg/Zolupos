@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { createRef, useEffect, useRef } from "react";
 import { usePosContext } from "../../../context/PosContext";
 import { IProductBase } from "../../../interfaces/IProductBase";
 
-interface Props extends IProductBase {
+interface Props extends IProductBase, React.HTMLProps<HTMLLIElement> {
   idx: number;
 }
 
@@ -15,17 +15,20 @@ export const AutoCompleteButton: React.FC<Props> = ({
   idx,
 }) => {
   const ctx = usePosContext();
-  const LiRef = useRef<HTMLLIElement>();
+  const LiRef = createRef<HTMLLIElement>();
   useEffect(() => {
     if (ctx.selected == idx) {
-      LiRef.current?.ariaSelected()!;
-      console.log("focus");
+      LiRef && LiRef.current && LiRef.current.scrollIntoView({ behavior: "smooth" });
+      console.log("Will Scroll?");
     }
   }, [ctx.selected]);
   return (
-    <button
-      className={` focus:bg-secondary-light focus:text-white hover:border flex flex-col transition ease-in-out rounded w-full p-2 hover:cursor-default`}
+    <li
+      className={` ${
+        ctx.selected == idx && "bg-secondary-light text-white"
+      } hover:bg-slate-100 hover:border flex flex-col transition ease-in-out rounded w-full p-2 hover:cursor-default`}
       key={idx}
+      ref={LiRef}
     >
       <div className="ProdName font-bold text-lg">{productName}</div>
       <div className="flex gap-2">
@@ -33,6 +36,6 @@ export const AutoCompleteButton: React.FC<Props> = ({
         <div className="Qty text-sm">Qty: {productQuantity}</div>
         {idx}
       </div>
-    </button>
+    </li>
   );
 };
