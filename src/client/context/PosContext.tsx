@@ -51,11 +51,11 @@ export const PosContext: React.FC = ({ children }) => {
     console.log("🤛 out");
   };
 
-  const search = (querry: string) => {
+  const search = (query: string) => {
     const similar = products?.filter(
       (pr) =>
-        pr.barCode.toLowerCase().includes(barCode.toLowerCase()) == true ||
-        pr.productName.toLowerCase().includes(barCode.toLowerCase()) == true
+        pr.barCode.toLowerCase().includes(query.toLowerCase()) == true ||
+        pr.productName.toLowerCase().includes(query.toLowerCase()) == true
     );
     setSearched(similar);
     console.log("searched 🔍");

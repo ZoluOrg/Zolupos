@@ -2,6 +2,7 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import React, { createRef, useEffect } from "react";
 import { usePosContext } from "../../../context/PosContext";
 import { AutoCompleteButton } from "./AutoCompleteButton";
+import { NoProduct } from "./NoProduct";
 
 export const AutoComplete = () => {
   const ctx = usePosContext();
@@ -14,16 +15,18 @@ export const AutoComplete = () => {
           animate={{ y: 0 }}
           exit={{ y: -5 }}
         >
-          {ctx.searched.map((pr, idx) => (
-            <AutoCompleteButton
-              productName={pr.productName}
-              productQuantity={pr.productQuantity}
-              productManufacturer={pr.productManufacturer}
-              barCode={pr.barCode}
-              productType={pr.productType}
-              idx={idx}
-            />
-          ))}
+          {
+            ctx.searched.length != 0 ? ctx.searched.map((pr, idx) => (
+              <AutoCompleteButton
+                productName={pr.productName}
+                productQuantity={pr.productQuantity}
+                productManufacturer={pr.productManufacturer}
+                barCode={pr.barCode}
+                productType={pr.productType}
+                idx={idx}
+              />
+            )) : <NoProduct/>
+          }
         </motion.ul>
       )}
     </AnimatePresence>
