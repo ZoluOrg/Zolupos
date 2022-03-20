@@ -12,7 +12,7 @@ const defaultValues: IPosContext = {
   selected: 0,
   searchedInput: "",
   isSearching: false,
-  addToPunched: (product: IProduct) => null,
+  addToPunched: (barCode: string) => null,
   removeToPunched: (product: number) => null,
   searchProduct: (querry: string) => null,
   setSelected: (idx: number) => null,
@@ -39,9 +39,15 @@ export const PosContext: React.FC = ({ children }) => {
     doEffect();
   }, []);
 
-  const addPunched = async (product: IProduct) => {
-    setPunched((old) => [...old!, product]);
-    console.log("🤛");
+  const addPunched = async (barCode: string) => {
+    const product = products.filter(prds => prds.barCode == barCode);
+    console.log(product.length);
+    if (product.length == 1) {
+      setPunched(old => [...old, product[0]]);
+      console.log(punched);
+    } if (product.length > 1) {
+      toast.error(`Error. More than 1 product have the same barcode ${barCode}`);
+    }
   };
 
   const removeToPunched = async (product: number) => {

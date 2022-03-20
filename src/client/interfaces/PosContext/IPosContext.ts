@@ -7,7 +7,7 @@ export interface IPosContext {
   selected: number;
   searchedInput: string;
   isSearching: boolean;
-  addToPunched: (product: IProduct) => void;
+  addToPunched: (barCode: string) => void;
   removeToPunched: (product: number) => void;
   searchProduct: (query: string) => void;
   setSelected: (idx:number) => void;

@@ -33,7 +33,7 @@ export const SearchProduct = () => {
   const add = () => {
     ctx.setSearchedInput(ctx.searched[ctx.selected].barCode);
     ctx.setIsSearching(false);
-    ctx.addToPunched(ctx.searched[ctx.selected]);
+    ctx.addToPunched(ctx.searched[ctx.selected].barCode);
   };
 
   return (

@@ -25,13 +25,13 @@ export const AutoCompleteButton: React.FC<Props> = ({
   const onClick = () => {
     ctx.setSearchedInput(barCode);
     ctx.setIsSearching(false);
-    ctx.addToPunched(ctx.searched[idx]);
+    ctx.addToPunched(barCode);
   }
   return (
     <li
       className={` ${
-        ctx.selected == idx && "bg-secondary-light text-white"
-      } hover:bg-slate-100 hover:border flex flex-col transition ease-in-out rounded w-full p-2 hover:cursor-default`}
+        ctx.selected == idx && "bg-secondary-light text-white hover:border-secondary-light"
+      } hover:bg-slate-100 hover:text-black hover:border flex flex-col transition ease-in-out rounded w-full p-2 hover:cursor-default`}
       key={idx}
       ref={LiRef}
       onClick={onClick}
