@@ -18,10 +18,15 @@ export const AutoCompleteButton: React.FC<Props> = ({
   const LiRef = createRef<HTMLLIElement>();
   useEffect(() => {
     if (ctx.selected == idx) {
-      LiRef && LiRef.current && LiRef.current.scrollIntoView({ behavior: "smooth" });
+      LiRef && LiRef.current && LiRef.current.scrollIntoView({ behavior: "smooth", block: 'center' });
       console.log("Will Scroll?");
     }
   }, [ctx.selected]);
+  const onClick = () => {
+    ctx.setSearchedInput(barCode);
+    ctx.setIsSearching(false);
+    ctx.addToPunched(ctx.searched[idx]);
+  }
   return (
     <li
       className={` ${
@@ -29,6 +34,7 @@ export const AutoCompleteButton: React.FC<Props> = ({
       } hover:bg-slate-100 hover:border flex flex-col transition ease-in-out rounded w-full p-2 hover:cursor-default`}
       key={idx}
       ref={LiRef}
+      onClick={onClick}
     >
       <div className="ProdName font-bold text-lg">{productName}</div>
       <div className="flex gap-2">

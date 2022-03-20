@@ -12,6 +12,7 @@ export const SearchProduct = () => {
   const ctx = usePosContext();
 
   const keyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key);
     if (e.key === "ArrowUp") {
       if (ctx.selected == 0) return;
       ctx.setSelected(ctx.selected - 1);
@@ -19,16 +20,20 @@ export const SearchProduct = () => {
       if (ctx.selected + 1 == ctx.searched.length) return;
       ctx.setSelected(ctx.selected + 1);
     } else if (e.key === "Enter") {
-      ctx.setSearchedInput(ctx.searched[ctx.selected].barCode);
-      ctx.setIsSearching(false);
-    }
+      add();
+    } else if (e.altKey && e.key == "a"){ctx.setIsSearching(!ctx.isSearching)}
   };
 
   const inputChanging = (e: React.FormEvent<HTMLInputElement>) => {
     ctx.searchProduct(e.currentTarget.value);
     ctx.setSearchedInput(e.currentTarget.value);
     ctx.setSelected(0);
-    ctx.setIsSearching(true);
+  };
+
+  const add = () => {
+    ctx.setSearchedInput(ctx.searched[ctx.selected].barCode);
+    ctx.setIsSearching(false);
+    ctx.addToPunched(ctx.searched[ctx.selected]);
   };
 
   return (
@@ -47,7 +52,7 @@ export const SearchProduct = () => {
         />
         <AutoComplete />
       </div>
-      <Button>Add</Button>
+      <Button onClick={add}>Add</Button>
     </div>
   );
 };
