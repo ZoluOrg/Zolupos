@@ -11,9 +11,9 @@ export const AutoComplete = () => {
       {ctx.isSearching && (
         <motion.ul
           className="autocomplete w-full border-2 border-slate-300 rounded-b absolute bg-bg-light-base p-1 max-h-96 overflow-y-scroll"
-          initial={{ y: -5 }}
-          animate={{ y: 0 }}
-          exit={{ y: -5 }}
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 0, opacity: 0 }}
         >
           {
             ctx.searched.length != 0 ? ctx.searched.map((pr, idx) => (

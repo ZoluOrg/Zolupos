@@ -40,7 +40,7 @@ export const AutoCompleteButton: React.FC<Props> = ({
       <div className="flex gap-2">
         <div className="BarCode text-sm">Barcode: {barCode}</div>
         <div className="Qty text-sm">Qty: {productQuantity}</div>
-        {idx}
+        <div className="Mfr text-sm">Mfr: {productManufacturer}</div>
       </div>
     </li>
   );
