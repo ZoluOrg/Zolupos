@@ -46,7 +46,7 @@ export const PosContext: React.FC = ({ children }) => {
       setPunched(old => [...old, product[0]]);
       console.log(punched);
     } if (product.length > 1) {
-      toast.error(`Error. More than 1 product have the same barcode ${barCode}`);
+      toast.error(`Error. "${barCode}" is being used by multiple products`);
     }
   };
 

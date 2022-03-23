@@ -35,11 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Employee.In
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{AB4BBFA9-26AD-4BF4-B546-6CF77DC8CC72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zolupos.Modules.Authentication", "Zolupos.Modules.Authentication\Zolupos.Modules.Authentication.csproj", "{C43A9D5D-2DB0-42F7-9BBA-96E010D0261F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Authentication", "Zolupos.Modules.Authentication\Zolupos.Modules.Authentication.csproj", "{C43A9D5D-2DB0-42F7-9BBA-96E010D0261F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zolupos.Modules.Authentication.Core", "Zolupos.Modules.Authentication.Core\Zolupos.Modules.Authentication.Core.csproj", "{97FA1A3E-AD62-4971-9D75-FB754BBBF3CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Authentication.Core", "Zolupos.Modules.Authentication.Core\Zolupos.Modules.Authentication.Core.csproj", "{97FA1A3E-AD62-4971-9D75-FB754BBBF3CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zolupos.Modules.Authentication.Infrastructure", "Zolupos.Modules.Authentication.Infrastructure\Zolupos.Modules.Authentication.Infrastructure.csproj", "{D10D1FFA-AF12-4882-9AE8-A6C7C620F00B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zolupos.Modules.Authentication.Infrastructure", "Zolupos.Modules.Authentication.Infrastructure\Zolupos.Modules.Authentication.Infrastructure.csproj", "{D10D1FFA-AF12-4882-9AE8-A6C7C620F00B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
