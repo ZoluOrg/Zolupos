@@ -1,7 +1,9 @@
 export interface IProductBase {
 	productName: string;
-	productQuantity: number;
-	productManufacturer: string;
 	barCode: string;
+	productManufacturer: string;
 	productType:string;
+	productQuantity: number;
+	productRetailCost: number;
+	productWholeSaleCost: number;
 }
