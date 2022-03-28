@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Zolupos.Modules.Inventory.Core\Zolupos.Modules.Inventory.Core.csproj" />
-      <ProjectReference Include="..\Zolupos.Modules.Transaction.Infrastructure\Zolupos.Modules.Transaction.Infrastructure.csproj" />
       <ProjectReference Include="..\Zolupos.Shared.Infrastructure\Zolupos.Shared.Infrastructure.csproj" />
     </ItemGroup>
 

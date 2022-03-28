@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Zolupos.Modules.Inventory.Core\Zolupos.Modules.Inventory.Core.csproj" />
+  </ItemGroup>
+
 </Project>

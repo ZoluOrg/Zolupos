@@ -1,4 +1,3 @@
-using Zolupos.Modules.Transaction.Extension;
 using Zolupos.Modules.Inventory.Extension;
 using Zolupos.Modules.Employee.Extension;
 using Zolupos.Shared.Core.Model;
@@ -6,6 +5,7 @@ using Zolupos.Modules.Authentication.Extension;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Zolupos.Transactions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddTransactionModule();
     builder.Services.AddInventoryModule();
+    builder.Services.UseTransaction();
     builder.Services.AddEmployeeModule();
     builder.Services.AddAuthenticationModule();
 

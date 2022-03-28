@@ -21,7 +21,7 @@
     <ProjectReference Include="..\Zolupos.Modules.Authentication\Zolupos.Modules.Authentication.csproj" />
     <ProjectReference Include="..\Zolupos.Modules.Employee\Zolupos.Modules.Employee.csproj" />
     <ProjectReference Include="..\Zolupos.Modules.Inventory\Zolupos.Modules.Inventory.csproj" />
-    <ProjectReference Include="..\Zolupos.Modules.Transaction\Zolupos.Modules.Transaction.csproj" />
+    <ProjectReference Include="..\Zolupos.Transactions\Zolupos.Transactions.csproj" />
   </ItemGroup>
 
 </Project>

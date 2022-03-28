@@ -1,4 +1,4 @@
-﻿namespace Zolupos.Modules.Sales
+﻿namespace Zolupos.Transactions
 {
     public class Class1
     {

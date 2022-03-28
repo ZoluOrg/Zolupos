@@ -10,7 +10,8 @@ namespace Zolupos.Modules.Transaction.Core.Entity
     {
         public int TransactionId { get; set; }
         public DateTime Date { get; set; }
-
+        public int TotalWithDiscount { get; set; }
+        public int DiscountInPercentage { get; set; }
         public virtual ICollection<OrderedProduct> OrderedProducts { get; set; }
     }
 }

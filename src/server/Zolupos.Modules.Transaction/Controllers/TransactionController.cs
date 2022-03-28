@@ -42,12 +42,10 @@ namespace Zolupos.Modules.Transaction.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> AddTransaction(AddTransactionRequest transactions)
+        [Authorize(Roles = "Admin, Employee")]
+        public async Task<ActionResult> PostTransaction ()
         {
-            if (transactions == null) return BadRequest(new { message = "Invalid Body" });
-            var id = await _mediator.Send(new AddTransactionCommand(transactions));
-            return Ok(id);
+            return Ok();
         }
 
         [HttpPost("edit/{id:int}")]
