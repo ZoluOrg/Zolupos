@@ -13,5 +13,5 @@ namespace Zolupos.Modules.Inventory.Core.Queries
     /// Get product with the given id.
     /// </summary>
     /// <param name="id">Product's id</param>
-    public record GetProductByIdQuery(int id) : IRequest<ResultWrapper<ProductDTO>>;
+    public record GetProductByIdQuery(int id) : IRequest<ResultWrapper<GetProductResponse>>;
 }

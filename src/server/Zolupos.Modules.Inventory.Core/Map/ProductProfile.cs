@@ -15,7 +15,7 @@ namespace Zolupos.Modules.Inventory.Core.Map
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Product, GetProductResponse>().ReverseMap();
             CreateMap<ProductBase, Product>().ReverseMap();
             CreateMap<AddProductRequest, Product>().ReverseMap();
             CreateMap<EditProductRequest, Product>().ReverseMap();

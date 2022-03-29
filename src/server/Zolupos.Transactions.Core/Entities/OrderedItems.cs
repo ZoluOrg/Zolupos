@@ -12,8 +12,6 @@ namespace Zolupos.Transactions.Core.Entities
         public int Id { get; set; }
         public int ProductRef { get; set; }
         public int TransacactionRef { get; set; }
-
-        public Product OrderedProduct { get; set; }
         public OrderTransactions ParentTransaction { get; set; }
     }
 }

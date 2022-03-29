@@ -25,7 +25,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         }
         
         [HttpGet]
-        [Authorize(Roles = "Admin,Employee")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllProduct()
         {
             var Products = await _mediator.Send(new GetAllProductQuery());

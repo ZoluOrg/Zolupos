@@ -12,7 +12,7 @@ namespace Zolupos.Transactions.Controllers
     public class TransactionController : Controller
     {
         [HttpGet]
-        public string test()
+        public string GetAllTransactions()
         {
             return "hello world";
         }

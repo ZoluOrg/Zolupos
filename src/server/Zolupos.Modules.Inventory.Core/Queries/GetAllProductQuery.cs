@@ -12,5 +12,5 @@ namespace Zolupos.Modules.Inventory.Core.Queries
     /// <summary>
     /// Return All Products
     /// </summary>
-    public record GetAllProductQuery: IRequest<ResultWrapper<ICollection<ProductDTO>>>;
+    public record GetAllProductQuery: IRequest<ResultWrapper<ICollection<GetProductResponse>>>;
 }
