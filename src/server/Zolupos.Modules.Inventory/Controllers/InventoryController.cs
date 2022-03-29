@@ -40,19 +40,19 @@ namespace Zolupos.Modules.Inventory.Controllers
             return Ok(Product);
         }
         
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> AddProduct(AddProductRequest request)
-        {
-            var prods = await _mediator.Send(new AddProductCommand(request));
-            return Ok(prods);
-        }
+        //[HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> AddProduct(AddProductRequest request)
+        //{
+        //    var prods = await _mediator.Send(new AddProductCommand(request));
+        //    return Ok(prods);
+        //}
         
-        [HttpPatch("edit/{id:int}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditProducts(int id, EditProductRequest request)
+        [HttpPatch("edit")]
+        [AllowAnonymous]
+        public async Task<ActionResult> EditProducts(EditProductCommand command)
         {
-            var result = await _mediator.Send(new EditProductCommand(request, id));
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 

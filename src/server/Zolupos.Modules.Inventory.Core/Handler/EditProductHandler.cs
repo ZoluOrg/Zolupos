@@ -27,10 +27,12 @@ namespace Zolupos.Modules.Inventory.Core.Handler
 
         public async Task<ResultWrapper<Product>> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
-            var prodcut = await _context.Products.Where(prod => prod.ProductId == request.model.EditedProduct.ProductId).SingleOrDefaultAsync(cancellationToken);
-            if (prodcut == null) return new ResultWrapper<Product> { Value = null, Message = "Product does not exist." };
+            var prodcut = await _context.Products.Where(pr => pr.ProductId == request.ProductId).FirstAsync();
+            if (prodcut == null) throw new Exception("No product found");
+            if (await _context.Products.Where(pr => pr.BarCode == request.BarCode).AnyAsync(cancellationToken)) throw new Exception("Another product already have the same barcode");
 
-            var product = _mapper.Map<Product>(request.model.EditedProduct);
+            var productToSave = _mapper.Map<Product>(request);
+            prodcut = productToSave;
             await _context.SaveChanges();
             return new ResultWrapper<Product>() { Value = prodcut, Message = "Updated" };
         }
