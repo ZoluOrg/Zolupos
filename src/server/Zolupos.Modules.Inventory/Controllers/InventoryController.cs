@@ -31,8 +31,8 @@ namespace Zolupos.Modules.Inventory.Controllers
             return Ok(Products);
         }
         
-        [HttpGet("{id:int}")]
-        [Authorize(Roles = "Admin,Employee")]
+        [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetProductById(int id)
         {
             var Product = await _mediator.Send(new GetProductByIdQuery(id));
