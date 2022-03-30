@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Modules.Inventory.Core.Annotation;
 using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Queries;
@@ -39,15 +38,15 @@ namespace Zolupos.Modules.Inventory.Controllers
             var Product = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(Product);
         }
-        
-        //[HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<ActionResult> AddProduct(AddProductRequest request)
-        //{
-        //    var prods = await _mediator.Send(new AddProductCommand(request));
-        //    return Ok(prods);
-        //}
-        
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> AddProduct(AddProductCommand command)
+        {
+            var prods = await _mediator.Send(command);
+            return Ok(prods);
+        }
+
         [HttpPatch("edit")]
         [AllowAnonymous]
         public async Task<ActionResult> EditProducts(EditProductCommand command)

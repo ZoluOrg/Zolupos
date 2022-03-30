@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Modules.Inventory.Core.Annotation;
 using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Entity;
@@ -18,9 +17,8 @@ namespace Zolupos.Modules.Inventory.Core.Map
         {
             CreateMap<Product, GetProductResponse>().ReverseMap();
             CreateMap<Product, EditProductCommand>().ReverseMap();
+            CreateMap<Product, AddProductCommand>().ReverseMap();
             CreateMap<ProductBase, Product>().ReverseMap();
-            CreateMap<AddProductRequest, Product>().ReverseMap();
-            CreateMap<EditProductRequest, Product>().ReverseMap();
         }
     }
 }
