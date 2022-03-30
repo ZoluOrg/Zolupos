@@ -29,7 +29,8 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             toEdit.LastEdit = DateTime.UtcNow;
             toEdit.ProductQuantity += request.amount;
             _context.Products.Update(toEdit);
-            return await _context.SaveChanges();
+            await _context.SaveChanges();
+            return toEdit.BarCode;
         }
     }
 }
