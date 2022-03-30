@@ -22,7 +22,7 @@ namespace Zolupos.Modules.Inventory.Controllers
         {
             _mediator = mediator;
         }
-        
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> GetAllProduct()
@@ -30,7 +30,7 @@ namespace Zolupos.Modules.Inventory.Controllers
             var Products = await _mediator.Send(new GetAllProductQuery());
             return Ok(Products);
         }
-        
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> GetProductById(int id)
@@ -56,10 +56,10 @@ namespace Zolupos.Modules.Inventory.Controllers
         }
 
         [HttpPatch("restock")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Restock(int id, int amount)
+        [AllowAnonymous]
+        public async Task<ActionResult> Restock(RestockCommand command)
         {
-            var result = await _mediator.Send(new RestockCommand(id, amount));
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

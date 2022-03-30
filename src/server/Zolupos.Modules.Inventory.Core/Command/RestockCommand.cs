@@ -12,5 +12,9 @@ namespace Zolupos.Modules.Inventory.Core.Command
     /// </summary>
     /// <param name="id">Id of the product restocked</param>
     /// <param name="amount">Amount of new stocks</param>
-    public record RestockCommand(int id, int amount) : IRequest<int>;
+    public record RestockCommand : IRequest<int>
+    {
+        public int id { get; set; }
+        public int amount { get; set; }
+    }
 }
