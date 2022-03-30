@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Transactions.Core.Entities;
-using Zolupos.Transactions.Core.Interfaces;
+using Zolupos.Modules.Transactions.Core.Entities;
+using Zolupos.Modules.Transactions.Core.Interfaces;
 
-namespace Zolupos.Transactions.Infrastructure.Context
+namespace Zolupos.Modules.Transactions.Infrastructure.Context
 {
     public class TransactionsContext : DbContext, ITransactionsContext
     {

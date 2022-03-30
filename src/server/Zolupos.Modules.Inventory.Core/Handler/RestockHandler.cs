@@ -30,7 +30,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             toEdit.ProductQuantity += request.amount;
             _context.Products.Update(toEdit);
             await _context.SaveChanges();
-            return toEdit.BarCode;
+            return toEdit.ProductId;
         }
     }
 }

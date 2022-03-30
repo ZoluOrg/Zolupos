@@ -7,7 +7,7 @@ Write-Output "Migrating $CurrentTime"
 
 try{
     dotnet ef migrations add "Migration $CurrentTime" --startup-project $StartupProj --project ".\Zolupos.Modules.Inventory.Infrastructure\Zolupos.Modules.Inventory.Infrastructure.csproj" --context InventoryDbContext
-    dotnet ef migrations add "Migration $CurrentTime" --startup-project $StartupProj --project ".\Zolupos.Modules.Transaction.Infrastructure\Zolupos.Modules.Transaction.Infrastructure.csproj" --context TransactionDbContext
+    dotnet ef migrations add "Migration $CurrentTime" --startup-project $StartupProj --project ".\Zolupos.Modules.Transactions.Infrastructure\Zolupos.Modules.Transactions.Infrastructure.csproj" --context TransactionsContext
     dotnet ef migrations add "Migration $CurrentTime" --startup-project $StartupProj --project ".\Zolupos.Modules.Employee.Infrastructure\Zolupos.Modules.Employee.Infrastructure.csproj" --context EmployeeDbContext
 }
 catch {
@@ -15,5 +15,5 @@ catch {
 }
 
 dotnet ef database update --startup-project $StartupProj --project ".\Zolupos.Modules.Inventory.Infrastructure\Zolupos.Modules.Inventory.Infrastructure.csproj" --context InventoryDbContext
-dotnet ef database update --startup-project $StartupProj --project ".\Zolupos.Modules.Transaction.Infrastructure\Zolupos.Modules.Transaction.Infrastructure.csproj" --context TransactionDbContext
+dotnet ef database update --startup-project $StartupProj --project ".\Zolupos.Modules.Transactions.Infrastructure\Zolupos.Modules.Transactions.Infrastructure.csproj" --context TransactionsContext
 dotnet ef database update --startup-project $StartupProj --project ".\Zolupos.Modules.Employee.Infrastructure\Zolupos.Modules.Employee.Infrastructure.csproj" --context EmployeeDbContext

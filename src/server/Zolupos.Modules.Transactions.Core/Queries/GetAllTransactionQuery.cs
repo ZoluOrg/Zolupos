@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Transactions.Core.DTO;
+using Zolupos.Modules.Transactions.Core.DTO;
 
-namespace Zolupos.Transactions.Core.Querry
+namespace Zolupos.Modules.Transactions.Core.Querry
 {
     public record GetAllTransactionQuery () : IRequest<List<GetAllTransactionResponse>>;
 }

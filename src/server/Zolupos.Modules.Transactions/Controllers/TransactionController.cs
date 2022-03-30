@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Transactions.Core.Querry;
+using Zolupos.Modules.Transactions.Core.Querry;
 
-namespace Zolupos.Transactions.Controllers
+namespace Zolupos.Modules.Transactions.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

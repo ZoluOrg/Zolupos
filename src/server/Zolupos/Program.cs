@@ -5,7 +5,7 @@ using Zolupos.Modules.Authentication.Extension;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Zolupos.Transactions.Configuration;
+using Zolupos.Modules.Transactions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

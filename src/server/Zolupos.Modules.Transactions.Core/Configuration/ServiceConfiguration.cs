@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Zolupos.Transactions.Core.Configuration
+namespace Zolupos.Modules.Transactions.Core.Configuration
 {
     public static class ServiceConfiguration
     {

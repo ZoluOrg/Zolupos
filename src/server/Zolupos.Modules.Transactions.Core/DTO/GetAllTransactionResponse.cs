@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Inventory.Core.Entity;
 
-namespace Zolupos.Transactions.Core.DTO
+namespace Zolupos.Modules.Transactions.Core.DTO
 {
     public record GetAllTransactionResponse(int TransactionId, DateTime TransactedAt, int Total, List<Product> Products);
 }
