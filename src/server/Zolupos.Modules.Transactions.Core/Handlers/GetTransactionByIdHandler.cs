@@ -26,7 +26,7 @@ namespace Zolupos.Modules.Transactions.Core.Handlers
         public async Task<GetTransactionResponse> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
         {
             var transaction = await _context.Transactions.Include(tr => tr.OrderedItems).Where(tr => tr.OrderTransactionsId == request.id).FirstOrDefaultAsync();
-            if (transaction == null) throw new Exception($"Transaction with the id of ${request.id} does not exist.");
+            if (transaction == null) throw new Exception($"Transaction with the id of {request.id} does not exist.");
             var mapped = _mapper.Map<GetTransactionResponse>(transaction);
             return mapped;
         }
