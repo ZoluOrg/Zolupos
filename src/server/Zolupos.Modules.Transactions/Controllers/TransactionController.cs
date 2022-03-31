@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Modules.Transactions.Core.Queries;
 using Zolupos.Modules.Transactions.Core.Querry;
 
 namespace Zolupos.Modules.Transactions.Controllers
@@ -20,9 +21,16 @@ namespace Zolupos.Modules.Transactions.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllTransactions(int id)
+        public async Task<ActionResult> GetAllTransactions()
         {
             var result = await _mediator.Send(new GetAllTransactionQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetTransactionById(int id)
+        {
+            var result = await _mediator.Send(new GetTransactionByIdQuery(id));
             return Ok(result);
         }
     }

@@ -8,5 +8,5 @@ using Zolupos.Modules.Transactions.Core.DTO;
 
 namespace Zolupos.Modules.Transactions.Core.Queries
 {
-    public record GetTransactionById(int id) : IRequest<GetTransactionResponse>;
+    public record GetTransactionByIdQuery(int id) : IRequest<GetTransactionResponse>;
 }
