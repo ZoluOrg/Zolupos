@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Modules.Transactions.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Modules.Transactions.Infrastructure.Context;
 namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 {
     [DbContext(typeof(TransactionsContext))]
-    partial class TransactionsContextModelSnapshot : ModelSnapshot
+    [Migration("20220331063845_Migration 03-31-2022-14-37")]
+    partial class Migration033120221437
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,15 +32,15 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderedItemsId"));
 
-                    b.Property<int>("OrderTransactionsId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("TransactionId")
                         .HasColumnType("integer");
 
                     b.HasKey("OrderedItemsId");
 
-                    b.HasIndex("OrderTransactionsId");
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("OrderedItems");
                 });
@@ -64,13 +66,13 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 
             modelBuilder.Entity("Zolupos.Modules.Transactions.Core.Entities.OrderedItems", b =>
                 {
-                    b.HasOne("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", "OrderTransactions")
+                    b.HasOne("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", "Transaction")
                         .WithMany("OrderedItems")
-                        .HasForeignKey("OrderTransactionsId")
+                        .HasForeignKey("TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderTransactions");
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", b =>

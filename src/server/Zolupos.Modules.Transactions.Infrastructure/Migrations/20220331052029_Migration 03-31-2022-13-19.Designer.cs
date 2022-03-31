@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Modules.Transactions.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Modules.Transactions.Infrastructure.Context;
 namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 {
     [DbContext(typeof(TransactionsContext))]
-    partial class TransactionsContextModelSnapshot : ModelSnapshot
+    [Migration("20220331052029_Migration 03-31-2022-13-19")]
+    partial class Migration033120221319
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,50 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Zolupos.Modules.Inventory.Core.Entity.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
+
+                    b.Property<string>("BarCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastEdit")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("LastRestock")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ProductManufacturer")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductRetailCost")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductWholeSaleCost")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Product");
+                });
 
             modelBuilder.Entity("Zolupos.Modules.Transactions.Core.Entities.OrderedItems", b =>
                 {
@@ -30,15 +76,17 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderedItemsId"));
 
-                    b.Property<int>("OrderTransactionsId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("TransactionId")
                         .HasColumnType("integer");
 
                     b.HasKey("OrderedItemsId");
 
-                    b.HasIndex("OrderTransactionsId");
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("OrderedItems");
                 });
@@ -64,13 +112,21 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 
             modelBuilder.Entity("Zolupos.Modules.Transactions.Core.Entities.OrderedItems", b =>
                 {
-                    b.HasOne("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", "OrderTransactions")
-                        .WithMany("OrderedItems")
-                        .HasForeignKey("OrderTransactionsId")
+                    b.HasOne("Zolupos.Modules.Inventory.Core.Entity.Product", "ProductOrdered")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderTransactions");
+                    b.HasOne("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", "Transaction")
+                        .WithMany("OrderedItems")
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductOrdered");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("Zolupos.Modules.Transactions.Core.Entities.OrderTransactions", b =>

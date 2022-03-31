@@ -5,7 +5,7 @@ namespace Zolupos.Modules.Transactions.Core.Interfaces
 {
     public interface ITransactionsContext
     {
-        DbSet<OrderedItems> Ordereditems { get; set; }
+        DbSet<OrderedItems> OrderedItems { get; set; }
         DbSet<OrderTransactions> Transactions { get; set; }
 
         Task<int> Save();

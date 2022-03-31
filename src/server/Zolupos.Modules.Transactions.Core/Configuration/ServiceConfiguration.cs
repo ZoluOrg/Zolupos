@@ -13,6 +13,7 @@ namespace Zolupos.Modules.Transactions.Core.Configuration
     {
         public static IServiceCollection UseTransactionCore (this IServiceCollection services)
         {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;
         }

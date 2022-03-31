@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Transactions.Core.DTO;
 
-namespace Zolupos.Modules.Transactions.Core.Querry
+namespace Zolupos.Modules.Transactions.Core.Queries
 {
-    public record GetAllTransactionQuery () : IRequest<List<GetTransactionResponse>>;
+    public record GetTransactionById(int id) : IRequest<GetTransactionResponse>;
 }

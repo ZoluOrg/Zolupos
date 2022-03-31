@@ -13,7 +13,7 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Context
     {
         public TransactionsContext(DbContextOptions<TransactionsContext> options) : base(options) { }
         public DbSet<OrderTransactions> Transactions { get; set; }
-        public DbSet<OrderedItems> Ordereditems { get; set; }   
+        public DbSet<OrderedItems> OrderedItems { get; set; }
 
         public async Task<int> Save()
         {

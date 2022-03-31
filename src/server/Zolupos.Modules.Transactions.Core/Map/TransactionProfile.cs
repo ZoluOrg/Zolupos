@@ -13,7 +13,9 @@ namespace Zolupos.Modules.Transactions.Core.Map
     {
         public TransactionProfile()
         {
-            CreateMap<OrderTransactions, GetAllTransactionResponse>().ReverseMap();
+            CreateMap<OrderTransactions, GetTransactionResponse>().ReverseMap()
+                .ForMember(obj => obj.OrderedItems, dst => dst.MapFrom(src=>src.OrderedItems));
+            CreateMap<OrderedItems, GetOrderedItemResponse>().ReverseMap();
         }
     }
 }
