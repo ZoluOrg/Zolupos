@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
+namespace Zolupos.Modules.Employee.Infrastructure.Migrations
 {
-    public partial class Migration033120220830 : Migration
+    public partial class Migration040220221448 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

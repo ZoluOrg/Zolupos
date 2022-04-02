@@ -33,8 +33,14 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
                     b.Property<int>("OrderTransactionsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductOrderedId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("ProductOrderedQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("isProductReturned")
+                        .HasColumnType("boolean");
 
                     b.HasKey("OrderedItemsId");
 

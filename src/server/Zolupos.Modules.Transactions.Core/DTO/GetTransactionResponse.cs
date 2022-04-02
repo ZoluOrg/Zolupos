@@ -10,7 +10,7 @@ namespace Zolupos.Modules.Transactions.Core.DTO
 {
     public class GetTransactionResponse
     {
-        public int TransactionId { get; set; }
+        public int OrderTransactionsId { get; set; }
         public DateTime TransactedAt { get; set; }
         public int Total { get; set; }
         public List<GetOrderedItemResponse> OrderedItems { get; set; }

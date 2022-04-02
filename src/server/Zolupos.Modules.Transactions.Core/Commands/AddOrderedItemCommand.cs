@@ -8,6 +8,8 @@ namespace Zolupos.Modules.Transactions.Core.Commands
 {
     public class AddOrderedItemCommand
     {
-        public int ProductId { get; set; }
+        public int ProductOrderedId { get; set; }
+        public int ProductOrderedQuantity { get; set; }
+        public bool isProductReturned { get; set; }
     }
 }

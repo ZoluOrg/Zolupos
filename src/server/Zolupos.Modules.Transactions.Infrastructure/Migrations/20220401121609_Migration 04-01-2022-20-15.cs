@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 {
-    public partial class Migration033020222011 : Migration
+    public partial class Migration040120222015 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,36 +25,37 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ordereditems",
+                name: "OrderedItems",
                 columns: table => new
                 {
                     OrderedItemsId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductRef = table.Column<int>(type: "integer", nullable: false),
-                    TransacactionRef = table.Column<int>(type: "integer", nullable: false),
-                    ParentTransactionOrderTransactionsId = table.Column<int>(type: "integer", nullable: false)
+                    ProductOrderedId = table.Column<int>(type: "integer", nullable: false),
+                    ProductOrderedQuantity = table.Column<int>(type: "integer", nullable: false),
+                    isProductReturned = table.Column<bool>(type: "boolean", nullable: false),
+                    OrderTransactionsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ordereditems", x => x.OrderedItemsId);
+                    table.PrimaryKey("PK_OrderedItems", x => x.OrderedItemsId);
                     table.ForeignKey(
-                        name: "FK_Ordereditems_Transactions_ParentTransactionOrderTransaction~",
-                        column: x => x.ParentTransactionOrderTransactionsId,
+                        name: "FK_OrderedItems_Transactions_OrderTransactionsId",
+                        column: x => x.OrderTransactionsId,
                         principalTable: "Transactions",
                         principalColumn: "OrderTransactionsId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ordereditems_ParentTransactionOrderTransactionsId",
-                table: "Ordereditems",
-                column: "ParentTransactionOrderTransactionsId");
+                name: "IX_OrderedItems_OrderTransactionsId",
+                table: "OrderedItems",
+                column: "OrderTransactionsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ordereditems");
+                name: "OrderedItems");
 
             migrationBuilder.DropTable(
                 name: "Transactions");

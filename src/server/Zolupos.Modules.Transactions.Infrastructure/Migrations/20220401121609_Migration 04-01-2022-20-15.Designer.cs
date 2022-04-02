@@ -12,8 +12,8 @@ using Zolupos.Modules.Transactions.Infrastructure.Context;
 namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
 {
     [DbContext(typeof(TransactionsContext))]
-    [Migration("20220331104114_Migration 03-31-2022-18-40")]
-    partial class Migration033120221840
+    [Migration("20220401121609_Migration 04-01-2022-20-15")]
+    partial class Migration040120222015
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,8 +35,14 @@ namespace Zolupos.Modules.Transactions.Infrastructure.Migrations
                     b.Property<int>("OrderTransactionsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductOrderedId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("ProductOrderedQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("isProductReturned")
+                        .HasColumnType("boolean");
 
                     b.HasKey("OrderedItemsId");
 
