@@ -15,7 +15,6 @@ namespace Zolupos.Modules.Inventory.Core.Command
     /// <param name="productString"></param>
     public record AddProductCommand : IRequest<int>
     {
-        public int ProductId { get; set; }
         public DateTime LastEdit { get; set; }
         public DateTime LastRestock { get; set; }
         public string ProductName { get; set; }

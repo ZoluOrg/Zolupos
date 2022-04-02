@@ -41,5 +41,12 @@ namespace Zolupos.Modules.Transactions.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteTransaction(int id)
+        {
+            var result = await _mediator.Send(new DeleteTransactionCommand(id));
+            return Ok(result);
+        }
     }
 }
