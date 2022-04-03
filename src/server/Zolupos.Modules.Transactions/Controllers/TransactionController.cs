@@ -42,6 +42,13 @@ namespace Zolupos.Modules.Transactions.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> ReturnOrderedItem([FromQuery] int orderTransactionId, [FromQuery] int orderedItemId)
+        {
+            var result = await _mediator.Send(new ReturnOrderedItemCommand(orderTransactionId, orderedItemId));
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteTransaction(int id)
         {
