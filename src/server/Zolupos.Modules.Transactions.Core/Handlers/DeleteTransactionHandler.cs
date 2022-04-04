@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Transactions.Core.Commands;
+using Zolupos.Modules.Transactions.Core.Exceptions;
 using Zolupos.Modules.Transactions.Core.Interfaces;
+using Zolupos.Shared.Core;
 using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Transactions.Core.Handlers
@@ -20,9 +23,9 @@ namespace Zolupos.Modules.Transactions.Core.Handlers
         }
 
         public async Task<ResultWrapper<int>> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
-        {
+        {   
             var product = await _context.Transactions.Where(tr => tr.OrderTransactionsId == request.id).FirstOrDefaultAsync();
-            if (product is null) throw new Exception($"Transaction with the id of {request.id} does not exist!");
+            if (product is null) throw new InventoryException($"Transaction with the id of {request.id} does not exist!", HttpStatusCode.UnprocessableEntity);
             _context.Transactions.Remove(product);
             await _context.Save();
             return new ResultWrapper<int> { Value = product.OrderTransactionsId, Message="Product Deleted"};
