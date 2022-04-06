@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useRef } from "react";
 import { usePosContext } from "../../../context/PosContext";
-import { IProductBase } from "../../../interfaces/IProductBase";
+import { IProductBase } from "../../../interfaces/inventory/IProductBase";
 
 interface Props extends IProductBase, React.HTMLProps<HTMLLIElement> {
   idx: number;

@@ -4,6 +4,7 @@ import { IProduct } from "../interfaces/IProduct";
 import { IPosContext } from "../interfaces/PosContext/IPosContext";
 import { getProducts } from "../modules/inventory/Helper";
 import "react-toastify/dist/ReactToastify.css";
+import { IPunched } from "../interfaces/transaction/IPunched";
 
 const defaultValues: IPosContext = {
   products: [],
@@ -18,14 +19,16 @@ const defaultValues: IPosContext = {
   setSelected: (idx: number) => null,
   setSearchedInput: (s: string) => null,
   resetSearch: () => null,
-  setIsSearching: (val:boolean) => null
+  setIsSearching: (val: boolean) => null,
+  setPunchedQuantity: (qty: number, id: number) => null,
+  setDiscount: (qty: number, id: number) => null,
 };
 
 let posContext = createContext(defaultValues);
 
 export const PosContext: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Array<IProduct>>([]);
-  const [punched, setPunched] = useState<Array<IProduct>>([]);
+  const [punched, setPunched] = useState<Array<IPunched>>([]);
   const [searched, setSearched] = useState<Array<IProduct>>([]);
   const [selected, setSelected] = useState<number>(0);
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -40,20 +43,21 @@ export const PosContext: React.FC = ({ children }) => {
   }, []);
 
   const addPunched = async (barCode: string) => {
-    const product = products.filter(prds => prds.barCode == barCode);
-    console.log(product.length);
+    const product = products.filter((prds) => prds.barCode == barCode);
     if (product.length == 1) {
-      setPunched(old => [...old, product[0]]);
+      const punch: IPunched = { Product: product[0], Quantity: 0 };
+      setPunched((old) => [...old, punch]);
       console.log(punched);
-    } if (product.length > 1) {
+    }
+    if (product.length > 1) {
       toast.error(`Error. "${barCode}" is being used by multiple products`);
     }
   };
 
   const removeToPunched = async (product: number) => {
     setPunched(
-      punched?.filter((prPunched) => prPunched.productId !== product)!
-    );
+      punched?.filter((prPunched) => prPunched.Product.productId !== product)!
+    ); 
     console.log("🤛 out");
   };
 
@@ -68,6 +72,10 @@ export const PosContext: React.FC = ({ children }) => {
   };
 
   const resetSearch = () => setSearched([]);
+
+  const setPunchedQuantity = (qty: number, id:number ) => {
+
+  }
 
   return (
     <posContext.Provider
@@ -84,7 +92,7 @@ export const PosContext: React.FC = ({ children }) => {
         setSelected: setSelected,
         setSearchedInput: setSearchedInput,
         resetSearch: resetSearch,
-        setIsSearching: setIsSearching
+        setIsSearching: setIsSearching,
       }}
     >
       {children}
