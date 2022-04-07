@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { usePosContext } from "../../../context/PosContext";
+import { useSearchContext } from "../../../context/pos/SearchContext";
 
 export const NoProduct = () => {
-  const ctx = usePosContext();
+  const searchContext = useSearchContext();
   const [sadEmoji, setSadEmoji] = useState("");
   useEffect(() => {
     randomSadEmoji();
-  }, [ctx.searchedInput]);
+  }, [searchContext.searchedInput]);
   const randomSadEmoji = () => {
     const sadEmojis = [
       "😔",
@@ -27,7 +27,7 @@ export const NoProduct = () => {
   };
   return (
     <div>
-      <span className="font-bold">{ctx.searchedInput}</span> does not exist in
+      <span className="font-bold">{searchContext.searchedInput}</span> does not exist in
       the database {sadEmoji}
     </div>
   );

@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "../../../components/UI/Button";
 import { Input } from "../../../components/UI/Input";
-import { usePosContext } from "../../../context/PosContext";
-import { IProduct } from "../../../interfaces/IProduct";
-import { BsEye } from "react-icons/bs";
 import { IPunched } from "../../../interfaces/transaction/IPunched";
 
 interface Props {
@@ -11,7 +8,6 @@ interface Props {
 }
 
 export const PunchedButton: React.FC<Props> = ({ pr }) => {
-  const ctx = usePosContext();
   const onQuantityChange = (e: React.FormEvent<HTMLInputElement>) => {
     console.log(pr.Quantity);
   };

@@ -1,8 +1,9 @@
 import React from 'react'
-import { usePosContext } from '../../context/PosContext'
+import { usePunchedContext } from '../../context/pos/PunchedContext';
+
 
 export const Bill = () => {
-	let ctx = usePosContext();
+	let ctx = usePunchedContext();
 	return (
 		<div className="bg-bg-light-darker flex-grow border-l">{ctx.punched?.length}</div>
 	)

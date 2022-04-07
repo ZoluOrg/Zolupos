@@ -1,14 +1,14 @@
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import React, { createRef, useEffect } from "react";
-import { usePosContext } from "../../../context/PosContext";
+import { useSearchContext } from "../../../context/pos/SearchContext";
 import { AutoCompleteButton } from "./AutoCompleteButton";
 import { NoProduct } from "./NoProduct";
 
 export const AutoComplete = () => {
-  const ctx = usePosContext();
+  const searchContexxt = useSearchContext();
   return (
     <AnimatePresence>
-      {ctx.isSearching && (
+      {searchContexxt.isSearching && (
         <motion.ul
           className="autocomplete w-full border-2 border-slate-300 rounded-b absolute bg-bg-light-base p-1 max-h-96 overflow-y-scroll"
           initial={{ y: -10, opacity: 0 }}
@@ -16,13 +16,15 @@ export const AutoComplete = () => {
           exit={{ y: 0, opacity: 0 }}
         >
           {
-            ctx.searched.length != 0 ? ctx.searched.map((pr, idx) => (
+            searchContexxt.searched.length != 0 ? searchContexxt.searched.map((pr, idx) => (
               <AutoCompleteButton
                 productName={pr.productName}
                 productQuantity={pr.productQuantity}
                 productManufacturer={pr.productManufacturer}
                 barCode={pr.barCode}
                 productType={pr.productType}
+                productRetailCost={pr.productRetailCost}
+                productWholeSaleCost={pr.productWholeSaleCost}
                 idx={idx}
               />
             )) : <NoProduct/>

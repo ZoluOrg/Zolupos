@@ -1,13 +1,13 @@
 import React from "react";
-import { usePosContext } from "../../../context/PosContext";
+import { usePunchedContext } from "../../../context/pos/PunchedContext";
 import { NothingPunched } from "./NothingPunched";
 import { PunchedButton } from "./PunchedButton";
 
 export const PuncedList = () => {
-  const ctx = usePosContext();
+  const punchedContext = usePunchedContext();
   return (
     <div className="h-full w-full overflow-y-scroll">
-      {ctx.punched.length != 0 ? <table className="table-auto w-full border border-collapse">
+      {punchedContext.punched.length != 0 ? <table className="table-auto w-full border border-collapse">
         <thead>
           <tr>
             <th className="p-5 border">Product Name</th>
@@ -19,7 +19,7 @@ export const PuncedList = () => {
           </tr>
         </thead>
         <tbody>
-          {ctx.punched.map((pr, idx) => (
+          {punchedContext.punched.map((pr, idx) => (
             <PunchedButton pr={pr} />
           ))}
         </tbody>

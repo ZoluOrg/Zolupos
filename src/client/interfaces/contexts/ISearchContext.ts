@@ -9,4 +9,5 @@ export interface ISearchContext {
 	setSearchedInput: (filter: string) => void;
 	resetSearch: () => void;
 	setIsSearching: (bool: boolean) => void;
+	setSelected: (idx: number) => void;
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { ISearchContext } from "../../interfaces/contexts/ISearchContext";
 import { IProduct } from "../../interfaces/inventory/IProduct";
 import { useProductContext } from "./ProductContext";
@@ -12,6 +12,7 @@ const defaultSearchContextValue: ISearchContext = {
   setSearchedInput: (filter: string) => {},
   resetSearch: () => {},
   setIsSearching: (boo: boolean) => {},
+  setSelected: (idx: number) => {}
 };
 
 const SearchContext = createContext(defaultSearchContextValue);
@@ -47,9 +48,14 @@ export const SearchProvider: React.FC = ({ children }) => {
         setSearchedInput,
         resetSearch,
         setIsSearching,
+        setSelected
       }}
     >
       {children}
     </SearchContext.Provider>
   );
 };
+
+export const useSearchContext = () => {
+  return useContext(SearchContext);
+}
