@@ -40,7 +40,7 @@ namespace Zolupos.Modules.Employee.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<ActionResult> AddEmployee(AddEmployeeRequest employee)
         {
             if (employee == null) return BadRequest(new { message = "Employee Invalid" });

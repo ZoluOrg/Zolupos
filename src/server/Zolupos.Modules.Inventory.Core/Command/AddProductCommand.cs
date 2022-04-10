@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Inventory.Core.DTO;
 using Zolupos.Modules.Inventory.Core.Entity;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Command
 {
@@ -13,7 +14,7 @@ namespace Zolupos.Modules.Inventory.Core.Command
     /// 
     /// </summary>
     /// <param name="productString"></param>
-    public record AddProductCommand : IRequest<int>
+    public record AddProductCommand : IRequest<ResultWrapper<int>>
     {
         public DateTime LastEdit { get; set; }
         public DateTime LastRestock { get; set; }

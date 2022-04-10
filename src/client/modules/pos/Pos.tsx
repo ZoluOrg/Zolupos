@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-import React, { useEffect } from "react";
-import { useCredentialContext } from "../../context/CredentialContext";
+import React from "react"
 import { ProductProvider } from "../../context/pos/ProductContext";
 import { PunchedProvider } from "../../context/pos/PunchedContext";
 import { SearchProvider } from "../../context/pos/SearchContext";
@@ -9,7 +7,6 @@ import { Bill } from "./Bill";
 import { Punched } from "./Punched";
 
 export const Pos = () => {
-  const crds = useCredentialContext();
   return (
     <PageTransition>
         <ProductProvider>

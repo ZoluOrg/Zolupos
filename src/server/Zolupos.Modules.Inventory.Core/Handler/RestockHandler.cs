@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Modules.Inventory.Core.Command;
 using Zolupos.Modules.Inventory.Core.Interface;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Inventory.Core.Handler
 {
-    public class RestockHandler : IRequestHandler<RestockCommand, int>
+    public class RestockHandler : IRequestHandler<RestockCommand, ResultWrapper<int>>
     {
         public readonly IMapper _mapper;
         public readonly IInventoryDbContext _context;
@@ -22,7 +23,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             _context = context;
         }
 
-        public async Task<int> Handle(RestockCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<int>> Handle(RestockCommand request, CancellationToken cancellationToken)
         {
             var toEdit = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == request.id);
             toEdit.LastRestock = DateTime.UtcNow;
@@ -30,7 +31,7 @@ namespace Zolupos.Modules.Inventory.Core.Handler
             toEdit.ProductQuantity += request.amount;
             _context.Products.Update(toEdit);
             await _context.SaveChanges();
-            return toEdit.ProductId;
+            return new ResultWrapper<int> { Value = toEdit.ProductId, Message = "" };
         }
     }
 }

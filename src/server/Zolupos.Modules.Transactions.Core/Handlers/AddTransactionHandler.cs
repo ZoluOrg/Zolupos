@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using Zolupos.Modules.Transactions.Core.Commands;
 using Zolupos.Modules.Transactions.Core.Entities;
 using Zolupos.Modules.Transactions.Core.Interfaces;
+using Zolupos.Shared.Core.Wrapper;
 
 namespace Zolupos.Modules.Transactions.Core.Handlers
 {
-    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, int>
+    public class AddTransactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int>>
     {
         private ITransactionsContext _context;
         private IMapper _mapper;
@@ -22,12 +23,12 @@ namespace Zolupos.Modules.Transactions.Core.Handlers
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<int>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {
             var mapped = _mapper.Map<OrderTransactions>(request);
             await _context.Transactions.AddAsync(mapped);
             await _context.Save();
-            return mapped.OrderTransactionsId;
+            return new ResultWrapper<int> { Value = mapped.OrderTransactionsId, Message = "" };
         }
     }
 }

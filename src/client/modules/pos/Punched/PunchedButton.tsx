@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button } from "../../../components/UI/Button";
 import { Input } from "../../../components/UI/Input";
 import { IPunched } from "../../../interfaces/transaction/IPunched";
+import {MdOutlineDeleteForever} from "react-icons/md"
 
 interface Props {
   pr: IPunched;
@@ -30,7 +31,7 @@ export const PunchedButton: React.FC<Props> = ({ pr }) => {
       </td>
       <td className=" py-2 text-center">{pr.Product.productWholeSaleCost}</td>
       <td className=" py-2 text-center flex justify-center w-full h-full">
-        <Button>Del</Button>
+        <Button Icon={<MdOutlineDeleteForever/>} className="h-full"></Button>
       </td>
     </tr>
   );

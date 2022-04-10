@@ -12,16 +12,16 @@ import {
 import { ILoginForm } from "../../interfaces/FormValues";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
-import { Login } from "../authentication/Login";
+import { Login } from "../../services/authentication/AuthenticationService";
 import { useRouter } from "next/router";
-import Cookie from "cookie";
 import { wrongCredentials } from "./Helper";
 import Cookies from "js-cookie";
 import { useCredentialContext } from "../../context/CredentialContext";
-
+import { useMutation, useQuery } from "react-query";
 
 export const Form = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const { status: loginState, mutateAsync: loginAsync } = useMutation(Login);
   const credsCtx = useCredentialContext();
   const router = useRouter();
 
@@ -30,16 +30,16 @@ export const Form = () => {
       FirstName: form.name,
       Pin: form.pin,
     };
-    let response = await Login(AuthRequest);
-    console.log(response);
-    if (response != null) {
-      Cookies.set("zoluken", response);
-      credsCtx.updateCreds();
-      router.push("/");
-    } else {
-      console.log("error!!");
-      wrongCredentials();
-    }
+    loginAsync(AuthRequest, {
+      onSuccess: (data) => {
+        Cookies.set("zoluken", data);
+        credsCtx.updateCreds();
+        router.push("/");
+      },
+      onError: () => {
+        wrongCredentials();
+      },
+    });
   };
 
   return (
@@ -97,6 +97,7 @@ export const Form = () => {
                     Color="secondary"
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    Subtle
                   >
                     {showPassword ? <BsEyeSlash /> : <BsEye />}
                   </Button>
@@ -111,7 +112,7 @@ export const Form = () => {
                 </ErrorMessage>
               </div>
 
-              <Button type="submit" IsLoading={isSubmitting}>
+              <Button type="submit" IsLoading={loginState == "loading"}>
                 Continue
               </Button>
             </FormikForm>
