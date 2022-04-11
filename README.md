@@ -10,6 +10,9 @@ Zolupos is a **modern** POS system built with ASP.net core, React JS and Electro
 - .Net 6
 - Postgres SQL  
 
+### Figma
+Design: [UI Components Experimental](https://www.figma.com/file/wWOUndHIlA0Ie1YQu6DFy7/Untitled?node-id=4%3A3)
+
 ### Migration
 Read the docs for migration at `docs/Migration.md`
 
