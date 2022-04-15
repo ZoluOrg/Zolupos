@@ -1,6 +1,9 @@
 # Zolupos | A Modern POS system
 Zolupos is a **modern** POS system built with ASP.net core, React JS and Electron
 
+## Note
+The new design will be using remixjs for frontend. I am waiting for this [pull](https://github.com/remix-run/remix/pull/2763) to be released.
+
 ## Currently Working On
 - [X] Rewriting API
 - [ ] Put UI in front end
