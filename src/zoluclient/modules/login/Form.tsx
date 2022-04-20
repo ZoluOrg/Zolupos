@@ -18,8 +18,10 @@ export const Form = () => {
         <div className="forms flex flex-col gap-2 mt-9">
           <Input className="w-96" placeholder="Name" />
           <Input className="w-96" placeholder="Password" />
-          <Checkbox/>
-          <Button className="mt-8">Submit</Button>
+          <div className="flex items-center gap-2">
+            <Checkbox /> Show password?
+          </div>
+          <Button className="mt-8">Continue</Button>
         </div>
       </div>
     </div>
