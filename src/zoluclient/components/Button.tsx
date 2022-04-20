@@ -19,10 +19,11 @@ export const Button: FC<Props> = ({
   children,
   Color = "accent",
   Spacing = "normal",
+  className
 }) => {
   return (
     <button
-      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} rounded-lg font-bold transition`}
+      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} ${className} rounded-lg font-bold transition `}
     >
       {children}
     </button>
