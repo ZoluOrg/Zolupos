@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Zolulogo } from "../../components/zolulogo";
 import Cookie from "js-cookie";
-import { Formik, Form as FormikForm, Field } from "formik";
+import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
 import { useMutation } from "react-query";
 import { AuthenticateEmployee } from "../Authentication/AuthService";
-import { useRouter } from "next/router";
-import { Input } from "postcss";
+import { NextRouter, useRouter } from "next/router";
 import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+import { Checkbox } from "../../components/Checkbox";
+import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
 
 export const Form = () => {
   const InitialValues: IEmployeeLogin = { FirstName: "", Pin: "" };
   const FormMutation = useMutation(AuthenticateEmployee);
-  const Router = useRouter();
+  const EmpContext = UseEmployeeCredentialsContext();
+  const [ShowPassword, SetShowPassword] = useState<boolean>(false);
+  const Router: NextRouter = useRouter();
 
   const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
-    FormMutation.mutateAsync(FormValue, {
-      onSuccess: (data) => {
-        Cookie.set("zolupos-user-token", data.value);
-        // TODO: Update user cred ctx.
+    console.log(FormValue);
+    await FormMutation.mutateAsync(FormValue, {
+      onSuccess: async (data) => {
+        Cookie.set("zolupos-employee-token", data.value);
+        await EmpContext.GetCreds();
         Router.push("/");
       },
       onError: () => {
@@ -37,24 +42,40 @@ export const Form = () => {
           <span className="text-lg font-bold">Login</span>
         </div>
         <div className="forms flex flex-col gap-2.5 mt-9">
-          <Formik initialValues={InitialValues} onSubmit={() => {}}>
+          <Formik
+            initialValues={InitialValues}
+            onSubmit={async (
+              values: IEmployeeLogin,
+              { setSubmitting }: FormikHelpers<IEmployeeLogin>
+            ) => {
+              AuthenticateWithCreds(values);
+            }}
+          >
             {({ isSubmitting }) => (
               <FormikForm>
-                <Field
-                  as={Input}
-                  id="FirstName"
-                  placeholder="First Name"
-                  type="text"
-                  className="w-96"
-                />
-                <Field
-                  as={Input}
-                  id="Pin"
-                  placeholder="Password"
-                  type="text"
-                  className="w-96"
-                />
-                <Button type="submit">Submit</Button>
+                <div className="flex flex-col gap-2.5">
+                  <Field
+                    as={Input}
+                    name="FirstName"
+                    placeholder="First Name"
+                    type="text"
+                    className="w-96"
+                  />
+                  <Field
+                    as={Input}
+                    name="Pin"
+                    placeholder="Password"
+                    type={ShowPassword ? "text" : "password"}
+                    className="w-96"
+                  />
+                  <div className="flex gap-2 items-center">
+                    <Checkbox onChange={() => SetShowPassword(!ShowPassword)} />
+                    <span>Show Password</span>
+                  </div>
+                </div>
+                <Button type="submit" className="w-full py-2.5 mt-9">
+                  Submit
+                </Button>
               </FormikForm>
             )}
           </Formik>

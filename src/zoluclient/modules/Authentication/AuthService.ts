@@ -6,7 +6,7 @@ export const AuthenticateEmployee = async (
   EmployeeCredentials: IEmployeeLogin
 ) => {
   let response = await axios.post<ResultWrapper<string>>(
-    "https://localhost:3001/api/Authentication",
+    "https://localhost:7116/api/Authentication",
     EmployeeCredentials
   );
   return response.data;

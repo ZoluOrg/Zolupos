@@ -12,6 +12,7 @@ specifiers:
   eslint-config-next: 12.1.5
   formik: ^2.2.9
   js-cookie: ^3.0.1
+  jwt-decode: ^3.1.2
   next: 12.1.5
   postcss: ^8.4.12
   react: 18.0.0
@@ -27,6 +28,7 @@ dependencies:
   axios: 0.26.1
   formik: 2.2.9_react@18.0.0
   js-cookie: 3.0.1
+  jwt-decode: 3.1.2
   next: 12.1.5_react-dom@18.0.0+react@18.0.0
   postcss: 8.4.12
   react: 18.0.0
@@ -1410,6 +1412,10 @@ packages:
       array-includes: 3.1.4
       object.assign: 4.1.2
     dev: true
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+    dev: false
 
   /language-subtag-registry/0.3.21:
     resolution: {integrity: sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==}
