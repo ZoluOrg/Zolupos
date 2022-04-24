@@ -6,7 +6,7 @@ The new design will be using remixjs for frontend. I am waiting for this [pull](
 
 ## Currently Working On
 - [X] Rewriting API
-- [ ] Put UI in front end
+- [ ] Fucking React-Query
  
 ## Getting Started
 ### Prerequisite
