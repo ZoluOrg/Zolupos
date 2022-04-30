@@ -6,7 +6,7 @@ HOLA my pc broke the development will be paused until it's fixed
 
 ## Currently Working On
 - [X] Rewriting API
-- [ ] Fucking React-Query
+- [ ] removing react query and rewriting credentials context ☹️
  
 ## Getting Started
 ### Prerequisite
