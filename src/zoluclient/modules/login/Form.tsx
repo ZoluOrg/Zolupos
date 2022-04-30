@@ -20,16 +20,6 @@ export const Form = () => {
 
   const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
     console.log(FormValue);
-    await FormMutation.mutateAsync(FormValue, {
-      onSuccess: async (data) => {
-        Cookie.set("zolupos-employee-token", data.value);
-        await EmpContext.GetCreds();
-        Router.push("/");
-      },
-      onError: () => {
-        console.error("Authentication Error");
-      },
-    });
   };
 
   return (

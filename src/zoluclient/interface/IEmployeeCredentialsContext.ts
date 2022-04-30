@@ -4,5 +4,5 @@ export interface IEmployeeCredentialsContext {
   Creds: IEmployee | null
   Token: string;
   IsAuthenticated: boolean;
-  GetCreds: () => void;
+  GetCreds: () => Promise<void>;
 }
