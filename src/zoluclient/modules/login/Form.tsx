@@ -3,9 +3,8 @@ import { Zolulogo } from "../../components/zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
-import { useMutation } from "react-query";
 import { AuthenticateEmployee } from "../Authentication/AuthService";
-import { NextRouter, useRouter } from "next/router";
+import Router from "next/router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
@@ -13,13 +12,18 @@ import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentials
 
 export const Form = () => {
   const InitialValues: IEmployeeLogin = { FirstName: "", Pin: "" };
-  const FormMutation = useMutation(AuthenticateEmployee);
   const EmpContext = UseEmployeeCredentialsContext();
   const [ShowPassword, SetShowPassword] = useState<boolean>(false);
-  const Router: NextRouter = useRouter();
 
   const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
     console.log(FormValue);
+    let data = await AuthenticateEmployee(FormValue).catch((error) =>
+      alert("authentication error")
+    );
+    if (data) {
+      await EmpContext.SetToken(data.value);
+      Router.push("/");
+    }
   };
 
   return (
