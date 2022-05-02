@@ -32,7 +32,7 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
     if (EmpToken && UserCreds) {
       SetActToken(EmpToken);
       SetCreds(JSON.parse(UserCreds));
-    } else console.log("User is not authenticated!");
+    } else console.log("Employee not authenticated!");
   }, [Token, Creds]);
 
   const SetToken = async (TokenToSave: string) => {
@@ -44,7 +44,10 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
     const Parsed = ParseJWT(TokenToSave);
     let EmployeeCredentials = await GetEmployeesById(Parsed["unique_name"]);
     SetCreds(EmployeeCredentials.value);
-    Cookies.set("zolupos-employee-creds", JSON.stringify(EmployeeCredentials.value));
+    Cookies.set(
+      "zolupos-employee-creds",
+      JSON.stringify(EmployeeCredentials.value)
+    );
   };
 
   return (

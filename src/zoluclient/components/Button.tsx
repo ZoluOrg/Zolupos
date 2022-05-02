@@ -12,6 +12,7 @@ const ColorSelection = {
 };
 
 const SpacingSelection = {
+  xtrasmall: "py-1 px-1",
   normal: "py-2 px-4",
 };
 
@@ -19,11 +20,13 @@ export const Button: FC<Props> = ({
   children,
   Color = "accent",
   Spacing = "normal",
-  className
+  className,
+  ...props
 }) => {
   return (
     <button
-      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} ${className} rounded-lg font-bold transition `}
+      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} ${className} rounded-lg font-bold transition`}
+      {...props}
     >
       {children}
     </button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Zolulogo } from "../../components/zolulogo";
+import { Zolulogo } from "../../components/Zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { IEmployeeLogin } from "../../interface/IEmployeeLogin";

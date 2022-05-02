@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import { Navbar } from "../Navbar";
 
 export const LandingComponent = () => {
   return (
-    <div>LandingComponent</div>
-  )
-}
+    <div className="h-full">
+      <Navbar />
+    </div>
+  );
+};
