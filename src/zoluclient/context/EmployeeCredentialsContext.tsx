@@ -37,13 +37,16 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
 
   const SetToken = async (TokenToSave: string) => {
     // SetToken
+    console.log("setting token");
     SetActToken(TokenToSave);
     Cookies.set("zolupos-employee-token", TokenToSave);
+    console.log("token set");
 
     // GetSet Creds
     const Parsed = ParseJWT(TokenToSave);
     let EmployeeCredentials = await GetEmployeesById(Parsed["unique_name"]);
     SetCreds(EmployeeCredentials.value);
+    console.log(EmployeeCredentials.value);
     Cookies.set(
       "zolupos-employee-creds",
       JSON.stringify(EmployeeCredentials.value)

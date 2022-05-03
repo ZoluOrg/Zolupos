@@ -5,4 +5,5 @@ export interface IEmployee {
   LastLogin: Date | null;
   PinHashed: string;
   Role: string;
+  profileURL: string;
 }

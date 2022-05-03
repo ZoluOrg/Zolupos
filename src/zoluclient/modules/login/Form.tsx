@@ -18,7 +18,7 @@ export const Form = () => {
   const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
     console.log(FormValue);
     let data = await AuthenticateEmployee(FormValue).catch((error) =>
-      alert("authentication error")
+      alert("error")
     );
     if (data) {
       await EmpContext.SetToken(data.value);

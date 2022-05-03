@@ -1,35 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Zolulogo } from "../../components/Zolulogo";
 import { Button } from "../../components/Button";
-import { ArrowLeft, ArrowRight } from "phosphor-react";
+import { ArrowLeft } from "phosphor-react";
 import { CurrentTime } from "../../components/CurrentTime";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
+import { CustomSpinner } from "../../components/CustomSpinner";
 
 export const Navbar = () => {
+  const [IsLoading, SetIsLoading] = useState<boolean>(true);
   const Router = useRouter();
+  const EmployeeCreds = UseEmployeeCredentialsContext();
+  useEffect(() => {
+    SetIsLoading(false);
+  }, []);
 
   return (
-    <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1">
-      <div className="right-buttons flex items-center gap-6">
-        <div className="logo">
-          <Zolulogo light />
+    <>
+      {IsLoading ? (
+        <div className="flex h-full items-center justify-center">
+          <CustomSpinner dark />
         </div>
-        <div className="buttons flex gap-3.5">
-          <Button
-            Color="coal"
-            Spacing="xtrasmall"
-            onClick={() => Router.back()}
-          >
-            <ArrowLeft size={21} weight="bold" />
-          </Button>
-          <Button Color="coal" Spacing="xtrasmall">
-            <ArrowRight size={21} weight="bold" />
-          </Button>
+      ) : (
+        <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1 flex justify-between">
+          <div className="left-buttons flex items-center gap-6">
+            <div className="logo">
+              <Zolulogo light />
+            </div>
+            <div className="buttons flex gap-3.5">
+              <Button
+                Color="coal"
+                Spacing="xtrasmall"
+                onClick={() => Router.back()}
+              >
+                <ArrowLeft size={21} weight="bold" />
+              </Button>
+            </div>
+            <div className="time">
+              <CurrentTime />
+            </div>
+          </div>
+          <div className="right-buttons flex items-center gap-6">
+            <div className="profile flex items-center">
+              <Image
+                src={EmployeeCreds.Creds?.profileURL!}
+                height={24}
+                width={24}
+                className="rounded-full"
+              />
+            </div>
+          </div>
         </div>
-        <div className="time">
-          <CurrentTime />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };

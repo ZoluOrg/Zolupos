@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 interface Props {
-  dark?: false;
+  dark?: boolean;
 }
 
 export const CustomSpinner: FC<Props> = ({ dark }) => {

@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React from "react";
-import { Spinner } from "../components/Spinner";
 import { Zolulogo } from "../components/Zolulogo";
 
 const Custom404 = () => {
