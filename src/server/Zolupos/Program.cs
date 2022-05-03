@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Zolupos.Modules.Transactions.Configuration;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,11 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Zolupos.Static")),
+        RequestPath = "/Zolupos.Static"
+    }); ;
 
     app.MapControllers();
 
