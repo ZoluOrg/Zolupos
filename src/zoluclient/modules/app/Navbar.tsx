@@ -13,8 +13,9 @@ export const Navbar = () => {
   const Router = useRouter();
   const EmployeeCreds = UseEmployeeCredentialsContext();
   useEffect(() => {
+    console.log(EmployeeCreds.Creds?.FirstName);
     SetIsLoading(false);
-  }, []);
+  }, [EmployeeCreds]);
 
   return (
     <>
