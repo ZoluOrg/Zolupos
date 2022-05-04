@@ -1,123 +1,79 @@
 import React, { useState } from "react";
-import { Button } from "../../components/UI/Button";
-import { Input } from "../../components/UI/Input";
-import {
-  Formik,
-  Form as FormikForm,
-  Field,
-  ErrorMessage,
-  FormikErrors,
-  FormikHelpers,
-} from "formik";
-import { ILoginForm } from "../../interfaces/FormValues";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { IAuthenticationRequest } from "../../interfaces/authentication/IAuthenticationRequest";
-import { Login } from "../../services/authentication/AuthenticationService";
-import { useRouter } from "next/router";
-import { wrongCredentials } from "./Helper";
-import Cookies from "js-cookie";
-import { useCredentialContext } from "../../context/CredentialContext";
-import { useMutation, useQuery } from "react-query";
+import { Zolulogo } from "../../components/Zolulogo";
+import Cookie from "js-cookie";
+import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
+import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
+import { AuthenticateEmployee } from "../Authentication/AuthService";
+import Router from "next/router";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+import { Checkbox } from "../../components/Checkbox";
+import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
 
 export const Form = () => {
-  const [showPassword, setShowPassword] = useState(true);
-  const { status: loginState, mutateAsync: loginAsync } = useMutation(Login);
-  const credsCtx = useCredentialContext();
-  const router = useRouter();
+  const InitialValues: IEmployeeLogin = { FirstName: "", Pin: "" };
+  const EmpContext = UseEmployeeCredentialsContext();
+  const [ShowPassword, SetShowPassword] = useState<boolean>(false);
 
-  const HandleSubmit = async (form: ILoginForm) => {
-    let AuthRequest: IAuthenticationRequest = {
-      FirstName: form.name,
-      Pin: form.pin,
-    };
-    loginAsync(AuthRequest, {
-      onSuccess: (data) => {
-        Cookies.set("zoluken", data);
-        credsCtx.updateCreds();
-        router.push("/");
-      },
-      onError: () => {
-        wrongCredentials();
-      },
-    });
+  const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
+    console.log(FormValue);
+    let data = await AuthenticateEmployee(FormValue).catch((error) =>
+      alert("error")
+    );
+    if (data) {
+      await EmpContext.SetToken(data.value);
+      Router.push("/");
+    }
   };
 
   return (
-    <div className="logcont w-96 h-80 p-5 border rounded flex flex-col justify-center">
-      <span className="Header text-2xl font-bold">Login</span>
-      <div className="form mt-3">
-        <Formik
-          initialValues={{
-            name: "",
-            pin: "",
-          }}
-          validate={(values) => {
-            const errors: FormikErrors<ILoginForm> = {};
-            if (!values.name) {
-              errors.name = "Name is required!";
-            }
-            if (!values.pin) {
-              errors.pin = "Pin is required!";
-            }
-            return errors;
-          }}
-          onSubmit={async (
-            values: ILoginForm,
-            { setSubmitting }: FormikHelpers<ILoginForm>
-          ) => {
-            await HandleSubmit(values);
-            setSubmitting(false);
-          }}
-        >
-          {({ isSubmitting }) => (
-            <FormikForm className="flex flex-col gap-3">
-              <div className="flex flex-col">
-                <label htmlFor="Name">Name</label>
-                <Field
-                  id="Name"
-                  name="name"
-                  placeholder="John"
-                  type="text"
-                  as={Input}
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label htmlFor="Pin">Pin</label>
-                <div className="flex flex-row gap-1">
+    <div className="border-2 border-mallow-3 rounded-lg py-8 px-6">
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="logo">
+          <Zolulogo />
+        </div>
+        <div className="sub flex items-center justify-center">
+          <span className="text-lg font-bold">Login</span>
+        </div>
+        <div className="forms flex flex-col gap-2.5 mt-9">
+          <Formik
+            initialValues={InitialValues}
+            onSubmit={async (
+              values: IEmployeeLogin,
+              { setSubmitting }: FormikHelpers<IEmployeeLogin>
+            ) => {
+              AuthenticateWithCreds(values);
+            }}
+          >
+            {({ isSubmitting }) => (
+              <FormikForm>
+                <div className="flex flex-col gap-2.5">
                   <Field
-                    id="Pin"
-                    name="pin"
-                    placeholder="Pin"
-                    type={showPassword ? "text" : "password"}
                     as={Input}
-                    className="w-full"
+                    name="FirstName"
+                    placeholder="First Name"
+                    type="text"
+                    className="w-96"
                   />
-                  <Button
-                    Color="secondary"
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    Subtle
-                  >
-                    {showPassword ? <BsEyeSlash /> : <BsEye />}
-                  </Button>
+                  <Field
+                    as={Input}
+                    name="Pin"
+                    placeholder="Password"
+                    type={ShowPassword ? "text" : "password"}
+                    className="w-96"
+                  />
+                  <div className="flex gap-2 items-center">
+                    <Checkbox onChange={() => SetShowPassword(!ShowPassword)} />
+                    <span>Show Password</span>
+                  </div>
                 </div>
-              </div>
-              <div className="errors">
-                <ErrorMessage name="name">
-                  {(msg) => <p className="text-primary-dark">{msg}</p>}
-                </ErrorMessage>
-                <ErrorMessage name="pin">
-                  {(msg) => <p className="text-primary-dark">{msg}</p>}
-                </ErrorMessage>
-              </div>
-
-              <Button type="submit" IsLoading={loginState == "loading"}>
-                Continue
-              </Button>
-            </FormikForm>
-          )}
-        </Formik>
+                <Button type="submit" className="w-full py-2.5 mt-9">
+                  Submit
+                </Button>
+              </FormikForm>
+            )}
+          </Formik>
+        </div>
       </div>
     </div>
   );

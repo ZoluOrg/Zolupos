@@ -1,21 +1,18 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
-import { useState } from "react";
-import { parseJwt } from "../utils/JWT";
-import { ScreenLoader } from "../components/UI/ScreenLoader";
-import { Home } from "../modules/home/Home";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { Button } from "../components/Button";
+
+const Home: NextPage = () => {
+  const Router = useRouter();
+  return (
+    <div className="">
+      <Button Color="mallow" onClick={() => Router.push("/app/landing")}>
+        test
+      </Button>
+    </div>
+  );
+};
 
 export default Home;
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  if (context.req.headers.cookie!) {
-    let parsedToken = parseJwt(context.req.cookies! ["zoluken"]);
-    if (parsedToken["exp"] * 1000 <= Date.now()) {
-      return { redirect: { destination: "/employee/login" } };
-    }
-    return { props: {} };
-  } else {
-    return { redirect: { destination: "/employee/login" } };
-  }
-};

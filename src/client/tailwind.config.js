@@ -4,38 +4,31 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./modules/**/*.{js,ts,jsx,tsx}"
+    "./modules/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        "secondary": {
-          light: "#477BE9",
-          base: "#336CE6",
-          dark: "#2E61CF",
-          darker: "#2956B8"
+        accent: {
+          1: "#f71735",
+          2: "#de1530",
+          3: "#c6122a",
         },
-        "primary": {
-          light: "#F15449",
-          base: "#EF4135",
-          dark: "#D73B30",
-          darker: "#BF342A"
+        coal: {
+          1: "#000000",
+          2: "#212021",
+          3: "#393939",
         },
-        "bg": {
-          dark: {
-            base: "#0F0F0F",
-            lighter: "#2D3137"
-          },
-          light: {
-            base: "#FFFFFF",
-            darker: "#F2F2F2"
-          }
-        }
+        mallow: {
+          1: "#FFFCF9",
+          2: "#E6E3E0",
+          3: "#CCCAC7",
+        },
       },
       fontFamily: {
-        sans: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
+        sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require("@tailwindcss/forms")],
+};
