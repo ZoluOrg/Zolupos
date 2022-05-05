@@ -15,6 +15,7 @@ import { ParseJWT } from "../utils/ParseJWT";
 const ContextDefaultValue: IEmployeeCredentialsContext = {
   Creds: null,
   Token: "",
+  IsLoggedIn: false,
   SetToken: async (Token: string) => {},
 };
 
@@ -25,6 +26,7 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [Token, SetActToken] = useState<string>("");
   const [Creds, SetCreds] = useState<IEmployee | null>(null);
+  const [IsLoggedIn, SetIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
     const EmpToken = Cookies.get("zolupos-employee-token");
@@ -32,8 +34,9 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
     if (EmpToken && UserCreds) {
       SetActToken(EmpToken);
       SetCreds(JSON.parse(UserCreds));
+      SetIsLoggedIn(true);
     } else console.log("Employee not authenticated!");
-  }, [Token, Creds]);
+  }, []);
 
   const SetToken = async (TokenToSave: string) => {
     // SetToken
@@ -51,10 +54,13 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
       "zolupos-employee-creds",
       JSON.stringify(EmployeeCredentials.value)
     );
+    SetIsLoggedIn(true);
   };
 
   return (
-    <EmployeeCredentialsContext.Provider value={{ Token, Creds, SetToken }}>
+    <EmployeeCredentialsContext.Provider
+      value={{ Token, Creds, SetToken, IsLoggedIn }}
+    >
       {children}
     </EmployeeCredentialsContext.Provider>
   );

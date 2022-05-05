@@ -22,7 +22,7 @@ export const Form = () => {
     );
     if (data) {
       await EmpContext.SetToken(data.value);
-      Router.push("/");
+      Router.push("../../");
     }
   };
 
