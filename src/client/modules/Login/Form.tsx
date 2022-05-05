@@ -42,7 +42,9 @@ export const Form = () => {
               values: IEmployeeLogin,
               { setSubmitting }: FormikHelpers<IEmployeeLogin>
             ) => {
+              setSubmitting(true);
               AuthenticateWithCreds(values);
+              setSubmitting(false);
             }}
           >
             {({ isSubmitting }) => (
@@ -67,7 +69,7 @@ export const Form = () => {
                     <span>Show Password</span>
                   </div>
                 </div>
-                <Button type="submit" className="w-full py-2.5 mt-9">
+                <Button type="submit" className="w-full py-2.5 mt-9" IsLoading={isSubmitting}>
                   Submit
                 </Button>
               </FormikForm>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Zolulogo } from "../../components/Zolulogo";
 import { Button } from "../../components/Button";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, CaretDown } from "phosphor-react";
 import { CurrentTime } from "../../components/CurrentTime";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
 import { CustomSpinner } from "../../components/CustomSpinner";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [IsLoading, SetIsLoading] = useState<boolean>(true);
@@ -30,11 +31,7 @@ export const Navbar = () => {
               <Zolulogo light />
             </div>
             <div className="buttons flex gap-3.5">
-              <Button
-                Color="coal"
-                Spacing="xtrasmall"
-                onClick={() => Router.back()}
-              >
+              <Button Color="coal" Spacing="xs" onClick={() => Router.back()}>
                 <ArrowLeft size={21} weight="bold" />
               </Button>
             </div>
@@ -42,14 +39,23 @@ export const Navbar = () => {
               <CurrentTime />
             </div>
           </div>
-          <div className="right-buttons flex items-center gap-6">
-            <div className="profile flex items-center">
-              <Image
-                src={EmployeeCreds.Creds?.profileURL!}
-                height={24}
-                width={24}
-                className="rounded-full"
-              />
+          <div className="right-buttons flex items-center gap-3.5">
+            <div className="shortcuts flex gap-5 font-normal">
+              <Link href="#">Shortcuts</Link>
+              <Link href="#">Settings</Link>
+            </div>
+            <div className="profile">
+              <Button Color="coal" Spacing="xs">
+                <div className="profile flex items-center gap-1.5">
+                  <Image
+                    src={EmployeeCreds.Creds?.profileURL!}
+                    height={24}
+                    width={24}
+                    className="rounded-full"
+                  />
+                  <CaretDown weight="fill" />
+                </div>
+              </Button>
             </div>
           </div>
         </div>

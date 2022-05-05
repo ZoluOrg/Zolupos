@@ -1,8 +1,10 @@
 import React, { ButtonHTMLAttributes, FC } from "react";
+import { CustomSpinner } from "./CustomSpinner";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Color?: keyof typeof ColorSelection;
   Spacing?: keyof typeof SpacingSelection;
+  IsLoading?: boolean;
 }
 
 const ColorSelection = {
@@ -12,7 +14,7 @@ const ColorSelection = {
 };
 
 const SpacingSelection = {
-  xtrasmall: "py-1 px-1",
+  xs: "py-1 px-1",
   normal: "py-2 px-4",
 };
 
@@ -20,15 +22,21 @@ export const Button: FC<Props> = ({
   children,
   Color = "accent",
   Spacing = "normal",
+  IsLoading = false,
   className,
   ...props
 }) => {
   return (
     <button
-      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} ${className} rounded-lg font-bold transition`}
+      className={`${ColorSelection[Color]} ${SpacingSelection[Spacing]} rounded-lg font-bold transition flex items-center justify-center ${className}`}
       {...props}
     >
-      {children}
+      <span className={IsLoading ? "opacity-0" : ""}>{children}</span>
+      {IsLoading ? (
+        <div className="absolute">
+          <CustomSpinner />
+        </div>
+      ) : null}
     </button>
   );
 };
