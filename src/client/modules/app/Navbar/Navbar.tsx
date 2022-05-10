@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Zolulogo } from "../../components/Zolulogo";
-import { Button } from "../../components/Button";
+import { Zolulogo } from "../../../components/Zolulogo";
+import { Button } from "../../../components/Button";
 import { ArrowLeft, CaretDown } from "phosphor-react";
-import { CurrentTime } from "../../components/CurrentTime";
+import { CurrentTime } from "../../../components/CurrentTime";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
-import { CustomSpinner } from "../../components/CustomSpinner";
+import { UseEmployeeCredentialsContext } from "../../../context/EmployeeCredentialsContext";
+import { CustomSpinner } from "../../../components/CustomSpinner";
 import Link from "next/link";
+import { NavbarDropdownLink } from "./NavbarDropdownLink";
+import { Menu, MenuItems } from "../../../components/Menu";
 
 export const Navbar = () => {
   const [IsLoading, SetIsLoading] = useState<boolean>(true);
+  const [ShowDropDown, SetShowDropdown] = useState<boolean>(true);
   const Router = useRouter();
   const EmployeeCreds = UseEmployeeCredentialsContext();
   useEffect(() => {
@@ -25,7 +28,7 @@ export const Navbar = () => {
           <CustomSpinner dark />
         </div>
       ) : (
-        <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1 flex justify-between">
+        <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1 flex justify-between relative">
           <div className="left-buttons flex items-center gap-6">
             <div className="logo">
               <Zolulogo light />
@@ -45,17 +48,21 @@ export const Navbar = () => {
               <Link href="#">Settings</Link>
             </div>
             <div className="profile">
-              <Button Color="coal" Spacing="xs">
-                <div className="profile flex items-center gap-1.5">
-                  <Image
-                    src={EmployeeCreds.Creds?.profileURL!}
-                    height={24}
-                    width={24}
-                    className="rounded-full"
-                  />
-                  <CaretDown weight="fill" />
-                </div>
-              </Button>
+              <Menu
+                Look={
+                  <div className="profile flex items-center gap-1.5">
+                    <Image
+                      src={EmployeeCreds.Creds?.profileURL!}
+                      height={24}
+                      width={24}
+                      className="rounded-full"
+                    />
+                    <CaretDown weight="fill" />
+                  </div>
+                }
+              >
+                <MenuItems>Hello World</MenuItems>
+              </Menu>
             </div>
           </div>
         </div>
