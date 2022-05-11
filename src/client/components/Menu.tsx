@@ -8,8 +8,6 @@ import React, {
 } from "react";
 import { Button } from "./Button";
 
-// TODO: Migrate Menu Module
-
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   Look: ReactNode;
