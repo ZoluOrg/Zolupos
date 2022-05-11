@@ -1,4 +1,11 @@
-import React, { ButtonHTMLAttributes, FC, ReactNode, useState } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  FC,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button } from "./Button";
 
 // TODO: Migrate Menu Module
@@ -15,8 +22,26 @@ interface MenuItemProps {
 
 export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
   const [ShowMenu, SetShowMenu] = useState<boolean>(false);
+  let cont = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", ClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", ClickOutside);
+    };
+  });
+
+  const ClickOutside = (Event: MouseEvent) => {
+    if (!cont.current?.contains(Event.target as Node) && cont.current) {
+      SetShowMenu(false);
+    }
+  };
+
   return (
-    <div className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1">
+    <div
+      className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1"
+      ref={cont}
+    >
       <div className="menu">
         <Button
           Color="coal"
@@ -26,7 +51,11 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
         >
           {Look}
         </Button>
-        {ShowMenu && <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1">{children}</ul>}
+        {ShowMenu && (
+          <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1">
+            {children}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -37,5 +66,5 @@ export const MenuItems: FC<MenuItemProps> = ({ children, Icon }) => {
     <li className="p-2 bg-coal-2 rounded-lg hover:bg-coal-3 shadow-lg cursor-pointer">
       {children}
     </li>
-  )
-}
+  );
+};
