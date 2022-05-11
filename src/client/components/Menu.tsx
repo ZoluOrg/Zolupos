@@ -16,7 +16,7 @@ interface MenuItemProps {
 export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
   const [ShowMenu, SetShowMenu] = useState<boolean>(false);
   return (
-    <div className="profile-dropdown py-2 rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1">
+    <div className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1">
       <div className="menu">
         <Button
           Color="coal"
@@ -26,7 +26,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
         >
           {Look}
         </Button>
-        {ShowMenu && <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-0">{children}</ul>}
+        {ShowMenu && <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1">{children}</ul>}
       </div>
     </div>
   );
