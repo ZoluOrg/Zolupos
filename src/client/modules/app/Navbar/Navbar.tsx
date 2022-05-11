@@ -61,7 +61,9 @@ export const Navbar = () => {
                   </div>
                 }
               >
-                <MenuItems>Hello World</MenuItems>
+                <MenuItems>Profile</MenuItems>
+                <MenuItems>Settings</MenuItems>
+                <MenuItems>Logout</MenuItems>
               </Menu>
             </div>
           </div>
