@@ -23,7 +23,7 @@ export const ModuleSelectionButton: FC<ModuleSelectionButtonProps> = ({
       className="module-button flex flex-col gap-1"
       onClick={() => Router.push(ActualHref)}
     >
-      <div className={`module-logo p-5 rounded-lg bg-coal-1 text-${Color}`}>
+      <div className={`module-logo p-5 rounded-xl bg-coal-1 text-${Color}`}>
         {Icon}
       </div>
       <div className="label flex w-full items-center justify-center">
