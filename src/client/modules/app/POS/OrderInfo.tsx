@@ -10,7 +10,7 @@ export const OrderInfo = () => {
         <AddCustomer />
         <Sub />
         <div className="lower-control flex gap-[5px]">
-          <Button Color="mallow" className="w-full">Suspend</Button>
+          <Button buttonColor="mallow" className="w-full">Suspend</Button>
           <Button className="w-full">Cancel</Button>
         </div>
       </div>

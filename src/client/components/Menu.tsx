@@ -19,19 +19,19 @@ interface MenuItemProps {
 }
 
 export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
-  const [ShowMenu, SetShowMenu] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   let cont = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.addEventListener("mousedown", ClickOutside);
+    document.addEventListener("mousedown", clickedOutside);
     return () => {
-      document.removeEventListener("mousedown", ClickOutside);
+      document.removeEventListener("mousedown", clickedOutside);
     };
   });
 
-  const ClickOutside = (Event: MouseEvent) => {
+  const clickedOutside = (Event: MouseEvent) => {
     if (!cont.current?.contains(Event.target as Node) && cont.current) {
-      SetShowMenu(false);
+      setShowMenu(false);
     }
   };
 
@@ -42,14 +42,14 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
     >
       <div className="menu">
         <Button
-          Color="coal"
-          Spacing="xs"
+          buttonColor="coal"
+          buttonSpacing="xs"
           {...props}
-          onClick={() => SetShowMenu(!ShowMenu)}
+          onClick={() => setShowMenu(!showMenu)}
         >
           {Look}
         </Button>
-        {ShowMenu && (
+        {showMenu && (
           <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1">
             {children}
           </ul>

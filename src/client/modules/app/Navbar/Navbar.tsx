@@ -17,7 +17,7 @@ export const Navbar = () => {
   const Router = useRouter();
   const EmployeeCreds = UseEmployeeCredentialsContext();
   useEffect(() => {
-    console.log(EmployeeCreds.Creds?.FirstName);
+    console.log(EmployeeCreds.creds?.FirstName);
     SetIsLoading(false);
   }, [EmployeeCreds]);
 
@@ -34,7 +34,7 @@ export const Navbar = () => {
               <Zolulogo light />
             </div>
             <div className="buttons flex gap-3.5">
-              <Button Color="coal" Spacing="xs" onClick={() => Router.back()}>
+              <Button buttonColor="coal" buttonSpacing="xs" onClick={() => Router.back()}>
                 <ArrowLeft size={21} weight="bold" />
               </Button>
             </div>
@@ -52,7 +52,7 @@ export const Navbar = () => {
                 Look={
                   <div className="profile flex items-center gap-1.5">
                     <Image
-                      src={EmployeeCreds.Creds?.profileURL!}
+                      src={EmployeeCreds.creds?.profileURL!}
                       height={24}
                       width={24}
                       className="rounded-full"

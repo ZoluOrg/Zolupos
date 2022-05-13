@@ -8,20 +8,20 @@ import Router from "next/router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
-import { UseEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
+import { useEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
 
 export const Form = () => {
-  const InitialValues: IEmployeeLogin = { FirstName: "", Pin: "" };
-  const EmpContext = UseEmployeeCredentialsContext();
-  const [ShowPassword, SetShowPassword] = useState<boolean>(false);
+  const initialValues: IEmployeeLogin = { firstName: "", pin: "" };
+  const empContext = useEmployeeCredentialsContext();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const AuthenticateWithCreds = async (FormValue: IEmployeeLogin) => {
-    console.log(FormValue);
-    let data = await AuthenticateEmployee(FormValue).catch((error) =>
+  const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
+    console.log(formValue);
+    let data = await AuthenticateEmployee(formValue).catch((error) =>
       alert("error")
     );
     if (data) {
-      await EmpContext.SetToken(data.value);
+      await empContext.setToken(data.value);
       Router.push("/");
     }
   };
@@ -37,13 +37,13 @@ export const Form = () => {
         </div>
         <div className="forms flex flex-col gap-2.5 mt-9">
           <Formik
-            initialValues={InitialValues}
+            initialValues={initialValues}
             onSubmit={async (
               values: IEmployeeLogin,
               { setSubmitting }: FormikHelpers<IEmployeeLogin>
             ) => {
               setSubmitting(true);
-              AuthenticateWithCreds(values);
+              authenticateWithCreds(values);
               setSubmitting(false);
             }}
           >
@@ -61,15 +61,15 @@ export const Form = () => {
                     as={Input}
                     name="Pin"
                     placeholder="Password"
-                    type={ShowPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     className="w-96"
                   />
                   <div className="flex gap-2 items-center">
-                    <Checkbox onChange={() => SetShowPassword(!ShowPassword)} />
+                    <Checkbox onChange={() => setShowPassword(!showPassword)} />
                     <span>Show Password</span>
                   </div>
                 </div>
-                <Button type="submit" className="w-full py-2.5 mt-9" IsLoading={isSubmitting}>
+                <Button type="submit" className="w-full py-2.5 mt-9" isLoading={isSubmitting}>
                   Submit
                 </Button>
               </FormikForm>

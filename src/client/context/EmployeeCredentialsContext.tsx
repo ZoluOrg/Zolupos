@@ -9,63 +9,63 @@ import React, {
 } from "react";
 import { IEmployee } from "../interface/IEmployee";
 import { IEmployeeCredentialsContext } from "../interface/IEmployeeCredentialsContext";
-import { GetEmployeesById } from "../modules/Employee/EmployeeService";
+import { GetEmployeesById } from "../services/Employee/EmployeeService";
 import { ParseJWT } from "../utils/ParseJWT";
 
-const ContextDefaultValue: IEmployeeCredentialsContext = {
-  Creds: null,
-  Token: "",
-  IsLoggedIn: false,
-  SetToken: async (Token: string) => {},
+const defaultValue: IEmployeeCredentialsContext = {
+  creds: null,
+  token: "",
+  isLoggedIn: false,
+  setToken: async (Token: string) => {},
 };
 
-const EmployeeCredentialsContext = createContext(ContextDefaultValue);
+const employeeCredentialsContext = createContext(defaultValue);
 
 export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [Token, SetActToken] = useState<string>("");
-  const [Creds, SetCreds] = useState<IEmployee | null>(null);
-  const [IsLoggedIn, SetIsLoggedIn] = useState<boolean>(false);
+  const [token, setActToken] = useState<string>("");
+  const [creds, setCreds] = useState<IEmployee | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    const EmpToken = Cookies.get("zolupos-employee-token");
-    const UserCreds = Cookies.get("zolupos-employee-creds");
-    if (EmpToken && UserCreds) {
-      SetActToken(EmpToken);
-      SetCreds(JSON.parse(UserCreds));
-      SetIsLoggedIn(true);
+    const empToken = Cookies.get("zolupos-employee-token");
+    const userCreds = Cookies.get("zolupos-employee-creds");
+    if (empToken && userCreds) {
+      setActToken(empToken);
+      setCreds(JSON.parse(userCreds));
+      setIsLoggedIn(true);
     } else console.log("Employee not authenticated!");
   }, []);
 
-  const SetToken = async (TokenToSave: string) => {
+  const setToken = async (tokenToSave: string) => {
     // SetToken
     console.log("setting token");
-    SetActToken(TokenToSave);
-    Cookies.set("zolupos-employee-token", TokenToSave);
+    setActToken(tokenToSave);
+    Cookies.set("zolupos-employee-token", tokenToSave);
     console.log("token set");
 
     // GetSet Creds
-    const Parsed = ParseJWT(TokenToSave);
+    const Parsed = ParseJWT(tokenToSave);
     let EmployeeCredentials = await GetEmployeesById(Parsed["unique_name"]);
-    SetCreds(EmployeeCredentials.value);
+    setCreds(EmployeeCredentials.value);
     console.log(EmployeeCredentials.value);
     Cookies.set(
       "zolupos-employee-creds",
       JSON.stringify(EmployeeCredentials.value)
     );
-    SetIsLoggedIn(true);
+    setIsLoggedIn(true);
   };
 
   return (
-    <EmployeeCredentialsContext.Provider
-      value={{ Token, Creds, SetToken, IsLoggedIn }}
+    <employeeCredentialsContext.Provider
+      value={{ token: token, creds: creds, setToken: setToken, isLoggedIn: isLoggedIn }}
     >
       {children}
-    </EmployeeCredentialsContext.Provider>
+    </employeeCredentialsContext.Provider>
   );
 };
 
-export const UseEmployeeCredentialsContext = () => {
-  return useContext(EmployeeCredentialsContext);
+export const useEmployeeCredentialsContext = () => {
+  return useContext(employeeCredentialsContext);
 };
