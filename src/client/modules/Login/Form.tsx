@@ -3,7 +3,7 @@ import { Zolulogo } from "../../components/Zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
-import { AuthenticateEmployee } from "../../services/Authentication/AuthService";
+import { authenticateEmployee } from "../../services/Authentication/AuthService";
 import Router from "next/router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -17,7 +17,7 @@ export const Form = () => {
 
   const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
     console.log(formValue);
-    let data = await AuthenticateEmployee(formValue).catch((error) =>
+    let data = await authenticateEmployee(formValue).catch((error) =>
       alert("error")
     );
     if (data) {

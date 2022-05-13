@@ -9,8 +9,8 @@ import React, {
 } from "react";
 import { IEmployee } from "../interface/IEmployee";
 import { IEmployeeCredentialsContext } from "../interface/IEmployeeCredentialsContext";
-import { GetEmployeesById } from "../services/Employee/EmployeeService";
-import { ParseJWT } from "../utils/ParseJWT";
+import { getAllEmployeeId } from "../services/Employee/EmployeeService";
+import { parseJWT } from "../utils/ParseJWT";
 
 const defaultValue: IEmployeeCredentialsContext = {
   creds: null,
@@ -46,8 +46,8 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
     console.log("token set");
 
     // GetSet Creds
-    const Parsed = ParseJWT(tokenToSave);
-    let EmployeeCredentials = await GetEmployeesById(Parsed["unique_name"]);
+    const Parsed = parseJWT(tokenToSave);
+    let EmployeeCredentials = await getAllEmployeeId(Parsed["unique_name"]);
     setCreds(EmployeeCredentials.value);
     console.log(EmployeeCredentials.value);
     Cookies.set(

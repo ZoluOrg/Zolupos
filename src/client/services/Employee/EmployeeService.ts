@@ -1,26 +1,26 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { IEmployee } from "../../interface/IEmployee";
-import { GetTokenAsBearer } from "../../utils/TokenUtils";
+import { getTokenAsBearer } from "../../utils/TokenUtils";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 
-export const GetAllEmployees = async () => {
+export const getAllEmployee = async () => {
   let response = await axios.get<ResultWrapper<Array<IEmployee>>>(
     "https://localhost:7116/api/Employee",
-    { headers: GetTokenAsBearer() }
+    { headers: getTokenAsBearer() }
   );
   return response.data;
 };
 
-export const GetEmployeesById = async (ID: number) => {
+export const getAllEmployeeId = async (ID: number) => {
   let response = await axios.get<ResultWrapper<IEmployee>>(
     `https://localhost:7116/api/Employee/${ID}`,
-    { headers: GetTokenAsBearer() }
+    { headers: getTokenAsBearer() }
   );
   return response.data;
 };
 
-export const PostNewEmployee = async (Employee: IEmployee) => {
+export const postNewEmployee = async (Employee: IEmployee) => {
   let response = await axios.post<number>(
     "https://localhost:7116/api/Employee"
   );

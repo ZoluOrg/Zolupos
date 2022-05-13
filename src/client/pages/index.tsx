@@ -1,5 +1,5 @@
 import type { GetServerSidePropsContext, NextPage } from "next";
-import { ParseJWT } from "../utils/ParseJWT";
+import { parseJWT } from "../utils/ParseJWT";
 
 const Home: NextPage = () => {
   return <div className="">Redirecting...</div>;
@@ -8,9 +8,9 @@ const Home: NextPage = () => {
 export default Home;
 
 export const getServerSideProps = (context: GetServerSidePropsContext) => {
-  const Token = context.req.cookies["zolupos-employee-token"];
-  if (Token) {
-    const Parsed = ParseJWT(Token);
+  const token = context.req.cookies["zolupos-employee-token"];
+  if (token) {
+    const Parsed = parseJWT(token);
     if (Parsed["exp"] * 1000 <= Date.now()) {
       return { redirect: { destination: "/emp/login" } };
     }

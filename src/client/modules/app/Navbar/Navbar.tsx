@@ -4,26 +4,23 @@ import { Button } from "../../../components/Button";
 import { ArrowLeft, CaretDown } from "phosphor-react";
 import { CurrentTime } from "../../../components/CurrentTime";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { UseEmployeeCredentialsContext } from "../../../context/EmployeeCredentialsContext";
+import { useEmployeeCredentialsContext } from "../../../context/EmployeeCredentialsContext";
 import { CustomSpinner } from "../../../components/CustomSpinner";
 import Link from "next/link";
-import { NavbarDropdownLink } from "./NavbarDropdownLink";
 import { Menu, MenuItems } from "../../../components/Menu";
+import Router from "next/router";
 
 export const Navbar = () => {
-  const [IsLoading, SetIsLoading] = useState<boolean>(true);
-  const [ShowDropDown, SetShowDropdown] = useState<boolean>(true);
-  const Router = useRouter();
-  const EmployeeCreds = UseEmployeeCredentialsContext();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const employeeCreds = useEmployeeCredentialsContext();
   useEffect(() => {
-    console.log(EmployeeCreds.creds?.FirstName);
-    SetIsLoading(false);
-  }, [EmployeeCreds]);
+    console.log(employeeCreds.creds?.firstName);
+    setIsLoading(false);
+  }, [employeeCreds]);
 
   return (
     <>
-      {IsLoading ? (
+      {isLoading ? (
         <div className="flex h-full items-center justify-center">
           <CustomSpinner dark />
         </div>
@@ -34,7 +31,11 @@ export const Navbar = () => {
               <Zolulogo light />
             </div>
             <div className="buttons flex gap-3.5">
-              <Button buttonColor="coal" buttonSpacing="xs" onClick={() => Router.back()}>
+              <Button
+                buttonColor="coal"
+                buttonSpacing="xs"
+                onClick={() => Router.back()}
+              >
                 <ArrowLeft size={21} weight="bold" />
               </Button>
             </div>
@@ -52,7 +53,7 @@ export const Navbar = () => {
                 Look={
                   <div className="profile flex items-center gap-1.5">
                     <Image
-                      src={EmployeeCreds.creds?.profileURL!}
+                      src={employeeCreds.creds?.profileURL!}
                       height={24}
                       width={24}
                       className="rounded-full"
