@@ -3,7 +3,7 @@ import { Zolulogo } from "../../components/Zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
-import { AuthenticateEmployee } from "../Authentication/AuthService";
+import { AuthenticateEmployee } from "../../services/Authentication/AuthService";
 import Router from "next/router";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
