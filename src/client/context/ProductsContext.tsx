@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { IProduct } from "../interface/IProduct";
 import { IProductContext } from "../interface/IProductContext";
@@ -17,6 +17,9 @@ export const ProductsContext: FC<{ children: ReactNode }> = ({ children }) => {
     let productsNew = await getAllProducts();
     setProducts(productsNew);
   };
+  useEffect(() => {
+    refreshProductList();
+  }, [])
   return (
     <productContext.Provider value={{ products, refreshProductList }}>
       {children}
