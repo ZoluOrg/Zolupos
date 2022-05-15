@@ -13,7 +13,7 @@ namespace Zolupos.Modules.Employee.Core.Entity
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime LastLogin { get; set; }
-        public string PinHashed { get; set; }
+        public string Pin { get; set; }
         public string Role { get; set; }
         public string ProfileURL { get; set; }
 

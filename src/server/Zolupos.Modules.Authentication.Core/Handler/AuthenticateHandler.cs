@@ -29,7 +29,7 @@ namespace Zolupos.Modules.Authentication.Core.Handler
         public async Task<ResultWrapper<string>> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
             var authRequest = request.authenticateRequest;
-            var employee = await _context.Employees.SingleOrDefaultAsync(e => e.PinHashed == authRequest.Pin && e.FirstName == authRequest.FirstName);
+            var employee = await _context.Employees.SingleOrDefaultAsync(e => e.Pin == authRequest.Pin && e.FirstName == authRequest.FirstName);
             if (employee == null) return null;
             var token = await AuthService.GenerateToken(employee, _settings);
 
