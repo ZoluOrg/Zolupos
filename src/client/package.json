@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_ENV=debug; next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,6 +13,7 @@
     "@types/js-cookie": "^3.0.2",
     "autoprefixer": "^10.4.7",
     "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.1",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.3",

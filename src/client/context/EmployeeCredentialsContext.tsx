@@ -59,7 +59,12 @@ export const EmployeeCredentialsProvider: FC<{ children: ReactNode }> = ({
 
   return (
     <employeeCredentialsContext.Provider
-      value={{ token: token, creds: creds, setToken: setToken, isLoggedIn: isLoggedIn }}
+      value={{
+        token: token,
+        creds: creds,
+        setToken: setToken,
+        isLoggedIn: isLoggedIn,
+      }}
     >
       {children}
     </employeeCredentialsContext.Provider>

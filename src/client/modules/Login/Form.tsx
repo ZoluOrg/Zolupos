@@ -52,15 +52,15 @@ export const Form = () => {
                 <div className="flex flex-col gap-2.5">
                   <Field
                     as={Input}
-                    name="FirstName"
+                    name="firstName"
                     placeholder="First Name"
                     type="text"
                     className="w-96"
                   />
                   <Field
                     as={Input}
-                    name="Pin"
-                    placeholder="Password"
+                    name="pin"
+                    placeholder="Pin"
                     type={showPassword ? "text" : "password"}
                     className="w-96"
                   />

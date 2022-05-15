@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["scontent.fcrk1-1.fna.fbcdn.net"],
+    domains: ["scontent.fmnl30-2.fna.fbcdn.net"],
   },
   experimental: {
-    runtime: 'nodejs',
+    runtime: "nodejs",
     serverComponents: true,
   },
 };
