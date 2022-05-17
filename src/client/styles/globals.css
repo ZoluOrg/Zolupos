@@ -3,10 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-th{
-  padding: 1rem 2.5rem;
-}
 
-td {
-  padding: 1rem 2.5rem;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

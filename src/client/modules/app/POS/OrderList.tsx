@@ -11,27 +11,41 @@ export const OrderList = () => {
           Scan items to add
         </div>
       ) : (
-        <div className="h-full">
-          <table className="table-auto w-full text-left rounded-lg overflow-hidden">
-            <thead className="shadow-md uppercase bg-mallow-3">
-              <tr>
-                <th>Item Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-              <AddedItem itemName="apx" price={12} />
-            </tbody>
-          </table>
+        <div className="h-full overflow-y-scroll no-scrollbar">
+          <div className="grid grid-cols-5 grid-header uppercase font-bold p-4 border-b border-coal-3 bg-mallow-3 rounded-lg shadow-lg">
+            <span>Item</span>
+            <span>Qty</span>
+            <span>Price</span>
+            <span>Disc</span>
+            <span>Amt</span>
+          </div>
+          <div className="list-ordered">
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+            <AddedItem itemName="Macbook" barCode="0001" price={10}/>
+          </div>
         </div>
       )}
     </div>
