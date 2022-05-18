@@ -13,32 +13,19 @@ export const OrderList = () => {
         <span>Disc</span>
         <span>Amt</span>
       </div>
-      <div className="list-ordered h-full overflow-y-scroll">
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
-        <AddedItem itemName="Macbook" barCode="0001" price={10} />
+      <div className="list-ordered h-full overflow-y-auto">
+        {transactionContext.punched.length == 0 ? (
+          <div className="h-full flex flex-col gap-1 items-center justify-center">
+            <span className="font-bold opacity-50 text-4xl">
+              Scan items to add
+            </span>
+            <span className="font-bold opacity-50 text-lg">
+              Use alt + a to manually add an item
+            </span>
+          </div>
+        ) : (
+          <p>items</p>
+        )}
       </div>
     </div>
   );
