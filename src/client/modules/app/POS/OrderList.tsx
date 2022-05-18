@@ -5,8 +5,8 @@ import { AddedItem } from "./AddedItem";
 export const OrderList = () => {
   const transactionContext = useTransactionContext();
   return (
-    <div className="bg-mallow-2 rounded-lg w-9/12 flex flex-col overflow-hidden">
-      <div className=" grid grid-cols-5 grid-header uppercase font-bold p-4 border-b border-coal-3  rounded-t-lg shadow-xl">
+    <div className="bg-mallow-2 rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden">
+      <div className=" grid grid-cols-5 grid-header uppercase font-bold p-4 border-b border-coal-3  rounded-t-lg shadow-sm">
         <span>Item</span>
         <span>Qty</span>
         <span>Price</span>
