@@ -12,7 +12,7 @@ interface addItemProps {
 export const AddedItem: FC<addItemProps> = ({ itemName, barCode, price }) => {
   const [total, setTotal] = useState<number>(price);
   return (
-    <div className="grid grid-cols-5 p-5 items-center">
+    <div className="grid grid-cols-5 p-5 items-center border-t border-b border-mallow-3">
       <div>
         <div className="flex flex-col">
           <span className="font-bold">{itemName}</span>

@@ -25,7 +25,7 @@ export const Navbar = () => {
           <CustomSpinner dark />
         </div>
       ) : (
-        <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1 flex justify-between relative">
+        <div className="bg-coal-1 py-3.5 px-6 w-full text-mallow-1 flex justify-between">
           <div className="left-buttons flex items-center gap-6">
             <div className="logo">
               <Zolulogo light />
