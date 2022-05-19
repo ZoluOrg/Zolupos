@@ -10,5 +10,5 @@ export const CurrentTime = () => {
     }, 1000);
     return () => clearInterval(getCurrentTime);
   }, []);
-  return <div>{currentTime}</div>;
+  return <div className="font-bold">{currentTime}</div>;
 };

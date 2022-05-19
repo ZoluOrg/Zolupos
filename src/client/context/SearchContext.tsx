@@ -3,11 +3,16 @@ import React, {
   FC,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { IProduct } from "../interface/IProduct";
 import { ISearchContext } from "../interface/ISearchContext";
 import { useProductsContext } from "./ProductsContext";
+import styles from "../styles/SearchContext.module.scss";
+import { Button } from "../components/Button";
+import { X } from "phosphor-react";
+import { Input } from "../components/Input";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -23,6 +28,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [toSearch, setToSearch] = useState<string>("");
   const [selected, setSelected] = useState<number>(0);
   const [searchResult, setSearchResult] = useState<Array<IProduct>>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const productContext = useProductsContext();
 
   const searchProduct = (query: string) => {
@@ -35,12 +41,48 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     console.log("client search event");
   };
 
+  const checkKeyDown = (event: KeyboardEvent) => {
+    console.log(event.key);
+    if (event.altKey && event.key == "a") {
+      setIsSearching(true);
+    } else if (event.key == "Escape") setIsSearching(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", checkKeyDown);
+    return () => {
+      console.log("unmount");
+      document.removeEventListener("keydown", checkKeyDown);
+    };
+  }, []);
+
   return (
-    <searchContext.Provider
-      value={{ toSearch, selected, searchResult, setSelected, searchProduct }}
-    >
-      {children}
-    </searchContext.Provider>
+    <div className={styles.searchContextContainer}>
+      {isSearching && (
+        <div className={styles.searchContainer}>
+          <div className={styles.search}>
+            <div className={styles.top}>
+              <span className="text-2xl font-bold">Add product</span>
+              <Button onClick={() => setIsSearching(false)}>
+                <div className={styles.escapeButtonContent}>
+                  <X />
+                  Escape
+                </div>
+              </Button>
+            </div>
+            <div className={styles.searchField}>
+              <Input placeholder="Product ID, Name or Barcode" />
+              <Button buttonColor="coal">Add</Button>
+            </div>
+          </div>
+        </div>
+      )}
+      <searchContext.Provider
+        value={{ toSearch, selected, searchResult, setSelected, searchProduct }}
+      >
+        {children}
+      </searchContext.Provider>
+    </div>
   );
 };
 
