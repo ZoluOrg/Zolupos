@@ -1,7 +1,8 @@
 # Zolupos | A Modern POS system
 Zolupos is a **modern** POS system built with ASP.net core, React JS/Next JS and Electron
 
-iam trasnfering all tailwind ui to scss
+## SCSS
+All non component files that use tailwind will be migrating to scss
 
 ## Getting Started
 ### Prerequisite
