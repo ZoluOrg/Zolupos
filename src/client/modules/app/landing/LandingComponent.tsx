@@ -1,14 +1,13 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { ModuleSection } from "./ModuleSection";
-
-const NavBar = dynamic<{}>(() => import("../Navbar/Navbar").then(mod=>mod.Navbar))
+import { Navbar } from "../Navbar/Navbar";
 
 export const LandingComponent = () => {
   return (
     <div className="h-full">
-      <NavBar />
-      <ModuleSection/>
+      <Navbar />
+      <ModuleSection />
     </div>
   );
 };
