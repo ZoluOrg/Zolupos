@@ -9,6 +9,7 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
 import { useEmployeeCredentialsContext } from "../../context/EmployeeCredentialsContext";
+import styles from "../../styles/login/Form.module.scss";
 
 export const Form = () => {
   const initialValues: IEmployeeLogin = { firstName: "", pin: "" };
@@ -27,15 +28,13 @@ export const Form = () => {
   };
 
   return (
-    <div className="border-2 border-mallow-3 rounded-lg py-8 px-6">
-      <div className="w-full flex flex-col items-center justify-center">
+    <div className={styles.loginContainer}>
+      <div className={styles.formContainer}>
         <div className="logo">
           <Zolulogo />
         </div>
-        <div className="sub flex items-center justify-center">
-          <span className="text-lg font-bold">Login</span>
-        </div>
-        <div className="forms flex flex-col gap-2.5 mt-9">
+        <span className="text-lg font-bold">Login</span>
+        <div className={styles.form}>
           <Formik
             initialValues={initialValues}
             onSubmit={async (
@@ -49,7 +48,7 @@ export const Form = () => {
           >
             {({ isSubmitting }) => (
               <FormikForm>
-                <div className="flex flex-col gap-2.5">
+                <div className={styles.formInputs}>
                   <Field
                     as={Input}
                     name="firstName"
@@ -69,7 +68,11 @@ export const Form = () => {
                     <span>Show Password</span>
                   </div>
                 </div>
-                <Button type="submit" className="w-full py-2.5 mt-9" isLoading={isSubmitting}>
+                <Button
+                  type="submit"
+                  className={styles.submitButtonCustoms}
+                  isLoading={isSubmitting}
+                >
                   Submit
                 </Button>
               </FormikForm>
