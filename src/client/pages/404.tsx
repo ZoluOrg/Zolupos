@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import { Zolulogo } from "../components/Zolulogo";
+import styles from "../styles/404.module.scss";
 
 const Custom404 = () => {
   return (
@@ -9,13 +10,13 @@ const Custom404 = () => {
       <Head>
         <title>Page Not Found | 404</title>
       </Head>
-      <div className="h-full flex justify-center">
-        <div className="flex flex-col mt-10 gap-2">
+      <div className={styles.pageNotFound}>
+        <div className={styles.pageNotFoundContainer}>
           <div className="logo">
             <Zolulogo />
           </div>
-          <div className="cont flex flex-col gap-2 mt-3">
-            <div className="Header">
+          <div className={styles.messageContainer}>
+            <div className="header">
               <span className="font-bold text-xl">Page Not Found</span>
             </div>
             <div className="message">
@@ -24,9 +25,9 @@ const Custom404 = () => {
             <div className="error-code text-sm text-gray-500">
               ZLPS_CLIENT_404
             </div>
-            <div className="">
+            <div className={styles.goHome}>
               <Link href="/" passHref>
-                <a className="underline text-accent-2">Take me home</a>
+                <a className="text-accent-2">Take me home</a>
               </Link>
             </div>
           </div>

@@ -1,0 +1,20 @@
+.pageNotFound {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .pageNotFoundContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .messageContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      .goHome {
+        text-decoration: underline;
+      }
+    }
+  }
+}

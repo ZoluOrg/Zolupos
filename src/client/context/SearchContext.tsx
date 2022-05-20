@@ -69,9 +69,9 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
           >
             <motion.div
               className={styles.search}
-              initial={{ y: -100, opacity: 0 }}
+              initial={{ y: -60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
+              exit={{ y: 60, opacity: 0 }}
             >
               <div className={styles.top}>
                 <span className="text-2xl font-bold">Add product</span>
