@@ -13,9 +13,6 @@
     align-items: center;
     justify-content: center;
     background-color: rgba($color: $mallow, $alpha: 0.1);
-    animation-name: blurAnim;
-    animation-duration: 0.1s;
-    animation-fill-mode: forwards;
     z-index: 1;
 
     .search {
@@ -44,9 +41,4 @@
       }
     }
   }
-}
-
-@-webkit-keyframes blurAnim {
-  from{ backdrop-filter: blur(0px);}
-  to{ backdrop-filter: blur(10px);}
 }

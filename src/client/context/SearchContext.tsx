@@ -13,6 +13,7 @@ import styles from "../styles/SearchContext.module.scss";
 import { Button } from "../components/Button";
 import { X } from "phosphor-react";
 import { Input } from "../components/Input";
+import { AnimatePresence, motion } from "framer-motion";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -58,25 +59,37 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <div className={styles.searchContextContainer}>
-      {isSearching && (
-        <div className={styles.searchContainer}>
-          <div className={styles.search}>
-            <div className={styles.top}>
-              <span className="text-2xl font-bold">Add product</span>
-              <Button onClick={() => setIsSearching(false)}>
-                <div className={styles.escapeButtonContent}>
-                  <X />
-                  Escape
-                </div>
-              </Button>
-            </div>
-            <div className={styles.searchField}>
-              <Input placeholder="Product ID, Name or Barcode" />
-              <Button buttonColor="coal">Add</Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isSearching && (
+          <motion.div
+            className={styles.searchContainer}
+            initial={{ backdropFilter: "blur(0px)"  }}
+            animate={{ backdropFilter: "blur(5px)" }}
+            exit={{ backdropFilter: "blur(0px)" }}
+          >
+            <motion.div
+              className={styles.search}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+            >
+              <div className={styles.top}>
+                <span className="text-2xl font-bold">Add product</span>
+                <Button onClick={() => setIsSearching(false)}>
+                  <div className={styles.escapeButtonContent}>
+                    <X />
+                    Escape
+                  </div>
+                </Button>
+              </div>
+              <div className={styles.searchField}>
+                <Input placeholder="Product ID, Name or Barcode" />
+                <Button buttonColor="coal">Add</Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <searchContext.Provider
         value={{ toSearch, selected, searchResult, setSelected, searchProduct }}
       >
