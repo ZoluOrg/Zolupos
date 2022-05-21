@@ -25,7 +25,7 @@ export const Form = () => {
     if (data) {
       await empContext
         .authenticate(data.value)
-        .then(() => navigate("/", { replace: true }));
+        .then(() => navigate("/app", { replace: true }));
     }
   };
 

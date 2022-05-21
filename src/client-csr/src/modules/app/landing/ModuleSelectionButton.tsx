@@ -13,7 +13,7 @@ export const ModuleSelectionButton: FC<ModuleSelectionButtonProps> = ({
   label,
   buttonTailColor = "mallow-1",
 }) => {
-  const actualHref = `/app/${label}`;
+  const actualHref = `/${label}`;
   const navigate = useNavigate();
   return (
     <motion.div

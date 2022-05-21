@@ -34,6 +34,6 @@ export const ProductsContext: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-const useProductContext = () => {
+export const useProductContext = () => {
   return useContext(productsContext);
 };

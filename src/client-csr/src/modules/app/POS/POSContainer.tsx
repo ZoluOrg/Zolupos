@@ -1,6 +1,6 @@
 import React from "react";
 import { ProductsContext } from "../../../context/ProductsContext";
-import { SearchContext } from "../../../context/SearchContext";
+import { SearchContext } from "../../../context/SearchContext/SearchContext";
 import { TransactionContext } from "../../../context/TransactionContext";
 import { OrderInfo } from "./OrderInfo";
 import { OrderList } from "./OrderList";
