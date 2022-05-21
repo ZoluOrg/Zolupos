@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { IProduct } from "../../interface/IProduct";
 import { ISearchContext } from "../../interface/ISearchContext";
-import styles from "../../styles/SearchContext.module.scss";
+import styles from "../../styles/SearchContext/SearchContext.module.scss";
 import { Button } from "../../components/Button";
 import { X } from "phosphor-react";
 import { Input } from "../../components/Input";
@@ -45,14 +45,15 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const checkKeyDown = (event: KeyboardEvent) => {
-    console.log(event.key);
     if (event.altKey && event.key == "a") {
       setIsSearching(!isSearching);
-    } else if (event.key == "Escape") {
-      setToSearch("");
-      setSearchResult([]);
-      setIsSearching(false);
-    }
+    } else if (event.key == "Escape") escapeSearch();
+  };
+
+  const escapeSearch = () => {
+    setToSearch("");
+    setSearchResult([]);
+    setIsSearching(false);
   };
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
           <motion.div
             className={styles.searchContainer}
             initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(5px)" }}
+            animate={{ backdropFilter: "blur(2px)" }}
             exit={{ backdropFilter: "blur(0px)" }}
           >
             <motion.div
@@ -87,7 +88,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
             >
               <div className={styles.top}>
                 <span className="text-2xl font-bold">Add product</span>
-                <Button onClick={() => setIsSearching(false)}>
+                <Button onClick={escapeSearch}>
                   <div className={styles.escapeButtonContent}>
                     <X />
                     Escape
@@ -110,7 +111,13 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
                     ))}
                   </ul>
                 ) : (
-                  <div>The product doesn't exist</div>
+                  <div className="font-bold">
+                    {toSearch == "" ? (
+                      <span>Type the barcode or product name</span>
+                    ) : (
+                      <span>Item doesn't exist</span>
+                    )}
+                  </div>
                 )}
               </div>
             </motion.div>

@@ -50,7 +50,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
           {Look}
         </Button>
         {showMenu && (
-          <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1">
+          <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1 z-10">
             {children}
           </ul>
         )}

@@ -1,4 +1,4 @@
-@import "base";
+@import "../base";
 
 .searchContextContainer {
   position: relative;
@@ -37,10 +37,12 @@
           width: 569px;
         }
       }
-      .result{
+      .result {
         width: 100%;
-        padding: 20px;
         display: flex;
+        ul {
+          width: 100%;
+        }
       }
     }
   }

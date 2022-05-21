@@ -1,0 +1,15 @@
+@import "../base";
+
+.container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid $mallow2;
+  border-radius: 8px;
+  .productInfo {
+    display: flex;
+    flex-direction: column;
+  }
+}
