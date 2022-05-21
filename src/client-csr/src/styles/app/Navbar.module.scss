@@ -1,0 +1,42 @@
+@import "../base";
+
+.navbarContainer {
+  background: $coal;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  color: $mallow;
+  display: flex;
+  justify-content: space-between;
+  .leftControls {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    .pageHistoryButtons {
+      display: flex;
+      gap: 14px;
+    }
+  }
+  .rightControls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    .navbarLinks {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .profileButton {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      .profileImg {
+        width: 24px;
+        height: 24px;
+        clip-path: circle();
+      }
+    }
+  }
+}
