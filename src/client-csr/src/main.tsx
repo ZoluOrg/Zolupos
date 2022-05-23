@@ -8,11 +8,14 @@ import { EmployeeCredentialContext } from "./context/EmployeeCredentialContext";
 import { AppContainer } from "./modules/app/AppContainer";
 import { LandingComponent } from "./modules/app/landing/LandingComponent";
 import { POSComponent } from "./modules/app/POS/POSComponent";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <div className="h-screen bg-mallow-1">
+        <ToastContainer />
         <EmployeeCredentialContext>
           <Routes>
             <Route path="/" element={<AppContainer />}>

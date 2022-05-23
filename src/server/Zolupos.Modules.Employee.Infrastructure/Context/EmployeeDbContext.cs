@@ -13,6 +13,19 @@ namespace Zolupos.Modules.Employee.Infrastructure.Context
     {
         public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options) { }
         public DbSet<Employees> Employees { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employees>().HasData(new Employees
+            {
+                Id = 1,
+                FirstName = "Admin",
+                LastName = "User",
+                LastLogin = DateTime.UtcNow,
+                Pin = "adminPassword",
+                Role = "admin",
+                ProfileURL = "https://ui-avatars.com/api/?name=Admin+User&background=random"
+            });
+        }
         public async Task<int> SaveChanges()
         {
             return await SaveChangesAsync();

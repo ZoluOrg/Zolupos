@@ -10,6 +10,7 @@ import { Checkbox } from "../../components/Checkbox";
 import styles from "../../styles/login/Form.module.scss";
 import { useEmployeeCredential } from "../../context/EmployeeCredentialContext";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export const Form = () => {
   const initialValues: IEmployeeLogin = { firstName: "", pin: "" };
@@ -19,9 +20,9 @@ export const Form = () => {
 
   const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
     console.log(formValue);
-    let data = await authenticateEmployee(formValue).catch((error) =>
-      alert("error")
-    );
+    let data = await authenticateEmployee(formValue).catch((error) => {
+      toast("error");
+    });
     if (data) {
       await empContext
         .authenticate(data.value)

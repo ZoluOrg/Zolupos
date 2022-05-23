@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  createRef,
   FC,
   FormEvent,
   ReactNode,
@@ -33,6 +34,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [searchResult, setSearchResult] = useState<Array<IProduct>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const productContext = useProductContext();
+  const searchRef = createRef<HTMLInputElement>();
 
   const searchProduct = (query: string) => {
     const filtered = productContext.products.filter(
