@@ -13,15 +13,6 @@ using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Products
 {
-    public class AddProductController : ApiControllerBase
-    {
-        [HttpPost("/products")]
-        public async Task<ActionResult> AddProduct (AddProductCommand command)
-        {
-            var result = await Mediator.Send(command);
-            return Ok(result);
-        }
-    }
     public class AddProductCommand : IRequest<int>
     {
         public string ProductName { get; set; }

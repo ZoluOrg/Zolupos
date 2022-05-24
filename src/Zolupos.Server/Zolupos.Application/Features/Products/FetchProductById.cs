@@ -12,15 +12,6 @@ using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Products
 {
-    public class FetchProductByIdController : ApiControllerBase
-    {
-        [HttpGet("/products/{id:int}")]
-        public async Task<ActionResult> FetchProductById(int id)
-        {
-            var result = await Mediator.Send(new FetchProductByIdQuery(id));
-            return Ok(result);
-        }
-    }
     public record FetchProductByIdQuery(int id) : IRequest<Product>;
     public class FetchProductByIdHandler : IRequestHandler<FetchProductByIdQuery, Product>
     {

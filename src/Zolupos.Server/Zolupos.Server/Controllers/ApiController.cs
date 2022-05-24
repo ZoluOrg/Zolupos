@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zolupos.Application.Common.Abstractions
+namespace Zolupos.Server.Controllers
 {
     [ApiController]
     [Route("api/")]
