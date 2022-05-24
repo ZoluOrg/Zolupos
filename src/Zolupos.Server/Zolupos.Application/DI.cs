@@ -13,6 +13,7 @@ namespace Zolupos.Application
         {
             serviceCollection.AddPostgresDB<ApplicationDbContext>();
             serviceCollection.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
             serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
             return serviceCollection;
         }

@@ -17,12 +17,12 @@ namespace Zolupos.Application.Features.Products
         [HttpGet("/products/{id:int}")]
         public async Task<ActionResult> FetchProductById(int id)
         {
-            var result = await Mediator.Send(new FetchProductByIdCommand(id));
+            var result = await Mediator.Send(new FetchProductByIdQuery(id));
             return Ok(result);
         }
     }
-    public record FetchProductByIdCommand(int id) : IRequest<Product>;
-    public class FetchProductByIdHandler : IRequestHandler<FetchProductByIdCommand, Product>
+    public record FetchProductByIdQuery(int id) : IRequest<Product>;
+    public class FetchProductByIdHandler : IRequestHandler<FetchProductByIdQuery, Product>
     {
         private IApplicationDbContext _context;
         public FetchProductByIdHandler(IApplicationDbContext context)
@@ -30,7 +30,7 @@ namespace Zolupos.Application.Features.Products
             _context = context;
         }
 
-        public async Task<Product> Handle(FetchProductByIdCommand request, CancellationToken cancellationToken)
+        public async Task<Product> Handle(FetchProductByIdQuery request, CancellationToken cancellationToken)
         {
             var product = await _context.Products.Where(product => product.ProductId == request.id).FirstAsync();
             return product;

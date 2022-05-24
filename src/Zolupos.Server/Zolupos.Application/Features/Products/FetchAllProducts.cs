@@ -17,19 +17,19 @@ namespace Zolupos.Application.Features.Products
         [HttpGet("/products")]
         public async Task<ActionResult> FetchAllProducts()
         {
-            var result = await Mediator.Send(new FetchAllProductsCommand());
+            var result = await Mediator.Send(new FetchAllProductsQuery());
             return Ok(result);
         }
-        public record FetchAllProductsCommand : IRequest<ICollection<Product>>;
+        public record FetchAllProductsQuery : IRequest<ICollection<Product>>;
 
-        public class FetchAllProductsHandler : IRequestHandler<FetchAllProductsCommand, ICollection<Product>>
+        public class FetchAllProductsHandler : IRequestHandler<FetchAllProductsQuery, ICollection<Product>>
         {
             private IApplicationDbContext _context;
             public FetchAllProductsHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
-            public async Task<ICollection<Product>> Handle(FetchAllProductsCommand request, CancellationToken cancellationToken)
+            public async Task<ICollection<Product>> Handle(FetchAllProductsQuery request, CancellationToken cancellationToken)
             {
                 var products = await _context.Products.ToListAsync();
                 return products;
