@@ -1,9 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interface;
 using Zolupos.Application.Infrastructure.Context;
@@ -16,6 +13,7 @@ namespace Zolupos.Application
         {
             serviceCollection.AddPostgresDB<ApplicationDbContext>();
             serviceCollection.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
             return serviceCollection;
         }
     }
