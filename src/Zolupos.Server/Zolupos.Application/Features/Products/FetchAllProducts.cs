@@ -14,7 +14,7 @@ namespace Zolupos.Application.Features.Products
 {
     public class FetchAllProductsController : ApiControllerBase
     {
-        [HttpGet("/api/products")]
+        [HttpGet("/products")]
         public async Task<ActionResult> FetchAllProducts()
         {
             var result = await Mediator.Send(new FetchAllProductsCommand());
