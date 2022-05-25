@@ -6,22 +6,28 @@ namespace Zolupos.Server.Controllers.Products
 {
     public class ProductController : ApiControllerBase
     {
-        [HttpGet("/products")]
+        [HttpGet]
         public async Task<ActionResult> FetchAllProducts()
         {
             var result = await Mediator.Send(new FetchAllProductsQuery());
             return Ok(result);
         }
-        
-        [HttpGet("/products/{id:int}")]
+
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> FetchProductById(int id)
         {
             var result = await Mediator.Send(new FetchProductByIdQuery(id));
             return Ok(result);
         }
 
-        [HttpPost("/products")]
+        [HttpPost]
         public async Task<ActionResult> AddProduct(AddProductCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteProduct(DeleteProductCommand command)
         {
             var result = await Mediator.Send(command);
             return Ok(result);

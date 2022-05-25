@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Zolupos.Server.Controllers
 {
     [ApiController]
-    [Route("api/")]
+    [Route("api/[controller]")]
     public abstract class ApiControllerBase : ControllerBase
     {
         private ISender _mediator = null!;
