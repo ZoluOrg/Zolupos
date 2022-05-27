@@ -12,10 +12,10 @@ namespace Zolupos.Application.Infrastructure.Context
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<OrderedProduct> OrderedProducts { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<OrderedProduct> OrderedProducts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

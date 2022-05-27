@@ -18,6 +18,8 @@ namespace Zolupos.Application.Map
             CreateMap<AddProductCommand, Product>().ReverseMap();
             CreateMap<AddCustomerCommand, Customer>().ReverseMap();
             CreateMap<AddTransactionCommand, Transaction>().ReverseMap();
+            CreateMap<AddOrderedProduct, OrderedProduct>().ReverseMap();
+
         }
     }
 }

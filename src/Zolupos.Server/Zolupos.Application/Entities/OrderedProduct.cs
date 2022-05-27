@@ -10,6 +10,8 @@ namespace Zolupos.Application.Entities
     {
         public int OrderedProductId { get; set; }
         public int Quantity { get; set; }
+
+        public int ProductId { get; set; }
         public virtual Product Product { get; set; }
 
         public Transaction Transaction { get; set; }
