@@ -9,18 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Products
 {
-    public class AddProductCommand : IRequest<int>
+    public class AddProductCommand : IRequest<ResultWrapper<int>>
     {
         public string ProductName { get; set; }
         public int ProductQuantity { get; set; }
         public string ProductBarcode { get; set; }
         public int ProductPrice { get; set; }
     }
-    public class AddProductHandler : IRequestHandler<AddProductCommand, int>
+    public class AddProductHandler : IRequestHandler<AddProductCommand, ResultWrapper<int>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -29,14 +30,14 @@ namespace Zolupos.Application.Features.Products
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<int>> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             if (await _context.Products.Where(product => product.ProductBarcode == request.ProductBarcode).AnyAsync()) throw new Exception("Product with the same barcode exist");
             var product = _mapper.Map<Product>(request);
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            return product.ProductId;
+            return new ResultWrapper<int> { Receive = product.ProductId, Message = "" };
         }
     }
 }

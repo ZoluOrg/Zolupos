@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Products
 {
-    public record FetchProductByIdQuery(int id) : IRequest<Product>;
-    public class FetchProductByIdHandler : IRequestHandler<FetchProductByIdQuery, Product>
+    public record FetchProductByIdQuery(int id) : IRequest<ResultWrapper<Product>>;
+    public class FetchProductByIdHandler : IRequestHandler<FetchProductByIdQuery, ResultWrapper<Product>>
     {
         private IApplicationDbContext _context;
         public FetchProductByIdHandler(IApplicationDbContext context)
@@ -21,10 +22,10 @@ namespace Zolupos.Application.Features.Products
             _context = context;
         }
 
-        public async Task<Product> Handle(FetchProductByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<Product>> Handle(FetchProductByIdQuery request, CancellationToken cancellationToken)
         {
             var product = await _context.Products.Where(product => product.ProductId == request.id).FirstAsync();
-            return product;
+            return new ResultWrapper<Product> { Receive = product, Message = "" };
         }
     }
 }
