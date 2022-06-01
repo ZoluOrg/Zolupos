@@ -7,18 +7,18 @@ using Zolupos.Application.Common.Interface;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record GetTransactionByIdQuery (int Id) : IRequest<TransactionDTO>;
-    public record GetTransactionByIdHandler : IRequestHandler<GetTransactionByIdQuery, TransactionDTO>
+    public record FetchTransactionByIdQuery (int Id) : IRequest<TransactionDTO>;
+    public record FetchTransactionByIdHandler : IRequestHandler<FetchTransactionByIdQuery, TransactionDTO>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
-        public GetTransactionByIdHandler(IApplicationDbContext context, IMapper mapper)
+        public FetchTransactionByIdHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<TransactionDTO> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TransactionDTO> Handle(FetchTransactionByIdQuery request, CancellationToken cancellationToken)
         {
             var transaction = await _context.Transactions.Where(transaction => transaction.TransactionId == request.Id).FirstAsync();
             var mappedTransaction = _mapper.Map<TransactionDTO>(transaction);

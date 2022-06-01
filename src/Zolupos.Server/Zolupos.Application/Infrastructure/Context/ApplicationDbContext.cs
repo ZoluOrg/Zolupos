@@ -16,6 +16,7 @@ namespace Zolupos.Application.Infrastructure.Context
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<OrderedProduct> OrderedProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,8 @@ namespace Zolupos.Application.Infrastructure.Context
 
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.OrderedProducts).WithOne(ord => ord.Transaction);
             modelBuilder.Entity<OrderedProduct>().HasOne(ord => ord.Transaction).WithMany(tr => tr.OrderedProducts);
+
+            modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

@@ -11,19 +11,19 @@ using Zolupos.Application.Common.Interface;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record GetAllTransactionQuery : IRequest<ICollection<TransactionDTO>>;
-    public class GetAllTransactionHandler : IRequestHandler<GetAllTransactionQuery, ICollection<TransactionDTO>>
+    public record FetchAllTransactionQuery : IRequest<ICollection<TransactionDTO>>;
+    public class FetchAllTransactionHandler : IRequestHandler<FetchAllTransactionQuery, ICollection<TransactionDTO>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
 
-        public GetAllTransactionHandler(IApplicationDbContext context, IMapper mapper)
+        public FetchAllTransactionHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<ICollection<TransactionDTO>> Handle(GetAllTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<ICollection<TransactionDTO>> Handle(FetchAllTransactionQuery request, CancellationToken cancellationToken)
         {
             var transactions = await _context.Transactions.ToListAsync();
             var mappedTransactions = _mapper.Map<ICollection<TransactionDTO>>(transactions);

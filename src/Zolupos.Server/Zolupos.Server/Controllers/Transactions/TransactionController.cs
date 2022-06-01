@@ -8,14 +8,14 @@ namespace Zolupos.Server.Controllers.Transactions
         [HttpGet]
         public async Task<ActionResult> GetAllTransactions()
         {
-            var transactions = await Mediator.Send(new GetAllTransactionQuery());
+            var transactions = await Mediator.Send(new FetchAllTransactionQuery());
             return Ok(transactions);
         }
 
         [HttpGet("{Id:int}")]
         public async Task<ActionResult> GetTransactionById(int Id)
         {
-            var transaction = await Mediator.Send(new GetTransactionByIdQuery(Id));
+            var transaction = await Mediator.Send(new FetchTransactionByIdQuery(Id));
             return Ok(transaction);
         }
 
