@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Customers
 {
-    public record FetchAllCustomersQuery : IRequest<ICollection<Customer>>;
-    public class FetchAllCustomersHandler : IRequestHandler<FetchAllCustomersQuery, ICollection<Customer>>
+    public record FetchAllCustomersQuery : IRequest<ResultWrapper<ICollection<Customer>>>;
+    public class FetchAllCustomersHandler : IRequestHandler<FetchAllCustomersQuery, ResultWrapper<ICollection<Customer>>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;

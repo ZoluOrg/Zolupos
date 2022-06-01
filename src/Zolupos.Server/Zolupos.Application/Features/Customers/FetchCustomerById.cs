@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Customers
 {
-    public record FetchCustomerByIdQuery (int Id) : IRequest<Customer>;
-    public class FetchCustomerHandler : IRequestHandler<FetchCustomerByIdQuery, Customer>
+    public record FetchCustomerByIdQuery(int Id) : IRequest<ResultWrapper<Customer>>;
+    public class FetchCustomerHandler : IRequestHandler<FetchCustomerByIdQuery, ResultWrapper<Customer>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -22,10 +23,10 @@ namespace Zolupos.Application.Features.Customers
             _mapper = mapper;
         }
 
-        public async Task<Customer> Handle(FetchCustomerByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<Customer>> Handle(FetchCustomerByIdQuery request, CancellationToken cancellationToken)
         {
             var customer = await _context.Customers.Where(customer => customer.CustomerId == request.Id).FirstAsync();
-            return customer;
+            return new ResultWrapper<Customer> { Receive = customer, Message = "" };
         }
     }
 }
