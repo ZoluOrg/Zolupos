@@ -4,11 +4,12 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.DTO;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchTransactionByIdQuery (int Id) : IRequest<TransactionDTO>;
-    public record FetchTransactionByIdHandler : IRequestHandler<FetchTransactionByIdQuery, TransactionDTO>
+    public record FetchTransactionByIdQuery (int Id) : IRequest<ResultWrapper<TransactionDTO>>;
+    public record FetchTransactionByIdHandler : IRequestHandler<FetchTransactionByIdQuery, ResultWrapper<TransactionDTO>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -18,12 +19,12 @@ namespace Zolupos.Application.Features.Transactions
             _mapper = mapper;
         }
 
-        public async Task<TransactionDTO> Handle(FetchTransactionByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<TransactionDTO>> Handle(FetchTransactionByIdQuery request, CancellationToken cancellationToken)
         {
             var transaction = await _context.Transactions.Where(transaction => transaction.TransactionId == request.Id).FirstAsync();
             var mappedTransaction = _mapper.Map<TransactionDTO>(transaction);
 
-            return mappedTransaction;
+            return new ResultWrapper<TransactionDTO> { Receive = mappedTransaction, Message = ""};
         }
     }
 }

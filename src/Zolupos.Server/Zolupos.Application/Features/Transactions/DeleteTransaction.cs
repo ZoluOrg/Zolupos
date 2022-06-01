@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record DeleteTransactionCommand (int Id) : IRequest<int>;
-    public class DeleteTransactionHandler : IRequestHandler<DeleteTransactionCommand, int>
+    public record DeleteTransactionCommand(int Id) : IRequest<ResultWrapper<int>>;
+    public class DeleteTransactionHandler : IRequestHandler<DeleteTransactionCommand, ResultWrapper<int>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -21,13 +22,13 @@ namespace Zolupos.Application.Features.Transactions
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<int>> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
         {
             var transactionToDelete = await _context.Transactions.Where(transaction => transaction.TransactionId == request.Id).FirstAsync();
             _context.Transactions.Remove(transactionToDelete);
             await _context.SaveChangesAsync();
 
-            return transactionToDelete.TransactionId;
+            return new ResultWrapper<int> { Receive = transactionToDelete.CustomerId, Message = "" };
         }
     }
 }

@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.DTO;
 using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchAllTransactionQuery : IRequest<ICollection<TransactionDTO>>;
-    public class FetchAllTransactionHandler : IRequestHandler<FetchAllTransactionQuery, ICollection<TransactionDTO>>
+    public record FetchAllTransactionQuery : IRequest<ResultWrapper<ICollection<TransactionDTO>>>;
+    public class FetchAllTransactionHandler : IRequestHandler<FetchAllTransactionQuery, ResultWrapper<ICollection<TransactionDTO>>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -23,12 +24,12 @@ namespace Zolupos.Application.Features.Transactions
             _mapper = mapper;
         }
 
-        public async Task<ICollection<TransactionDTO>> Handle(FetchAllTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<ICollection<TransactionDTO>>> Handle(FetchAllTransactionQuery request, CancellationToken cancellationToken)
         {
             var transactions = await _context.Transactions.ToListAsync();
             var mappedTransactions = _mapper.Map<ICollection<TransactionDTO>>(transactions);
 
-            return mappedTransactions;
+            return new ResultWrapper<ICollection<TransactionDTO>> { Receive = mappedTransactions, Message = ""};
         }
     }
 }
