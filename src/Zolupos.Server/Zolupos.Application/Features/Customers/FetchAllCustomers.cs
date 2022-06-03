@@ -23,10 +23,10 @@ namespace Zolupos.Application.Features.Customers
             _mapper = mapper;
         }
 
-        public async Task<ICollection<Customer>> Handle(FetchAllCustomersQuery request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<ICollection<Customer>>> Handle(FetchAllCustomersQuery request, CancellationToken cancellationToken)
         {
             var customers = await _context.Customers.ToListAsync();
-            return customers;
+            return new ResultWrapper<ICollection<Customer>> { Receive = customers, Message = "" };
         }
     }
 }

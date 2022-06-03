@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Zolupos.Application.Common.DTO;
 using Zolupos.Application.Entities;
 using Zolupos.Application.Features.Customers;
+using Zolupos.Application.Features.Employees;
 using Zolupos.Application.Features.Products;
 using Zolupos.Application.Features.Transactions;
 
@@ -22,6 +23,7 @@ namespace Zolupos.Application.Map
             CreateMap<AddOrderedProduct, OrderedProduct>().ReverseMap();
             CreateMap<TransactionDTO, Transaction>().ReverseMap();
             CreateMap<OrderedProductDTO, Product>().ReverseMap();
+            CreateMap<AddEmployeeCommand, Employee>().ReverseMap();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Zolupos.Application.Features.Transactions
             await _context.Transactions.AddAsync(mappedTransaction);
             await _context.SaveChangesAsync();
 
-            return new ResultWrapper<int> { Receive = mappedTransaction.CustomerId, Message = ""}
+            return new ResultWrapper<int> { Receive = mappedTransaction.CustomerId, Message = "" };
         }
     }
 }
