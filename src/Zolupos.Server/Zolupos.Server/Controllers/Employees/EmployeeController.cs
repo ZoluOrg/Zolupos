@@ -18,5 +18,18 @@ namespace Zolupos.Server.Controllers.Employees
             var employee = await Mediator.Send(new FetchEmployeeByIdQuery(Id));
             return Ok(employee);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> PostEmployee(AddEmployeeCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+        [HttpDelete("{Id:int}")]
+        public async Task<ActionResult> DeleteEmployee(int Id)
+        {
+            var result = await Mediator.Send(new DeleteEmployeeCommand(Id));
+            return Ok(result);
+        }
     }
 }
