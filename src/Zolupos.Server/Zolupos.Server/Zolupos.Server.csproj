@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zolupos.Application\Zolupos.Application.csproj" />
+    <ProjectReference Include="..\Zolupos.Shared\Zolupos.Shared.csproj" />
   </ItemGroup>
 
 </Project>

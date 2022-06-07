@@ -1,41 +1,56 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Employees
 {
-    public class AddEmployeeCommand : IRequest<ResultWrapper<int>>
+    public class AddEmployeeCommand : IRequest
     {
-        public string FirstName { get; set; }
-        public string SurName { get; set; }
-        public int Pin { get; set; }
-        public int PhoneNumber { get; set; }
-        public DateTime LastLogin { get; set; }
+        public string UserName { get; set; }
+        public string Pin { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
-    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand, ResultWrapper<int>>
+    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand>
     {
-        private IApplicationDbContext _context;
+        private UserManager<IdentityUser> _userManager;
         private IMapper _mapper;
-        public AddEmployeeHandler(IApplicationDbContext context, IMapper mapper)
+        public AddEmployeeHandler(UserManager<IdentityUser> userManager, IMapper mapper)
         {
-            _context = context;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
-        public async Task<ResultWrapper<int>> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var employee = _mapper.Map<Employee>(request);
-            await _context.Employees.AddAsync(employee);
-            await _context.SaveChangesAsync();
+            var employee = new IdentityUser
+            {
+                UserName = request.UserName,
+                PhoneNumber = request.Phone,
+                Email = request.Email
+            };
 
-            return new ResultWrapper<int> { Receive=employee.EmployeeId, Message = ""};
+            var result = await _userManager.CreateAsync(employee, request.Pin);
+            if (!result.Succeeded)
+            {
+                foreach(IdentityError error in result.Errors)
+                {
+                    Console.WriteLine(error.Description);
+                }
+            }
+            if (result.Succeeded)
+            {
+                Console.WriteLine("done?");
+            }
+            return Unit.Value;
         }
     }
 }

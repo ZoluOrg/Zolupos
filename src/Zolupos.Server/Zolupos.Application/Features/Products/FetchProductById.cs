@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Abstractions;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 

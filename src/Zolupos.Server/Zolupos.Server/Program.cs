@@ -1,14 +1,18 @@
+using Microsoft.AspNetCore.Identity;
 using Zolupos.Application;
+using Zolupos.Shared.Model;
 
 var builder = WebApplication.CreateBuilder(args);
+{
+    // Add services to the container.
 
-// Add services to the container.
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.UseZoluposApplication();
+}
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.UseZoluposApplication();
 
 var app = builder.Build();
 
@@ -22,6 +26,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

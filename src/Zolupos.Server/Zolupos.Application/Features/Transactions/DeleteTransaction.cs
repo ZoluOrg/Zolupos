@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
