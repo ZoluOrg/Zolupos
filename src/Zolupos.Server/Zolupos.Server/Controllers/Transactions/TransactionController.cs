@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Zolupos.Application.Features.Transactions;
 
 namespace Zolupos.Server.Controllers.Transactions
 {
     public class TransactionController : ApiControllerBase
     {
+        [Authorize("AdministrativePrivilages")]
         [HttpGet]
         public async Task<ActionResult> GetAllTransactions()
         {

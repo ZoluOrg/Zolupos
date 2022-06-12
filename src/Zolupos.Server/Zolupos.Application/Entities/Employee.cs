@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Application.Common.Enums;
 
 namespace Zolupos.Application.Entities
 {
@@ -11,8 +12,9 @@ namespace Zolupos.Application.Entities
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
-        public string FullName => $"{FirstName} {SurName}";
+        public string FullName { get; set; } 
         public int Pin { get; set; }
+        public string Role { get; set; }
         public int PhoneNumber { get; set; }
         public DateTime LastLogin { get; set; }
     }
