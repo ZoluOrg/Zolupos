@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220607132725_AddingIdentity")]
+    partial class AddingIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,10 +260,6 @@ namespace Zolupos.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("LastLogin")
                         .HasColumnType("timestamp with time zone");
 
@@ -270,10 +268,6 @@ namespace Zolupos.Application.Migrations
 
                     b.Property<int>("Pin")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("SurName")
                         .IsRequired()
@@ -288,11 +282,9 @@ namespace Zolupos.Application.Migrations
                         {
                             EmployeeId = 1,
                             FirstName = "Sample",
-                            FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 6, 12, 5, 40, 52, 970, DateTimeKind.Utc).AddTicks(9995),
+                            LastLogin = new DateTime(2022, 6, 7, 13, 27, 24, 441, DateTimeKind.Utc).AddTicks(4354),
                             PhoneNumber = 81234567,
                             Pin = 1989,
-                            Role = "Admin",
                             SurName = "Employee"
                         });
                 });

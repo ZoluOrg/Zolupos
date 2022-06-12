@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Employees
 {
-    public class AddEmployeeCommand : IRequest<ResultWrapper<int>>
+    public class AddEmployeeCommand : IRequest
     {
         public string FirstName { get; set; }
         public string SurName { get; set; }
@@ -21,13 +22,13 @@ namespace Zolupos.Application.Features.Employees
         public int PhoneNumber { get; set; }
         public DateTime LastLogin { get; set; }
     }
-    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand, ResultWrapper<int>>
+    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand>
     {
-        private IApplicationDbContext _context;
+        private UserManager<IdentityUser> _userManager;
         private IMapper _mapper;
-        public AddEmployeeHandler(IApplicationDbContext context, IMapper mapper)
+        public AddEmployeeHandler(UserManager<IdentityUser> userManager, IMapper mapper)
         {
-            _context = context;
+            _userManager = userManager;
             _mapper = mapper;
         }
 

@@ -3,7 +3,7 @@ using MediatR;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.DTO;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
