@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Zolupos.Application.Features.Employees;
 
 namespace Zolupos.Server.Controllers.Employees
 {
     public class EmployeeController : ApiControllerBase
     {
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> FetchAllEmployees()
         {

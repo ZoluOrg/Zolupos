@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using Zolupos.Application;
 using Zolupos.Shared.Models;
@@ -9,7 +11,28 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(opts => {
+        opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Token To Authenticate Controllers",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey
+        });
+        opts.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                }, new List<string>()
+            }
+        });
+    });
 
     builder.Services.UseZoluposApplication();
 
@@ -53,8 +76,11 @@ var app = builder.Build();
     app.MapControllers();
 
     app.UseRouting();
+
     app.UseAuthentication();
+
     app.UseAuthorization();
+
     app.UseCors(cors =>
     {
         cors.AllowAnyOrigin();
