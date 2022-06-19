@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Enums;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Infrastructure.Context
 {
-    public class ApplicationDbContext : IdentityDbContext, IApplicationDbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public virtual DbSet<Customer> Customers { get; set; }

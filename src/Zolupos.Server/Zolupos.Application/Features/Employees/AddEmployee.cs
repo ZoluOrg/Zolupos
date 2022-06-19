@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Enums;
-using Zolupos.Application.Common.Interface;
+using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Employees
 {
-    public class AddEmployeeCommand : IRequest
+    public class AddEmployeeCommand : IRequest<ResultWrapper<int>>
     {
         public string FirstName { get; set; }
         public string SurName { get; set; }
@@ -22,13 +22,13 @@ namespace Zolupos.Application.Features.Employees
         public int PhoneNumber { get; set; }
         public DateTime LastLogin { get; set; }
     }
-    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand>
+    public class AddEmployeeHandler : IRequestHandler<AddEmployeeCommand, ResultWrapper<int>>
     {
-        private UserManager<IdentityUser> _userManager;
+        private IApplicationDbContext _context;
         private IMapper _mapper;
-        public AddEmployeeHandler(UserManager<IdentityUser> userManager, IMapper mapper)
+        public AddEmployeeHandler(IApplicationDbContext context, IMapper mapper)
         {
-            _userManager = userManager;
+            _context = context;
             _mapper = mapper;
         }
 
