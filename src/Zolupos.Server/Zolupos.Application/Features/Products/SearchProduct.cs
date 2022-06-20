@@ -16,7 +16,7 @@ namespace Zolupos.Application.Features.Products
         }
         public async Task<ResultWrapper<ICollection<Product>>> Handle(SearchProductQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.Products.Where(product => product.ProductBarcode.Contains(request.Query) || product.ProductName.Contains(request.Query)).ToListAsync();
+            var result = await _context.Products.Where(product => product.ProductBarcode.ToLower().Contains(request.Query.ToLower()) || product.ProductName.ToLower().Contains(request.Query.ToLower())).ToListAsync();
             return new ResultWrapper<ICollection<Product>> { Receive = result, Message = "" };
         }
     }

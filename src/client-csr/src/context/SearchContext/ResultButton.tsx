@@ -12,10 +12,10 @@ export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
     <div className={styles.container}>
       <div className={styles.productInfo}>
         <span className="font-bold text-xl">{product.productName}</span>
-        <span className="font-light text-sm">{product.barCode}</span>
+        <span className="font-light text-sm">{product.productBarcode}</span>
       </div>
       <div className="productPrice">
-        <span className="font-bold text-2xl">{product.productRetailCost}</span>
+        <span className="font-bold text-2xl">{product.productPrice}</span>
       </div>
     </div>
   );

@@ -17,13 +17,15 @@ import { Input } from "../../components/Input";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProductContext } from "../ProductsContext";
 import { ResultButton } from "./ResultButton";
+import { searchProduct } from "../../services/Product/ProductService";
+import { useQuery } from "react-query";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
   selected: 0,
   searchResult: [],
-  setSelected: (toBeSelected: number) => {},
-  searchProduct: (query: string) => {},
+  setSelected: (toBeSelected: number) => { },
+  find: (query: string) => { },
 };
 
 const searchContext = createContext(defaultValue);
@@ -33,16 +35,13 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [selected, setSelected] = useState<number>(0);
   const [searchResult, setSearchResult] = useState<Array<IProduct>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const productContext = useProductContext();
   const searchRef = createRef<HTMLInputElement>();
 
-  const searchProduct = (query: string) => {
-    const filtered = productContext.products.filter(
-      (prod) =>
-        prod.barCode.toLowerCase().includes(query) == true ||
-        prod.productName.toLowerCase().includes(query) == true
-    );
-    setSearchResult(filtered);
+  const find = async (query: string) => {
+    const result = await searchProduct(query);
+    setSearchResult(result);
     console.log("client search event");
   };
 
@@ -66,10 +65,10 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     };
   }, []);
 
-  const useIsSearching = (event: FormEvent<HTMLInputElement>) => {
-    searchProduct(event.currentTarget.value);
+  const useIsSearching = async (event: FormEvent<HTMLInputElement>) => {
     setToSearch(event.currentTarget.value);
     setSelected(0);
+    find(event.currentTarget.value);
   };
 
   return (
@@ -127,7 +126,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
         )}
       </AnimatePresence>
       <searchContext.Provider
-        value={{ toSearch, selected, searchResult, setSelected, searchProduct }}
+        value={{ toSearch, selected, searchResult, setSelected, find }}
       >
         {children}
       </searchContext.Provider>

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { IProduct } from "../interface/IProduct";
 import { IProductContext } from "../interface/IProductContext";
-import { getAllProducts } from "../services/Inventory/InventoryService";
+import { getAllProducts } from "../services/Product/ProductService";
 
 const defaultValue: IProductContext = {
   products: [],
