@@ -4,9 +4,9 @@ using Zolupos.Application.Features.Employees;
 
 namespace Zolupos.Server.Controllers.Employees
 {
+    [Authorize]
     public class EmployeeController : ApiControllerBase
     {
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult> FetchAllEmployees()
         {

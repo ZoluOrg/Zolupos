@@ -4,9 +4,9 @@ using Zolupos.Application.Features.Transactions;
 
 namespace Zolupos.Server.Controllers.Transactions
 {
+    [Authorize]
     public class TransactionController : ApiControllerBase
     {
-        [Authorize("AdministrativePrivilages")]
         [HttpGet]
         public async Task<ActionResult> GetAllTransactions()
         {

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Zolupos.Application.Features.Customers;
 
 namespace Zolupos.Server.Controllers.Customers
 {
+    [Authorize]
     public class CustomerController : ApiControllerBase
     {
         [HttpGet]

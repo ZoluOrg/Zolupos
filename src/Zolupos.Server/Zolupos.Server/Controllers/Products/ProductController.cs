@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Zolupos.Application.Features.Products;
 
 namespace Zolupos.Server.Controllers.Products
 {
+    [Authorize]
     public class ProductController : ApiControllerBase
     {
         [HttpGet]
