@@ -15,10 +15,17 @@ namespace Zolupos.Server.Controllers.Products
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult> FetchProductById(int id)
+        [HttpGet("{Id:int}")]
+        public async Task<ActionResult> FetchProductById(int Id)
         {
-            var result = await Mediator.Send(new FetchProductByIdQuery(id));
+            var result = await Mediator.Send(new FetchProductByIdQuery(Id));
+            return Ok(result);
+        }
+
+        [HttpGet("Search")]
+        public async Task<ActionResult> SearchProduct([FromQuery(Name = "Query")] string Query)
+        {
+            var result = await Mediator.Send(new SearchProductQuery(Query));
             return Ok(result);
         }
 
