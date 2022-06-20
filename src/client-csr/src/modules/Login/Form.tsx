@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 export const Form = () => {
-  const initialValues: IEmployeeLogin = { firstName: "", pin: "" };
+  const initialValues: IEmployeeLogin = { fullName: "", pin: "" };
   const navigate = useNavigate();
   const empContext = useEmployeeCredential();
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -25,7 +25,7 @@ export const Form = () => {
     });
     if (data) {
       await empContext
-        .authenticate(data.value)
+        .save(data.receive.requestedToken, data.receive.employee)
         .then(() => navigate("/landing", { replace: true }));
     }
   };
@@ -54,8 +54,8 @@ export const Form = () => {
                 <div className={styles.formInputs}>
                   <Field
                     as={Input}
-                    name="firstName"
-                    placeholder="First Name"
+                    name="fullName"
+                    placeholder="Full Name"
                     type="text"
                     className="w-96"
                   />

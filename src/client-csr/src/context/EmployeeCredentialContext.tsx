@@ -16,7 +16,7 @@ const defaultValue: IEmployeeCredentialsContext = {
   creds: null,
   token: "",
   isLoggedIn: false,
-  authenticate: async (tokenToSave: string) => {},
+  save: async (TokenToSave: string, EmployeeCredsToSave: IEmployee) => {},
 };
 
 const employeeCredentialContext = createContext(defaultValue);
@@ -37,21 +37,16 @@ export const EmployeeCredentialContext: FC<{ children: ReactNode }> = ({
       setIsLoggedIn(true);
     } else console.warn("Employee is not authenticated");
   }, []);
-  const authenticate = async (TokenToSave: string) => {
-    setGlobalToken(TokenToSave);
+  const save = async (TokenToSave: string, EmployeeCredsToSave: IEmployee) => {
+    Cookies.set("zolupos-employee-creds", JSON.stringify(EmployeeCredsToSave));
     Cookies.set("zolupos-employee-token", TokenToSave);
-    console.log("Token Set");
-    setIsLoggedIn(true);
 
-    const parsedToken = parseJWT(TokenToSave);
-    const employeeCreds = await getEmployeeById(parsedToken["unique_name"]);
-    setCreds(employeeCreds.value);
-    Cookies.set("zolupos-employee-creds", JSON.stringify(employeeCreds.value));
-    console.log("Credentials Set");
+    setCreds(EmployeeCredsToSave);
+    setGlobalToken(TokenToSave);
   };
   return (
     <employeeCredentialContext.Provider
-      value={{ creds, token, isLoggedIn, authenticate }}
+      value={{ creds, token, isLoggedIn, save }}
     >
       {children}
     </employeeCredentialContext.Provider>

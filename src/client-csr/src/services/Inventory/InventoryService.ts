@@ -8,7 +8,7 @@ export const getAllProducts = async () => {
     "https://localhost:7116/api/Inventory",
     { headers: getTokenAsBearer() }
   );
-  return products.data.value;
+  return products.data.receive;
 };
 
 export const getProductById = async (id: number) => {
@@ -16,7 +16,7 @@ export const getProductById = async (id: number) => {
     `https://localhost:7116/api/Inventory/${id}`,
     { headers: getTokenAsBearer() }
   );
-  return product.data.value;
+  return product.data.receive;
 };
 
 export const addProduct = async (product: IProduct) => {
@@ -26,5 +26,5 @@ export const addProduct = async (product: IProduct) => {
     { headers: getTokenAsBearer() }
   );
 
-  return response.data.value;
+  return response.data.receive;
 };

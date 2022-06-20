@@ -1,4 +1,4 @@
 export interface IEmployeeLogin {
-  firstName: string;
+  fullName: string;
   pin: string;
 }

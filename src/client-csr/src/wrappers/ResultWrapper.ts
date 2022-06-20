@@ -1,4 +1,4 @@
 export default interface ResultWrapper<T> {
-  value: T;
+  receive: T;
   message: string;
 }

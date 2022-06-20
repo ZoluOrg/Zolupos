@@ -1,9 +1,10 @@
 export interface IEmployee { 
-  id: number;
+  employeeId: number;
   firstName: string;
-  lastName: string;
-  lastLogin: Date | null;
-  pinHashed: string;
-  role: string;
-  profileURL: string;
+  surName: string;
+  fullName: string;
+  pin: number,
+  role: string,
+  phoneNumber: number;
+  lastLogin: Date
 }
