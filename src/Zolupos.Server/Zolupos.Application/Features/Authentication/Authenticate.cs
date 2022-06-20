@@ -22,6 +22,7 @@ namespace Zolupos.Application.Features.Authentication
     public class AuthenticateResponse
     {
         public string RequestedToken { get; set; }
+        public string RequestedBearerToken { get; set; }
         public Employee Employee { get; set; }
     }
     public class AuthenticateHandler : IRequestHandler<AuthenticateCommand, ResultWrapper<AuthenticateResponse>>
@@ -41,6 +42,7 @@ namespace Zolupos.Application.Features.Authentication
             var response = new AuthenticateResponse
             {
                 RequestedToken = token,
+                RequestedBearerToken = $"Bearer {token}",
                 Employee = employee
             };
             return new ResultWrapper<AuthenticateResponse> { Message = "", Receive = response };
