@@ -7,6 +7,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  useTransition
 } from "react";
 import { IProduct } from "../../interface/IProduct";
 import { ISearchContext } from "../../interface/ISearchContext";
@@ -19,6 +20,7 @@ import { useProductContext } from "../ProductsContext";
 import { ResultButton } from "./ResultButton";
 import { searchProduct } from "../../services/Product/ProductService";
 import { useQuery } from "react-query";
+import { CustomSpinner } from "../../components/CustomSpinner";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -35,14 +37,13 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [selected, setSelected] = useState<number>(0);
   const [searchResult, setSearchResult] = useState<Array<IProduct>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const productContext = useProductContext();
-  const searchRef = createRef<HTMLInputElement>();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isPending, startTransition] = useTransition();
 
   const find = async (query: string) => {
-    const result = await searchProduct(query);
+    const result = await searchProduct(query)
     setSearchResult(result);
-    console.log("client search event");
+    setIsLoading(false);
   };
 
   const checkKeyDown = (event: KeyboardEvent) => {
@@ -66,9 +67,10 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   const useIsSearching = async (event: FormEvent<HTMLInputElement>) => {
+    setIsLoading(true);
     setToSearch(event.currentTarget.value);
     setSelected(0);
-    find(event.currentTarget.value);
+    startTransition(() => { find(event.currentTarget.value); });
   };
 
   return (
@@ -112,12 +114,15 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
                     ))}
                   </ul>
                 ) : (
-                  <div className="font-bold">
-                    {toSearch == "" ? (
-                      <span>Type the barcode or product name</span>
-                    ) : (
-                      <span>Item doesn't exist</span>
-                    )}
+                  <div className="font-bold w-full">
+                    {isLoading ?
+                      <div className={styles.loader}>
+                        <div className="Spinner"><CustomSpinner dark /></div>
+                        <div>Loading Results</div>
+                      </div> :
+                      <div>
+                        {toSearch == "" ? <div>Type the product's barcode or name</div> : <div>Unkown product</div>}
+                      </div>}
                   </div>
                 )}
               </div>
