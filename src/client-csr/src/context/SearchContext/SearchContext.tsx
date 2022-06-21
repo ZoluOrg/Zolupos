@@ -1,6 +1,5 @@
-import React, {
+import {
   createContext,
-  createRef,
   FC,
   FormEvent,
   ReactNode,
@@ -16,11 +15,10 @@ import { Button } from "../../components/Button";
 import { X } from "phosphor-react";
 import { Input } from "../../components/Input";
 import { AnimatePresence, motion } from "framer-motion";
-import { useProductContext } from "../ProductsContext";
 import { ResultButton } from "./ResultButton";
 import { searchProduct } from "../../services/Product/ProductService";
-import { useQuery } from "react-query";
 import { CustomSpinner } from "../../components/CustomSpinner";
+import { useTransactionContext } from "../TransactionContext";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -39,6 +37,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPending, startTransition] = useTransition();
+  const transactionContext = useTransactionContext();
 
   const find = async (query: string) => {
     const result = await searchProduct(query)
@@ -60,10 +59,6 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     document.addEventListener("keydown", checkKeyDown);
-    return () => {
-      console.log("unmount");
-      document.removeEventListener("keydown", checkKeyDown);
-    };
   }, []);
 
   const useIsSearching = async (event: FormEvent<HTMLInputElement>) => {
@@ -72,6 +67,11 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     setSelected(0);
     startTransition(() => { find(event.currentTarget.value); });
   };
+
+  const addProduct = () => {
+    // This is temporary
+    transactionContext.addProduct(searchResult[0]);
+  }
 
   return (
     <div className={styles.searchContextContainer}>
@@ -104,7 +104,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
                   value={toSearch}
                   onChange={useIsSearching}
                 />
-                <Button buttonColor="coal">Add</Button>
+                <Button buttonColor="coal" onClick={addProduct}>Add</Button>
               </div>
               <div className={styles.result}>
                 {searchResult.length > 0 ? (
