@@ -17,6 +17,8 @@ namespace Zolupos.Application.Features.Products
     public class AddProductCommand : IRequest<ResultWrapper<int>>
     {
         public string ProductName { get; set; }
+        public string ProductManufacturer { get; set; }
+        public string ProductType { get; set; }
         public int ProductQuantity { get; set; }
         public string ProductBarcode { get; set; }
         public int ProductPrice { get; set; }
