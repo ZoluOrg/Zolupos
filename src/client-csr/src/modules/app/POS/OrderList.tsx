@@ -18,7 +18,7 @@ export const OrderList = () => {
               <span>Amt</span>
             </div>
             <div className="h-full overflow-y-auto">
-              {transactionContext.punched.map(prod => <AddedItem itemName={prod.productName} barCode={prod.productBarcode} qty={prod.quantity} price={prod.productPrice} />)}
+              {transactionContext.punched.map((prod, idx) => <AddedItem key={idx} keydx={idx} itemName={prod.productName} barCode={prod.productBarcode} qty={prod.quantity} price={prod.productPrice} />)}
             </div>
           </div> :
           <div className={styles.withoutDataContainer}>

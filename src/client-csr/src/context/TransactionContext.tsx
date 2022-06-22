@@ -37,7 +37,9 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   const removeProduct = (productIndex: number) => {
-    const updated = punched.splice(productIndex, 1);
+    console.log(productIndex);
+    const copyArr = punched.filter((_,index) => index != productIndex);
+    setPunched(copyArr);
   };
 
   const pushTransaction = () => { };
