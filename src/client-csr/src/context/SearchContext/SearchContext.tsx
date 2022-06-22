@@ -19,6 +19,7 @@ import { ResultButton } from "./ResultButton";
 import { searchProduct } from "../../services/Product/ProductService";
 import { CustomSpinner } from "../../components/CustomSpinner";
 import { useTransactionContext } from "../TransactionContext";
+import { ISearchResponse } from "../../interface/ISearchResponse";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -33,7 +34,7 @@ const searchContext = createContext(defaultValue);
 export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [toSearch, setToSearch] = useState<string>("");
   const [selected, setSelected] = useState<number>(0);
-  const [searchResult, setSearchResult] = useState<Array<IProduct>>([]);
+  const [searchResult, setSearchResult] = useState<Array<ISearchResponse>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPending, startTransition] = useTransition();

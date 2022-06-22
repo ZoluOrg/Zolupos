@@ -1,10 +1,13 @@
 import React, { createContext, FC, ReactNode, useContext, useState } from "react";
+import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { IProduct } from "../interface/IProduct";
+import { ISearchResponse } from "../interface/ISearchResponse";
+import { ITransaction } from "../interface/ITransaction";
 import { ITransactionContext } from "../interface/ITransactionContext";
 
 const defaultValues: ITransactionContext = {
   punched: [],
-  addProduct: (productToAdd: IProduct) => {},
+  addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
 };
@@ -14,10 +17,15 @@ const transactionContext = createContext(defaultValues);
 export const TransactionContext: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [punched, setPunched] = useState<Array<IProduct>>([]);
+  const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
 
-  const addProduct = (productToAdd: IProduct) => {
-    setPunched((stale) => [...stale, productToAdd]);
+  const addProduct = (productToAdd: ISearchResponse) => {
+    var newOrderedProduct: IOrderedProduct = {
+      ...productToAdd,
+      quantity: 1,
+      bunchPrice: productToAdd.productPrice
+    }
+    setPunched((stale) => [...stale, newOrderedProduct]);
   };
 
   const removeProduct = (productIndex: number) => {

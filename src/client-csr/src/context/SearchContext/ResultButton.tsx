@@ -1,10 +1,11 @@
 import React, { ButtonHTMLAttributes, FC, HTMLProps } from "react";
 import { IProduct } from "../../interface/IProduct";
+import { ISearchResponse } from "../../interface/ISearchResponse";
 import styles from "../../styles/SearchContext/ResultButton.module.scss";
 
 interface Props extends HTMLProps<HTMLLIElement> {
   index: number;
-  product: IProduct;
+  product: ISearchResponse;
 }
 
 export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Result } from "postcss";
 import { IProduct } from "../../interface/IProduct";
+import { ISearchResponse } from "../../interface/ISearchResponse";
 import { getTokenAsBearer } from "../../utils/TokenUtils";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 
@@ -31,7 +32,7 @@ export const addProduct = async (product: IProduct) => {
 };
 
 export const searchProduct = async (query: string) => {
-  let response = await axios.get<ResultWrapper<Array<IProduct>>>(
+  let response = await axios.get<ResultWrapper<Array<ISearchResponse>>>(
     `https://localhost:7073/api/Product/Search?Query=${query}`,
     { headers: getTokenAsBearer() }
   );
