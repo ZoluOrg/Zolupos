@@ -7,9 +7,9 @@ import { ITransactionContext } from "../interface/ITransactionContext";
 
 const defaultValues: ITransactionContext = {
   punched: [],
-  addProduct: (productToAdd: ISearchResponse) => {},
-  removeProduct: (productIndex: number) => {},
-  pushTransaction: () => {},
+  addProduct: (productToAdd: ISearchResponse) => { },
+  removeProduct: (productIndex: number) => { },
+  pushTransaction: () => { },
 };
 
 const transactionContext = createContext(defaultValues);
@@ -20,19 +20,27 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
-    var newOrderedProduct: IOrderedProduct = {
-      ...productToAdd,
-      quantity: 1,
-      bunchPrice: productToAdd.productPrice
+    var idx = punched.findIndex(punchedProduct => punchedProduct.productBarcode == productToAdd.productBarcode);
+    if (idx != -1) {
+      var newArr = [...punched];
+      newArr[idx].quantity++;
+      setPunched(newArr);
     }
-    setPunched((stale) => [...stale, newOrderedProduct]);
+    else {
+      var newOrderedProduct: IOrderedProduct = {
+        ...productToAdd,
+        quantity: 1,
+        bunchPrice: productToAdd.productPrice
+      }
+      setPunched((stale) => [...stale, newOrderedProduct]);
+    }
   };
 
   const removeProduct = (productIndex: number) => {
     const updated = punched.splice(productIndex, 1);
   };
 
-  const pushTransaction = () => {};
+  const pushTransaction = () => { };
 
   return (
     <transactionContext.Provider
