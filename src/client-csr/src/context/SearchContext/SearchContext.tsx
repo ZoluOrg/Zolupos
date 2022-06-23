@@ -82,7 +82,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
           <motion.div
             className={styles.searchContainer}
             initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(2px)" }}
+            animate={{ backdropFilter: "blur(10px)" }}
             exit={{ backdropFilter: "blur(0px)" }}
           >
             <motion.div

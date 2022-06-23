@@ -7,4 +7,5 @@ export interface ITransactionContext {
   addProduct: (productToAdd: ISearchResponse) => void;
   removeProduct: (productIndex: number) => void;
   pushTransaction: () => void;
+  qtyChanging: (idx: number, qty: number) => void;
 }

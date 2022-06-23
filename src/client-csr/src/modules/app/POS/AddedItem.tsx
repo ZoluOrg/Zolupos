@@ -2,11 +2,13 @@ import {
   Barcode,
   CurrencyDollar,
   Minus,
+  MinusCircle,
   Plus,
+  PlusCircle,
   Trash,
   TrashSimple,
 } from "phosphor-react";
-import React, { FC, useState } from "react";
+import React, { FC, FormEvent, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { useTransactionContext } from "../../../context/TransactionContext";
@@ -28,6 +30,14 @@ export const AddedItem: FC<addItemProps> = ({
 }) => {
   const [total, setTotal] = useState<number>(price);
   const transactionContext = useTransactionContext();
+  const onChangingInputQuantity = (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
+    transactionContext.qtyChanging(
+      keydx,
+      parseInt((event.target as HTMLInputElement).value)
+    );
+  };
   return (
     <div
       className="grid grid-cols-5 p-5 items-center border-t border-b border-mallow-3"
@@ -39,7 +49,17 @@ export const AddedItem: FC<addItemProps> = ({
           <span>{barCode}</span>
         </div>
       </div>
-      <div className="flex items-center gap-1">{qty}</div>
+      <div className="flex items-center gap-3">
+        <div>
+          <Input
+            value={transactionContext.punched[keydx].quantity}
+            onChange={onChangingInputQuantity}
+            type="number"
+            min={1}
+            className=" w-32"
+          />
+        </div>
+      </div>
       <div>{price}</div>
       <div>{total}</div>
       <div className="flex items-center justify-between w-full">
