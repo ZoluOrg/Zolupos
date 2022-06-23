@@ -112,7 +112,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
                 {searchResult.length > 0 ? (
                   <ul>
                     {searchResult.map((product, idx) => (
-                      <ResultButton index={idx} product={product} />
+                      <ResultButton key={idx} index={idx} product={product} />
                     ))}
                   </ul>
                 ) : (
