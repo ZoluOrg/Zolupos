@@ -14,22 +14,13 @@ import { Input } from "../../../components/Input";
 import { useTransactionContext } from "../../../context/TransactionContext";
 
 interface addItemProps {
-  itemName: string;
-  barCode: string;
-  qty: number;
-  price: number;
   keydx: number;
 }
 
 export const AddedItem: FC<addItemProps> = ({
-  itemName,
-  barCode,
-  qty,
-  price,
   keydx,
 }) => {
-  const [total, setTotal] = useState<number>(price);
-  const transactionContext = useTransactionContext();
+  const {punched, ...transactionContext} = useTransactionContext();
   const onChangingInputQuantity = (
     event: React.FormEvent<HTMLInputElement>
   ) => {
@@ -45,27 +36,27 @@ export const AddedItem: FC<addItemProps> = ({
     >
       <div>
         <div className="flex flex-col">
-          <span className="font-bold">{itemName}</span>
-          <span>{barCode}</span>
+          <span className="font-bold">{punched[keydx].productName}</span>
+          <span>{punched[keydx].productBarcode}</span>
         </div>
       </div>
       <div className="flex items-center gap-3">
         <div>
           <Input
-            value={transactionContext.punched[keydx].quantity}
+            value={punched[keydx].quantity}
             onChange={onChangingInputQuantity}
             type="number"
             min={1}
-            className=" w-32"
+            className=" w-32 form-input"
           />
         </div>
       </div>
-      <div>{price}</div>
-      <div>{total}</div>
+      <div>10%</div>
+      <div>{punched[keydx].productPrice}</div>
       <div className="flex items-center justify-between w-full">
         <div className="flex gap-1 items-center">
           <CurrencyDollar />
-          {total}
+          {punched[keydx].bunchPrice}
         </div>
         <div>
           <Button

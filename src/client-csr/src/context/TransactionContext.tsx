@@ -10,6 +10,7 @@ import { IProduct } from "../interface/IProduct";
 import { ISearchResponse } from "../interface/ISearchResponse";
 import { ITransaction } from "../interface/ITransaction";
 import { ITransactionContext } from "../interface/ITransactionContext";
+import { OrderList } from "../modules/app/POS/OrderList";
 
 const defaultValues: ITransactionContext = {
   punched: [],
@@ -32,9 +33,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         punchedProduct.productBarcode == productToAdd.productBarcode
     );
     if (idx > -1) {
-      var newArr = [...punched];
-      newArr[idx].quantity++;
-      setPunched(newArr);
+      console.log("found somethin");
+      changeQty(idx, punched[idx].bunchPrice + 1);
     } else {
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
@@ -51,13 +51,23 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(copyArr);
   };
 
-  const qtyChanging = (idx: number, qty: number) => {
+  const changeQty = (idx: number, qty: number) => {
     var newArr = [...punched];
+    var price = newArr[idx].productPrice;
     newArr[idx].quantity = qty;
+    newArr[idx].bunchPrice = parseFloat((qty * price).toFixed(2));
+    console.log(Math.round((10 * (qty * price)) / 10));
     setPunched(newArr);
   };
 
-  const pushTransaction = () => {};
+  const pushTransaction = () => {
+    // To be continued
+    const newTransaction: ITransaction = {
+      customerId: 0,
+      orderedProduct: punched,
+    };
+    console.log(newTransaction);
+  };
 
   return (
     <transactionContext.Provider
@@ -66,7 +76,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         addProduct,
         removeProduct,
         pushTransaction,
-        qtyChanging,
+        qtyChanging: changeQty,
       }}
     >
       {children}
