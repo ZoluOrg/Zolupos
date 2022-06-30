@@ -8,4 +8,5 @@ export interface ITransactionContext {
   removeProduct: (productIndex: number) => void;
   pushTransaction: () => void;
   qtyChanging: (idx: number, qty: number) => void;
+  discChanging: (idx: number, perc: number) => void;
 }

@@ -18,6 +18,7 @@ const defaultValues: ITransactionContext = {
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
   qtyChanging: (idx: number, qty: number) => {},
+  discChanging: (idx: number, perc: number) => {}
 };
 
 const transactionContext = createContext(defaultValues);
@@ -34,11 +35,12 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     );
     if (idx > -1) {
       console.log("found somethin");
-      changeQty(idx, punched[idx].bunchPrice + 1);
+      qtyChanging(idx, punched[idx].quantity + 1);
     } else {
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
+        discount: 0,
         bunchPrice: productToAdd.productPrice,
       };
       setPunched((stale) => [...stale, newOrderedProduct]);
@@ -51,14 +53,23 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(copyArr);
   };
 
-  const changeQty = (idx: number, qty: number) => {
+  const qtyChanging = (idx: number, qty: number) => {
     var newArr = [...punched];
     var price = newArr[idx].productPrice;
     newArr[idx].quantity = qty;
-    newArr[idx].bunchPrice = parseFloat((qty * price).toFixed(2));
-    console.log(Math.round((10 * (qty * price)) / 10));
+    newArr[idx].bunchPrice = Math.round(price * qty * 100) / 100;
     setPunched(newArr);
   };
+
+  const discChanging = (idx: number, perc: number) => {
+    var newArr = [...punched];
+    var bunchPrice = newArr[idx].bunchPrice;
+    var newBunchPrice = bunchPrice - (bunchPrice * perc / 100);
+    console.log(bunchPrice - (bunchPrice * perc / 100));
+    newArr[idx].bunchPrice = Math.round(newBunchPrice );
+    newArr[idx].discount = perc;
+    setPunched(newArr);
+  }
 
   const pushTransaction = () => {
     // To be continued
@@ -76,7 +87,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         addProduct,
         removeProduct,
         pushTransaction,
-        qtyChanging: changeQty,
+        qtyChanging,
+        discChanging
       }}
     >
       {children}

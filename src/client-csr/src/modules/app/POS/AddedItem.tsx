@@ -8,7 +8,7 @@ import {
   Trash,
   TrashSimple,
 } from "phosphor-react";
-import React, { FC, FormEvent, useState } from "react";
+import React, { FC, FormEvent, HTMLInputTypeAttribute, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { useTransactionContext } from "../../../context/TransactionContext";
@@ -17,17 +17,13 @@ interface addItemProps {
   keydx: number;
 }
 
-export const AddedItem: FC<addItemProps> = ({
-  keydx,
-}) => {
-  const {punched, ...transactionContext} = useTransactionContext();
-  const onChangingInputQuantity = (
-    event: React.FormEvent<HTMLInputElement>
-  ) => {
-    transactionContext.qtyChanging(
-      keydx,
-      parseInt((event.target as HTMLInputElement).value)
-    );
+export const AddedItem: FC<addItemProps> = ({ keydx }) => {
+  const { punched, ...transactionContext } = useTransactionContext();
+  const onChangingInputQuantity = (event: FormEvent<HTMLInputElement>) => {
+    transactionContext.qtyChanging(keydx, parseInt(event.currentTarget.value));
+  };
+  const onChangingInputDiscount = (event: FormEvent<HTMLInputElement>) => {
+    transactionContext.discChanging(keydx, parseInt(event.currentTarget.value));
   };
   return (
     <div
@@ -40,21 +36,28 @@ export const AddedItem: FC<addItemProps> = ({
           <span>{punched[keydx].productBarcode}</span>
         </div>
       </div>
-      <div className="flex items-center gap-3">
-        <div>
-          <Input
-            value={punched[keydx].quantity}
-            onChange={onChangingInputQuantity}
-            type="number"
-            min={1}
-            className=" w-32 form-input"
-          />
-        </div>
+      <div>
+        <Input
+          value={punched[keydx].quantity}
+          onChange={onChangingInputQuantity}
+          type="number"
+          min={1}
+          className="w-8/12 form-input"
+        />
       </div>
-      <div>10%</div>
+      <div>
+        <Input
+          value={punched[keydx].discount}
+          onChange={onChangingInputDiscount}
+          type="number"
+          min={0}
+          max={100}
+          className="w-8/12 form-input"
+        />
+      </div>
       <div>{punched[keydx].productPrice}</div>
       <div className="flex items-center justify-between w-full">
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center w-full overflow-x-auto">
           <CurrencyDollar />
           {punched[keydx].bunchPrice}
         </div>
