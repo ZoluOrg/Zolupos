@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630131607_Add Discount table")]
+    partial class AddDiscounttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 6, 30, 13, 16, 14, 222, DateTimeKind.Utc).AddTicks(4574),
+                            LastLogin = new DateTime(2022, 6, 30, 13, 16, 7, 294, DateTimeKind.Utc).AddTicks(8604),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",

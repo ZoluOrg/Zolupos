@@ -10,6 +10,8 @@ namespace Zolupos.Application.Common.DTO
     {
         public int OrderedProductId { get; set; }
         public int Quantity { get; set; }
+        public float Discount { get; set; }
+        public float BunchPrice { get; set; }
         public int ProductId { get; set; }
     }
 }
