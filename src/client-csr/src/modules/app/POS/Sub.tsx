@@ -14,7 +14,7 @@ export const Sub = () => {
           <div className="font-bold">Tax</div>
         </div>
         <div className="values gap-2 flex flex-col">
-          <div className="font-bold text-3xl">20</div>
+          <div className="font-bold text-3xl">{transactionContext.total}</div>
           <div className="font-bold">201</div>
           <div className="font-bold">2</div>
           <div className="font-bold">10%</div>

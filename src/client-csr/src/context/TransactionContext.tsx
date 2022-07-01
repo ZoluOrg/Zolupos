@@ -3,7 +3,9 @@ import React, {
   FC,
   ReactNode,
   useContext,
+  useEffect,
   useState,
+  useTransition,
 } from "react";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { IProduct } from "../interface/IProduct";
@@ -14,6 +16,7 @@ import { OrderList } from "../modules/app/POS/OrderList";
 
 const defaultValues: ITransactionContext = {
   punched: [],
+  total: 0,
   addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
@@ -27,6 +30,12 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    calculateTotal();
+  }, [punched]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
     console.log("add func");
@@ -35,10 +44,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         punchedProduct.productBarcode == productToAdd.productBarcode
     );
     if (idx > -1) {
-      console.log("found somethin");
       qtyChanging(idx, punched[idx].quantity + 1);
     } else {
-      console.log("heh");
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
@@ -87,6 +94,16 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(toUpdateArray);
   };
 
+  const calculateTotal = () => {
+    var toSave = 0;
+    startTransition(() => {
+      for (var i = 0; i != punched.length; i++) {
+        toSave = toSave + punched[i].bunchPrice;
+      }
+    });
+    setTotal(Math.round(toSave * 100) / 100);
+  };
+
   const pushTransaction = () => {
     // To be continued
     const newTransaction: ITransaction = {
@@ -100,6 +117,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     <transactionContext.Provider
       value={{
         punched,
+        total,
         addProduct,
         removeProduct,
         pushTransaction,

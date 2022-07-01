@@ -4,6 +4,7 @@ import { ISearchResponse } from "./ISearchResponse";
 
 export interface ITransactionContext {
   punched: Array<IOrderedProduct>;
+  total: number;
   addProduct: (productToAdd: ISearchResponse) => void;
   removeProduct: (productIndex: number) => void;
   pushTransaction: () => void;
