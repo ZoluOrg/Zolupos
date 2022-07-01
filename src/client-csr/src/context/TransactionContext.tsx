@@ -18,7 +18,7 @@ const defaultValues: ITransactionContext = {
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
   qtyChanging: (idx: number, qty: number) => {},
-  discChanging: (idx: number, perc: number) => {}
+  discChanging: (idx: number, perc: number) => {},
 };
 
 const transactionContext = createContext(defaultValues);
@@ -29,6 +29,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
+    console.log("add func");
     var idx = punched.findIndex(
       (punchedProduct) =>
         punchedProduct.productBarcode == productToAdd.productBarcode
@@ -37,6 +38,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       console.log("found somethin");
       qtyChanging(idx, punched[idx].quantity + 1);
     } else {
+      console.log("heh");
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
@@ -55,21 +57,35 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
 
   const qtyChanging = (idx: number, qty: number) => {
     var newArr = [...punched];
-    var price = newArr[idx].productPrice;
     newArr[idx].quantity = qty;
-    newArr[idx].bunchPrice = Math.round(price * qty * 100) / 100;
     setPunched(newArr);
+
+    recalculateBunchPrice(idx);
   };
 
   const discChanging = (idx: number, perc: number) => {
     var newArr = [...punched];
-    var bunchPrice = newArr[idx].bunchPrice;
-    var newBunchPrice = bunchPrice - (bunchPrice * perc / 100);
-    console.log(bunchPrice - (bunchPrice * perc / 100));
-    newArr[idx].bunchPrice = Math.round(newBunchPrice );
     newArr[idx].discount = perc;
     setPunched(newArr);
-  }
+
+    recalculateBunchPrice(idx);
+  };
+
+  const recalculateBunchPrice = (idx: number) => {
+    var toUpdateArray = [...punched];
+    var price = toUpdateArray[idx].productPrice;
+    var bunchPrice = toUpdateArray[idx].bunchPrice;
+    var qty = toUpdateArray[idx].quantity;
+    var discount = toUpdateArray[idx].discount;
+
+    var qtyPrice = Math.round(price * qty * 100) / 100;
+    var discountedPrice = qtyPrice - (qtyPrice * discount) / 100;
+
+    console.log(discountedPrice);
+
+    toUpdateArray[idx].bunchPrice = Math.round(discountedPrice * 100) / 100;
+    setPunched(toUpdateArray);
+  };
 
   const pushTransaction = () => {
     // To be continued
@@ -88,7 +104,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         removeProduct,
         pushTransaction,
         qtyChanging,
-        discChanging
+        discChanging,
       }}
     >
       {children}
