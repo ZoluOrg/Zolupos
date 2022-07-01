@@ -17,6 +17,7 @@ import { OrderList } from "../modules/app/POS/OrderList";
 const defaultValues: ITransactionContext = {
   punched: [],
   total: 0,
+  quantity: 0,
   addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
@@ -31,10 +32,11 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
 }) => {
   const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
   const [total, setTotal] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(0);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    calculateTotal();
+    calculateInfo();
   }, [punched]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
@@ -94,14 +96,17 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(toUpdateArray);
   };
 
-  const calculateTotal = () => {
-    var toSave = 0;
+  const calculateInfo = () => {
+    var newTotal = 0;
+    var newQuantity = 0;
     startTransition(() => {
       for (var i = 0; i != punched.length; i++) {
-        toSave = toSave + punched[i].bunchPrice;
+        newTotal = newTotal + punched[i].bunchPrice;
+        newQuantity = newQuantity + punched[i].quantity;
       }
     });
-    setTotal(Math.round(toSave * 100) / 100);
+    setTotal(Math.round(newTotal * 100) / 100);
+    setQuantity(newQuantity);
   };
 
   const pushTransaction = () => {
@@ -118,6 +123,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       value={{
         punched,
         total,
+        quantity,
         addProduct,
         removeProduct,
         pushTransaction,

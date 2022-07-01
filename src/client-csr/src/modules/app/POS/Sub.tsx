@@ -13,10 +13,10 @@ export const Sub = () => {
           <div className="font-bold">Quantity Ordered</div>
           <div className="font-bold">Tax</div>
         </div>
-        <div className="values gap-2 flex flex-col">
+        <div className="values gap-2 flex flex-col overflow-hidden">
           <div className="font-bold text-3xl">{transactionContext.total}</div>
           <div className="font-bold">201</div>
-          <div className="font-bold">2</div>
+          <div className="font-bold">{transactionContext.quantity}</div>
           <div className="font-bold">10%</div>
         </div>
       </div>
