@@ -17,12 +17,13 @@ import { OrderList } from "../modules/app/POS/OrderList";
 const defaultValues: ITransactionContext = {
   punched: [],
   total: 0,
+  subTotal: 0,
+  vat: 12,
   quantity: 0,
   addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
   qtyChanging: (idx: number, qty: number) => {},
-  discChanging: (idx: number, perc: number) => {},
 };
 
 const transactionContext = createContext(defaultValues);
@@ -33,9 +34,12 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [punched, setPunched] = useState<Array<IOrderedProduct>>([]);
   const [total, setTotal] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
+  const [subTotal, setSubTotal] = useState<number>(0);
+  const [vat, setVat] = useState<number>(12);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
+    console.log(total);
     calculateInfo();
   }, [punched]);
 
@@ -51,8 +55,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
-        discount: 0,
-        bunchPrice: productToAdd.productPrice,
+        bunchTotal: productToAdd.productPrice,
       };
       setPunched((stale) => [...stale, newOrderedProduct]);
     }
@@ -72,41 +75,37 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     recalculateBunchPrice(idx);
   };
 
-  const discChanging = (idx: number, perc: number) => {
-    var newArr = [...punched];
-    newArr[idx].discount = perc;
-    setPunched(newArr);
-
-    recalculateBunchPrice(idx);
-  };
 
   const recalculateBunchPrice = (idx: number) => {
     var toUpdateArray = [...punched];
     var price = toUpdateArray[idx].productPrice;
-    var bunchPrice = toUpdateArray[idx].bunchPrice;
+    var bunchPrice = toUpdateArray[idx].bunchTotal;
     var qty = toUpdateArray[idx].quantity;
-    var discount = toUpdateArray[idx].discount;
 
     var qtyPrice = Math.round(price * qty * 100) / 100;
-    var discountedPrice = qtyPrice - (qtyPrice * discount) / 100;
 
-    console.log(discountedPrice);
-
-    toUpdateArray[idx].bunchPrice = Math.round(discountedPrice * 100) / 100;
+    toUpdateArray[idx].bunchTotal = Math.round(qtyPrice * 100) / 100;
     setPunched(toUpdateArray);
   };
 
   const calculateInfo = () => {
+    var newSubTotal = 0;
     var newTotal = 0;
     var newQuantity = 0;
+
     startTransition(() => {
       for (var i = 0; i != punched.length; i++) {
-        newTotal = newTotal + punched[i].bunchPrice;
+        console.log("test");
+        newSubTotal = newTotal + punched[i].bunchTotal;
         newQuantity = newQuantity + punched[i].quantity;
+
+        var taxDec = vat / 100 + 1;
+        newTotal = taxDec * newSubTotal;
       }
     });
-    setTotal(Math.round(newTotal * 100) / 100);
     setQuantity(newQuantity);
+    setSubTotal(Math.round(newSubTotal * 100) / 100);
+    setTotal(Math.round(newTotal * 100) / 100);
   };
 
   const pushTransaction = () => {
@@ -114,6 +113,9 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     const newTransaction: ITransaction = {
       customerId: 0,
       orderedProduct: punched,
+      vat: 12,
+      total: total,
+      subTotal: subTotal,
     };
     console.log(newTransaction);
   };
@@ -122,13 +124,14 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     <transactionContext.Provider
       value={{
         punched,
-        total,
+        total: total,
+        subTotal,
+        vat,
         quantity,
         addProduct,
         removeProduct,
         pushTransaction,
         qtyChanging,
-        discChanging,
       }}
     >
       {children}

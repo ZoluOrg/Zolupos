@@ -11,17 +11,17 @@ export const Sub = () => {
           <div className="font-bold text-3xl">Total</div>
           <div className="font-bold">Sub Total</div>
           <div className="font-bold">Quantity Ordered</div>
-          <div className="font-bold">Tax</div>
+          <div className="font-bold">Vat</div>
         </div>
         <div className="values gap-2 flex flex-col overflow-hidden">
           <div className="font-bold text-3xl">{transactionContext.total}</div>
-          <div className="font-bold">201</div>
+          <div className="font-bold">{transactionContext.subTotal}</div>
           <div className="font-bold">{transactionContext.quantity}</div>
-          <div className="font-bold">10%</div>
+          <div className="font-bold">{transactionContext.vat}%</div>
         </div>
       </div>
       <div>
-        <Button className="w-full bg-green-700">Purchase</Button>
+        <Button className="w-full bg-green-700 hover:bg-green-800">Purchase</Button>
       </div>
     </div>
   );

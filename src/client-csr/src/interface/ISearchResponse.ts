@@ -4,3 +4,6 @@ export interface ISearchResponse {
   productBarcode: string;
   productPrice: number;
 }
+
+
+/// Tax

@@ -11,11 +11,11 @@ export const OrderList = () => {
         {transactionContext.punched.length != 0 ? (
           <div className={styles.withDataContainer}>
             <div className={styles.top}>
+              <span>Quantity</span>
               <span>Item</span>
-              <span>Qty</span>
-              <span>Disc</span>
               <span>Price</span>
-              <span>Amt</span>
+              <span>Amount</span>
+              <span className="w-full flex justify-center">Delete</span>
             </div>
             <div className="h-full overflow-y-auto">
               {transactionContext.punched.map((prod, idx) => (

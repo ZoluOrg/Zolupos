@@ -18,12 +18,12 @@ export const Navbar = () => {
   }, [employeeCreds]);
 
   return (
-    <div className={styles.navbarContainer}>
-      <div className={styles.leftControls}>
+    <div className="bg-coal-1 pt-[14px] pb-[14px] px-6 w-full text-mallow-1 flex justify-between">
+      <div className="flex items-center gap-6">
         <div className="logo">
           <Zolulogo light />
         </div>
-        <div className={styles.pageHistoryButtons}>
+        <div className="flex gap-[14px]">
           <Button
             buttonColor="coal"
             buttonSpacing="xs"
@@ -43,18 +43,18 @@ export const Navbar = () => {
           <CurrentTime />
         </div>
       </div>
-      <div className={styles.rightControls}>
-        <div className={styles.navbarLinks}>
+      <div className="flex items-center gap-[14px]">
+        <div className="flex items-center gap-[10px]">
           <Link to="#">Shortcuts</Link>
           <Link to="#">Settings</Link>
         </div>
         <div className="profile">
           <Menu
             Look={
-              <div className={styles.profileButton}>
+              <div className="flex items-center gap-[6px]">
                 <img
                     src={employeeCreds.creds?.profileURL!}
-                    className={styles.profileImg}
+                    className="w-6 h-6 rounded-full"
                   />
                 <CaretDown weight="fill" />
               </div>

@@ -31,13 +31,13 @@ export const Form = () => {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.formContainer}>
+    <div className="border-2 border-mallow-2 rounded-lg py-8 px-6 flex">
+      <div className="h-full flex flex-col items-center justify-center">
         <div className="logo">
           <Zolulogo />
         </div>
         <span className="text-lg font-bold">Login</span>
-        <div className={styles.form}>
+        <div className="flex flex-col gap-[10px] mt-9">
           <Formik
             initialValues={initialValues}
             onSubmit={async (
@@ -51,7 +51,7 @@ export const Form = () => {
           >
             {({ isSubmitting }) => (
               <FormikForm>
-                <div className={styles.formInputs}>
+                <div className="flex flex-col gap-[10px]">
                   <Field
                     as={Input}
                     name="fullName"
@@ -73,7 +73,7 @@ export const Form = () => {
                 </div>
                 <Button
                   type="submit"
-                  className={styles.submitButtonCustoms}
+                  className="w-full pt-[10px] pb-[10px] mt-9"
                   isLoading={isSubmitting}
                 >
                   Submit

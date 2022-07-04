@@ -13,7 +13,7 @@ export const LoginComponent = () => {
     }
   }, []);
   return (
-    <div className={styles.loginComponent}>
+    <div className="h-full flex items-center justify-center">
       <Form />
     </div>
   );

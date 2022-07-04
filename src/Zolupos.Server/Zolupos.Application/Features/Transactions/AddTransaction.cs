@@ -14,13 +14,16 @@ namespace Zolupos.Application.Features.Transactions
     public class AddTransactionCommand : IRequest<ResultWrapper<int>>
     {
         public int CustomerId { get; set; }
+        public int Vat { get; set; }
+        public int Total { get; set; }
+        public int SubTotal { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
     }
     public class AddOrderedProduct
     {
         public int Quantity { get; set; }
         public float Discount { get; set; }
-        public float BunchPrice { get; set; }
+        public float BunchTotal { get; set; }
         public int ProductId { get; set; }
     }
     public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int>>
