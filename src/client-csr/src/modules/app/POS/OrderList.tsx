@@ -2,40 +2,28 @@ import React from "react";
 import { useTransactionContext } from "../../../context/TransactionContext";
 import { AddedItem } from "./AddedItem";
 import styles from "../../../styles/app/POS/OrderList.module.scss";
+import { Input } from "../../../components/Input";
+import { Button } from "../../../components/Button";
+import { X } from "phosphor-react";
 
 export const OrderList = () => {
   const transactionContext = useTransactionContext();
   return (
-    <div className="bg-mallow-2 rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
-      <div className={styles.orderListContainer}>
-        {transactionContext.punched.length != 0 ? (
-          <div className={styles.withDataContainer}>
-            <div className={styles.top}>
-              <span>Quantity</span>
-              <span>Item</span>
-              <span>Price</span>
-              <span>Amount</span>
-              <span className="w-full flex justify-center">Delete</span>
-            </div>
-            <div className="h-full overflow-y-auto">
-              {transactionContext.punched.map((prod, idx) => (
-                <AddedItem
-                  key={idx}
-                  keydx={idx}
-                />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className={styles.withoutDataContainer}>
-            <span className="font-bold opacity-50 text-4xl">
-              Scan items to add
-            </span>
-            <span className="font-bold opacity-50 text-lg">
-              Use alt + a to manually add an item
-            </span>
-          </div>
-        )}
+    <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
+      <div>
+        <div className="bg-mallow-2 p-3 grid grid-cols-6 font-bold">
+          <span>Quantity</span>
+          <span>Item</span>
+          <span>Unit Price</span>
+          <span>Tax</span>
+          <span>Price</span>
+          <span>Delete</span>
+        </div>
+      </div>
+      <div className="h-full overflow-y-auto">
+        {transactionContext.punched.map((_, idx) => (
+          <AddedItem key={idx} keydx={idx} />
+        ))}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   PlusCircle,
   Trash,
   TrashSimple,
+  X,
 } from "phosphor-react";
 import React, { FC, FormEvent, HTMLInputTypeAttribute, useState } from "react";
 import { Button } from "../../../components/Button";
@@ -23,38 +24,27 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
     transactionContext.qtyChanging(keydx, parseInt(event.currentTarget.value));
   };
   return (
-    <div
-      className="grid grid-cols-5 p-5 items-center border-t border-b border-mallow-3"
-      key={keydx}
-    >
+    <div className="p-3 grid grid-cols-6 items-center gap-2 text-sm">
       <div>
         <Input
+          className="w-8/12"
           value={punched[keydx].quantity}
           onChange={onChangingInputQuantity}
           type="number"
           min={1}
-          className="w-8/12"
         />
       </div>
-      <div>
-        <div className="flex flex-col">
-          <span className="font-bold">{punched[keydx].productName}</span>
-          <span>{punched[keydx].productBarcode}</span>
-        </div>
-      </div>
+      <div>{punched[keydx].productName}</div>
       <div>{punched[keydx].productPrice}</div>
-      <div className="">
-        <div className="flex gap-1 items-center w-full overflow-x-auto">
-          <CurrencyDollar />
-          {punched[keydx].bunchTotal}
-        </div>
+      <div>
+        <span className="px-3 py-2 bg-accent-1 bg-opacity-30 text-accent-3 rounded-full">
+          VAT
+        </span>
       </div>
-      <div className="w-full flex justify-center">
-        <Button
-          buttonColor="mallow"
-          onClick={() => transactionContext.removeProduct(keydx)}
-        >
-          <TrashSimple />
+      <div>{punched[keydx].bunchTotal}</div>
+      <div>
+        <Button buttonSpacing="xs">
+          <X />
         </Button>
       </div>
     </div>
