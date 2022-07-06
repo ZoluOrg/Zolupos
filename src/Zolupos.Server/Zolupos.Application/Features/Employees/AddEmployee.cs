@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.Enums;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Employees
 {
@@ -34,6 +36,8 @@ namespace Zolupos.Application.Features.Employees
 
         public async Task<ResultWrapper<int>> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
         {
+            if (await _context.Employees.Where(stat => stat.FirstName == request.FirstName && stat.SurName == request.SurName).AnyAsync())
+                throw new CustomError(Message: $"{request.FirstName} {request.SurName} already exist.", Errors: "", StatusCode: System.Net.HttpStatusCode.Conflict);
             var employee = _mapper.Map<Employee>(request);
             employee.FullName = $"{employee.FirstName} {employee.SurName}";
             await _context.Employees.AddAsync(employee);

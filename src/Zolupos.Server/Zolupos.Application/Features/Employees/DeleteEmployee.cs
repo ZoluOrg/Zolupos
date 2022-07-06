@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Employees
 {
@@ -22,7 +23,8 @@ namespace Zolupos.Application.Features.Employees
 
         public async Task<ResultWrapper<Employee>> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var employeeToDelete = await _context.Employees.Where(employee => employee.EmployeeId == request.Id).FirstAsync();
+            var employeeToDelete = await _context.Employees.Where(employee => employee.EmployeeId == request.Id).FirstOrDefaultAsync();
+            if (employeeToDelete == null) throw new CustomError(Message: "Employee does not exist", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             _context.Employees.Remove(employeeToDelete);
             await _context.SaveChangesAsync();
 

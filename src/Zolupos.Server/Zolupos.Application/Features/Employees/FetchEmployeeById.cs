@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Employees
 {
@@ -25,7 +26,8 @@ namespace Zolupos.Application.Features.Employees
 
         public async Task<ResultWrapper<Employee>> Handle(FetchEmployeeByIdQuery request, CancellationToken cancellationToken)
         {
-            var employee = await _context.Employees.Where(employee => employee.EmployeeId == request.Id).FirstAsync();
+            var employee = await _context.Employees.Where(employee => employee.EmployeeId == request.Id).FirstOrDefaultAsync();
+            if (employee == null) throw new CustomError(Message: "Employee does not exist", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             return new ResultWrapper<Employee> { Receive = employee, Message = "" };
         }
     }

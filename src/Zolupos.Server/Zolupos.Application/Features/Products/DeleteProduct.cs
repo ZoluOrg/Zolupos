@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Products
 {
@@ -20,7 +21,8 @@ namespace Zolupos.Application.Features.Products
         }
         public async Task<ResultWrapper<int>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var productToRemove = await _context.Products.Where(product => product.ProductId == request.id).FirstAsync();
+            var productToRemove = await _context.Products.Where(product => product.ProductId == request.id).FirstOrDefaultAsync();
+            if (productToRemove == null) throw new CustomError(Message: "Product does not exist.", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             _context.Products.Remove(productToRemove);
             await _context.SaveChangesAsync();
             return new ResultWrapper<int> { Receive = productToRemove.ProductId, Message = "" };

@@ -11,6 +11,7 @@ using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Products
 {
@@ -34,7 +35,7 @@ namespace Zolupos.Application.Features.Products
         }
         public async Task<ResultWrapper<int>> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            if (await _context.Products.Where(product => product.ProductBarcode == request.ProductBarcode).AnyAsync()) throw new Exception("Product with the same barcode exist");
+            if (await _context.Products.Where(product => product.ProductBarcode == request.ProductBarcode).AnyAsync()) throw new CustomError(Message: "Product with the same barcode exist", Errors: "", StatusCode: System.Net.HttpStatusCode.Conflict);
             var product = _mapper.Map<Product>(request);
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();

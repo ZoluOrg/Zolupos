@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Customers
 {
@@ -26,7 +27,8 @@ namespace Zolupos.Application.Features.Customers
 
         public async Task<ResultWrapper<int>> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
         {
-            if (await _context.Customers.Where(customer => customer.CustomerName == request.CustomerName).AnyAsync()) throw new Exception("Customer already exist");
+            if (await _context.Customers.Where(customer => customer.CustomerName == request.CustomerName).AnyAsync()) 
+                throw new CustomError(Message: "Customer already exist", Errors: "", StatusCode:System.Net.HttpStatusCode.Conflict );
             var customer = _mapper.Map<Customer>(request);
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
