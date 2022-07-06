@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Products
 {
@@ -24,7 +26,8 @@ namespace Zolupos.Application.Features.Products
 
         public async Task<ResultWrapper<Product>> Handle(FetchProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.Where(product => product.ProductId == request.id).FirstAsync();
+            var product = await _context.Products.Where(product => product.ProductId == request.id).FirstOrDefaultAsync();
+            if (product == null) throw new CustomError(Message: "Product does not exist", Errors: "", StatusCode: HttpStatusCode.NotFound);
             return new ResultWrapper<Product> { Receive = product, Message = "" };
         }
     }

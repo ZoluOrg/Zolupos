@@ -3,13 +3,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Text;
 using Zolupos.Application;
+using Zolupos.Application.Middleware;
 using Zolupos.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 {
+    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(opts => {
@@ -35,7 +38,9 @@ var builder = WebApplication.CreateBuilder(args);
         });
     });
 
-    builder.Services.UseZoluposApplication();
+    builder.Services.AddTransient<ExceptionHandler>();
+
+    builder.Services.UseZoluposApplication();   
 
     var settingSection = builder.Configuration.GetSection("Settings");
     builder.Services.Configure<Settings>(settingSection);
@@ -81,6 +86,8 @@ var app = builder.Build();
     app.UseAuthentication();
 
     app.UseAuthorization();
+
+    app.UseMiddleware<ExceptionHandler>();
 
     app.UseStaticFiles(new StaticFileOptions
     {
