@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
+        sans: ["Manrope", ...defaultTheme.fontFamily.sans],
       },
     },
   },

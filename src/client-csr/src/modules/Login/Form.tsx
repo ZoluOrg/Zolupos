@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Zolulogo } from "../../components/Zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
-import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
 import { authenticateEmployee } from "../../services/Authentication/AuthService";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -12,11 +11,16 @@ import { useEmployeeCredential } from "../../context/EmployeeCredentialContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
+export interface IEmployeeLogin {
+  fullName: string;
+  pin: string;
+}
+
 export const Form = () => {
   const initialValues: IEmployeeLogin = { fullName: "", pin: "" };
   const navigate = useNavigate();
   const empContext = useEmployeeCredential();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
     console.log(formValue);
@@ -31,7 +35,7 @@ export const Form = () => {
   };
 
   return (
-    <div className="border-2 border-mallow-2 rounded-lg py-8 px-6 flex">
+    <div className="border-2 border-mallow-3 rounded-lg py-8 px-6 flex">
       <div className="h-full flex flex-col items-center justify-center">
         <div className="logo">
           <Zolulogo />

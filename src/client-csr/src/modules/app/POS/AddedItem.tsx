@@ -24,7 +24,7 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
     transactionContext.qtyChanging(keydx, parseInt(event.currentTarget.value));
   };
   return (
-    <div className="p-3 grid grid-cols-6 items-center gap-2 text-sm">
+    <div className="p-3 grid grid-cols-6 items-center text-sm">
       <div>
         <Input
           className="w-8/12"
@@ -34,16 +34,16 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
           min={1}
         />
       </div>
-      <div>{punched[keydx].productName}</div>
+      <div className="font-bold">{punched[keydx].productName}</div>
       <div>{punched[keydx].productPrice}</div>
       <div>
-        <span className="px-3 py-2 bg-accent-1 bg-opacity-30 text-accent-3 rounded-full">
+        <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">
           VAT
         </span>
       </div>
       <div>{punched[keydx].bunchTotal}</div>
-      <div>
-        <Button buttonSpacing="xs">
+      <div className="w-full flex justify-center">
+        <Button onClick={() => transactionContext.removeProduct(keydx)}>
           <X />
         </Button>
       </div>

@@ -28,7 +28,7 @@ namespace Zolupos.Application.Features.Customers
         {
             var customer = await _context.Customers.Where(customer => customer.CustomerId == request.Id).FirstAsync();
             if (customer == null)
-                throw new CustomError(Message: "Customer does not exist", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound)
+                throw new CustomError(Message: "Customer does not exist", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             return new ResultWrapper<Customer> { Receive = customer, Message = "" };
         }
     }

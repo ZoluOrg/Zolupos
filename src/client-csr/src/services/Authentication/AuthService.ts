@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IEmployeeLogin } from "../../interface/IEmployeeLogin";
 import { IAuthetnicateEmployee } from "../../interface/services/IAuthService";
+import { IEmployeeLogin } from "../../modules/Login/Form";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 
 export const authenticateEmployee = async (
