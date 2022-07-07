@@ -47,7 +47,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     console.log("add func");
     var idx = punched.findIndex(
       (punchedProduct) =>
-        punchedProduct.productBarcode == productToAdd.productBarcode
+        punchedProduct.productBarcode == productToAdd.productBarcode &&
+        punchedProduct.productId == productToAdd.productId
     );
     if (idx > -1) {
       qtyChanging(idx, punched[idx].quantity + 1);
@@ -55,7 +56,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       var newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
-        bunchTotal: productToAdd.productPrice,
+        bunchTotal: productToAdd.productUnitPrice,
       };
       setPunched((stale) => [...stale, newOrderedProduct]);
     }
@@ -75,10 +76,9 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     recalculateBunchPrice(idx);
   };
 
-
   const recalculateBunchPrice = (idx: number) => {
     var toUpdateArray = [...punched];
-    var price = toUpdateArray[idx].productPrice;
+    var price = toUpdateArray[idx].productUnitPrice;
     var bunchPrice = toUpdateArray[idx].bunchTotal;
     var qty = toUpdateArray[idx].quantity;
 

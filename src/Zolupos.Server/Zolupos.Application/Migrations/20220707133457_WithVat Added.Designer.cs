@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220707133457_WithVat Added")]
+    partial class WithVatAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 7, 14, 11, 5, 584, DateTimeKind.Utc).AddTicks(470),
+                            LastLogin = new DateTime(2022, 7, 7, 13, 34, 57, 114, DateTimeKind.Utc).AddTicks(2264),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -150,18 +152,15 @@ namespace Zolupos.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ProductPrice")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ProductQuantity")
                         .HasColumnType("integer");
 
                     b.Property<string>("ProductType")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("ProductUnitCost")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductUnitPrice")
-                        .HasColumnType("integer");
 
                     b.Property<bool>("WithVat")
                         .HasColumnType("boolean");
@@ -177,22 +176,9 @@ namespace Zolupos.Application.Migrations
                             ProductBarcode = "00001",
                             ProductManufacturer = "Zolu",
                             ProductName = "Sample Product",
+                            ProductPrice = 10,
                             ProductQuantity = 10,
                             ProductType = "Sample",
-                            ProductUnitCost = 5,
-                            ProductUnitPrice = 10,
-                            WithVat = true
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            ProductBarcode = "00001",
-                            ProductManufacturer = "Zolu",
-                            ProductName = "Sample Product With Out Vat",
-                            ProductQuantity = 10,
-                            ProductType = "Sample",
-                            ProductUnitCost = 5,
-                            ProductUnitPrice = 10,
                             WithVat = false
                         });
                 });

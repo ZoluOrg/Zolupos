@@ -5,5 +5,7 @@ export interface IProduct {
   productType: string;
   productQuantity: number;
   productBarcode: string;
-  productPrice: number;
+  withVat: boolean;
+  productUnitPrice: number;
+  productUnitCost: number;
 }

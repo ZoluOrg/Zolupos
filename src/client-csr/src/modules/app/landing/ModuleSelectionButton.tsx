@@ -17,7 +17,7 @@ export const ModuleSelectionButton: FC<ModuleSelectionButtonProps> = ({
   const navigate = useNavigate();
   return (
     <motion.div
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.09 }}
       whileTap={{ scale: 0.9 }}
       className="module-button flex flex-col gap-1"
       onClick={() => navigate(actualHref)}

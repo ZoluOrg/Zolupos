@@ -21,7 +21,7 @@ export const ModuleSection = () => {
 
         <ModuleSelectionButton
           icon={<Bag size={60} weight="bold" />}
-          label="Inventory"
+          label="Sales"
           buttonTailColor="mallow-1"
         />
 

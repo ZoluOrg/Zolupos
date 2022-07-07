@@ -22,7 +22,9 @@ namespace Zolupos.Application.Features.Products
         public string ProductType { get; set; }
         public int ProductQuantity { get; set; }
         public string ProductBarcode { get; set; }
-        public int ProductPrice { get; set; }
+        public bool WithVat { get; set; }
+        public int ProductUnitCost { get; set; }
+        public int ProductUnitPrice { get; set; }
     }
     public class AddProductHandler : IRequestHandler<AddProductCommand, ResultWrapper<int>>
     {

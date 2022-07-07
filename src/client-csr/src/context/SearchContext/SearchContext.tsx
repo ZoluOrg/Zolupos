@@ -52,16 +52,16 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     } else if (event.key == "Escape") escapeSearch();
   };
 
+  useEffect(() => {
+    document.addEventListener("keydown", checkKeyDown);
+  }, []);
+
   const escapeSearch = () => {
     setToSearch("");
     setSearchResult([]);
     setIsLoading(false);
     setIsSearching(false);
   };
-
-  useEffect(() => {
-    document.addEventListener("keydown", checkKeyDown);
-  }, []);
 
   const useIsSearching = async (event: FormEvent<HTMLInputElement>) => {
     setIsLoading(true);
@@ -85,11 +85,11 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
           <motion.div
             className="absolute w-full h-full flex items-center justify-center z-10 bg-mallow-1 bg-opacity-5"
             initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(10px)" }}
+            animate={{ backdropFilter: "blur(3px)" }}
             exit={{ backdropFilter: "blur(0px)" }}
           >
             <motion.div
-              className="p-[25px] w-2/4 bg-mallow-1 rounded-lg"
+              className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg"
               initial={{ y: -60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -60, opacity: 0 }}

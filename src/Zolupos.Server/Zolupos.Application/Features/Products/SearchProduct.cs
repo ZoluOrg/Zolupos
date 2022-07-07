@@ -13,7 +13,8 @@ namespace Zolupos.Application.Features.Products
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductBarcode { get; set; }
-        public int ProductPrice { get; set; }
+        public int ProductUnitCost { get; set; }
+        public int ProductUnitPrice { get; set; }
     }
     public class SearchProductHandler : IRequestHandler<SearchProductQuery, ResultWrapper<ICollection<SearchProductResponse>>>
     {
