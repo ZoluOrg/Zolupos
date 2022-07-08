@@ -12,6 +12,7 @@ namespace Zolupos.Application.Common.DTO
         public int Quantity { get; set; }
         public float Discount { get; set; }
         public float BunchTotal { get; set; }
+        public bool WithVat { get; set; }
         public int ProductId { get; set; }
     }
 }

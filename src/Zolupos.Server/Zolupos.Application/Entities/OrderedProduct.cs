@@ -14,6 +14,7 @@ namespace Zolupos.Application.Entities
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
 
+        public bool WithVat { get; set; }
         public float BunchTotal { get; set; }
         public Transaction Transaction { get; set; }
     }

@@ -24,6 +24,7 @@ namespace Zolupos.Application.Features.Transactions
         public int Quantity { get; set; }
         public float Discount { get; set; }
         public float BunchTotal { get; set; }
+        public bool WithVat { get; set; }
         public int ProductId { get; set; }
     }
     public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int>>

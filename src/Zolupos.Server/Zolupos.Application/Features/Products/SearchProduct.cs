@@ -14,7 +14,9 @@ namespace Zolupos.Application.Features.Products
         public string ProductName { get; set; }
         public string ProductBarcode { get; set; }
         public int ProductUnitCost { get; set; }
+        public bool WithVat { get; set; }
         public int ProductUnitPrice { get; set; }
+
     }
     public class SearchProductHandler : IRequestHandler<SearchProductQuery, ResultWrapper<ICollection<SearchProductResponse>>>
     {
