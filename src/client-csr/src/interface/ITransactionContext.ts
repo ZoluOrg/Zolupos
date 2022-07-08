@@ -8,8 +8,10 @@ export interface ITransactionContext {
   subTotal: number;
   vat: number;
   quantity: number;
+  discount: number;
   addProduct: (productToAdd: ISearchResponse) => void;
   removeProduct: (productIndex: number) => void;
   pushTransaction: () => void;
   qtyChanging: (idx: number, qty: number) => void;
+  discountChanging: (discount: number) => void;
 }

@@ -23,7 +23,6 @@ export const Form = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
-    console.log(formValue);
     let data = await authenticateEmployee(formValue).catch((error) => {
       toast("error");
     });

@@ -74,7 +74,6 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
 
   const addProduct = () => {
     // This is temporary
-    console.log("adding");
     transactionContext.addProduct(searchResult[0]);
   };
 

@@ -4,4 +4,5 @@ export interface ISearchResponse {
   productBarcode: string;
   productUnitCost: number;
   productUnitPrice: number;
+  withVat: boolean;
 }

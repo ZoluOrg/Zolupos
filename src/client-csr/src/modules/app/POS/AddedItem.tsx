@@ -37,9 +37,15 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
       <div className="font-bold">{punched[keydx].productName}</div>
       <div>{punched[keydx].productUnitCost}</div>
       <div>
-        <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">
-          VAT
-        </span>
+        {punched[keydx].withVat ? (
+          <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">
+            VAT
+          </span>
+        ) : (
+          <span className="px-3 py-1 bg-green-300 bg-opacity-30 text-green-700 rounded-lg">
+            None
+          </span>
+        )}
       </div>
       <div>{punched[keydx].bunchTotal}</div>
       <div className="w-full flex justify-center">

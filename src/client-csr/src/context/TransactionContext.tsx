@@ -18,12 +18,14 @@ const defaultValues: ITransactionContext = {
   punched: [],
   total: 0,
   subTotal: 0,
-  vat: 12,
+  vat: 0,
   quantity: 0,
+  discount: 0,
   addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
   qtyChanging: (idx: number, qty: number) => {},
+  discountChanging: (discount: number) => {},
 };
 
 const transactionContext = createContext(defaultValues);
@@ -35,16 +37,15 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [total, setTotal] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
   const [subTotal, setSubTotal] = useState<number>(0);
-  const [vat, setVat] = useState<number>(12);
+  const [discount, setDiscount] = useState<number>(0);
+  const [vat, setVat] = useState<number>(0);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    console.log(total);
     calculateInfo();
-  }, [punched]);
+  }, [punched, discount]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
-    console.log("add func");
     var idx = punched.findIndex(
       (punchedProduct) =>
         punchedProduct.productBarcode == productToAdd.productBarcode &&
@@ -63,7 +64,6 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   const removeProduct = (productIndex: number) => {
-    console.log(productIndex);
     const copyArr = punched.filter((_, index) => index != productIndex);
     setPunched(copyArr);
   };
@@ -74,6 +74,10 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(newArr);
 
     recalculateBunchPrice(idx);
+  };
+
+  const discountChanging = (discount: number) => {
+    setDiscount(discount);
   };
 
   const recalculateBunchPrice = (idx: number) => {
@@ -88,24 +92,31 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(toUpdateArray);
   };
 
+  //SubTotal With vat
+  //Total With Deduc
   const calculateInfo = () => {
     var newSubTotal = 0;
     var newTotal = 0;
     var newQuantity = 0;
+    var newVatPrice = 0;
+    var vatDecimal = 12 / 100;
+    var discountDecimal = discount / 100;
 
     startTransition(() => {
-      for (var i = 0; i != punched.length; i++) {
-        console.log("test");
-        newSubTotal = newTotal + punched[i].bunchTotal;
+      for (var i = 0; i < punched.length; i++) {
         newQuantity = newQuantity + punched[i].quantity;
+        newSubTotal += punched[i].bunchTotal;
 
-        var taxDec = vat / 100 + 1;
-        newTotal = taxDec * newSubTotal;
+        var toRemove = newSubTotal * discountDecimal;
+        newTotal = newSubTotal - toRemove;
+
+        newVatPrice = newTotal * vatDecimal;
       }
+      setSubTotal(Math.round(newSubTotal * 100) / 100);
+      setTotal(Math.round(newTotal * 100) / 100);
+      setQuantity(newQuantity);
+      setVat(newVatPrice);
     });
-    setQuantity(newQuantity);
-    setSubTotal(Math.round(newSubTotal * 100) / 100);
-    setTotal(Math.round(newTotal * 100) / 100);
   };
 
   const pushTransaction = () => {
@@ -117,7 +128,6 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       total: total,
       subTotal: subTotal,
     };
-    console.log(newTransaction);
   };
 
   return (
@@ -128,10 +138,12 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         subTotal,
         vat,
         quantity,
+        discount,
         addProduct,
         removeProduct,
         pushTransaction,
         qtyChanging,
+        discountChanging,
       }}
     >
       {children}

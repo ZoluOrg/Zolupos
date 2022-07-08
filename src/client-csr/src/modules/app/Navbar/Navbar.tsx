@@ -13,7 +13,6 @@ export const Navbar = () => {
   const employeeCreds = useEmployeeCredential();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(employeeCreds.creds?.firstName);
     setIsLoading(false);
   }, [employeeCreds]);
 
@@ -53,7 +52,7 @@ export const Navbar = () => {
             Look={
               <div className="flex items-center gap-[6px]">
                 <img
-                    src={employeeCreds.creds?.profileURL!}
+                    src="https://random.imagecdn.app/64/64"
                     className="w-6 h-6 rounded-full"
                   />
                 <CaretDown weight="fill" />
