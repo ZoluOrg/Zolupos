@@ -110,7 +110,9 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         var toRemove = newSubTotal * discountDecimal;
         newTotal = newSubTotal - toRemove;
 
-        newVatPrice = newTotal * vatDecimal;
+        if (punched[i].withVat) {
+          newVatPrice = newTotal * vatDecimal;
+        }
       }
       setSubTotal(Math.round(newSubTotal * 100) / 100);
       setTotal(Math.round(newTotal * 100) / 100);
