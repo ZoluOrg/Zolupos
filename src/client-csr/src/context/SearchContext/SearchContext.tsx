@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
   useTransition,
+  KeyboardEvent,
 } from "react";
 import { IProduct } from "../../interface/IProduct";
 import { ISearchContext } from "../../interface/ISearchContext";
@@ -46,15 +47,27 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     setIsLoading(false);
   };
 
-  const onShortcutDown = (event: KeyboardEvent) => {
+  const onShortcutDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.altKey && event.key == "a") {
       setIsSearching(!isSearching);
     } else if (event.key == "Escape") escapeSearch();
   };
 
   const onSelectionDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    // the thing up down
-  }
+    console.log(event.key);
+    if (event.key == "ArrowUp") {
+      if (selected == 0) return;
+      setSelected(selected - 1);
+    }
+    if (event.key == "ArrowDown") {
+      if (selected == searchResult.length - 1) return;
+      setSelected(selected + 1);
+    }
+    if (event.key == "Enter") {
+      addProduct(selected);
+    }
+    console.log(selected);
+  };
 
   useEffect(() => {
     document.addEventListener("keydown", onShortcutDown);
@@ -76,80 +89,84 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     });
   };
 
-  const addProduct = () => {
+  const addProduct = (index: number) => {
     // This is temporary
-    transactionContext.addProduct(searchResult[0]);
+    transactionContext.addProduct(searchResult[index]);
   };
 
   return (
     <div className="relative">
-      <AnimatePresence>
-        {isSearching && (
-          <motion.div
-            className="absolute w-full h-full flex items-center justify-center z-10 bg-mallow-1 bg-opacity-5"
-            initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(3px)" }}
-            exit={{ backdropFilter: "blur(0px)" }}
-          >
-            <motion.div
-              className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg"
-              initial={{ y: -60, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -60, opacity: 0 }}
-            >
-              <div className="w-full flex items-center justify-between">
-                <span className="text-2xl font-bold">Add Product</span>
-                <div>
-                  <Button onClick={() => escapeSearch()}>Close</Button>
-                </div>
-              </div>
-              <div className="mt-2 flex items-center gap-2">
-                <div className="w-full">
-                  <Input
-                    className="w-full"
-                    value={toSearch}
-                    onChange={useIsSearching}
-                  />
-                </div>
-                <Button buttonColor="coal" onClick={addProduct}>
-                  Add
-                </Button>
-              </div>
-              <div className="mt-3">
-                {searchResult.length > 0 ? (
-                  <ul className="w-full flex flex-col gap-2">
-                    {searchResult.map((product, idx) => (
-                      <ResultButton key={idx} index={idx} product={product} />
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="font-bold w-full">
-                    {isLoading ? (
-                      <div className="w-full flex items-center justify-center gap-4">
-                        <div className="Spinner">
-                          <CustomSpinner dark />
-                        </div>
-                        <div>Loading Results</div>
-                      </div>
-                    ) : (
-                      <div>
-                        {toSearch == "" ? (
-                          <div>Type the product's barcode or name</div>
-                        ) : (
-                          <div>Unkown product</div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <searchContext.Provider
         value={{ toSearch, selected, searchResult, setSelected, find }}
       >
+        <AnimatePresence>
+          {isSearching && (
+            <motion.div
+              className="absolute w-full h-full flex items-center justify-center z-10 bg-mallow-1 bg-opacity-5"
+              initial={{ backdropFilter: "blur(0px)" }}
+              animate={{ backdropFilter: "blur(3px)" }}
+              exit={{ backdropFilter: "blur(0px)" }}
+            >
+              <motion.div
+                className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg"
+                initial={{ y: -60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -60, opacity: 0 }}
+              >
+                <div className="w-full flex items-center justify-between">
+                  <span className="text-2xl font-bold">Add Product</span>
+                  <div>
+                    <Button onClick={() => escapeSearch()}>Close</Button>
+                  </div>
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <div className="w-full">
+                    <Input
+                      className="w-full"
+                      value={toSearch}
+                      onChange={useIsSearching}
+                      onKeyDown={onSelectionDown}
+                    />
+                  </div>
+                  <Button
+                    buttonColor="coal"
+                    onClick={() => addProduct(selected)}
+                  >
+                    Add
+                  </Button>
+                </div>
+                <div className="mt-3">
+                  {searchResult.length > 0 ? (
+                    <ul className="w-full flex flex-col gap-2">
+                      {searchResult.map((product, idx) => (
+                        <ResultButton key={idx} index={idx} product={product} />
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="font-bold w-full">
+                      {isLoading ? (
+                        <div className="w-full flex items-center justify-center gap-4">
+                          <div className="Spinner">
+                            <CustomSpinner dark />
+                          </div>
+                          <div>Loading Results</div>
+                        </div>
+                      ) : (
+                        <div>
+                          {toSearch == "" ? (
+                            <div>Type the product's barcode or name</div>
+                          ) : (
+                            <div>Unkown product</div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {children}
       </searchContext.Provider>
     </div>
