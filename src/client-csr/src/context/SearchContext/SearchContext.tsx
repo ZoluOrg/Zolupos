@@ -28,6 +28,7 @@ const defaultValue: ISearchContext = {
   searchResult: [],
   setSelected: (toBeSelected: number) => {},
   find: (query: string) => {},
+  addProduct: (index: number) => {},
 };
 
 const searchContext = createContext(defaultValue);
@@ -90,14 +91,13 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const addProduct = (index: number) => {
-    // This is temporary
     transactionContext.addProduct(searchResult[index]);
   };
 
   return (
     <div className="relative">
       <searchContext.Provider
-        value={{ toSearch, selected, searchResult, setSelected, find }}
+        value={{ toSearch, selected, searchResult, setSelected, find, addProduct }}
       >
         <AnimatePresence>
           {isSearching && (

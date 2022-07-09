@@ -15,9 +15,10 @@ export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
     <div
       className={`w-full p-5 flex justify-between items-center border ${
         searchContext.selected == index
-          ? "border-accent-1"
+          ? "border-accent-1 shadow-lg"
           : "border-mallow-3"
       } rounded-lg`}
+      onClick={() => searchContext.addProduct(index)}
     >
       <div className="flex flex-col">
         <span className="font-bold text-xl">{product.productName}</span>

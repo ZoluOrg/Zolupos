@@ -6,4 +6,5 @@ export interface ISearchContext {
   searchResult: Array<ISearchResponse>;
   setSelected: (toBeSelected: number) => void;
   find: (query: string) => void;
+  addProduct: (index: number) => void;
 }
