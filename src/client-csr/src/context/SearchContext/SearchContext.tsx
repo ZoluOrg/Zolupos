@@ -46,14 +46,18 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     setIsLoading(false);
   };
 
-  const checkKeyDown = (event: KeyboardEvent) => {
+  const onShortcutDown = (event: KeyboardEvent) => {
     if (event.altKey && event.key == "a") {
       setIsSearching(!isSearching);
     } else if (event.key == "Escape") escapeSearch();
   };
 
+  const onSelectionDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    // the thing up down
+  }
+
   useEffect(() => {
-    document.addEventListener("keydown", checkKeyDown);
+    document.addEventListener("keydown", onShortcutDown);
   }, []);
 
   const escapeSearch = () => {

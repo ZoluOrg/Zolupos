@@ -92,8 +92,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(toUpdateArray);
   };
 
-  //SubTotal With vat
-  //Total With Deduc
+  //SubTotal with vat
+  //Total is subtotal with deduction
   const calculateInfo = () => {
     var newSubTotal = 0;
     var newTotal = 0;
@@ -101,6 +101,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     var newVatPrice = 0;
     var vatDecimal = 12 / 100;
     var discountDecimal = discount / 100;
+    var subTotalWithoutVatExlusiveProduct = 0;
 
     startTransition(() => {
       for (var i = 0; i < punched.length; i++) {
@@ -111,13 +112,15 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         newTotal = newSubTotal - toRemove;
 
         if (punched[i].withVat) {
-          newVatPrice = newTotal * vatDecimal;
+          subTotalWithoutVatExlusiveProduct = subTotalWithoutVatExlusiveProduct + punched[i].bunchTotal;
+          console.log(subTotalWithoutVatExlusiveProduct);
+          newVatPrice = subTotalWithoutVatExlusiveProduct * vatDecimal;
         }
       }
-      setSubTotal(Math.round(newSubTotal * 100) / 100);
-      setTotal(Math.round(newTotal * 100) / 100);
+      setSubTotal(Math.round(newSubTotal * 1000) / 1000);
+      setTotal(Math.round(newTotal * 1000) / 1000);
       setQuantity(newQuantity);
-      setVat(newVatPrice);
+      setVat(Math.round(newVatPrice * 1000) / 1000);
     });
   };
 

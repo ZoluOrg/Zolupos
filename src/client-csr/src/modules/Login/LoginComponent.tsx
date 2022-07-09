@@ -8,6 +8,7 @@ export const LoginComponent = () => {
   const creds = useEmployeeCredential();
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "Login";
     if (creds.isLoggedIn) {
       navigate("/", { replace: true });
     }
