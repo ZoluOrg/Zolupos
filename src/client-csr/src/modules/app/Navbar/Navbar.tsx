@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, CaretDown } from "phosphor-react";
 import { CurrentTime } from "../../../components/CurrentTime";
 import { Menu, MenuItems } from "../../../components/Menu";
 import { Link, useNavigate } from "react-router-dom";
-import { useEmployeeCredential, useEmployeeCreds } from "../../../context/EmployeeCredentialContext";
+import {useEmployeeCreds } from "../../../context/EmployeeCredentialContext";
 import styles from "../../../styles/app/Navbar.module.scss";
 
 export const Navbar = () => {

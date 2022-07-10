@@ -6,7 +6,6 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
 import styles from "../../styles/login/Form.module.scss";
-import { useEmployeeCredential } from "../../context/EmployeeCredentialContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { z, ZodError } from "zod";
@@ -36,7 +35,6 @@ export type employeeLogin = z.infer<typeof employeeLoginValidator>;
 export const Form = () => {
   const initialValues: employeeLogin = { fullName: "", pin: "" };
   const navigate = useNavigate();
-  const empContext = useEmployeeCredential();
   const queryClient = useQueryClient();
   const [showPassword, setShowPassword] = useState(false);
 

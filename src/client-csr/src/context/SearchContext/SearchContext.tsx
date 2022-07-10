@@ -39,7 +39,6 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [searchResult, setSearchResult] = useState<Array<ISearchResponse>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
   const transactionContext = useTransactionContext();
 
   const find = async (query: string) => {
