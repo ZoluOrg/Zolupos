@@ -21,6 +21,7 @@ import { searchProduct } from "../../services/Product/ProductService";
 import { CustomSpinner } from "../../components/CustomSpinner";
 import { useTransactionContext } from "../TransactionContext";
 import { ISearchResponse } from "../../interface/ISearchResponse";
+import { useQuery } from "react-query";
 
 const defaultValue: ISearchContext = {
   toSearch: "",
@@ -39,7 +40,26 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [searchResult, setSearchResult] = useState<Array<ISearchResponse>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
   const transactionContext = useTransactionContext();
+
+  const searchQuery = useQuery(
+    ["product-search"],
+    () => searchProduct(toSearch),
+    {
+      enabled: isSearching,
+      retry: false,
+      onSuccess: (data: Array<ISearchResponse>) => {
+        setSearchResult(data);
+        setIsLoading(false);
+      },
+    }
+  );
+
+  // please put params in refetch
+  useEffect(() => {
+    searchQuery.refetch();
+  }, [toSearch]);
 
   const find = async (query: string) => {
     const result = await searchProduct(query);
@@ -84,9 +104,6 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     setIsLoading(true);
     setToSearch(event.currentTarget.value);
     setSelected(0);
-    startTransition(() => {
-      find(event.currentTarget.value);
-    });
   };
 
   const addProduct = (index: number) => {
@@ -150,7 +167,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
                     </ul>
                   ) : (
                     <div className="font-bold w-full">
-                      {isLoading ? (
+                      {searchQuery.isLoading ? (
                         <div className="w-full flex items-center justify-center gap-4">
                           <div className="Spinner">
                             <CustomSpinner dark />
