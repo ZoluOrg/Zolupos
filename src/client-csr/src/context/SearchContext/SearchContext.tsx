@@ -7,7 +7,6 @@ import {
   useEffect,
   useState,
   useTransition,
-  KeyboardEvent,
 } from "react";
 import { IProduct } from "../../interface/IProduct";
 import styles from "../../styles/SearchContext/SearchContext.module.scss";
@@ -73,7 +72,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     } else if (event.key == "Escape") escapeSearch();
   };
 
-  const onSelectionDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  const onSelectionDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     console.log(event.key);
     if (event.key == "ArrowUp") {
       if (selected == 0) return;

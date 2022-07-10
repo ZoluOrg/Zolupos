@@ -70,8 +70,8 @@ export const CustomSpinner: FC<Props> = ({ dark }) => {
           fill="none"
           className="animate-spin"
         >
-          <rect x="11" width="5" height="10" rx="2.5" fill="#E6E3E0" />
-          <rect x="11" y="18" width="5" height="10" rx="2.5" fill="#E6E3E0" />
+          <rect x="11" width="5" height="10" rx="2.5" fill="#f8f9fa" />
+          <rect x="11" y="18" width="5" height="10" rx="2.5" fill="#f8f9fa" />
           <rect
             x="0.125671"
             y="9.16504"
@@ -79,7 +79,7 @@ export const CustomSpinner: FC<Props> = ({ dark }) => {
             height="10"
             rx="2.5"
             transform="rotate(-60 0.125671 9.16504)"
-            fill="#E6E3E0"
+            fill="#f8f9fa"
           />
           <rect
             x="15.7141"
@@ -88,7 +88,7 @@ export const CustomSpinner: FC<Props> = ({ dark }) => {
             height="10"
             rx="2.5"
             transform="rotate(-60 15.7141 18.165)"
-            fill="#E6E3E0"
+            fill="#f8f9fa"
           />
           <rect
             x="2.62567"
@@ -97,7 +97,7 @@ export const CustomSpinner: FC<Props> = ({ dark }) => {
             height="10"
             rx="2.5"
             transform="rotate(-120 2.62567 23.165)"
-            fill="#E6E3E0"
+            fill="#f8f9fa"
           />
           <rect
             x="18.2141"
@@ -106,7 +106,7 @@ export const CustomSpinner: FC<Props> = ({ dark }) => {
             height="10"
             rx="2.5"
             transform="rotate(-120 18.2141 14.165)"
-            fill="#E6E3E0"
+            fill="#f8f9fa"
           />
         </svg>
       )}

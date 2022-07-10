@@ -9,12 +9,7 @@ import {useEmployeeCreds } from "../../../context/EmployeeCredentialContext";
 import styles from "../../../styles/app/Navbar.module.scss";
 
 export const Navbar = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  const test = useEmployeeCreds();
-  useEffect(() => {
-    setIsLoading(false);
-  }, [test]);
 
   return (
     <div className="bg-coal-1 pt-[14px] pb-[14px] px-6 w-full text-mallow-1 flex justify-between">
@@ -44,7 +39,7 @@ export const Navbar = () => {
       </div>
       <div className="flex items-center gap-[14px]">
         <div className="flex items-center gap-[10px]">
-          <Link to="#">{test.data?.firstName}</Link>
+          <Link to="#">Shortcuts</Link>
           <Link to="#">Settings</Link>
         </div>
         <div className="profile">

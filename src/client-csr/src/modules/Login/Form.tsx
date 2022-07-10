@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Zolulogo } from "../../components/Zolulogo";
-import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
-import styles from "../../styles/login/Form.module.scss";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { z, ZodError } from "zod";
-import { Query, QueryClient, useMutation, useQueryClient } from "react-query";
+import {useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import ResultWrapper from "../../wrappers/ResultWrapper";
-import { IAuthetnicateEmployee } from "../../interface/services/IAuthService";
 import Cookies from "js-cookie";
 
 const employeeLoginValidator = z.object({
@@ -20,17 +17,34 @@ const employeeLoginValidator = z.object({
   pin: z.string().min(4, "Pin must be at least 4 characters."),
 });
 
+export type employeeLogin = z.infer<typeof employeeLoginValidator>;
+
+const authenticateResponseValidator = z.object({
+  requestedToken: z.string(),
+  reqestedBearerToken: z.string(),
+  employee: z.object({
+    employeeId: z.number(),
+    firstName: z.string(),
+    surName: z.string(),
+    fullName: z.string(),
+    pin: z.number(),
+    role: z.string(),
+    phoneNumber: z.number(),
+    lastLogin: z.string(),
+  }),
+});
+
+export type authenticateResponse = z.infer<typeof authenticateResponseValidator>;
+
 export const authenticateEmployee = async (
   employeeCredentials: employeeLogin
 ) => {
-  let response = await axios.post<ResultWrapper<IAuthetnicateEmployee>>(
+  let response = await axios.post<ResultWrapper<authenticateResponse>>(
     "https://localhost:7073/api/Authentication",
     employeeLoginValidator.parse(employeeCredentials)
   );
   return response.data;
 };
-
-export type employeeLogin = z.infer<typeof employeeLoginValidator>;
 
 export const Form = () => {
   const initialValues: employeeLogin = { fullName: "", pin: "" };
@@ -39,7 +53,7 @@ export const Form = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { mutate, isLoading, error } = useMutation(authenticateEmployee, {
-    onSuccess: async (data: ResultWrapper<IAuthetnicateEmployee>) => {
+    onSuccess: async (data: ResultWrapper<authenticateResponse>) => {
       Cookies.set(
         "zolupos-employee-creds",
         JSON.stringify(data.receive.employee)

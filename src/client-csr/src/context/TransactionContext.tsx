@@ -41,6 +41,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [vat, setVat] = useState<number>(0);
   const [isPending, startTransition] = useTransition();
 
+  useEffect(() => reset(), [punched]);
+
   useEffect(() => {
     calculateInfo();
   }, [punched, discount]);
@@ -123,6 +125,14 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         setVat(Math.round(newVatPrice * 1000) / 1000);
       }
     });
+  };
+
+  const reset = () => {
+    setTotal(0);
+    setQuantity(0);
+    setSubTotal(0);
+    setDiscount(0);
+    setVat(0);
   };
 
   const pushTransaction = () => {
