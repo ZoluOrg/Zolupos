@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Zolupos.Application.Entities;
-using Zolupos.Shared.Models;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Services
 {

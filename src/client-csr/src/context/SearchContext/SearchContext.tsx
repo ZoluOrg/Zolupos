@@ -48,7 +48,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     setIsLoading(false);
   };
 
-  const onShortcutDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  const onShortcutDown = (event: KeyboardEvent) => {
     if (event.altKey && event.key == "a") {
       setIsSearching(!isSearching);
     } else if (event.key == "Escape") escapeSearch();
@@ -97,7 +97,14 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="relative">
       <searchContext.Provider
-        value={{ toSearch, selected, searchResult, setSelected, find, addProduct }}
+        value={{
+          toSearch,
+          selected,
+          searchResult,
+          setSelected,
+          find,
+          addProduct,
+        }}
       >
         <AnimatePresence>
           {isSearching && (

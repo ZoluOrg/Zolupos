@@ -11,6 +11,7 @@ import { IEmployeeCredentialsContext } from "../interface/IEmployeeCredentialsCo
 import Cookies from "js-cookie";
 import { parseJWT } from "../utils/ParseJWT";
 import { getEmployeeById } from "../services/Employee/EmployeeService";
+import { useQuery } from "react-query";
 
 const defaultValue: IEmployeeCredentialsContext = {
   creds: null,
@@ -38,6 +39,7 @@ export const EmployeeCredentialContext: FC<{ children: ReactNode }> = ({
     } else console.warn("Employee is not authenticated");
   }, []);
   const save = async (TokenToSave: string, EmployeeCredsToSave: IEmployee) => {
+    console.log(TokenToSave);
     Cookies.set("zolupos-employee-creds", JSON.stringify(EmployeeCredsToSave));
     Cookies.set("zolupos-employee-token", TokenToSave);
 
@@ -56,3 +58,4 @@ export const EmployeeCredentialContext: FC<{ children: ReactNode }> = ({
 export const useEmployeeCredential = () => {
   return useContext(employeeCredentialContext);
 };
+

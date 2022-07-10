@@ -112,15 +112,16 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
         newTotal = newSubTotal - toRemove;
 
         if (punched[i].withVat) {
-          subTotalWithoutVatExlusiveProduct = subTotalWithoutVatExlusiveProduct + punched[i].bunchTotal;
+          subTotalWithoutVatExlusiveProduct =
+            subTotalWithoutVatExlusiveProduct + punched[i].bunchTotal;
           console.log(subTotalWithoutVatExlusiveProduct);
           newVatPrice = subTotalWithoutVatExlusiveProduct * vatDecimal;
         }
+        setSubTotal(Math.round(newSubTotal * 1000) / 1000);
+        setTotal(Math.round(newTotal * 1000) / 1000);
+        setQuantity(newQuantity);
+        setVat(Math.round(newVatPrice * 1000) / 1000);
       }
-      setSubTotal(Math.round(newSubTotal * 1000) / 1000);
-      setTotal(Math.round(newTotal * 1000) / 1000);
-      setQuantity(newQuantity);
-      setVat(Math.round(newVatPrice * 1000) / 1000);
     });
   };
 

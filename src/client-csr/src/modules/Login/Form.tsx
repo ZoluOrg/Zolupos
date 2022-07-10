@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Zolulogo } from "../../components/Zolulogo";
 import Cookie from "js-cookie";
 import { Formik, Form as FormikForm, Field, FormikHelpers } from "formik";
-import { authenticateEmployee } from "../../services/Authentication/AuthService";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
@@ -10,28 +9,52 @@ import styles from "../../styles/login/Form.module.scss";
 import { useEmployeeCredential } from "../../context/EmployeeCredentialContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { z, ZodError } from "zod";
+import { useMutation } from "react-query";
+import axios, { AxiosError } from "axios";
+import ResultWrapper from "../../wrappers/ResultWrapper";
+import { IAuthetnicateEmployee } from "../../interface/services/IAuthService";
 
-export interface IEmployeeLogin {
-  fullName: string;
-  pin: string;
-}
+const employeeLoginValidator = z.object({
+  fullName: z.string().min(3, "Full name must be at least 3 characters. \n"),
+  pin: z.string().min(4, "Pin must be at least 4 characters."),
+});
+
+export const authenticateEmployee = async (
+  employeeCredentials: employeeLogin
+) => {
+  let response = await axios.post<ResultWrapper<IAuthetnicateEmployee>>(
+    "https://localhost:7073/api/Authentication",
+    employeeLoginValidator.parse(employeeCredentials)
+  );
+  return response.data;
+};
+
+export type employeeLogin = z.infer<typeof employeeLoginValidator>;
 
 export const Form = () => {
-  const initialValues: IEmployeeLogin = { fullName: "", pin: "" };
+  const initialValues: employeeLogin = { fullName: "", pin: "" };
   const navigate = useNavigate();
   const empContext = useEmployeeCredential();
   const [showPassword, setShowPassword] = useState(false);
 
-  const authenticateWithCreds = async (formValue: IEmployeeLogin) => {
-    let data = await authenticateEmployee(formValue).catch((error) => {
-      toast("error");
-    });
-    if (data) {
-      await empContext
-        .save(data.receive.requestedToken, data.receive.employee)
-        .then(() => navigate("/landing", { replace: true }));
-    }
-  };
+  const { mutate, isLoading, error } = useMutation(authenticateEmployee, {
+    onSuccess: async (data: ResultWrapper<IAuthetnicateEmployee>) => {
+      await empContext.save(data.receive.requestedToken, data.receive.employee);
+      navigate("/landing");
+    },
+    onError: (error: any) => {
+      let errorMessage = "";
+      if (error instanceof ZodError) {
+        error.errors.forEach((error) => {
+          errorMessage += error.message;
+        });
+        toast.error(errorMessage);
+      } else if (error instanceof AxiosError) {
+        toast.error(error.response?.data.ExceptionMessage);
+      }
+    },
+  });
 
   return (
     <div className="border-2 border-mallow-3 rounded-lg py-8 px-6 flex">
@@ -43,13 +66,8 @@ export const Form = () => {
         <div className="flex flex-col gap-[10px] mt-9">
           <Formik
             initialValues={initialValues}
-            onSubmit={async (
-              values: IEmployeeLogin,
-              { setSubmitting }: FormikHelpers<IEmployeeLogin>
-            ) => {
-              setSubmitting(true);
-              authenticateWithCreds(values);
-              setSubmitting(false);
+            onSubmit={async (values: employeeLogin) => {
+              mutate(values);
             }}
           >
             {({ isSubmitting }) => (
@@ -77,7 +95,7 @@ export const Form = () => {
                 <Button
                   type="submit"
                   className="w-full pt-[10px] pb-[10px] mt-9"
-                  isLoading={isSubmitting}
+                  isLoading={isLoading}
                 >
                   Submit
                 </Button>

@@ -10,7 +10,7 @@ using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
 using Zolupos.Application.Services;
-using Zolupos.Shared.Models;
+using Zolupos.Shared.Model;
 
 namespace Zolupos.Application.Features.Authentication
 {
@@ -37,7 +37,8 @@ namespace Zolupos.Application.Features.Authentication
 
         public async Task<ResultWrapper<AuthenticateResponse>> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
-            var employee = await _context.Employees.Where(employee => employee.FullName == request.FullName && employee.Pin == request.Pin).FirstAsync();
+            var employee = await _context.Employees.Where(employee => employee.FullName == request.FullName && employee.Pin == request.Pin).FirstOrDefaultAsync();
+            if (employee == null) throw new CustomError(Message: "Credentials Wrong or Employee does not exist.", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             var token = await AuthenticationService.GenerateToken(employee, _settings);
             var response = new AuthenticateResponse
             {

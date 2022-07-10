@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using Zolupos.Application;
 using Zolupos.Application.Middleware;
-using Zolupos.Shared.Models;
+using Zolupos.Shared.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
