@@ -10,7 +10,6 @@ import {
   KeyboardEvent,
 } from "react";
 import { IProduct } from "../../interface/IProduct";
-import { ISearchContext } from "../../interface/ISearchContext";
 import styles from "../../styles/SearchContext/SearchContext.module.scss";
 import { Button } from "../../components/Button";
 import { X } from "phosphor-react";
@@ -23,12 +22,13 @@ import { useTransactionContext } from "../TransactionContext";
 import { ISearchResponse } from "../../interface/ISearchResponse";
 import { useQuery } from "react-query";
 
+export interface ISearchContext {
+  selected: number;
+  addProduct: (index: number) => void;
+}
+
 const defaultValue: ISearchContext = {
-  toSearch: "",
   selected: 0,
-  searchResult: [],
-  setSelected: (toBeSelected: number) => {},
-  find: (query: string) => {},
   addProduct: (index: number) => {},
 };
 
@@ -114,11 +114,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
     <div className="relative">
       <searchContext.Provider
         value={{
-          toSearch,
           selected,
-          searchResult,
-          setSelected,
-          find,
           addProduct,
         }}
       >
