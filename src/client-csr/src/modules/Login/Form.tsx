@@ -10,10 +10,11 @@ import { useEmployeeCredential } from "../../context/EmployeeCredentialContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { z, ZodError } from "zod";
-import { useMutation } from "react-query";
+import { Query, QueryClient, useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 import { IAuthetnicateEmployee } from "../../interface/services/IAuthService";
+import Cookies from "js-cookie";
 
 const employeeLoginValidator = z.object({
   fullName: z.string().min(3, "Full name must be at least 3 characters. \n"),
@@ -36,11 +37,17 @@ export const Form = () => {
   const initialValues: employeeLogin = { fullName: "", pin: "" };
   const navigate = useNavigate();
   const empContext = useEmployeeCredential();
+  const queryClient = useQueryClient();
   const [showPassword, setShowPassword] = useState(false);
 
   const { mutate, isLoading, error } = useMutation(authenticateEmployee, {
     onSuccess: async (data: ResultWrapper<IAuthetnicateEmployee>) => {
-      await empContext.save(data.receive.requestedToken, data.receive.employee);
+      Cookies.set(
+        "zolupos-employee-creds",
+        JSON.stringify(data.receive.employee)
+      );
+      Cookies.set("zolupos-employee-token", data.receive.requestedToken);
+      queryClient.invalidateQueries("employee-creds");
       navigate("/landing");
     },
     onError: (error: any) => {
