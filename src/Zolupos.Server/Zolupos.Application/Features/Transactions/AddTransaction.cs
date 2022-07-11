@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Application.Common.Enums;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
@@ -17,6 +18,7 @@ namespace Zolupos.Application.Features.Transactions
         public int Vat { get; set; }
         public int Total { get; set; }
         public int SubTotal { get; set; }
+        public PaymentType PaymentType { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
     }
     public class AddOrderedProduct

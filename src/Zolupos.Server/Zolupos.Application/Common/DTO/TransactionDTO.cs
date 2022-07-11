@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zolupos.Application.Common.Enums;
 
 namespace Zolupos.Application.Common.DTO
 {
@@ -15,6 +16,7 @@ namespace Zolupos.Application.Common.DTO
         public int Vat { get; set; }
         public int Total { get; set; }
         public int SubTotal { get; set; }
+        public PaymentType PaymentType { get; set; }
         public virtual List<OrderedProductDTO> OrderedProducts { get; set; }
     }
 }
