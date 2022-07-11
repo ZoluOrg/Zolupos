@@ -8,11 +8,9 @@ namespace Zolupos.Application.Common.DTO
 {
     public class OrderedProductDTO
     {
-        public int OrderedProductId { get; set; }
         public int Quantity { get; set; }
-        public float Discount { get; set; }
-        public float BunchTotal { get; set; }
-        public bool WithVat { get; set; }
         public int ProductId { get; set; }
+        public bool WithVat { get; set; }
+        public float BunchTotal { get; set; }
     }
 }
