@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import { z } from "zod";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { IProduct } from "../interface/IProduct";
 import { ISearchResponse } from "../interface/ISearchResponse";
@@ -157,7 +158,9 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       total: total,
       subTotal: subTotal,
     };
-    mutate(newTransaction);
+
+    if (newTransaction.orderedProducts.length > 0) mutate(newTransaction);
+    else toast.error("Add products to transaction");
   };
 
   return (
