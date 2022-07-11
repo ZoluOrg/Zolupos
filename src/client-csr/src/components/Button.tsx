@@ -24,11 +24,12 @@ export const Button: FC<Props> = ({
   buttonSpacing = "normal",
   isLoading = false,
   className,
+  disabled,
   ...props
 }) => {
   return (
     <button
-      className={`${backgroundSelection[backgroundColor]} ${spacingSelection[buttonSpacing]} rounded-lg font-bold transition flex items-center justify-center ${className}`}
+      className={`${backgroundSelection[backgroundColor]} ${spacingSelection[buttonSpacing]} ${disabled || isLoading ? "cursor-not-allowed" : ""} rounded-lg font-bold transition flex items-center justify-center ${className}`}
       {...props}
     >
       <span className={isLoading ? "opacity-0" : ""}>{children}</span>
