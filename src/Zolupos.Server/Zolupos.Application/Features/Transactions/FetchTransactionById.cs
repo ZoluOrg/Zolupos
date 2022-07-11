@@ -8,23 +8,23 @@ using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchTransactionByIdQuery (int Id) : IRequest<ResultWrapper<TransactionDTO>>;
-    public record FetchTransactionByIdHandler : IRequestHandler<FetchTransactionByIdQuery, ResultWrapper<TransactionDTO>>
+  public record FetchTransactionByIdQuery(int Id) : IRequest<ResultWrapper<TransactionDTO>>;
+  public record FetchTransactionByIdHandler : IRequestHandler<FetchTransactionByIdQuery, ResultWrapper<TransactionDTO>>
+  {
+    private IApplicationDbContext _context;
+    private IMapper _mapper;
+    public FetchTransactionByIdHandler(IApplicationDbContext context, IMapper mapper)
     {
-        private IApplicationDbContext _context;
-        private IMapper _mapper;
-        public FetchTransactionByIdHandler(IApplicationDbContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
-        }
-
-        public async Task<ResultWrapper<TransactionDTO>> Handle(FetchTransactionByIdQuery request, CancellationToken cancellationToken)
-        {
-            var transaction = await _context.Transactions.Where(transaction => transaction.TransactionId == request.Id).FirstAsync();
-            var mappedTransaction = _mapper.Map<TransactionDTO>(transaction);
-
-            return new ResultWrapper<TransactionDTO> { Receive = mappedTransaction, Message = ""};
-        }
+      _context = context;
+      _mapper = mapper;
     }
+
+    public async Task<ResultWrapper<TransactionDTO>> Handle(FetchTransactionByIdQuery request, CancellationToken cancellationToken)
+    {
+      var transaction = await _context.Transactions.Where(transaction => transaction.TransactionId == request.Id).Include(tr => tr.OrderedProducts).FirstAsync();
+      var mappedTransaction = _mapper.Map<TransactionDTO>(transaction);
+
+      return new ResultWrapper<TransactionDTO> { Receive = mappedTransaction, Message = "" };
+    }
+  }
 }

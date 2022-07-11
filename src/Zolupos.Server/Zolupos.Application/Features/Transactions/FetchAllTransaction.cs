@@ -26,7 +26,7 @@ namespace Zolupos.Application.Features.Transactions
 
         public async Task<ResultWrapper<ICollection<TransactionDTO>>> Handle(FetchAllTransactionQuery request, CancellationToken cancellationToken)
         {
-            var transactions = await _context.Transactions.ToListAsync();
+            var transactions = await _context.Transactions.Include(tr => tr.OrderedProducts).ToListAsync();
             var mappedTransactions = _mapper.Map<ICollection<TransactionDTO>>(transactions);
 
             return new ResultWrapper<ICollection<TransactionDTO>> { Receive = mappedTransactions, Message = ""};
