@@ -1,3 +1,4 @@
+import { Axios } from "axios";
 import React, {
   createContext,
   FC,
@@ -7,12 +8,15 @@ import React, {
   useState,
   useTransition,
 } from "react";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { IProduct } from "../interface/IProduct";
 import { ISearchResponse } from "../interface/ISearchResponse";
 import { ITransaction } from "../interface/ITransaction";
 import { ITransactionContext } from "../interface/ITransactionContext";
 import { OrderList } from "../modules/app/POS/OrderList";
+import { addNewTransaction } from "../services/Transactions/TransactionsService";
 
 const defaultValues: ITransactionContext = {
   punched: [],
@@ -40,6 +44,13 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [discount, setDiscount] = useState<number>(0);
   const [vat, setVat] = useState<number>(0);
   const [isPending, startTransition] = useTransition();
+
+  const { mutate, isLoading, error } = useMutation(addNewTransaction, {
+    onSuccess: (data: number) => {
+      toast.success("Transaction added successfully. Transaction ID: " + data);
+      setPunched([]);
+    },
+  });
 
   useEffect(() => reset(), [punched]);
 
@@ -128,22 +139,25 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   const reset = () => {
-    setTotal(0);
-    setQuantity(0);
-    setSubTotal(0);
-    setDiscount(0);
-    setVat(0);
+    if (punched.length <= 0) {
+      console.log("reset");
+      setTotal(0);
+      setQuantity(0);
+      setSubTotal(0);
+      setDiscount(0);
+      setVat(0);
+    }
   };
 
   const pushTransaction = () => {
-    // To be continued
     const newTransaction: ITransaction = {
-      customerId: 0,
-      orderedProduct: punched,
+      customerId: 1,
+      orderedProducts: punched,
       vat: 12,
       total: total,
       subTotal: subTotal,
     };
+    mutate(newTransaction);
   };
 
   return (

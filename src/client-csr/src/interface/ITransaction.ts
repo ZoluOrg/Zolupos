@@ -5,5 +5,5 @@ export interface ITransaction {
   vat: number;
   total: number;
   subTotal: number;
-  orderedProduct: Array<IOrderedProduct>;
+  orderedProducts: Array<IOrderedProduct>;
 }
