@@ -13,7 +13,7 @@ export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
   const searchContext = useSearchContext();
   return (
     <div
-      className={`w-full p-5 flex justify-between items-center border ${
+      className={`w-full p-5 flex justify-between items-center border bg-mallow-1 hover:bg-mallow-2  ${
         searchContext.selected == index
           ? "border-accent-1 shadow-lg"
           : "border-mallow-3"
