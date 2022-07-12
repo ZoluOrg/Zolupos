@@ -17,7 +17,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ResultButton } from "./ResultButton";
 import { searchProduct } from "../../services/Product/ProductService";
 import { CustomSpinner } from "../../components/CustomSpinner";
-import { useTransactionContext } from "../TransactionContext";
+import { useTransactionContext } from "../TransactionContext/TransactionContext";
 import { ISearchResponse } from "../../interface/ISearchResponse";
 import { useQuery } from "react-query";
 
@@ -110,7 +110,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative search-context">
       <searchContext.Provider
         value={{
           selected,

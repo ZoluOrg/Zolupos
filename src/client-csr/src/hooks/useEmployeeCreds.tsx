@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { z } from "zod";
 import { Router, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const employeeValidator = z.object({
   employeeId: z.number(),
@@ -23,9 +24,15 @@ export const useEmployeeCreds = () => {
     const empCreds = Cookies.get("zolupos-employee-creds");
     const empToken = Cookies.get("zolupos-employee-token");
     if ((empToken && empCreds != null) || (empCreds && empToken != undefined)) {
-      var res = JSON.parse(empCreds);
-      return employeeValidator.parse(res);
+      try {
+        let res = JSON.parse(empCreds);
+        return employeeValidator.parse(res);
+      } catch {
+        toast.warning("Employee credentials are invalid. Login again.");
+        navigate("/login");
+      }
     } else {
+      toast.warning("Please login first");
       navigate("/login");
     }
   });

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { employee } from "../../context/EmployeeCredentialContext";
+import { employee } from "../../hooks/useEmployeeCreds";
 import { getTokenAsBearer } from "../../utils/TokenUtils";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 

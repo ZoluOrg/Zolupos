@@ -1,5 +1,5 @@
 import React from "react";
-import { useTransactionContext } from "../../../context/TransactionContext";
+import { useTransactionContext } from "../../../context/TransactionContext/TransactionContext";
 import { AddedItem } from "./AddedItem";
 import styles from "../../../styles/app/POS/OrderList.module.scss";
 import { Input } from "../../../components/Input";

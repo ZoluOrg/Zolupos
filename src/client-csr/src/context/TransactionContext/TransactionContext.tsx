@@ -11,13 +11,15 @@ import React, {
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { z } from "zod";
-import { IOrderedProduct } from "../interface/IOrderedProduct";
-import { IProduct } from "../interface/IProduct";
-import { ISearchResponse } from "../interface/ISearchResponse";
-import { ITransaction } from "../interface/ITransaction";
-import { ITransactionContext } from "../interface/ITransactionContext";
-import { OrderList } from "../modules/app/POS/OrderList";
-import { addNewTransaction } from "../services/Transactions/TransactionsService";
+import { PaymentTypes } from "../../enums/PaymentTypes";
+import { IOrderedProduct } from "../../interface/IOrderedProduct";
+import { IProduct } from "../../interface/IProduct";
+import { ISearchResponse } from "../../interface/ISearchResponse";
+import { ITransaction } from "../../interface/ITransaction";
+import { ITransactionContext } from "../../interface/ITransactionContext";
+import { OrderList } from "../../modules/app/POS/OrderList";
+import { addNewTransaction } from "../../services/Transactions/TransactionsService";
+import { PushModal } from "./PushModal";
 
 const defaultValues: ITransactionContext = {
   punched: [],
@@ -60,7 +62,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   }, [punched, discount]);
 
   const addProduct = (productToAdd: ISearchResponse) => {
-    var idx = punched.findIndex(
+    let idx = punched.findIndex(
       (punchedProduct) =>
         punchedProduct.productBarcode == productToAdd.productBarcode &&
         punchedProduct.productId == productToAdd.productId
@@ -68,7 +70,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     if (idx > -1) {
       qtyChanging(idx, punched[idx].quantity + 1);
     } else {
-      var newOrderedProduct: IOrderedProduct = {
+      let newOrderedProduct: IOrderedProduct = {
         ...productToAdd,
         quantity: 1,
         bunchTotal: productToAdd.productUnitPrice,
@@ -83,7 +85,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   const qtyChanging = (idx: number, qty: number) => {
-    var newArr = [...punched];
+    let newArr = [...punched];
     newArr[idx].quantity = qty;
     setPunched(newArr);
 
@@ -95,12 +97,12 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   const recalculateBunchPrice = (idx: number) => {
-    var toUpdateArray = [...punched];
-    var price = toUpdateArray[idx].productUnitPrice;
-    var bunchPrice = toUpdateArray[idx].bunchTotal;
-    var qty = toUpdateArray[idx].quantity;
+    let toUpdateArray = [...punched];
+    let price = toUpdateArray[idx].productUnitPrice;
+    let bunchPrice = toUpdateArray[idx].bunchTotal;
+    let qty = toUpdateArray[idx].quantity;
 
-    var qtyPrice = Math.round(price * qty * 100) / 100;
+    let qtyPrice = Math.round(price * qty * 100) / 100;
 
     toUpdateArray[idx].bunchTotal = Math.round(qtyPrice * 100) / 100;
     setPunched(toUpdateArray);
@@ -109,20 +111,20 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   //SubTotal with vat
   //Total is subtotal with deduction
   const calculateInfo = () => {
-    var newSubTotal = 0;
-    var newTotal = 0;
-    var newQuantity = 0;
-    var newVatPrice = 0;
-    var vatDecimal = 12 / 100;
-    var discountDecimal = discount / 100;
-    var subTotalWithoutVatExlusiveProduct = 0;
+    let newSubTotal = 0;
+    let newTotal = 0;
+    let newQuantity = 0;
+    let newVatPrice = 0;
+    let vatDecimal = 12 / 100;
+    let discountDecimal = discount / 100;
+    let subTotalWithoutVatExlusiveProduct = 0;
 
     startTransition(() => {
-      for (var i = 0; i < punched.length; i++) {
+      for (let i = 0; i < punched.length; i++) {
         newQuantity = newQuantity + punched[i].quantity;
         newSubTotal += punched[i].bunchTotal;
 
-        var toRemove = newSubTotal * discountDecimal;
+        let toRemove = newSubTotal * discountDecimal;
         newTotal = newSubTotal - toRemove;
 
         if (punched[i].withVat) {
@@ -156,6 +158,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       orderedProducts: punched,
       vat: 12,
       total: total,
+      paymentType: PaymentTypes.Cash,
       subTotal: subTotal,
     };
 
@@ -164,23 +167,26 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <transactionContext.Provider
-      value={{
-        punched,
-        total: total,
-        subTotal,
-        vat,
-        quantity,
-        discount,
-        addProduct,
-        removeProduct,
-        pushTransaction,
-        qtyChanging,
-        discountChanging,
-      }}
-    >
-      {children}
-    </transactionContext.Provider>
+    <div className="transaction-context relative">
+      <transactionContext.Provider
+        value={{
+          punched,
+          total: total,
+          subTotal,
+          vat,
+          quantity,
+          discount,
+          addProduct,
+          removeProduct,
+          pushTransaction,
+          qtyChanging,
+          discountChanging,
+        }}
+      >
+        <PushModal />
+        {children}
+      </transactionContext.Provider>
+    </div>
   );
 };
 

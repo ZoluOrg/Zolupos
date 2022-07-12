@@ -12,7 +12,7 @@ import {
 import React, { FC, FormEvent, HTMLInputTypeAttribute, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
-import { useTransactionContext } from "../../../context/TransactionContext";
+import { useTransactionContext } from "../../../context/TransactionContext/TransactionContext";
 
 interface addItemProps {
   keydx: number;
