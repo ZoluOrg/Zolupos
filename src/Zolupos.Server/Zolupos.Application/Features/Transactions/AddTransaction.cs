@@ -19,7 +19,9 @@ namespace Zolupos.Application.Features.Transactions
         public int Total { get; set; }
         public int SubTotal { get; set; }
         public PaymentType PaymentType { get; set; }
+        public string Notes { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
+        public virtual List<AddPayment> Payments { get; set; }
     }
     public class AddOrderedProduct
     {
@@ -27,6 +29,13 @@ namespace Zolupos.Application.Features.Transactions
         public float BunchTotal { get; set; }
         public bool WithVat { get; set; }
         public int ProductId { get; set; }
+    }
+    public class AddPayment
+    {
+        public PaymentType PaymentType { get; set; }
+        public int Tendered { get; set; }
+        public int Change { get; set; }
+        public int Amount { get; set; }
     }
     public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int>>
     {

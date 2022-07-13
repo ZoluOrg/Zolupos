@@ -17,6 +17,7 @@ namespace Zolupos.Application.Infrastructure.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<OrderedProduct> OrderedProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
@@ -31,6 +32,9 @@ namespace Zolupos.Application.Infrastructure.Context
 
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.OrderedProducts).WithOne(ord => ord.Transaction);
             modelBuilder.Entity<OrderedProduct>().HasOne(ord => ord.Transaction).WithMany(tr => tr.OrderedProducts);
+
+            modelBuilder.Entity<Transaction>().HasMany(tr => tr.Payments).WithOne(py => py.Transaction);
+            modelBuilder.Entity<Payment>().HasOne(py => py.Transaction).WithMany(tr => tr.Payments);
 
             modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", FullName = "Sample Employee", Pin = 1989, Role = "Admin", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow });
         }

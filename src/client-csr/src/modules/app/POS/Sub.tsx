@@ -46,7 +46,7 @@ export const Sub = () => {
       <div>
         <Button
           className="w-full bg-green-700 hover:bg-green-800"
-          onClick={() => transactionContext.pushTransaction()}
+          onClick={() => transactionContext.setPurchaseModal(true)}
         >
           Purchase
         </Button>

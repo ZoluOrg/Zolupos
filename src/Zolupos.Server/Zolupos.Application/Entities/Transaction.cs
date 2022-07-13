@@ -19,7 +19,9 @@ namespace Zolupos.Application.Entities
         public int Discount { get; set; }
         public int Total { get; set; }
         public int SubTotal { get; set; }
-        public PaymentType PaymentType { get; set; }
+        public string Notes { get; set; }
+
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
+        public virtual List<Payment> Payments { get; set; }
     }
 }

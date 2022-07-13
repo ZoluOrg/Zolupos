@@ -1,4 +1,3 @@
-import { Axios } from "axios";
 import React, {
   createContext,
   FC,
@@ -10,14 +9,12 @@ import React, {
 } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
-import { z } from "zod";
 import { PaymentTypes } from "../../enums/PaymentTypes";
 import { IOrderedProduct } from "../../interface/IOrderedProduct";
-import { IProduct } from "../../interface/IProduct";
+import { IPayment } from "../../interface/IPayment";
 import { ISearchResponse } from "../../interface/ISearchResponse";
 import { ITransaction } from "../../interface/ITransaction";
 import { ITransactionContext } from "../../interface/ITransactionContext";
-import { OrderList } from "../../modules/app/POS/OrderList";
 import { addNewTransaction } from "../../services/Transactions/TransactionsService";
 import { PushModal } from "./PushModal";
 
@@ -28,11 +25,13 @@ const defaultValues: ITransactionContext = {
   vat: 0,
   quantity: 0,
   discount: 0,
+  showPurchaseModal: false,
   addProduct: (productToAdd: ISearchResponse) => {},
   removeProduct: (productIndex: number) => {},
   pushTransaction: () => {},
   qtyChanging: (idx: number, qty: number) => {},
   discountChanging: (discount: number) => {},
+  setPurchaseModal: (show: boolean) => {},
 };
 
 const transactionContext = createContext(defaultValues);
@@ -46,6 +45,8 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
   const [subTotal, setSubTotal] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const [vat, setVat] = useState<number>(0);
+  const [showPurchaseModal, setPurchaseModal] = useState<boolean>(false);
+  const [payments, setPayments] = useState<Array<IPayment>>([]);
   const [isPending, startTransition] = useTransition();
 
   const { mutate, isLoading, error } = useMutation(addNewTransaction, {
@@ -108,8 +109,6 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
     setPunched(toUpdateArray);
   };
 
-  //SubTotal with vat
-  //Total is subtotal with deduction
   const calculateInfo = () => {
     let newSubTotal = 0;
     let newTotal = 0;
@@ -158,7 +157,7 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
       orderedProducts: punched,
       vat: 12,
       total: total,
-      paymentType: PaymentTypes.Cash,
+      payments: payments,
       subTotal: subTotal,
     };
 
@@ -176,14 +175,16 @@ export const TransactionContext: FC<{ children: ReactNode }> = ({
           vat,
           quantity,
           discount,
+          showPurchaseModal,
           addProduct,
           removeProduct,
           pushTransaction,
           qtyChanging,
           discountChanging,
+          setPurchaseModal
         }}
       >
-        <PushModal />
+        <PushModal active={showPurchaseModal}/>
         {children}
       </transactionContext.Provider>
     </div>

@@ -3,8 +3,10 @@ import { FC } from "react";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { PaymentTypes } from "../../enums/PaymentTypes";
+import { useTransactionContext } from "./TransactionContext";
 
 export const PushModal: FC<{ active: boolean }> = ({ active = true }) => {
+  const transactionContext = useTransactionContext();
   return (
     <AnimatePresence>
       {active && (
@@ -23,54 +25,15 @@ export const PushModal: FC<{ active: boolean }> = ({ active = true }) => {
             <div className="w-full flex items-center justify-between">
               <span className="text-2xl font-bold">Process Transaction</span>
               <div>
-                <Button>Close</Button>
+                <Button
+                  onClick={() => transactionContext.setPurchaseModal(false)}
+                >
+                  Close
+                </Button>
               </div>
             </div>
             <div className="mt-2">
-              <div className="flex">
-                <div className="flex flex-col gap-2">
-                  <div className="flex gap-3">
-                    <div className="flex flex-col gap-2">
-                      <span>Payment Method</span>
-                      <div>
-                        <select className="rounded-lg border-2 border-mallow-3 bg-mallow-1">
-                          {Object.keys(PaymentTypes).map((key, idx) => (
-                            <option key={idx} value={key}>
-                              {key}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <span>Tender</span>
-                      <div>
-                        <Input />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2 h-full">
-                    <span>Notes</span>
-                    <textarea className="rounded-lg border-2 border-mallow-3 bg-mallow-1 h-full" />
-                  </div>
-                </div>
-                <div className="text-right flex w-full">
-                  <div className="w-full flex flex-col gap-3">
-                    <div className="flex flex-col">
-                      <span className="font-bold text-2xl">Amount</span>
-                      <span className="font-bold text-lg opacity-75">$100</span>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-bold text-2xl">Change</span>
-                      <span className="font-bold text-lg opacity-75">$50</span>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-bold text-2xl">Tender</span>
-                      <span className="font-bold text-lg opacity-75">$150</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              test
             </div>
           </motion.div>
         </motion.div>

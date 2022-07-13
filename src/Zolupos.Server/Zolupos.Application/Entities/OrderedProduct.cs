@@ -16,6 +16,6 @@ namespace Zolupos.Application.Entities
 
         public bool WithVat { get; set; }
         public float BunchTotal { get; set; }
-        public Transaction Transaction { get; set; }
+        public virtual Transaction Transaction { get; set; }
     }
 }
