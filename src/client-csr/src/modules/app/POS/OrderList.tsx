@@ -1,16 +1,16 @@
 import React from "react";
-import { useTransactionContext } from "../../../context/TransactionContext/TransactionContext";
 import { AddedItem } from "./AddedItem";
 import styles from "../../../styles/app/POS/OrderList.module.scss";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { ShoppingCart, X } from "phosphor-react";
+import { useOrder } from "../../../stores/useOrder";
 
 export const OrderList = () => {
-  const transactionContext = useTransactionContext();
+  const orders = useOrder(state => state.orders);
   return (
     <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
-      {transactionContext.punched.length == 0 ? (
+      {orders.length == 0 ? (
         <div className="h-full flex justify-center items-center">
           <div className="flex flex-col items-center gap-2">
             <div>
@@ -35,7 +35,7 @@ export const OrderList = () => {
             </div>
           </div>
           <div className="h-full overflow-y-auto">
-            {transactionContext.punched.map((_, idx) => (
+            {orders.map((_, idx) => (
               <AddedItem key={idx} keydx={idx} />
             ))}
           </div>

@@ -33,7 +33,7 @@ export const PushModal: FC<{ active: boolean }> = ({ active = true }) => {
               </div>
             </div>
             <div className="mt-2">
-              test
+              
             </div>
           </motion.div>
         </motion.div>

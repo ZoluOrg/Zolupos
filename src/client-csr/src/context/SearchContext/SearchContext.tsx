@@ -17,9 +17,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ResultButton } from "./ResultButton";
 import { searchProduct } from "../../services/Product/ProductService";
 import { CustomSpinner } from "../../components/CustomSpinner";
-import { useTransactionContext } from "../TransactionContext/TransactionContext";
 import { ISearchResponse } from "../../interface/ISearchResponse";
 import { useQuery } from "react-query";
+import { useOrder } from "../../stores/useOrder";
+import { IOrderedProduct } from "../../interface/IOrderedProduct";
 
 export interface ISearchContext {
   selected: number;
@@ -40,7 +41,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
-  const transactionContext = useTransactionContext();
+  const order = useOrder();
 
   const searchQuery = useQuery(
     ["product-search"],
@@ -106,7 +107,13 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const addProduct = (index: number) => {
-    transactionContext.addProduct(searchResult[index]);
+    let selected = searchResult[index]
+    let newOrder: IOrderedProduct ={
+      ...selected,
+      quantity: 1,
+      bunchTotal: selected.productUnitPrice
+    }
+    order.addOrder(newOrder);
   };
 
   return (
