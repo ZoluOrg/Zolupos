@@ -11,7 +11,9 @@ export const OrderInfo = () => {
   const transaction = useTransactionStore();
   const order = useOrderStore();
 
-  useOrderStore.subscribe(state => state.orders, transaction.calculateInfo)
+  useEffect(() => {
+    transaction.calculateInfo(order.orders);
+  }, [order.orders, transaction.discount]);
 
   return (
     <div className="rounded-lg flex-grow">
