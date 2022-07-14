@@ -1,7 +1,14 @@
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
-import create from "zustand";
+import create, {
+  GetState,
+  SetState,
+  State,
+  StateCreator,
+  StoreApi,
+} from "zustand";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
+import { devtools, subscribeWithSelector } from "zustand/middleware";
 
 interface IOrder {
   orders: Array<IOrderedProduct>;
@@ -12,24 +19,28 @@ interface IOrder {
   calculateBunchPrice: (index: number) => void;
 }
 
-export const useOrderStore = create<IOrder>((set, get) => ({
-  orders: [],
-  setOrders: (orders) => set((state) => ({ orders: orders })),
-  addOrder: (order) =>
-    set(produce<IOrder>((state) => addOrderFn(state, order))),
-  removeOrder: (index) =>
-    set((state) => ({
-      orders: state.orders.filter((_, i) => i !== index),
-    })),
-  qtyChanging: (index, qty) =>
-    set(
-      produce<IOrder>((state) => {
-        state.orders[index].quantity = qty;
-      })
-    ),
-  calculateBunchPrice: (index) =>
-    set(produce((state) => calculateBunchPriceFn(state, index))),
-}));
+export const useOrderStore = create<IOrder>()(
+  subscribeWithSelector(
+    devtools((set, get) => ({
+      orders: [],
+      setOrders: (orders) => set((state) => ({ orders: orders })),
+      addOrder: (order) =>
+        set(produce<IOrder>((state) => addOrderFn(state, order))),
+      removeOrder: (index) =>
+        set((state) => ({
+          orders: state.orders.filter((_, i) => i !== index),
+        })),
+      qtyChanging: (index, qty) =>
+        set(
+          produce<IOrder>((state) => {
+            state.orders[index].quantity = qty;
+          })
+        ),
+      calculateBunchPrice: (index) =>
+        set(produce((state) => calculateBunchPriceFn(state, index))),
+    }))
+  )
+);
 
 const addOrderFn = (state: WritableDraft<IOrder>, order: IOrderedProduct) => {
   let idx = state.orders.findIndex(
@@ -48,6 +59,6 @@ const calculateBunchPriceFn = (state: WritableDraft<IOrder>, idx: number) => {
   let qty = state.orders[idx].quantity;
 
   let qtyPrice = Math.round(price * qty * 100) / 100;
-  
+
   state.orders[idx].bunchTotal = qtyPrice;
 };
