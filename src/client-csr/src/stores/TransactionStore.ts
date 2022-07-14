@@ -13,7 +13,7 @@ interface ITransaction {
   setDiscount: (discount: number) => void;
 }
 
-export const useTransaction = create<ITransaction>((set) => ({
+export const useTransactionStore = create<ITransaction>((set) => ({
   total: 0,
   subTotal: 0,
   vat: 0,

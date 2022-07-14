@@ -19,7 +19,7 @@ import { searchProduct } from "../../services/Product/ProductService";
 import { CustomSpinner } from "../../components/CustomSpinner";
 import { ISearchResponse } from "../../interface/ISearchResponse";
 import { useQuery } from "react-query";
-import { useOrder } from "../../stores/useOrder";
+import { useOrderStore } from "../../stores/OrderStore";
 import { IOrderedProduct } from "../../interface/IOrderedProduct";
 
 export interface ISearchContext {
@@ -41,7 +41,7 @@ export const SearchContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
-  const order = useOrder();
+  const order = useOrderStore();
 
   const searchQuery = useQuery(
     ["product-search"],

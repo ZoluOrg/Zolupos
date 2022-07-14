@@ -9,21 +9,21 @@ import {
   TrashSimple,
   X,
 } from "phosphor-react";
-import React, { FC, FormEvent, HTMLInputTypeAttribute, useState } from "react";
+import React, { FC, FormEvent, HTMLInputTypeAttribute, useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
-import { useOrder } from "../../../stores/useOrder";
-import { useTransaction } from "../../../stores/useTransaction";
+import { useOrderStore } from "../../../stores/OrderStore";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 interface addItemProps {
   keydx: number;
 }
 
 export const AddedItem: FC<addItemProps> = ({ keydx }) => {
-  const order = useOrder();
-  const transaction = useTransaction();
+  const order = useOrderStore();
   const onChangingInputQuantity = (event: FormEvent<HTMLInputElement>) => {
     order.qtyChanging(keydx, parseInt(event.currentTarget.value));
+    order.calculateBunchPrice(keydx);
   };
   return (
     <div className="p-3 grid grid-cols-6 items-center text-sm">

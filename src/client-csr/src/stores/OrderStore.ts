@@ -9,9 +9,10 @@ interface IOrder {
   addOrder: (order: IOrderedProduct) => void;
   removeOrder: (index: number) => void;
   qtyChanging: (index: number, qty: number) => void;
+  calculateBunchPrice: (index: number) => void;
 }
 
-export const useOrder = create<IOrder>((set) => ({
+export const useOrderStore = create<IOrder>((set, get) => ({
   orders: [],
   setOrders: (orders) => set((state) => ({ orders: orders })),
   addOrder: (order) =>
@@ -22,10 +23,12 @@ export const useOrder = create<IOrder>((set) => ({
     })),
   qtyChanging: (index, qty) =>
     set(
-      produce((state) => {
+      produce<IOrder>((state) => {
         state.orders[index].quantity = qty;
       })
     ),
+  calculateBunchPrice: (index) =>
+    set(produce((state) => calculateBunchPriceFn(state, index))),
 }));
 
 const addOrderFn = (state: WritableDraft<IOrder>, order: IOrderedProduct) => {
@@ -38,4 +41,13 @@ const addOrderFn = (state: WritableDraft<IOrder>, order: IOrderedProduct) => {
   else {
     state.orders.push(order);
   }
+};
+
+const calculateBunchPriceFn = (state: WritableDraft<IOrder>, idx: number) => {
+  let price = state.orders[idx].productUnitPrice;
+  let qty = state.orders[idx].quantity;
+
+  let qtyPrice = Math.round(price * qty * 100) / 100;
+  
+  state.orders[idx].bunchTotal = qtyPrice;
 };

@@ -4,10 +4,10 @@ import styles from "../../../styles/app/POS/OrderList.module.scss";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { ShoppingCart, X } from "phosphor-react";
-import { useOrder } from "../../../stores/useOrder";
+import { useOrderStore } from "../../../stores/OrderStore";
 
 export const OrderList = () => {
-  const orders = useOrder(state => state.orders);
+  const orders = useOrderStore((state) => state.orders);
   return (
     <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
       {orders.length == 0 ? (

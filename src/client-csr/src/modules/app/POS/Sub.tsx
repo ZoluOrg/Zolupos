@@ -2,12 +2,12 @@ import { Percent } from "phosphor-react";
 import React, { FormEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
-import { useTransaction } from "../../../stores/useTransaction";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 export const Sub = () => {
-  const transaction = useTransaction();
+  const transaction = useTransactionStore();
   const onDiscountChanging = (event: FormEvent<HTMLInputElement>) => {
-    transactionContext.discountChanging(parseInt(event.currentTarget.value));
+    transaction.setDiscount(parseInt(event.currentTarget.value));
   };
   return (
     <div className="rounded-lg bg-mallow-2 p-5 flex-grow flex flex-col justify-between bg-opacity-75 border border-mallow-2 shadow">
