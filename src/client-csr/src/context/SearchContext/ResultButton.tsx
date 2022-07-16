@@ -1,8 +1,10 @@
 import React, { ButtonHTMLAttributes, FC, HTMLProps } from "react";
+import { IOrderedProduct } from "../../interface/IOrderedProduct";
 import { IProduct } from "../../interface/IProduct";
 import { ISearchResponse } from "../../interface/ISearchResponse";
+import { useOrderStore } from "../../stores/OrderStore";
+import { useSearchStore } from "../../stores/SearchStore";
 import styles from "../../styles/SearchContext/ResultButton.module.scss";
-import { useSearchContext } from "./SearchContext";
 
 interface Props extends HTMLProps<HTMLLIElement> {
   index: number;
@@ -10,15 +12,27 @@ interface Props extends HTMLProps<HTMLLIElement> {
 }
 
 export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
-  const searchContext = useSearchContext();
+  const searchStore = useSearchStore();
+  const orderStore = useOrderStore();
+
+  const addProduct = () => {
+    let toSave: IOrderedProduct = {
+      ...searchStore.searchResult[index],
+      quantity: 1,
+      bunchTotal:
+        searchStore.searchResult[index].productUnitPrice,
+    };
+    orderStore.addOrder(toSave);
+  };
+
   return (
     <div
       className={`w-full p-5 flex justify-between items-center border bg-mallow-1 hover:bg-mallow-2  ${
-        searchContext.selected == index
+        searchStore.selectedResult == index
           ? "border-accent-1 shadow-lg"
           : "border-mallow-3"
       } rounded-lg`}
-      onClick={() => searchContext.addProduct(index)}
+      onClick={() => addProduct()}
     >
       <div className="flex flex-col">
         <span className="font-bold text-xl">{product.productName}</span>

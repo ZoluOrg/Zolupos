@@ -1,16 +1,27 @@
-import create from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import create from "zustand";
+import { subscribeWithSelector } from "zustand/middleware";
 
-interface BearState {
-  bears: number
-  increase: (by: number) => void
+interface IPayment {
+  payments: Array<IPayment>;
+  showPaymentModal: boolean;
+  setShowPaymentModal: (showPaymentModal: boolean) => void;
+  setPayments: (payments: Array<IPayment>) => void;
+  removePayment: (index: number) => void;
+  addPayment: (payment: IPayment) => void;
 }
 
-const useStore = create<BearState>()(
-  devtools(
-    persist((set) => ({
-      bears: 0,
-      increase: (by) => set((state) => ({ bears: state.bears + by })),
-    }))
-  )
-)
+export const usePaymentStore = create<IPayment>()((set) => ({
+  payments: [],
+  showPaymentModal: false,
+  setShowPaymentModal: (showPaymentModal) =>
+    set((state) => ({ showPaymentModal })),
+  setPayments: (payments) => set((state) => ({ payments: payments })),
+  removePayment: (index) =>
+    set((state) => ({
+      payments: state.payments.filter((_, i) => i !== index),
+    })),
+  addPayment: (payment) =>
+    set((state) => ({
+      payments: [...state.payments, payment],
+    })),
+}));

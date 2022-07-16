@@ -3,7 +3,7 @@ import { AddedItem } from "./AddedItem";
 import styles from "../../../styles/app/POS/OrderList.module.scss";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
-import { ShoppingCart, X } from "phosphor-react";
+import { ShoppingBagOpen, ShoppingCart, X } from "phosphor-react";
 import { useOrderStore } from "../../../stores/OrderStore";
 
 export const OrderList = () => {
@@ -11,15 +11,12 @@ export const OrderList = () => {
   return (
     <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
       {orders.length == 0 ? (
-        <div className="h-full flex justify-center items-center">
-          <div className="flex flex-col items-center gap-2">
-            <div>
-              <ShoppingCart size={64} className="opacity-50" />
+        <div className="h-full flex justify-center items-center gap-10">
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex flex-col justify-center items-center gap-2">
+              <span className="text-3xl font-bold text-black text-opacity-50">Empty Cart</span>
+              <span className="text-xl font-semibold text-black text-opacity-50">Scan or search a product to add.</span>
             </div>
-            <span className="font-bold text-3xl opacity-50">Empty Cart</span>
-            <span className="font-semibold text-xl opacity-50">
-              Scan or enter barcode.
-            </span>
           </div>
         </div>
       ) : (
