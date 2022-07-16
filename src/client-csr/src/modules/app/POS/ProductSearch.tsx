@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
-import { ResultButton } from "../../../context/SearchContext/ResultButton";
+import { ResultButton } from "./ResultButton";
 import { IOrderedProduct } from "../../../interface/IOrderedProduct";
 import { ISearchResponse } from "../../../interface/ISearchResponse";
 import { searchProduct } from "../../../services/Product/ProductService";
