@@ -15,6 +15,8 @@ interface IPaymentStore {
   addPayment: (payment: IPayment) => void;
 
   setPaymentMethod: (index: number, paymentMethod: number) => void;
+  setAmount: (index: number, amount: number) => void;
+  setTender: (index: number, tender: number) => void;
 }
 
 export const usePaymentStore = create<IPaymentStore>()((set) => ({
@@ -33,6 +35,18 @@ export const usePaymentStore = create<IPaymentStore>()((set) => ({
     })),
   setPaymentMethod: (index, paymentMethod) =>
     set(produce((state) => setPaymentMethodFn(state, index, paymentMethod))),
+  setAmount: (index, amount) =>
+    set(
+      produce((state) => {
+        state.payments[index].amount = amount;
+      })
+    ),
+  setTender: (index, tender) =>
+    set(
+      produce((state) => {
+        state.payments[index].tendered = tender;
+      })
+    ),
 }));
 
 const setPaymentMethodFn = (

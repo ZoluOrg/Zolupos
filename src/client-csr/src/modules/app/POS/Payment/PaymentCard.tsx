@@ -9,7 +9,8 @@ export const PaymentCard: React.FC<{
   paymentIndex: number;
 }> = ({ paymentIndex }) => {
   const paymentStore = usePaymentStore();
-  const testChange = (ev: React.FormEvent<HTMLSelectElement>) => {
+
+  const paymentTypeChange = (ev: React.FormEvent<HTMLSelectElement>) => {
     console.log(parseInt(ev.currentTarget.value));
     paymentStore.setPaymentMethod(
       paymentIndex,
@@ -17,11 +18,17 @@ export const PaymentCard: React.FC<{
     );
   };
 
+  const amountChange = (ev: React.FormEvent<HTMLInputElement>) =>
+    paymentStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
+
+  const tenderChange = (ev: React.FormEvent<HTMLInputElement>) =>
+    paymentStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
+
   return (
-    <div className="payment grid grid-cols-3 w-full border rounded-lg p-3 bg-mallow-1 shadow hover:shadow-lg hover:scale-[1.001] transition ">
+    <div className="payment grid grid-cols-3 w-full border rounded-lg p-3 bg-mallow-1 shadow hover:shadow-lg hover:scale-[1.005] transition ">
       <div className="flex flex-col gap-2">
         <div>
-          <select className="rounded-lg w-8/12" onChange={testChange}>
+          <select className="rounded-lg w-8/12" onChange={paymentTypeChange}>
             {Object.keys(PaymentTypes).map((adr, key) => (
               <option key={key} value={key}>
                 {adr}
@@ -33,15 +40,27 @@ export const PaymentCard: React.FC<{
           PaymentTypes.Cash && (
           <div>
             <div className="flex flex-col gap-1">
-              <span>Tendered:</span>
-              <Input className="w w-6/12" />
+              <span>Tendered: </span>
+              <Input
+                className="w w-6/12"
+                value={paymentStore.payments[paymentIndex].tendered}
+                onChange={tenderChange}
+                type="number"
+                min={1}
+              />
             </div>
-            <span>Change: </span>
+            <span>Change: {paymentStore.payments[paymentIndex].change}</span>
           </div>
         )}
       </div>
       <div>
-        <Input className="w-8/12" />
+        <Input
+          className="w-8/12"
+          value={paymentStore.payments[paymentIndex].amount}
+          onChange={amountChange}
+          type="number"
+          min={1}
+        />
       </div>
       <div className="flex justify-center items-center">
         <div>
