@@ -12,7 +12,7 @@ export const PaymentModal = () => {
   const paymentStore = usePaymentStore();
   const addPayment = () => {
     const newPayment: IPayment = {
-      paymentType: PaymentTypes.DebitCard,
+      paymentType: PaymentTypes.Cash,
       tendered: 0,
       change: 0,
       amount: 0,
@@ -54,7 +54,7 @@ export const PaymentModal = () => {
                 <span>Amount</span>
                 <span className="text-center">Remove</span>
               </div>
-              <div className="flex flex-col gap-3 p-3 border rounded-lg ">
+              <div className="flex flex-col gap-3">
                 {paymentStore.payments.map((_, idx) => (
                   <PaymentCard key={idx} paymentIndex={idx} />
                 ))}
