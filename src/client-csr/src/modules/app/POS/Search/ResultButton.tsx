@@ -1,9 +1,8 @@
 import React, { ButtonHTMLAttributes, FC, HTMLProps } from "react";
-import { IOrderedProduct } from "../../../interface/IOrderedProduct";
-import { IProduct } from "../../../interface/IProduct";
-import { ISearchResponse } from "../../../interface/ISearchResponse";
-import { useOrderStore } from "../../../stores/OrderStore";
-import { useSearchStore } from "../../../stores/SearchStore";
+import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
+import { ISearchResponse } from "../../../../interface/ISearchResponse";
+import { useOrderStore } from "../../../../stores/OrderStore";
+import { useSearchStore } from "../../../../stores/SearchStore";
 import styles from "../../styles/SearchContext/ResultButton.module.scss";
 
 interface Props extends HTMLProps<HTMLLIElement> {

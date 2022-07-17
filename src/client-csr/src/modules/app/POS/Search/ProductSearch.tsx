@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
-import { Button } from "../../../components/Button";
-import { Input } from "../../../components/Input";
+import { Button } from "../../../../components/Button";
+import { Input } from "../../../../components/Input";
 import { ResultButton } from "./ResultButton";
-import { IOrderedProduct } from "../../../interface/IOrderedProduct";
-import { ISearchResponse } from "../../../interface/ISearchResponse";
-import { searchProduct } from "../../../services/Product/ProductService";
-import { useOrderStore } from "../../../stores/OrderStore";
-import { useSearchStore } from "../../../stores/SearchStore";
+import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
+import { ISearchResponse } from "../../../../interface/ISearchResponse";
+import { searchProduct } from "../../../../services/Product/ProductService";
+import { useOrderStore } from "../../../../stores/OrderStore";
+import { useSearchStore } from "../../../../stores/SearchStore";
 
 export const ProductSearch = () => {
   const [shoudShow, setShouldShow] = React.useState<boolean>(false);
@@ -73,7 +73,7 @@ export const ProductSearch = () => {
   };
 
   return (
-    <div className="search-thing! z-10">
+    <div className="search-thing z-10">
       <AnimatePresence>
         {shoudShow && (
           <motion.div
