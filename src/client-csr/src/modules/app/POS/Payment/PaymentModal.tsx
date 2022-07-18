@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, PlusCircle, X } from "phosphor-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
@@ -19,6 +19,11 @@ export const PaymentModal = () => {
     };
     transactionStore.addPayment(newPayment);
   };
+  
+  useEffect(() => {
+    transactionStore.updatePaymentInfos();
+  }, [transactionStore.payments])
+
   return (
     <div className="payment-modal">
       <AnimatePresence>
@@ -55,12 +60,12 @@ export const PaymentModal = () => {
               </div>
               <div className="flex gap-2 w-3/12 justify-between">
                 <div className="flex flex-col gap-2">
-                  <span>Total: </span>
-                  <span>Balance: </span>
+                  <span>Total: {transactionStore.total}</span>
+                  <span>Balance: {transactionStore.balance}</span>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span>Payment: </span>
-                  <span>Change: </span>
+                  <span>Payment: {transactionStore.overAllPayment}</span>
+                  <span>Change: {transactionStore.change}</span>
                 </div>
               </div>
               <div className="grid grid-cols-3 w-full p-3 border rounded-t-lg">

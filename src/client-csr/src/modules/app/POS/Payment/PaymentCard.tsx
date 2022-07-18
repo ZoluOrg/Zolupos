@@ -18,12 +18,15 @@ export const PaymentCard: React.FC<{
     );
   };
 
-  const amountChange = (ev: React.FormEvent<HTMLInputElement>) =>
-  transactionStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
+  const amountChange = (ev: React.FormEvent<HTMLInputElement>) => {
+    transactionStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
+    transactionStore.updateChange(paymentIndex);
+  };
 
-  const tenderChange = (ev: React.FormEvent<HTMLInputElement>) =>
-  transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
-
+  const tenderChange = (ev: React.FormEvent<HTMLInputElement>) => {
+    transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value))
+    transactionStore.updateChange(paymentIndex);
+  };
   return (
     <div className="payment grid grid-cols-3 w-full border rounded-lg p-3 bg-mallow-1 shadow hover:shadow-lg hover:scale-[1.005] transition ">
       <div className="flex flex-col gap-2">
@@ -49,7 +52,9 @@ export const PaymentCard: React.FC<{
                 min={1}
               />
             </div>
-            <span>Change: {transactionStore.payments[paymentIndex].change}</span>
+            <span>
+              Change: {transactionStore.payments[paymentIndex].change}
+            </span>
           </div>
         )}
       </div>
