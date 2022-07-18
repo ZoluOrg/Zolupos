@@ -3,26 +3,26 @@ import React, { useEffect } from "react";
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
-import { usePaymentStore } from "../../../../stores/PaymentStore";
+import { useTransactionStore } from "../../../../stores/TransactionStore";
 
 export const PaymentCard: React.FC<{
   paymentIndex: number;
 }> = ({ paymentIndex }) => {
-  const paymentStore = usePaymentStore();
+  const transactionStore = useTransactionStore();
 
   const paymentTypeChange = (ev: React.FormEvent<HTMLSelectElement>) => {
     console.log(parseInt(ev.currentTarget.value));
-    paymentStore.setPaymentMethod(
+    transactionStore.setPaymentMethod(
       paymentIndex,
       parseInt(ev.currentTarget.value)
     );
   };
 
   const amountChange = (ev: React.FormEvent<HTMLInputElement>) =>
-    paymentStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
+  transactionStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
 
   const tenderChange = (ev: React.FormEvent<HTMLInputElement>) =>
-    paymentStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
+  transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
 
   return (
     <div className="payment grid grid-cols-3 w-full border rounded-lg p-3 bg-mallow-1 shadow hover:shadow-lg hover:scale-[1.005] transition ">
@@ -36,27 +36,27 @@ export const PaymentCard: React.FC<{
             ))}
           </select>
         </div>
-        {paymentStore.payments[paymentIndex].paymentType ==
+        {transactionStore.payments[paymentIndex].paymentType ==
           PaymentTypes.Cash && (
           <div>
             <div className="flex flex-col gap-1">
               <span>Tendered: </span>
               <Input
                 className="w w-6/12"
-                value={paymentStore.payments[paymentIndex].tendered}
+                value={transactionStore.payments[paymentIndex].tendered}
                 onChange={tenderChange}
                 type="number"
                 min={1}
               />
             </div>
-            <span>Change: {paymentStore.payments[paymentIndex].change}</span>
+            <span>Change: {transactionStore.payments[paymentIndex].change}</span>
           </div>
         )}
       </div>
       <div>
         <Input
           className="w-8/12"
-          value={paymentStore.payments[paymentIndex].amount}
+          value={transactionStore.payments[paymentIndex].amount}
           onChange={amountChange}
           type="number"
           min={1}
@@ -66,7 +66,7 @@ export const PaymentCard: React.FC<{
         <div>
           <Button
             onClick={() => {
-              paymentStore.removePayment(paymentIndex);
+              transactionStore.removePayment(paymentIndex);
             }}
           >
             <X />

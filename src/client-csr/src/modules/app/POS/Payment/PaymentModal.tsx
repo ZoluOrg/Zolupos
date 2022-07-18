@@ -5,11 +5,11 @@ import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
-import { usePaymentStore } from "../../../../stores/PaymentStore";
+import { useTransactionStore } from "../../../../stores/TransactionStore";
 import { PaymentCard } from "./PaymentCard";
 
 export const PaymentModal = () => {
-  const paymentStore = usePaymentStore();
+  const transactionStore = useTransactionStore();
   const addPayment = () => {
     const newPayment: IPayment = {
       paymentType: PaymentTypes.Cash,
@@ -17,12 +17,12 @@ export const PaymentModal = () => {
       change: 0,
       amount: 0,
     };
-    paymentStore.addPayment(newPayment);
-  }
+    transactionStore.addPayment(newPayment);
+  };
   return (
     <div className="payment-modal">
       <AnimatePresence>
-        {true && (
+        {transactionStore.showPaymentModal && (
           <motion.div
             className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
             initial={{ backdropFilter: "blur(0px)" }}
@@ -38,16 +38,30 @@ export const PaymentModal = () => {
               <div className="w-full flex items-center justify-between">
                 <span className="text-2xl font-bold">Process Transaction</span>
                 <div>
-                  <Button onClick={() => {}}>Close</Button>
+                  <Button
+                    onClick={() => transactionStore.setShowPaymentModal(false)}
+                  >
+                    Close
+                  </Button>
                 </div>
               </div>
               <div>
                 <Button buttonColor="coal" onClick={addPayment}>
                   <div className="flex gap-2 items-center justify-center">
                     <span>Add payment </span>
-                    <PlusCircle color="white"/>
+                    <PlusCircle color="white" />
                   </div>
                 </Button>
+              </div>
+              <div className="flex gap-2 w-3/12 justify-between">
+                <div className="flex flex-col gap-2">
+                  <span>Total: </span>
+                  <span>Balance: </span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span>Payment: </span>
+                  <span>Change: </span>
+                </div>
               </div>
               <div className="grid grid-cols-3 w-full p-3 border rounded-t-lg">
                 <span>Payment Type</span>
@@ -55,7 +69,7 @@ export const PaymentModal = () => {
                 <span className="text-center">Remove</span>
               </div>
               <div className="flex flex-col gap-3">
-                {paymentStore.payments.map((_, idx) => (
+                {transactionStore.payments.map((_, idx) => (
                   <PaymentCard key={idx} paymentIndex={idx} />
                 ))}
               </div>

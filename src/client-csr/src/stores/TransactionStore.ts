@@ -3,9 +3,12 @@ import { WritableDraft } from "immer/dist/internal";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { PaymentTypes } from "../enums/PaymentTypes";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
+import { IPayment } from "../interface/IPayment";
 
 interface ITransaction {
+  //Transaction Stuffs
   total: number;
   subTotal: number;
   vat: number;
@@ -17,6 +20,18 @@ interface ITransaction {
   setQuantity: (quantity: number) => void;
   setDiscount: (discount: number) => void;
   calculateInfo: (orders: IOrderedProduct[]) => void;
+
+  //Payment Stuffs
+  payments: Array<IPayment>;
+  showPaymentModal: boolean;
+  setShowPaymentModal: (showPaymentModal: boolean) => void;
+  setPayments: (payments: Array<IPayment>) => void;
+  removePayment: (index: number) => void;
+  addPayment: (payment: IPayment) => void;
+
+  setPaymentMethod: (index: number, paymentMethod: number) => void;
+  setAmount: (index: number, amount: number) => void;
+  setTender: (index: number, tender: number) => void;
 }
 
 export const useTransactionStore = create<ITransaction>()(
@@ -33,6 +48,33 @@ export const useTransactionStore = create<ITransaction>()(
     setDiscount: (discount) => set((state) => ({ discount: discount })),
     calculateInfo: (orders) =>
       set(produce((state) => calculateInfoFn(state, orders))),
+    payments: [],
+    showPaymentModal: false,
+    setShowPaymentModal: (showPaymentModal) =>
+      set((state) => ({ showPaymentModal })),
+    setPayments: (payments) => set((state) => ({ payments: payments })),
+    removePayment: (index) =>
+      set((state) => ({
+        payments: state.payments.filter((_, i) => i !== index),
+      })),
+    addPayment: (payment) =>
+      set((state) => ({
+        payments: [...state.payments, payment],
+      })),
+    setPaymentMethod: (index, paymentMethod) =>
+      set(produce((state) => setPaymentMethodFn(state, index, paymentMethod))),
+    setAmount: (index, amount) =>
+      set(
+        produce((state) => {
+          state.payments[index].amount = amount;
+        })
+      ),
+    setTender: (index, tender) =>
+      set(
+        produce((state) => {
+          state.payments[index].tendered = tender;
+        })
+      ),
   }))
 );
 
@@ -66,4 +108,13 @@ const calculateInfoFn = (
   state.total = newTotal;
   state.vat = newVat;
   state.quantity = newQuantity;
+};
+
+const setPaymentMethodFn = (
+  state: WritableDraft<ITransaction>,
+  index: number,
+  paymentMethod: number
+) => {
+  state.payments[index].paymentType =
+    Object.values(PaymentTypes)[paymentMethod];
 };
