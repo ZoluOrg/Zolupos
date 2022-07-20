@@ -102,8 +102,9 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
     set(
       produce((state: ITransaction) => {
         if (state.payments[index].paymentType === PaymentTypes.Cash) {
-          state.payments[index].change =
-            state.payments[index].amount - state.payments[index].tendered;
+          let change =
+            state.payments[index].tendered - state.payments[index].amount;
+          if (change > 0) state.payments[index].change = change;
         }
       })
     );

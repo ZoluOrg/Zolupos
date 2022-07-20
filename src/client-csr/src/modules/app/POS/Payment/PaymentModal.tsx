@@ -30,7 +30,7 @@ export const PaymentModal = () => {
           <motion.div
             className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
             initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur-lg" }}
+            animate={{ backdropFilter: "blur(3px)" }}
             exit={{ backdropFilter: "blur(0px)" }}
           >
             <motion.div
