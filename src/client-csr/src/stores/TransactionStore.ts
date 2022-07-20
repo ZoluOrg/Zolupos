@@ -21,7 +21,6 @@ interface ITransaction {
   calculateInfo: (orders: IOrderedProduct[]) => void;
 
   //Payment Stuffs
-
   overAllPayment: number;
   balance: number;
   change: number;
@@ -43,6 +42,7 @@ interface ITransaction {
   setAmount: (index: number, amount: number) => void;
   setTender: (index: number, tender: number) => void;
   updateChange: (index: number) => void;
+  paymentReset: () => void;
 }
 
 export const useTransactionStore = create<ITransaction>()((set) => ({
@@ -100,13 +100,23 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
     ),
   updateChange: (index) => {
     set(
-      produce((state:ITransaction) => {
-        if(state.payments[index].paymentType === PaymentTypes.Cash){
-          state.payments[index].change = state.payments[index].amount - state.payments[index].tendered;
+      produce((state: ITransaction) => {
+        if (state.payments[index].paymentType === PaymentTypes.Cash) {
+          state.payments[index].change =
+            state.payments[index].amount - state.payments[index].tendered;
         }
       })
     );
   },
+  paymentReset: () =>
+    set(
+      produce((state) => {
+        state.payments = [];
+        state.overAllPayment = 0;
+        state.balance = 0;
+        state.change = 0;
+      })
+    ),
 }));
 
 mountStoreDevtool("transactionStore", useTransactionStore);

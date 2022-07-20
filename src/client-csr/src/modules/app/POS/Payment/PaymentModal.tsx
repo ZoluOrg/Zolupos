@@ -1,8 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, PlusCircle, X } from "phosphor-react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "../../../../components/Button";
-import { Input } from "../../../../components/Input";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
@@ -19,19 +18,19 @@ export const PaymentModal = () => {
     };
     transactionStore.addPayment(newPayment);
   };
-  
+
   useEffect(() => {
     transactionStore.updatePaymentInfos();
-  }, [transactionStore.payments])
+  }, [transactionStore.payments]);
 
   return (
     <div className="payment-modal">
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => transactionStore.paymentReset()}>
         {transactionStore.showPaymentModal && (
           <motion.div
             className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
             initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(3px)" }}
+            animate={{ backdropFilter: "blur-lg" }}
             exit={{ backdropFilter: "blur(0px)" }}
           >
             <motion.div
@@ -44,7 +43,9 @@ export const PaymentModal = () => {
                 <span className="text-2xl font-bold">Process Transaction</span>
                 <div>
                   <Button
-                    onClick={() => transactionStore.setShowPaymentModal(false)}
+                    onClick={() => {
+                      transactionStore.setShowPaymentModal(false);
+                    }}
                   >
                     Close
                   </Button>

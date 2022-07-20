@@ -1,18 +1,9 @@
-import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
-import { Button } from "./components/Button";
-import { CurrentTime } from "./components/CurrentTime";
-import { CustomSpinner } from "./components/CustomSpinner";
-import { Menu } from "./components/Menu";
-import logo from "./logo.svg";
-function App() {
-  const [count, setCount] = useState(0);
+from react import "React"
 
-  return (
-    <div className="App ">
-      test
-    </div>
-  );
+export const AppTsx: react.FC<{hello:react.ReactNode}> = ({hello}) => {
+    return (
+        <div className="w-5">
+            {children}
+        </div>
+    )
 }
-
-export default App;
