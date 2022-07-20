@@ -1,7 +1,5 @@
 import React from "react";
 import { useTitleContext } from "../../../context/TitleContext";
-import { useEmployeeCreds } from "../../../hooks/useEmployeeCreds";
-import { useOrderStore } from "../../../stores/OrderStore";
 import { OrderInfo } from "./OrderInfo";
 import { OrderList } from "./OrderList";
 import { PaymentModal } from "./Payment/PaymentModal";

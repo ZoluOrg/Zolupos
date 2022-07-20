@@ -1,7 +1,6 @@
 import React, { useEffect, useTransition } from "react";
 import { useStore } from "zustand";
 import { Button } from "../../../components/Button";
-import { useOrderStore } from "../../../stores/OrderStore";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 import { AddCustomer } from "./AddCustomer";
 import { Sub } from "./Sub";
@@ -9,11 +8,11 @@ import { Sub } from "./Sub";
 export const OrderInfo = () => {
   const [isPending, startTransition] = useTransition();
   const transaction = useTransactionStore();
-  const order = useOrderStore();
+  const transactionStore = useTransactionStore();
 
   useEffect(() => {
-    transaction.calculateInfo(order.orders);
-  }, [order.orders, transaction.discount]);
+    transaction.calculateInfo(transactionStore.orders);
+  }, [transactionStore.orders, transaction.discount]);
 
   return (
     <div className="rounded-lg flex-grow">

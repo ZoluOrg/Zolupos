@@ -1,8 +1,8 @@
 import React, { ButtonHTMLAttributes, FC, HTMLProps } from "react";
 import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
 import { ISearchResponse } from "../../../../interface/ISearchResponse";
-import { useOrderStore } from "../../../../stores/OrderStore";
 import { useSearchStore } from "../../../../stores/SearchStore";
+import { useTransactionStore } from "../../../../stores/TransactionStore";
 import styles from "../../styles/SearchContext/ResultButton.module.scss";
 
 interface Props extends HTMLProps<HTMLLIElement> {
@@ -12,7 +12,7 @@ interface Props extends HTMLProps<HTMLLIElement> {
 
 export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
   const searchStore = useSearchStore();
-  const orderStore = useOrderStore();
+  const transactionStore = useTransactionStore();
 
   const addProduct = () => {
     let toSave: IOrderedProduct = {
@@ -21,7 +21,7 @@ export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
       bunchTotal:
         searchStore.searchResult[index].productUnitPrice,
     };
-    orderStore.addOrder(toSave);
+    transactionStore.addOrder(toSave);
   };
 
   return (

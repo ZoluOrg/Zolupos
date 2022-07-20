@@ -4,13 +4,13 @@ import styles from "../../../styles/app/POS/OrderList.module.scss";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { ShoppingBagOpen, ShoppingCart, X } from "phosphor-react";
-import { useOrderStore } from "../../../stores/OrderStore";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 export const OrderList = () => {
-  const orders = useOrderStore((state) => state.orders);
+  const transactionStore = useTransactionStore((state) => state.orders);
   return (
     <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
-      {orders.length == 0 ? (
+      {transactionStore.length == 0 ? (
         <div className="h-full flex justify-center items-center gap-10">
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex flex-col justify-center items-center gap-2">
@@ -32,7 +32,7 @@ export const OrderList = () => {
             </div>
           </div>
           <div className="h-full overflow-y-auto">
-            {orders.map((_, idx) => (
+            {transactionStore.map((_, idx) => (
               <AddedItem key={idx} keydx={idx} />
             ))}
           </div>

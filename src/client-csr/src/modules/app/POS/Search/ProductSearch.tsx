@@ -7,13 +7,13 @@ import { ResultButton } from "./ResultButton";
 import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
 import { ISearchResponse } from "../../../../interface/ISearchResponse";
 import { searchProduct } from "../../../../services/Product/ProductService";
-import { useOrderStore } from "../../../../stores/OrderStore";
 import { useSearchStore } from "../../../../stores/SearchStore";
+import { useTransactionStore } from "../../../../stores/TransactionStore";
 
 export const ProductSearch = () => {
   const [shoudShow, setShouldShow] = React.useState<boolean>(false);
   const searchStore = useSearchStore();
-  const orderStore = useOrderStore();
+  const transactionStore = useTransactionStore();
 
   const { data, isLoading, refetch } = useQuery(
     ["product-search-result"],
@@ -45,7 +45,7 @@ export const ProductSearch = () => {
       bunchTotal:
         searchStore.searchResult[searchStore.selectedResult].productUnitPrice,
     };
-    orderStore.addOrder(toSave);
+    transactionStore.addOrder(toSave);
   };
 
   const onSelectionDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

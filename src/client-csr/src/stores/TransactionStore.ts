@@ -7,7 +7,7 @@ import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { IPayment } from "../interface/IPayment";
 
 interface ITransaction {
-  //Transaction Stuffs
+  //#region TransactionStuffs
   total: number;
   subTotal: number;
   vat: number;
@@ -19,33 +19,41 @@ interface ITransaction {
   setQuantity: (quantity: number) => void;
   setDiscount: (discount: number) => void;
   calculateInfo: (orders: IOrderedProduct[]) => void;
+  //#endregion TransactionStuffs
 
-  //Payment Stuffs
+  //#region PaymentStuffs
   overAllPayment: number;
   balance: number;
   change: number;
-
   setOverAllPayment: (overAllPayment: number) => void;
   setBalance: (balance: number) => void;
   setChange: (change: number) => void;
-
   updatePaymentInfos: () => void;
-
   payments: Array<IPayment>;
   showPaymentModal: boolean;
   setShowPaymentModal: (showPaymentModal: boolean) => void;
   setPayments: (payments: Array<IPayment>) => void;
   removePayment: (index: number) => void;
   addPayment: (payment: IPayment) => void;
-
   setPaymentMethod: (index: number, paymentMethod: number) => void;
   setAmount: (index: number, amount: number) => void;
   setTender: (index: number, tender: number) => void;
   updateChange: (index: number) => void;
   paymentReset: () => void;
+  //#endregion PaymentStuffs
+
+  //#region OrderStuffs
+  orders: Array<IOrderedProduct>;
+  setOrders: (orders: Array<IOrderedProduct>) => void;
+  addOrder: (order: IOrderedProduct) => void;
+  removeOrder: (index: number) => void;
+  qtyChanging: (index: number, qty: number) => void;
+  calculateBunchPrice: (index: number) => void;
+  //#endregion OrderStuffs
 }
 
 export const useTransactionStore = create<ITransaction>()((set) => ({
+  //#region TransactionStuffs
   total: 0,
   subTotal: 0,
   vat: 0,
@@ -58,8 +66,9 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
   setDiscount: (discount) => set((state) => ({ discount: discount })),
   calculateInfo: (orders) =>
     set(produce((state) => calculateInfoFn(state, orders))),
+  //#endregion TransactionStuffs
 
-  //Payment Stuffs
+  //#region PaymentStuffsStore
   overAllPayment: 0,
   balance: 0,
   change: 0,
@@ -118,6 +127,26 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
         state.change = 0;
       })
     ),
+  //#endregion PaymentStuffsStore
+
+  //#region OrderStuffsStore
+  orders: [],
+  setOrders: (orders) => set((state) => ({ orders: orders })),
+  addOrder: (order) =>
+    set(produce<ITransaction>((state) => addOrderFn(state, order))),
+  removeOrder: (index) =>
+    set((state) => ({
+      orders: state.orders.filter((_, i) => i !== index),
+    })),
+  qtyChanging: (index, qty) =>
+    set(
+      produce<ITransaction>((state) => {
+        state.orders[index].quantity = qty;
+      })
+    ),
+  calculateBunchPrice: (index) =>
+    set(produce((state) => calculateBunchPriceFn(state, index))),
+  //#endregion OrderStuffsStore
 }));
 
 mountStoreDevtool("transactionStore", useTransactionStore);
@@ -172,4 +201,31 @@ const updatePaymentInfos = (state: WritableDraft<ITransaction>) => {
   }
   state.balance = state.overAllPayment - state.total;
   state.change = newChange;
+};
+
+const addOrderFn = (
+  state: WritableDraft<ITransaction>,
+  order: IOrderedProduct
+) => {
+  let idx = state.orders.findIndex(
+    (punchedProduct) =>
+      punchedProduct.productBarcode == order.productBarcode &&
+      punchedProduct.productId == order.productId
+  );
+  if (idx > -1) state.orders[idx].quantity += 1;
+  else {
+    state.orders.push(order);
+  }
+};
+
+const calculateBunchPriceFn = (
+  state: WritableDraft<ITransaction>,
+  idx: number
+) => {
+  let price = state.orders[idx].productUnitPrice;
+  let qty = state.orders[idx].quantity;
+
+  let qtyPrice = Math.round(price * qty * 100) / 100;
+
+  state.orders[idx].bunchTotal = qtyPrice;
 };
