@@ -11,6 +11,7 @@ namespace Zolupos.Application.Features.Customers
     public class AddCustomerCommand : IRequest<ResultWrapper<int>>
     {
         public string CustomerName { get; set; }
+        public Guid CustomerIdentifier { get; set; }
         public int CustomerPoint { get; set; }
     }
 

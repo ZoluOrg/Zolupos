@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220721043145_Added Identifier For Customer")]
+    partial class AddedIdentifierForCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,7 @@ namespace Zolupos.Application.Migrations
                         new
                         {
                             CustomerId = 1,
-                            CustomerIdentifer = new Guid("598f6519-d4f6-417e-8181-f79d3e98b8e5"),
+                            CustomerIdentifer = new Guid("50e0805b-4f3a-4708-a789-af9de1847a38"),
                             CustomerName = "Sample Customer",
                             CustomerPoint = 0
                         });
@@ -97,7 +99,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 21, 4, 34, 26, 824, DateTimeKind.Utc).AddTicks(9346),
+                            LastLogin = new DateTime(2022, 7, 21, 4, 31, 44, 511, DateTimeKind.Utc).AddTicks(2154),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -242,7 +244,7 @@ namespace Zolupos.Application.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransactionId"));
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Discount")
@@ -305,7 +307,9 @@ namespace Zolupos.Application.Migrations
                 {
                     b.HasOne("Zolupos.Application.Entities.Customer", "TransactionCustomer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TransactionCustomer");
                 });

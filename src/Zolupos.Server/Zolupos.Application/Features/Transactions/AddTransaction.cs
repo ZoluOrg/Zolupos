@@ -12,9 +12,9 @@ using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public class AddTransactionCommand : IRequest<ResultWrapper<int>>
+    public class AddTransactionCommand : IRequest<ResultWrapper<int?>>
     {
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public int Vat { get; set; }
         public int Total { get; set; }
         public int SubTotal { get; set; }
@@ -37,7 +37,7 @@ namespace Zolupos.Application.Features.Transactions
         public int Change { get; set; }
         public int Amount { get; set; }
     }
-    public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int>>
+    public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int?>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -47,14 +47,14 @@ namespace Zolupos.Application.Features.Transactions
             _mapper = mapper;
         }
 
-        public async Task<ResultWrapper<int>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<ResultWrapper<int?>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {
             var mappedTransaction = _mapper.Map<Transaction>(request);
             mappedTransaction.TransactedAt = DateTime.UtcNow;
             await _context.Transactions.AddAsync(mappedTransaction);
             await _context.SaveChangesAsync();
 
-            return new ResultWrapper<int> { Receive = mappedTransaction.CustomerId, Message = "" };
+            return new ResultWrapper<int?> { Receive = mappedTransaction.CustomerId, Message = "" };
         }
     }
 }

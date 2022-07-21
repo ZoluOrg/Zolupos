@@ -28,7 +28,7 @@ namespace Zolupos.Application.Features.Transactions
             _context.Transactions.Remove(transactionToDelete);
             await _context.SaveChangesAsync();
 
-            return new ResultWrapper<int> { Receive = transactionToDelete.CustomerId, Message = "" };
+            return new ResultWrapper<int> { Receive = transactionToDelete.TransactionId, Message = "" };
         }
     }
 }

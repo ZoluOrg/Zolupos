@@ -10,6 +10,7 @@ namespace Zolupos.Application.Entities
     {
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public Guid CustomerIdentifer { get; set; }
         public int CustomerPoint { get; set; }
     }
 }

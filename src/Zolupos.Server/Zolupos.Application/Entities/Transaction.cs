@@ -11,8 +11,8 @@ namespace Zolupos.Application.Entities
     {
         public int TransactionId { get; set; }
 
-        public int CustomerId { get; set; }
-        public Customer TransactionCustomer { get; set; }
+        public int? CustomerId { get; set; }
+        public Customer? TransactionCustomer { get; set; }
 
         public DateTime TransactedAt { get; set; }
         public int Vat { get; set; }

@@ -50,6 +50,9 @@ interface ITransaction {
   qtyChanging: (index: number, qty: number) => void;
   calculateBunchPrice: (index: number) => void;
   //#endregion OrderStuffs
+
+  //#region CustomerStuffs
+  
 }
 
 export const useTransactionStore = create<ITransaction>()((set) => ({
