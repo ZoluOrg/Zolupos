@@ -167,14 +167,12 @@ const calculateInfoFn = (
     newQuantity = newQuantity + orders[i].quantity;
     newSubtotal += orders[i].bunchTotal;
 
-    let off = orders[i].bunchTotal * discountDecimal;
-    newTotal = newSubtotal - off;
-
     if (orders[i].withVat) {
       subTotalWithoutVat += orders[i].bunchTotal;
       newVat = subTotalWithoutVat * vatDecimal;
     }
   }
+  newTotal = newSubtotal - newSubtotal * discountDecimal;
   state.subTotal = newSubtotal;
   state.total = newTotal;
   state.vat = newVat;
