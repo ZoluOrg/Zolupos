@@ -8,7 +8,7 @@ namespace Zolupos.Server.Controllers.Customers
     public class CustomerController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult> FetchAllCustomers ()
+        public async Task<ActionResult> FetchAllCustomers()
         {
             var customers = await Mediator.Send(new FetchAllCustomersQuery());
             return Ok(customers);
@@ -18,6 +18,13 @@ namespace Zolupos.Server.Controllers.Customers
         public async Task<ActionResult> FetchCustomerById(int Id)
         {
             var customer = await Mediator.Send(new FetchCustomerByIdQuery(Id));
+            return Ok(customer);
+        }
+
+        [HttpGet("name")]
+        public async Task<ActionResult> FetchCustomerByName([FromQuery(Name = "name")] string Name)
+        {
+            var customer = await Mediator.Send(new FetchCustomerByNameQuery(Name));
             return Ok(customer);
         }
 
