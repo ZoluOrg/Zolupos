@@ -26,9 +26,9 @@ namespace Zolupos.Application.Infrastructure.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerName = "Sample Customer", CustomerIdentifer = Guid.NewGuid(), CustomerPoint = 0 });
-            modelBuilder.Entity<Product>().HasData(new Product { ProductId = 1, ProductBarcode = "00001", ProductName = "Sample Product", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat=true });
-            modelBuilder.Entity<Product>().HasData(new Product { ProductId = 2, ProductBarcode = "00001", ProductName = "Sample Product With Out Vat", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat=false });
+            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Employee", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0 });
+            modelBuilder.Entity<Product>().HasData(new Product { ProductId = 1, ProductBarcode = "00001", ProductName = "Sample Product", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = true });
+            modelBuilder.Entity<Product>().HasData(new Product { ProductId = 2, ProductBarcode = "00001", ProductName = "Sample Product With Out Vat", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = false });
 
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.OrderedProducts).WithOne(ord => ord.Transaction);
             modelBuilder.Entity<OrderedProduct>().HasOne(ord => ord.Transaction).WithMany(tr => tr.OrderedProducts);

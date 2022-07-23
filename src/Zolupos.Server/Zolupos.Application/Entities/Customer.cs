@@ -9,8 +9,13 @@ namespace Zolupos.Application.Entities
     public class Customer
     {
         public int CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public Guid CustomerIdentifer { get; set; }
-        public int CustomerPoint { get; set; }
+
+        public string CustomerFirstName { get; set; }
+        public string CustomerLastName { get; set; }
+        
+        public string CustomerEmail { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+
+        public int CustomerSpent { get; set; }
     }
 }
