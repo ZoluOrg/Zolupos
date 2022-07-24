@@ -22,7 +22,7 @@ namespace Zolupos.Application.Features.Customers
 
         public async Task<Customer> Handle(FetchCustomerByNameQuery request, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.Where(customer => $"{customer.CustomerFirstName} {customer.CustomerLastName}" == request.Name).FirstOrDefaultAsync();
+            var customer = await _context.Customers.Where(customer => customer.CustomerFullName == request.Name).FirstOrDefaultAsync();
             if (customer == null)
                 throw new CustomError(Message: "Customer does not exist or SPELLING is wrong.", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
 

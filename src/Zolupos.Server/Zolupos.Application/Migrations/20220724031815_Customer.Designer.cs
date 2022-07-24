@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220724031815_Customer")]
+    partial class Customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,10 +40,6 @@ namespace Zolupos.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerFullName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("CustomerLastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -63,8 +61,7 @@ namespace Zolupos.Application.Migrations
                             CustomerId = 1,
                             CustomerEmail = "Sample@customer.com",
                             CustomerFirstName = "Sample",
-                            CustomerFullName = "Sample Customer",
-                            CustomerLastName = "Customer",
+                            CustomerLastName = "Employee",
                             CustomerPhoneNumber = "0925",
                             CustomerSpent = 0
                         });
@@ -113,7 +110,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 24, 3, 35, 49, 675, DateTimeKind.Utc).AddTicks(5799),
+                            LastLogin = new DateTime(2022, 7, 24, 3, 18, 14, 808, DateTimeKind.Utc).AddTicks(4892),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
