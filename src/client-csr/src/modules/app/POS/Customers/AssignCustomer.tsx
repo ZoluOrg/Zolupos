@@ -8,6 +8,8 @@ import { getCustomerByName } from "../../../../services/CustomerService";
 import { ICustomer } from "../../../../interface/ICustomer";
 import ResultWrapper from "../../../../wrappers/ResultWrapper";
 import { toast } from "react-toastify";
+import { Axios, AxiosError } from "axios";
+import { IServerError } from "../../../../interface/ServerError";
 
 export const AssignCustomer = () => {
   const transactionStore = useTransactionStore();
@@ -17,14 +19,15 @@ export const AssignCustomer = () => {
     ["customer"],
     () => getCustomerByName(customerName),
     {
+      retry: false,
       enabled: false,
       onSuccess: (data: ICustomer) => {
         transactionStore.setCustomer(data);
         transactionStore.setShouldShowCustomerModal(false);
       },
-      onError: (error) => {
-        toast.error(error.message);
-      }
+      onError: (error: AxiosError<IServerError>) => {
+        toast.error(error.response?.data.ExceptionMessage);
+      },
     }
   );
 
