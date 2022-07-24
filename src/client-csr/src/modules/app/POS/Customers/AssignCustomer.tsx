@@ -20,7 +20,6 @@ export const AssignCustomer = () => {
     ["customer"],
     () => getCustomerByName(customerName),
     {
-      retry: false,
       enabled: false,
       onSuccess: (data: ICustomer) => {
         transactionStore.setCustomer(data);
