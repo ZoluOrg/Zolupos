@@ -5,9 +5,11 @@ import create from "zustand";
 import { PaymentTypes } from "../enums/PaymentTypes";
 import { ICustomer } from "../interface/ICustomer";
 import { IPayment } from "../interface/IPayment";
+import { ITransaction } from "../interface/ITransaction";
+import { AssignCustomer } from "../modules/app/POS/Customers/AssignCustomer";
 import { IOrderedProduct } from "../modules/app/POS/OrderedProduct";
 
-interface ITransaction {
+interface ITransactionStore {
   //#region TransactionStuffs
   total: number;
   subTotal: number;
@@ -62,7 +64,7 @@ interface ITransaction {
   //#endregion CustomerStuffs
 }
 
-export const useTransactionStore = create<ITransaction>()((set) => ({
+export const useTransactionStore = create<ITransactionStore>()((set) => ({
   //#region TransactionStuffs
   total: 0,
   subTotal: 0,
@@ -119,7 +121,7 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
     ),
   updateChange: (index) => {
     set(
-      produce((state: ITransaction) => {
+      produce((state: ITransactionStore) => {
         if (state.payments[index].paymentType === PaymentTypes.Cash) {
           let change =
             state.payments[index].tendered - state.payments[index].amount;
@@ -143,14 +145,14 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
   orders: [],
   setOrders: (orders) => set((state) => ({ orders: orders })),
   addOrder: (order) =>
-    set(produce<ITransaction>((state) => addOrderFn(state, order))),
+    set(produce<ITransactionStore>((state) => addOrderFn(state, order))),
   removeOrder: (index) =>
     set((state) => ({
       orders: state.orders.filter((_, i) => i !== index),
     })),
   qtyChanging: (index, qty) =>
     set(
-      produce<ITransaction>((state) => {
+      produce<ITransactionStore>((state) => {
         state.orders[index].quantity = qty;
       })
     ),
@@ -178,7 +180,7 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
 mountStoreDevtool("transactionStore", useTransactionStore);
 
 const calculateInfoFn = (
-  state: WritableDraft<ITransaction>,
+  state: WritableDraft<ITransactionStore>,
   orders: IOrderedProduct[]
 ) => {
   let newSubtotal = 0;
@@ -206,7 +208,7 @@ const calculateInfoFn = (
 };
 
 const setPaymentMethodFn = (
-  state: WritableDraft<ITransaction>,
+  state: WritableDraft<ITransactionStore>,
   index: number,
   paymentMethod: number
 ) => {
@@ -214,7 +216,7 @@ const setPaymentMethodFn = (
     Object.values(PaymentTypes)[paymentMethod];
 };
 
-const updatePaymentInfos = (state: WritableDraft<ITransaction>) => {
+const updatePaymentInfos = (state: WritableDraft<ITransactionStore>) => {
   state.overAllPayment = 0;
   state.balance = 0;
   state.change = 0;
@@ -228,7 +230,7 @@ const updatePaymentInfos = (state: WritableDraft<ITransaction>) => {
 };
 
 const addOrderFn = (
-  state: WritableDraft<ITransaction>,
+  state: WritableDraft<ITransactionStore>,
   order: IOrderedProduct
 ) => {
   let idx = state.orders.findIndex(
@@ -243,7 +245,7 @@ const addOrderFn = (
 };
 
 const calculateBunchPriceFn = (
-  state: WritableDraft<ITransaction>,
+  state: WritableDraft<ITransactionStore>,
   idx: number
 ) => {
   let price = state.orders[idx].productUnitPrice;

@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus, PlusCircle, X } from "phosphor-react";
+import { BagSimple, Money, Plus, PlusCircle, X } from "phosphor-react";
 import { useEffect } from "react";
 import { Button } from "../../../../components/Button";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
+import { ITransaction } from "../../../../interface/ITransaction";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
 import { PaymentCard } from "./PaymentCard";
 
@@ -22,6 +23,19 @@ export const PaymentModal = () => {
   useEffect(() => {
     transactionStore.updatePaymentInfos();
   }, [transactionStore.payments]);
+
+  const processTransaction = () => {
+    let transaction: ITransaction = {
+      customerId: transactionStore.assignedCustomer?.customerId || null,
+      vat: transactionStore.vat,
+      total: transactionStore.total,
+      subTotal: transactionStore.subTotal,
+      discount: transactionStore.discount,
+      orderedProducts: transactionStore.orders,
+      payments: transactionStore.payments,
+    };
+    console.log(transaction);
+  };
 
   return (
     <div className="payment-modal">
@@ -51,11 +65,22 @@ export const PaymentModal = () => {
                   </Button>
                 </div>
               </div>
-              <div>
+              <div className="flex w-full justify-between">
                 <Button buttonColor="coal" onClick={addPayment}>
                   <div className="flex gap-2 items-center justify-center">
                     <span>Add payment </span>
                     <PlusCircle color="white" />
+                  </div>
+                </Button>
+                <Button>
+                  <div
+                    className="flex gap-2 items-center justify-center"
+                    onClick={() => {
+                      processTransaction();
+                    }}
+                  >
+                    <span>Process</span>
+                    <BagSimple />
                   </div>
                 </Button>
               </div>
