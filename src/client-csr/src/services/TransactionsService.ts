@@ -1,7 +1,7 @@
 import axios from "axios";
-import { ITransaction } from "../../interface/ITransaction";
-import { getTokenAsBearer } from "../../utils/TokenUtils";
-import ResultWrapper from "../../wrappers/ResultWrapper";
+import { ITransaction } from "../interface/ITransaction";
+import { getTokenAsBearer } from "../utils/TokenUtils";
+import ResultWrapper from "../wrappers/ResultWrapper";
 
 export const getAllTransactions = async () => {
   let transactions = await axios.get<ResultWrapper<Array<ITransaction>>>(

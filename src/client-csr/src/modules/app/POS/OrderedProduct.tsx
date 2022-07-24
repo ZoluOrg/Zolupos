@@ -1,29 +1,22 @@
 import {
-  Barcode,
-  CurrencyDollar,
-  Minus,
-  MinusCircle,
-  Plus,
-  PlusCircle,
-  Trash,
-  TrashSimple,
   X,
 } from "phosphor-react";
 import React, {
   FC,
   FormEvent,
-  HTMLInputTypeAttribute,
-  useEffect,
-  useState,
-  useTransition,
 } from "react";
-import create from "zustand";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { ISearchResponse } from "../../../interface/ISearchResponse";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 
 interface addItemProps {
   keydx: number;
+}
+
+export interface IOrderedProduct extends ISearchResponse {
+  quantity: number;
+  bunchTotal: number;
 }
 
 export const AddedItem: FC<addItemProps> = ({ keydx }) => {

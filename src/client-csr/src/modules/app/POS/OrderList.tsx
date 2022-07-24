@@ -1,6 +1,5 @@
 import React from "react";
-import { AddedItem } from "./AddedItem";
-import styles from "../../../styles/app/POS/OrderList.module.scss";
+import { AddedItem } from "./OrderedProduct";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { ShoppingBagOpen, ShoppingCart, X } from "phosphor-react";

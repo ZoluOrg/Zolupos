@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { employee } from "../../hooks/useEmployeeCreds";
-import { getTokenAsBearer } from "../../utils/TokenUtils";
-import ResultWrapper from "../../wrappers/ResultWrapper";
+import { employee } from "../hooks/useEmployeeCreds";
+import { getTokenAsBearer } from "../utils/TokenUtils";
+import ResultWrapper from "../wrappers/ResultWrapper";
 
 export const getAllEmployee = async () => {
   let response = await axios.get<ResultWrapper<Array<employee>>>(

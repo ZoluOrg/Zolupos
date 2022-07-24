@@ -3,8 +3,9 @@ import { WritableDraft } from "immer/dist/internal";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { PaymentTypes } from "../enums/PaymentTypes";
-import { IOrderedProduct } from "../interface/IOrderedProduct";
+import { ICustomer } from "../interface/ICustomer";
 import { IPayment } from "../interface/IPayment";
+import { IOrderedProduct } from "../modules/app/POS/OrderedProduct";
 
 interface ITransaction {
   //#region TransactionStuffs
@@ -52,7 +53,13 @@ interface ITransaction {
   //#endregion OrderStuffs
 
   //#region CustomerStuffs
-  
+  assignedCustomer: ICustomer | null;
+  setCustomer: (customer: ICustomer) => void;
+  removeCustomer: () => void;
+
+  shouldShowCustomerModal: boolean;
+  setShouldShowCustomerModal: (shouldShowCustomerModal: boolean) => void;
+  //#endregion CustomerStuffs
 }
 
 export const useTransactionStore = create<ITransaction>()((set) => ({
@@ -150,6 +157,22 @@ export const useTransactionStore = create<ITransaction>()((set) => ({
   calculateBunchPrice: (index) =>
     set(produce((state) => calculateBunchPriceFn(state, index))),
   //#endregion OrderStuffsStore
+
+  //#region CustomerStuffs
+  assignedCustomer: null,
+  setCustomer: (customer) =>
+    set((state) => ({
+      assignedCustomer: customer,
+    })),
+  removeCustomer: () =>
+    set((state) => ({
+      assignedCustomer: null,
+    })),
+
+  shouldShowCustomerModal: false,
+  setShouldShowCustomerModal: (shouldShowCustomerModal) =>
+    set((state) => ({ shouldShowCustomerModal })),
+  //#endregion CustomerStuffs
 }));
 
 mountStoreDevtool("transactionStore", useTransactionStore);

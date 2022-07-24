@@ -1,9 +1,9 @@
 import React, { ButtonHTMLAttributes, FC, HTMLProps } from "react";
-import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
 import { ISearchResponse } from "../../../../interface/ISearchResponse";
 import { useSearchStore } from "../../../../stores/SearchStore";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
 import styles from "../../styles/SearchContext/ResultButton.module.scss";
+import { IOrderedProduct } from "../OrderedProduct";
 
 interface Props extends HTMLProps<HTMLLIElement> {
   index: number;

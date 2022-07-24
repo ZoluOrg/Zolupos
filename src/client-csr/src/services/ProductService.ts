@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Result } from "postcss";
-import { IProduct } from "../../interface/IProduct";
-import { ISearchResponse } from "../../interface/ISearchResponse";
-import { getTokenAsBearer } from "../../utils/TokenUtils";
-import ResultWrapper from "../../wrappers/ResultWrapper";
+import { IProduct } from "../interface/IProduct";
+import { ISearchResponse } from "../interface/ISearchResponse";
+import { getTokenAsBearer } from "../utils/TokenUtils";
+import ResultWrapper from "../wrappers/ResultWrapper";
 
 export const getAllProducts = async () => {
   let products = await axios.get<ResultWrapper<Array<IProduct>>>(

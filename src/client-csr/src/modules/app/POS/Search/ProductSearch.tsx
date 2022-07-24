@@ -4,11 +4,11 @@ import { useQuery } from "react-query";
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
 import { ResultButton } from "./ResultButton";
-import { IOrderedProduct } from "../../../../interface/IOrderedProduct";
 import { ISearchResponse } from "../../../../interface/ISearchResponse";
-import { searchProduct } from "../../../../services/Product/ProductService";
+import { searchProduct } from "../../../../services/ProductService";
 import { useSearchStore } from "../../../../stores/SearchStore";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
+import { IOrderedProduct } from "../OrderedProduct";
 
 export const ProductSearch = () => {
   const [shoudShow, setShouldShow] = React.useState<boolean>(false);

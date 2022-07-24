@@ -2,7 +2,7 @@ import React, { useEffect, useTransition } from "react";
 import { useStore } from "zustand";
 import { Button } from "../../../components/Button";
 import { useTransactionStore } from "../../../stores/TransactionStore";
-import { AddCustomer } from "./AddCustomer";
+import { CustomerInfo } from "./CustomerInfo";
 import { Sub } from "./Sub";
 
 export const OrderInfo = () => {
@@ -17,7 +17,7 @@ export const OrderInfo = () => {
   return (
     <div className="rounded-lg flex-grow">
       <div className="flex flex-col gap-4 h-full">
-        <AddCustomer />
+        <CustomerInfo />
         <Sub />
         <div className="lower-control flex gap-[5px]">
           <Button buttonColor="mallow" className="w-full">
