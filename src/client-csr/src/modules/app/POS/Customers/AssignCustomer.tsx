@@ -10,6 +10,7 @@ import ResultWrapper from "../../../../wrappers/ResultWrapper";
 import { toast } from "react-toastify";
 import { Axios, AxiosError } from "axios";
 import { IServerError } from "../../../../interface/ServerError";
+import { LinkSimpleHorizontalBreak } from "phosphor-react";
 
 export const AssignCustomer = () => {
   const transactionStore = useTransactionStore();
@@ -50,7 +51,14 @@ export const AssignCustomer = () => {
               <div className="w-full flex items-center justify-between">
                 <span className="text-2xl font-bold">Assign Customer</span>
                 <div>
-                  <Button onClick={() => {}}>Close</Button>
+                  <Button
+                    onClick={() => {
+                      transactionStore.setShouldShowCustomerModal(false);
+                      setCustomerNameSearch("");
+                    }}
+                  >
+                    Close
+                  </Button>
                 </div>
               </div>
               <div className="flex gap-1">
