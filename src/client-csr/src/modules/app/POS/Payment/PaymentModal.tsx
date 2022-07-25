@@ -1,10 +1,15 @@
+import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { BagSimple, Money, Plus, PlusCircle, X } from "phosphor-react";
 import { useEffect } from "react";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { Button } from "../../../../components/Button";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
 import { ITransaction } from "../../../../interface/ITransaction";
+import { IServerError } from "../../../../interface/ServerError";
+import { addNewTransaction } from "../../../../services/TransactionsService";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
 import { PaymentCard } from "./PaymentCard";
 
@@ -24,7 +29,15 @@ export const PaymentModal = () => {
     transactionStore.updatePaymentInfos();
   }, [transactionStore.payments]);
 
-  const processTransaction = () => {
+  const {mutateAsync, data, isLoading} = useMutation(addNewTransaction, {
+    onSuccess: () => {
+      toast.info("Transaction processed successfully");
+    }, onError: (error: AxiosError<IServerError>) => {
+      toast.error(error.response?.data.ExceptionMessage);
+    }
+  });
+
+  const processTransaction = async () => {
     let transaction: ITransaction = {
       customerId: transactionStore.assignedCustomer?.customerId || null,
       vat: transactionStore.vat,
@@ -35,6 +48,7 @@ export const PaymentModal = () => {
       payments: transactionStore.payments,
     };
     console.log(transaction);
+    await mutateAsync(transaction);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { Percent } from "phosphor-react";
 import React, { FormEvent } from "react";
+import { toast } from "react-toastify";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { useTransactionStore } from "../../../stores/TransactionStore";
@@ -8,6 +9,11 @@ export const Sub = () => {
   const transaction = useTransactionStore();
   const onDiscountChanging = (event: FormEvent<HTMLInputElement>) => {
     transaction.setDiscount(parseInt(event.currentTarget.value));
+  };
+
+  const onProcessClick = () => {
+    if (transaction.discount < 100) transaction.setShowPaymentModal(true);
+    else toast.error("Discount cannot be this high");
   };
   return (
     <div className="rounded-lg bg-mallow-2 p-5 flex-grow flex flex-col justify-between bg-opacity-75 border border-mallow-2 shadow">
@@ -46,7 +52,7 @@ export const Sub = () => {
       <div>
         <Button
           className="w-full bg-green-700 hover:bg-green-800"
-          onClick={() => transaction.setShowPaymentModal(true)}
+          onClick={() => onProcessClick()}
         >
           Purchase
         </Button>

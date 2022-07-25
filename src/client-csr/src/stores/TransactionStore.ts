@@ -5,8 +5,6 @@ import create from "zustand";
 import { PaymentTypes } from "../enums/PaymentTypes";
 import { ICustomer } from "../interface/ICustomer";
 import { IPayment } from "../interface/IPayment";
-import { ITransaction } from "../interface/ITransaction";
-import { AssignCustomer } from "../modules/app/POS/Customers/AssignCustomer";
 import { IOrderedProduct } from "../modules/app/POS/OrderedProduct";
 
 interface ITransactionStore {
