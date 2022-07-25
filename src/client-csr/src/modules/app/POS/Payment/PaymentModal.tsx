@@ -17,7 +17,7 @@ export const PaymentModal = () => {
   const transactionStore = useTransactionStore();
   const addPayment = () => {
     const newPayment: IPayment = {
-      paymentType: PaymentTypes.Cash,
+      paymentType: 0,
       tendered: 0,
       change: 0,
       amount: 0,
@@ -49,6 +49,7 @@ export const PaymentModal = () => {
     };
     console.log(transaction);
     await mutateAsync(transaction);
+    transactionStore.transactionFinish();
   };
 
   return (

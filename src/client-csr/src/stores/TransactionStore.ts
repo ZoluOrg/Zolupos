@@ -8,6 +8,7 @@ import { IPayment } from "../interface/IPayment";
 import { IOrderedProduct } from "../modules/app/POS/OrderedProduct";
 
 interface ITransactionStore {
+  transactionFinish: () => void;
   //#region TransactionStuffs
   total: number;
   subTotal: number;
@@ -63,6 +64,24 @@ interface ITransactionStore {
 }
 
 export const useTransactionStore = create<ITransactionStore>()((set) => ({
+  transactionFinish: () => {
+    set((state) => ({
+      ...state,
+      orders: [],
+      payments: [],
+      overAllPayment: 0,
+      balance: 0,
+      change: 0,
+      total: 0,
+      subTotal: 0,
+      vat: 0,
+      quantity: 0,
+      discount: 0,
+      assignedCustomer: null,
+      shouldShowCustomerModal: false,
+      showPaymentModal: false,
+    }));
+  },
   //#region TransactionStuffs
   total: 0,
   subTotal: 0,
