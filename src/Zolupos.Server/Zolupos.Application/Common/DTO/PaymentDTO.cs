@@ -4,7 +4,7 @@ namespace Zolupos.Application.Common.DTO
 {
     public class PaymentDTO
     {
-		public PaymentType PaymentType { get; set; }
+		public int PaymentType { get; set; }
         public int Tendered { get; set; }
         public int Change { get; set; }
         public int Amount { get; set; }

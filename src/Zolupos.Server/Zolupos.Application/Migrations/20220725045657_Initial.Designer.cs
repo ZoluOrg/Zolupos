@@ -12,8 +12,8 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220630131607_Add Discount table")]
-    partial class AddDiscounttable
+    [Migration("20220725045657_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,11 +32,27 @@ namespace Zolupos.Application.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerId"));
 
-                    b.Property<string>("CustomerName")
+                    b.Property<string>("CustomerEmail")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CustomerPoint")
+                    b.Property<string>("CustomerFirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerFullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerLastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CustomerSpent")
                         .HasColumnType("integer");
 
                     b.HasKey("CustomerId");
@@ -47,8 +63,12 @@ namespace Zolupos.Application.Migrations
                         new
                         {
                             CustomerId = 1,
-                            CustomerName = "Sample Customer",
-                            CustomerPoint = 0
+                            CustomerEmail = "Sample@customer.com",
+                            CustomerFirstName = "Sample",
+                            CustomerFullName = "Sample Customer",
+                            CustomerLastName = "Customer",
+                            CustomerPhoneNumber = "0925",
+                            CustomerSpent = 0
                         });
                 });
 
@@ -95,7 +115,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 6, 30, 13, 16, 7, 294, DateTimeKind.Utc).AddTicks(8604),
+                            LastLogin = new DateTime(2022, 7, 25, 4, 56, 57, 582, DateTimeKind.Utc).AddTicks(7423),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -111,10 +131,7 @@ namespace Zolupos.Application.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderedProductId"));
 
-                    b.Property<float>("BunchPrice")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Discount")
+                    b.Property<float>("BunchTotal")
                         .HasColumnType("real");
 
                     b.Property<int>("ProductId")
@@ -126,6 +143,9 @@ namespace Zolupos.Application.Migrations
                     b.Property<int>("TransactionId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("WithVat")
+                        .HasColumnType("boolean");
+
                     b.HasKey("OrderedProductId");
 
                     b.HasIndex("ProductId");
@@ -133,6 +153,36 @@ namespace Zolupos.Application.Migrations
                     b.HasIndex("TransactionId");
 
                     b.ToTable("OrderedProducts");
+                });
+
+            modelBuilder.Entity("Zolupos.Application.Entities.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PaymentId"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Change")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Tendered")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TransactionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Zolupos.Application.Entities.Product", b =>
@@ -155,15 +205,21 @@ namespace Zolupos.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ProductPrice")
-                        .HasColumnType("integer");
-
                     b.Property<int>("ProductQuantity")
                         .HasColumnType("integer");
 
                     b.Property<string>("ProductType")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("ProductUnitCost")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductUnitPrice")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("WithVat")
+                        .HasColumnType("boolean");
 
                     b.HasKey("ProductId");
 
@@ -176,9 +232,23 @@ namespace Zolupos.Application.Migrations
                             ProductBarcode = "00001",
                             ProductManufacturer = "Zolu",
                             ProductName = "Sample Product",
-                            ProductPrice = 10,
                             ProductQuantity = 10,
-                            ProductType = "Sample"
+                            ProductType = "Sample",
+                            ProductUnitCost = 5,
+                            ProductUnitPrice = 10,
+                            WithVat = true
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            ProductBarcode = "00001",
+                            ProductManufacturer = "Zolu",
+                            ProductName = "Sample Product With Out Vat",
+                            ProductQuantity = 10,
+                            ProductType = "Sample",
+                            ProductUnitCost = 5,
+                            ProductUnitPrice = 10,
+                            WithVat = false
                         });
                 });
 
@@ -190,11 +260,23 @@ namespace Zolupos.Application.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransactionId"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("Discount")
+                        .HasColumnType("integer");
+
+                    b.Property<float>("SubTotal")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("TransactedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<float>("Vat")
+                        .HasColumnType("real");
 
                     b.HasKey("TransactionId");
 
@@ -222,13 +304,22 @@ namespace Zolupos.Application.Migrations
                     b.Navigation("Transaction");
                 });
 
+            modelBuilder.Entity("Zolupos.Application.Entities.Payment", b =>
+                {
+                    b.HasOne("Zolupos.Application.Entities.Transaction", "Transaction")
+                        .WithMany("Payments")
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Transaction");
+                });
+
             modelBuilder.Entity("Zolupos.Application.Entities.Transaction", b =>
                 {
                     b.HasOne("Zolupos.Application.Entities.Customer", "TransactionCustomer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("TransactionCustomer");
                 });
@@ -236,6 +327,8 @@ namespace Zolupos.Application.Migrations
             modelBuilder.Entity("Zolupos.Application.Entities.Transaction", b =>
                 {
                     b.Navigation("OrderedProducts");
+
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

@@ -113,7 +113,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 24, 3, 35, 49, 675, DateTimeKind.Utc).AddTicks(5799),
+                            LastLogin = new DateTime(2022, 7, 25, 4, 56, 57, 582, DateTimeKind.Utc).AddTicks(7423),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -264,21 +264,17 @@ namespace Zolupos.Application.Migrations
                     b.Property<int>("Discount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<float>("SubTotal")
+                        .HasColumnType("real");
 
-                    b.Property<int>("SubTotal")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Total")
-                        .HasColumnType("integer");
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("TransactedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Vat")
-                        .HasColumnType("integer");
+                    b.Property<float>("Vat")
+                        .HasColumnType("real");
 
                     b.HasKey("TransactionId");
 

@@ -15,11 +15,9 @@ namespace Zolupos.Application.Features.Transactions
     public class AddTransactionCommand : IRequest<ResultWrapper<int?>>
     {
         public int? CustomerId { get; set; }
-        public int Vat { get; set; }
-        public int Total { get; set; }
-        public int SubTotal { get; set; }
-        public PaymentType PaymentType { get; set; }
-        public string Notes { get; set; }
+        public float Vat { get; set; }
+        public float Total { get; set; }
+        public float SubTotal { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
         public virtual List<AddPayment> Payments { get; set; }
     }
@@ -32,7 +30,7 @@ namespace Zolupos.Application.Features.Transactions
     }
     public class AddPayment
     {
-        public PaymentType PaymentType { get; set; }
+        public int PaymentType { get; set; }
         public int Tendered { get; set; }
         public int Change { get; set; }
         public int Amount { get; set; }

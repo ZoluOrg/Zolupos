@@ -15,11 +15,10 @@ namespace Zolupos.Application.Entities
         public Customer? TransactionCustomer { get; set; }
 
         public DateTime TransactedAt { get; set; }
-        public int Vat { get; set; }
+        public float Vat { get; set; }
         public int Discount { get; set; }
-        public int Total { get; set; }
-        public int SubTotal { get; set; }
-        public string Notes { get; set; }
+        public float Total { get; set; }
+        public float SubTotal { get; set; }
 
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
         public virtual List<Payment> Payments { get; set; }
