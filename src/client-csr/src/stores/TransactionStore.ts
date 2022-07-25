@@ -120,7 +120,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   updateChange: (index) => {
     set(
       produce((state: ITransactionStore) => {
-        if (state.payments[index].paymentType === PaymentTypes.Cash) {
+        if (state.payments[index].paymentType == 0) {
           let change =
             state.payments[index].tendered - state.payments[index].amount;
           if (change > 0) state.payments[index].change = change;
@@ -210,8 +210,7 @@ const setPaymentMethodFn = (
   index: number,
   paymentMethod: number
 ) => {
-  state.payments[index].paymentType =
-    Object.values(PaymentTypes)[paymentMethod];
+  state.payments[index].paymentType = paymentMethod;
 };
 
 const updatePaymentInfos = (state: WritableDraft<ITransactionStore>) => {

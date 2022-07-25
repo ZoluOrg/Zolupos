@@ -24,7 +24,7 @@ export const PaymentCard: React.FC<{
   };
 
   const tenderChange = (ev: React.FormEvent<HTMLInputElement>) => {
-    transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value))
+    transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
     transactionStore.updateChange(paymentIndex);
   };
   return (
@@ -34,13 +34,12 @@ export const PaymentCard: React.FC<{
           <select className="rounded-lg w-8/12" onChange={paymentTypeChange}>
             {Object.keys(PaymentTypes).map((adr, key) => (
               <option key={key} value={key}>
-                {adr}
+                {adr} {key}
               </option>
             ))}
           </select>
         </div>
-        {transactionStore.payments[paymentIndex].paymentType ==
-          PaymentTypes.Cash && (
+        {transactionStore.payments[paymentIndex].paymentType == 0 && (
           <div>
             <div className="flex flex-col gap-1">
               <span>Tendered: </span>
