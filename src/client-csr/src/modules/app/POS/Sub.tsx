@@ -12,8 +12,10 @@ export const Sub = () => {
   };
 
   const onProcessClick = () => {
-    if (transaction.discount < 100) transaction.setShowPaymentModal(true);
-    else toast.error("Discount cannot be this high");
+    // Checks
+    if(transaction.orders.length == 0) toast.error("Add items");
+    else if (transaction.discount > 99) toast.error("Discount to high");
+    else transaction.setShowPaymentModal(true); 
   };
   return (
     <div className="rounded-lg bg-mallow-2 p-5 flex-grow flex flex-col justify-between bg-opacity-75 border border-mallow-2 shadow">

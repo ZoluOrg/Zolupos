@@ -69,7 +69,7 @@ export const AssignCustomer = () => {
                   onKeyDown={(e) => {
                     if (e.key == "Enter") refetch();
                   }}
-                />
+                />  
                 <Button
                   buttonColor="coal"
                   isLoading={isLoading}
