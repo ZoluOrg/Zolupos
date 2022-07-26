@@ -31,9 +31,9 @@ namespace Zolupos.Application.Features.Transactions
     public class AddPayment
     {
         public int PaymentType { get; set; }
-        public int Tendered { get; set; }
-        public int Change { get; set; }
-        public int Amount { get; set; }
+        public float Tendered { get; set; }
+        public float Change { get; set; }
+        public float Amount { get; set; }
     }
     public class AddTrasactionHandler : IRequestHandler<AddTransactionCommand, ResultWrapper<int?>>
     {

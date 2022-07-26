@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Static\" />
+    <Folder Include="Static\Customers\ProfileImages\" />
   </ItemGroup>
 
 </Project>

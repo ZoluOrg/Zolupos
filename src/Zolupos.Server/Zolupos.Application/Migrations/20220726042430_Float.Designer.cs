@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220726042430_Float")]
+    partial class Float
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,10 +52,6 @@ namespace Zolupos.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerProfile")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("CustomerSpent")
                         .HasColumnType("integer");
 
@@ -70,7 +68,6 @@ namespace Zolupos.Application.Migrations
                             CustomerFullName = "Sample Customer",
                             CustomerLastName = "Customer",
                             CustomerPhoneNumber = "0925",
-                            CustomerProfile = "",
                             CustomerSpent = 0
                         });
                 });
@@ -118,7 +115,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 26, 11, 29, 46, 855, DateTimeKind.Utc).AddTicks(7626),
+                            LastLogin = new DateTime(2022, 7, 26, 4, 24, 29, 268, DateTimeKind.Utc).AddTicks(9595),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",

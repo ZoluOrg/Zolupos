@@ -28,6 +28,13 @@ namespace Zolupos.Server.Controllers.Customers
             return Ok(customer);
         }
 
+        [HttpPost("uploadProfile")]
+        public async Task<ActionResult> UploadProfilePicture([FromQuery(Name ="id")] int id, IFormFile file)
+        {
+            await Mediator.Send(new UploadProfileCommand(file, id));
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddProduct(AddCustomerCommand command)
         {

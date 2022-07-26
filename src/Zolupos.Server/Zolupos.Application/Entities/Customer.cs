@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,12 @@ namespace Zolupos.Application.Entities
         public string CustomerPhoneNumber { get; set; }
 
         public int CustomerSpent { get; set; }
+
+        public string CustomerProfile { get; set; }
+
+        public Customer()
+        {
+            CustomerFullName = $"{CustomerFirstName} {CustomerLastName}";
+        }
     }
 }

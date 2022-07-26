@@ -11,9 +11,9 @@ namespace Zolupos.Application.Entities
     {
         public int PaymentId { get; set; }
         public int PaymentType { get; set; }
-        public int Tendered { get; set; }
-        public int Change { get; set; }
-        public int Amount { get; set; }
+        public float Tendered { get; set; }
+        public float Change { get; set; }
+        public float Amount { get; set; }
         public virtual Transaction Transaction { get; set; }
     }
 }

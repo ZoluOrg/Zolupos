@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
 using Zolupos.Application.Entities;
@@ -42,4 +45,5 @@ namespace Zolupos.Application.Features.Customers
             return new ResultWrapper<int> { Receive = customer.CustomerId, Message = "" };
         }
     }
+
 }

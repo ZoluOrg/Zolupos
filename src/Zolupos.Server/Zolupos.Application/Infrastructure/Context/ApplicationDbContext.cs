@@ -26,7 +26,7 @@ namespace Zolupos.Application.Infrastructure.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerFullName = "Sample Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0 });
+            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerFullName = "Sample Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0, CustomerProfile = "" });
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 1, ProductBarcode = "00001", ProductName = "Sample Product", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = true });
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 2, ProductBarcode = "00001", ProductName = "Sample Product With Out Vat", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = false });
 
