@@ -26,10 +26,10 @@ export const ResultButton: FC<Props> = ({ index, product, ...otherProps }) => {
 
   return (
     <div
-      className={`w-full p-5 flex justify-between items-center border bg-mallow-1 hover:bg-mallow-2  ${
+      className={`w-full p-5 flex justify-between items-center border bg-mallow-1 transition ${
         searchStore.selectedResult == index
-          ? "border-accent-1 shadow-lg"
-          : "border-mallow-3"
+          ? "scale-[1.05] border border-accent-1 shadow-lg"
+          : "border-mallow-3 hover:scale-[1.03] hover:border-coal-1"
       } rounded-lg`}
       onClick={() => addProduct()}
     >
