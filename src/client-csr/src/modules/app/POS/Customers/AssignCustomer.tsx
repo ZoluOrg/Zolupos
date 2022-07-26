@@ -66,6 +66,9 @@ export const AssignCustomer = () => {
                   placeholder="Customer's full name eg.(John Doe)"
                   value={customerName}
                   onChange={(e) => setCustomerNameSearch(e.currentTarget.value)}
+                  onKeyDown={(e) => {
+                    if (e.key == "Enter") refetch();
+                  }}
                 />
                 <Button
                   buttonColor="coal"
