@@ -8,14 +8,18 @@ import { useTransactionStore } from "../../../stores/TransactionStore";
 export const Sub = () => {
   const transaction = useTransactionStore();
   const onDiscountChanging = (event: FormEvent<HTMLInputElement>) => {
-    transaction.setDiscount(parseInt(event.currentTarget.value));
+    if (!isNaN(parseInt(event.currentTarget.value))) {
+      transaction.setDiscount(parseFloat(event.currentTarget.value));
+    } else {
+      transaction.setDiscount(0);
+    }
   };
 
   const onProcessClick = () => {
     // Checks
-    if(transaction.orders.length == 0) toast.error("Add items");
+    if (transaction.orders.length == 0) toast.error("Add items");
     else if (transaction.discount > 99) toast.error("Discount to high");
-    else transaction.setShowPaymentModal(true); 
+    else transaction.setShowPaymentModal(true);
   };
   return (
     <div className="rounded-lg bg-mallow-2 p-5 flex-grow flex flex-col justify-between bg-opacity-75 border border-mallow-2 shadow">

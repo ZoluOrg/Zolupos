@@ -26,15 +26,19 @@ export const PaymentModal = () => {
   };
 
   useEffect(() => {
-    transactionStore.updatePaymentInfos();
-  }, [transactionStore.payments]);
+    if (transactionStore.showPaymentModal == false) {
+      //! Refact This
+      transactionStore.transactionFinish();
+    }
+  }, [transactionStore.shouldShowCustomerModal]);
 
-  const {mutateAsync, data, isLoading} = useMutation(addNewTransaction, {
+  const { mutateAsync, data, isLoading } = useMutation(addNewTransaction, {
     onSuccess: () => {
       toast.info("Transaction processed successfully");
-    }, onError: (error: AxiosError<IServerError>) => {
+    },
+    onError: (error: AxiosError<IServerError>) => {
       toast.error(error.response?.data.ExceptionMessage);
-    }
+    },
   });
 
   const processTransaction = async () => {
@@ -47,15 +51,14 @@ export const PaymentModal = () => {
       orderedProducts: transactionStore.orders,
       payments: transactionStore.payments,
     };
-    console.log(transaction);
-    await mutateAsync(transaction);
+    await mutateAsync(transaction).then(() => console.log("Transaction Added"));
     transactionStore.transactionFinish();
   };
 
   return (
     <div className="payment-modal">
       <AnimatePresence onExitComplete={() => transactionStore.paymentReset()}>
-        {transactionStore.showPaymentModal && (
+        {transactionStore.showPaymentModal ? (
           <motion.div
             className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
             initial={{ backdropFilter: "blur(0px)" }}
@@ -121,7 +124,7 @@ export const PaymentModal = () => {
               </div>
             </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

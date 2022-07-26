@@ -14,13 +14,17 @@ export const OrderInfo = () => {
     transaction.calculateInfo(transactionStore.orders);
   }, [transactionStore.orders, transaction.discount]);
 
+  const onCancelClick = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+    
+  }
+
   return (
     <div className="rounded-lg flex-grow">
       <div className="flex flex-col gap-4 h-full">
         <CustomerInfo />
         <Sub />
         <div className="lower-control flex gap-[5px]">
-          <Button buttonColor="mallow" className="w-full">
+          <Button buttonColor="mallow" className="w-full" onClick={() => {}}>
             Suspend
           </Button>
           <Button className="w-full">Cancel</Button>

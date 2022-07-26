@@ -19,12 +19,22 @@ export const PaymentCard: React.FC<{
   };
 
   const amountChange = (ev: React.FormEvent<HTMLInputElement>) => {
-    transactionStore.setAmount(paymentIndex, parseInt(ev.currentTarget.value));
+    if (!isNaN(parseInt(ev.currentTarget.value))) {
+      transactionStore.setAmount(
+        paymentIndex,
+        parseFloat(ev.currentTarget.value)
+      );
+    } else transactionStore.setTender(paymentIndex, 0);
     transactionStore.updateChange(paymentIndex);
   };
 
   const tenderChange = (ev: React.FormEvent<HTMLInputElement>) => {
-    transactionStore.setTender(paymentIndex, parseInt(ev.currentTarget.value));
+    if (!isNaN(parseInt(ev.currentTarget.value))) {
+      transactionStore.setTender(
+        paymentIndex,
+        parseFloat(ev.currentTarget.value)
+      );
+    } else transactionStore.setTender(paymentIndex, 0);
     transactionStore.updateChange(paymentIndex);
   };
   return (
@@ -44,7 +54,7 @@ export const PaymentCard: React.FC<{
             <div className="flex flex-col gap-1">
               <span>Tendered: </span>
               <Input
-                className="w w-6/12"
+                className="w-6/12"
                 value={transactionStore.payments[paymentIndex].tendered}
                 onChange={tenderChange}
                 type="number"

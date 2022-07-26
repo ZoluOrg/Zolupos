@@ -117,9 +117,9 @@ export const ProductSearch = () => {
                     ) : (
                       <div>
                         {searchStore.searchResult.length > 0 ? (
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-3">
                             {searchStore.searchResult.map((pr, index) => (
-                              <ResultButton index={index} product={pr} />
+                              <ResultButton index={index} product={pr} key={index}/>
                             ))}
                           </div>
                         ) : (

@@ -65,22 +65,19 @@ interface ITransactionStore {
 
 export const useTransactionStore = create<ITransactionStore>()((set) => ({
   transactionFinish: () => {
-    set((state) => ({
-      ...state,
-      orders: [],
-      payments: [],
-      overAllPayment: 0,
-      balance: 0,
-      change: 0,
-      total: 0,
-      subTotal: 0,
-      vat: 0,
-      quantity: 0,
-      discount: 0,
-      assignedCustomer: null,
-      shouldShowCustomerModal: false,
-      showPaymentModal: false,
-    }));
+    set(produce((state: WritableDraft<ITransactionStore>) => {
+      state.orders = [];
+      state.payments = [];
+      state.overAllPayment = 0;
+      state.balance = 0;
+      state.change = 0;
+      state.subTotal = 0;
+      state.total = 0;
+      state.vat = 0;
+      state.quantity = 0;
+      state.discount = 0;
+      console.log("transaction finish store???")
+    }))
   },
   //#region TransactionStuffs
   total: 0,
@@ -102,7 +99,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   balance: 0,
   change: 0,
 
-  updatePaymentInfos: () => set(produce((state) => updatePaymentInfos(state))),
+  updatePaymentInfos: () => set(produce((state) => updatePaymentInfo(state))),
 
   setOverAllPayment: (overAllPayment) =>
     set((state) => ({ overAllPayment: overAllPayment })),
@@ -232,7 +229,7 @@ const setPaymentMethodFn = (
   state.payments[index].paymentType = paymentMethod;
 };
 
-const updatePaymentInfos = (state: WritableDraft<ITransactionStore>) => {
+const updatePaymentInfo = (state: WritableDraft<ITransactionStore>) => {
   state.overAllPayment = 0;
   state.balance = 0;
   state.change = 0;
