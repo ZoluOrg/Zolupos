@@ -27,10 +27,8 @@ namespace Zolupos.Application.Features.Customers
         {
             var customer = await _context.Customers.Where(cs => cs.CustomerId == request.id).FirstOrDefaultAsync();
             var profilePath = await UploadProfilePicture(request, customer);
-            if (customer != null)
-            {
-                customer.CustomerProfile = profilePath;
-            }
+            customer.CustomerProfile = profilePath;
+            await _context.SaveChangesAsync();
             return Unit.Value;
         }
 

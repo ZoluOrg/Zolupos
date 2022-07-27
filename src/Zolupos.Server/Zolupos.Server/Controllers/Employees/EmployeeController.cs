@@ -21,6 +21,13 @@ namespace Zolupos.Server.Controllers.Employees
             return Ok(employee);
         }
 
+        [HttpPost("uploadProfile")]
+        public async Task<ActionResult> UploadProfilePicture([FromQuery(Name ="id")] int id, IFormFile profile)
+        {
+            await Mediator.Send(new UploadEmployeeProfileCommand(profile, id));
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddEmployee(AddEmployeeCommand command)
         {

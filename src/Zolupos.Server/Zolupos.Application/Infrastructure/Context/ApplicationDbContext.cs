@@ -26,7 +26,7 @@ namespace Zolupos.Application.Infrastructure.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerFullName = "Sample Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0, CustomerProfile = "" });
+            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0, CustomerProfile = null});
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 1, ProductBarcode = "00001", ProductName = "Sample Product", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = true });
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 2, ProductBarcode = "00001", ProductName = "Sample Product With Out Vat", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = false });
 
@@ -36,7 +36,7 @@ namespace Zolupos.Application.Infrastructure.Context
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.Payments).WithOne(py => py.Transaction);
             modelBuilder.Entity<Payment>().HasOne(py => py.Transaction).WithMany(tr => tr.Payments);
 
-            modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", FullName = "Sample Employee", Pin = 1989, Role = "Admin", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow });
+            modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", FullName = "Sample Employee", Pin = 1989, Role = "Admin", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow, Profile = null });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
