@@ -21,10 +21,5 @@ namespace Zolupos.Application.Entities
         public int CustomerSpent { get; set; }
 
         public string? CustomerProfile { get; set; }
-
-        public Customer()
-        {
-            CustomerFullName = $"{CustomerFirstName} {CustomerLastName}";
-        }
     }
 }

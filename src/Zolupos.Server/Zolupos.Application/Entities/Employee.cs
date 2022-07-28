@@ -18,9 +18,5 @@ namespace Zolupos.Application.Entities
         public int PhoneNumber { get; set; }
         public DateTime LastLogin { get; set; }
         public string? Profile { get; set; }
-        public Employee()
-        {
-            FullName = $"{FirstName} {SurName}";
-        }
     }
 }
