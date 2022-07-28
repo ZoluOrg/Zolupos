@@ -9,10 +9,16 @@ export const CustomerInfo = () => {
     <div className="rounded-lg p-2 px-4 w-full bg-mallow-2 bg-opacity-75 border border-mallow-2 shadow">
       {transactionStore.assignedCustomer != null ? (
         <div className="flex justify-between items-center">
-          <span>{transactionStore.assignedCustomer.customerFullName}</span>
-          <Button
-            onClick={() => transactionStore.removeCustomer()}
-          >
+          <div className="flex gap-2 items-center">
+            <div>
+              <img src={transactionStore.assignedCustomer.customerProfile == null ? 
+              `https://avatars.dicebear.com/api/human/${transactionStore.assignedCustomer.customerFullName}.svg` :
+              `https://localhost:7073/static/Customers/ProfileImages/${transactionStore.assignedCustomer.customerProfile}`}
+              className="w-6 h-6 border border-coal-1 rounded-full"/>
+            </div>
+            <span>{transactionStore.assignedCustomer.customerFullName}</span>
+          </div>
+          <Button onClick={() => transactionStore.removeCustomer()}>
             <div className="flex items-center gap-2">
               <X weight="bold" />
               <span>Remove</span>

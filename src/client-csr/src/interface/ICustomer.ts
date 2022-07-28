@@ -6,4 +6,5 @@ export interface ICustomer {
   customerEmail: string;
   customerPhoneNumber: string;
   customerSpent: number;
+  customerProfile: string;
 }
