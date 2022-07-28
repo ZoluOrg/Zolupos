@@ -25,6 +25,10 @@ export const PaymentModal = () => {
     transactionStore.addPayment(newPayment);
   };
 
+  useEffect(() => {
+    transactionStore.updatePaymentInfos();
+  }, [transactionStore.payments]);
+
   const { mutateAsync, data, isLoading } = useMutation(addNewTransaction, {
     onSuccess: () => {
       toast.info("Transaction processed successfully");
