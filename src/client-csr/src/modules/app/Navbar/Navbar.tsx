@@ -4,9 +4,11 @@ import { ArrowLeft, ArrowRight, CaretDown } from "phosphor-react";
 import { CurrentTime } from "../../../components/CurrentTime";
 import { Menu, MenuItems } from "../../../components/Menu";
 import { Link, useNavigate } from "react-router-dom";
+import { useEmployeeCreds } from "../../../hooks/useEmployeeCreds";
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const { data } = useEmployeeCreds();
 
   return (
     <div className="bg-coal-1 pt-[14px] pb-[14px] px-6 w-full text-mallow-1 flex justify-between">
@@ -44,9 +46,13 @@ export const Navbar = () => {
             Look={
               <div className="flex items-center gap-[6px]">
                 <img
-                    src="https://random.imagecdn.app/64/64"
-                    className="w-6 h-6 rounded-full"
-                  />
+                  src={
+                    data?.profile == null
+                      ? `https://avatars.dicebear.com/api/micah/${data?.fullName}.svg`
+                      : `https://localhost:7073/static/Employees/ProfileImages/${data?.profile}`
+                  }
+                  className="w-6 h-6 rounded-full"
+                />
                 <CaretDown weight="fill" />
               </div>
             }

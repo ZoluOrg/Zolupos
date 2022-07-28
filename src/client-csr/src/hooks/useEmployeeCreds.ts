@@ -13,6 +13,7 @@ export const employeeValidator = z.object({
   role: z.string(),
   phoneNumber: z.number(),
   lastLogin: z.string(),
+  profile: z.string(),
 });
 
 export type employee = z.infer<typeof employeeValidator>;
