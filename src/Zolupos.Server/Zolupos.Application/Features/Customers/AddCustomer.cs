@@ -13,7 +13,7 @@ namespace Zolupos.Application.Features.Customers
 {
     public class AddCustomerCommand : IRequest<ResultWrapper<int>>
     {
-        public string CustomerName { get; set; }
+        public string CustomerFullName { get; set; }
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
 
@@ -36,7 +36,7 @@ namespace Zolupos.Application.Features.Customers
 
         public async Task<ResultWrapper<int>> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
         {
-            if (await _context.Customers.Where(customer => customer.CustomerFirstName == request.CustomerName && customer.CustomerLastName == request.CustomerLastName).AnyAsync())
+            if (await _context.Customers.Where(customer => customer.CustomerFirstName == request.CustomerFirstName && customer.CustomerLastName == request.CustomerLastName).AnyAsync())
                 throw new CustomError(Message: "Customer already exist", Errors: "", StatusCode: System.Net.HttpStatusCode.Conflict);
             var customer = _mapper.Map<Customer>(request);
             await _context.Customers.AddAsync(customer);
