@@ -12,7 +12,7 @@ export const CustomerInfo = () => {
           <div className="flex gap-2 items-center">
             <div>
               <img src={transactionStore.assignedCustomer.customerProfile == null ? 
-              `https://avatars.dicebear.com/api/human/${transactionStore.assignedCustomer.customerFullName}.svg` :
+              `https://avatars.dicebear.com/api/micah/${transactionStore.assignedCustomer.customerFullName}.svg` :
               `https://localhost:7073/static/Customers/ProfileImages/${transactionStore.assignedCustomer.customerProfile}`}
               className="w-6 h-6 border border-coal-1 rounded-full"/>
             </div>
