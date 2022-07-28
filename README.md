@@ -2,4 +2,4 @@
 Zolupos is a **modern** POS system built with ASP.net core, ReactJS (Vite) and electron
 
 
-Elixir maybe?
+Elixir maybe? No just C#
