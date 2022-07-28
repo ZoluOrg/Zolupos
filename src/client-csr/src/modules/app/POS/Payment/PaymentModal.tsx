@@ -25,13 +25,6 @@ export const PaymentModal = () => {
     transactionStore.addPayment(newPayment);
   };
 
-  useEffect(() => {
-    if (transactionStore.showPaymentModal == false) {
-      //! Refact This
-      transactionStore.transactionFinish();
-    }
-  }, [transactionStore.shouldShowCustomerModal]);
-
   const { mutateAsync, data, isLoading } = useMutation(addNewTransaction, {
     onSuccess: () => {
       toast.info("Transaction processed successfully");
@@ -90,13 +83,13 @@ export const PaymentModal = () => {
                     <PlusCircle color="white" />
                   </div>
                 </Button>
-                <Button>
-                  <div
-                    className="flex gap-2 items-center justify-center"
-                    onClick={() => {
-                      processTransaction();
-                    }}
-                  >
+                <Button
+                  onClick={async () => {
+                    await processTransaction();
+                    transactionStore.setShowPaymentModal(false);
+                  }}
+                >
+                  <div className="flex gap-2 items-center justify-center">
                     <span>Process</span>
                     <BagSimple />
                   </div>

@@ -63,21 +63,25 @@ interface ITransactionStore {
   //#endregion CustomerStuffs
 }
 
+console.log("new TransactionStore????");
+
 export const useTransactionStore = create<ITransactionStore>()((set) => ({
   transactionFinish: () => {
-    set(produce((state: WritableDraft<ITransactionStore>) => {
-      state.orders = [];
-      state.payments = [];
-      state.overAllPayment = 0;
-      state.balance = 0;
-      state.change = 0;
-      state.subTotal = 0;
-      state.total = 0;
-      state.vat = 0;
-      state.quantity = 0;
-      state.discount = 0;
-      console.log("transaction finish store???")
-    }))
+    set(
+      produce((state: WritableDraft<ITransactionStore>) => {
+        state.orders = [];
+        state.payments = [];
+        state.overAllPayment = 0;
+        state.balance = 0;
+        state.change = 0;
+        state.subTotal = 0;
+        state.total = 0;
+        state.vat = 0;
+        state.quantity = 0;
+        state.discount = 0;
+        console.log("transaction finish store???");
+      })
+    );
   },
   //#region TransactionStuffs
   total: 0,
@@ -177,9 +181,12 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   //#region CustomerStuffs
   assignedCustomer: null,
   setCustomer: (customer) =>
-    set((state) => ({
-      assignedCustomer: customer,
-    })),
+    set(
+      produce((state) => {
+        console.log("set customer");
+        state.assignedCustomer = customer;
+      })
+    ),
   removeCustomer: () =>
     set((state) => ({
       assignedCustomer: null,
