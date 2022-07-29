@@ -87,6 +87,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
         state.vat = 0;
         state.quantity = 0;
         state.discount = 0;
+        state.assignedCustomer = null;
         console.log("transaction finish store???");
       })
     );
