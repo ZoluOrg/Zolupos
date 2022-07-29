@@ -9,7 +9,7 @@ export const Modal: React.FC<{
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
+          className="modal-bruh absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
           initial={{ backdropFilter: "blur(0px)" }}
           animate={{ backdropFilter: "blur(3px)" }}
           exit={{ backdropFilter: "blur(0px)" }}
