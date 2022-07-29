@@ -27,5 +27,3 @@ export const Modal: React.FC<{
     </AnimatePresence>
   );
 };
-
-///
