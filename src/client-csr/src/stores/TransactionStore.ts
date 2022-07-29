@@ -61,6 +61,11 @@ interface ITransactionStore {
   shouldShowCustomerModal: boolean;
   setShouldShowCustomerModal: (shouldShowCustomerModal: boolean) => void;
   //#endregion CustomerStuffs
+
+  //#region SusStuffs
+  shouldShowSusModal: boolean;
+  setShouldShowSusModal: (shouldShowSusModal: boolean) => void;
+  //#endregion SusStuffs
 }
 
 console.log("new TransactionStore????");
@@ -196,6 +201,12 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   setShouldShowCustomerModal: (shouldShowCustomerModal) =>
     set((state) => ({ shouldShowCustomerModal })),
   //#endregion CustomerStuffs
+
+  //#region SusStuffs
+  shouldShowSusModal: false,
+  setShouldShowSusModal: (shouldShowSusModal) =>
+    set((state) => ({ shouldShowSusModal })),
+  //#endregion SusStuffs
 }));
 
 mountStoreDevtool("transactionStore", useTransactionStore);

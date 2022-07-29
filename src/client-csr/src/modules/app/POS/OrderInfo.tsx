@@ -24,8 +24,8 @@ export const OrderInfo = () => {
         <CustomerInfo />
         <Sub />
         <div className="lower-control flex gap-[5px]">
-          <Button buttonColor="mallow" className="w-full" onClick={() => {}}>
-            Suspend
+          <Button buttonColor="mallow" className="w-full" onClick={() => {transactionStore.setShouldShowSusModal(true)}}>
+            Lock
           </Button>
           <Button className="w-full">Cancel</Button>
         </div>

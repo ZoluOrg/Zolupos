@@ -5,6 +5,7 @@ import { OrderInfo } from "./OrderInfo";
 import { OrderList } from "./OrderList";
 import { PaymentModal } from "./Payment/PaymentModal";
 import { ProductSearch } from "./Search/ProductSearch";
+import { SuspendModal } from "./Sus/SuspendModal";
 
 export const POSContainer = () => {
   const titleContext = useTitleContext();
