@@ -14,9 +14,7 @@ export const OrderInfo = () => {
     transaction.calculateInfo(transactionStore.orders);
   }, [transactionStore.orders, transaction.discount]);
 
-  const onCancelClick = (e: React.MouseEventHandler<HTMLButtonElement>) => {
-    
-  }
+  const onCancelClick = (e: React.MouseEventHandler<HTMLButtonElement>) => {};
 
   return (
     <div className="rounded-lg flex-grow">
@@ -24,10 +22,19 @@ export const OrderInfo = () => {
         <CustomerInfo />
         <Sub />
         <div className="lower-control flex gap-[5px]">
-          <Button buttonColor="mallow" className="w-full" onClick={() => {transactionStore.setShouldShowSusModal(true)}}>
+          <Button
+            buttonColor="mallow"
+            className="w-full"
+            onClick={() => transactionStore.setShouldShowSusModal(true)}
+          >
             Lock
           </Button>
-          <Button className="w-full">Cancel</Button>
+          <Button
+            className="w-full"
+            onClick={() => transactionStore.setShouldShowCancelModal(true)}
+          >
+            Cancel
+          </Button>
         </div>
       </div>
     </div>

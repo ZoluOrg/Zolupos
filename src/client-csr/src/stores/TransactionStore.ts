@@ -65,6 +65,9 @@ interface ITransactionStore {
   //#region SusStuffs
   shouldShowSusModal: boolean;
   setShouldShowSusModal: (shouldShowSusModal: boolean) => void;
+
+  shouldShowCancelModal: boolean;
+  setShouldShowCancelModal: (shouldShowCancelModal: boolean) => void;
   //#endregion SusStuffs
 }
 
@@ -206,6 +209,10 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   shouldShowSusModal: false,
   setShouldShowSusModal: (shouldShowSusModal) =>
     set((state) => ({ shouldShowSusModal })),
+
+  shouldShowCancelModal: false,
+  setShouldShowCancelModal: (shouldShowCancelModal) =>
+    set((state) => ({ shouldShowCancelModal })),
   //#endregion SusStuffs
 }));
 

@@ -5,6 +5,7 @@ import { OrderInfo } from "./OrderInfo";
 import { OrderList } from "./OrderList";
 import { PaymentModal } from "./Payment/PaymentModal";
 import { ProductSearch } from "./Search/ProductSearch";
+import { CancelModal } from "./Sus/CancelModal";
 import { SuspendModal } from "./Sus/SuspendModal";
 
 export const POSContainer = () => {
@@ -16,6 +17,7 @@ export const POSContainer = () => {
       <ProductSearch />
       <PaymentModal />
       <AssignCustomer />
+      <CancelModal/>
       <div className="h-full flex px-[25px] py-[22px] gap-[25px]">
         <OrderList />
         <OrderInfo />
