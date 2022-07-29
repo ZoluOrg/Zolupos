@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Button } from "../../../../components/Button";
+import { Modal } from "../../../../components/Modal";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
 import { ITransaction } from "../../../../interface/ITransaction";
@@ -54,75 +55,62 @@ export const PaymentModal = () => {
 
   return (
     <div className="payment-modal">
-      <AnimatePresence onExitComplete={() => transactionStore.paymentReset()}>
-        {transactionStore.showPaymentModal ? (
-          <motion.div
-            className="absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
-            initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(3px)" }}
-            exit={{ backdropFilter: "blur(0px)" }}
-          >
-            <motion.div
-              className="p-[25px] w-[60%] bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
-              initial={{ y: -60, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -60, opacity: 0 }}
+      <Modal
+        isOpen={transactionStore.showPaymentModal}
+        className=" p-[25px] w-[60%] bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
+      >
+        <div className="w-full flex items-center justify-between">
+          <span className="text-2xl font-bold">Process Transaction</span>
+          <div>
+            <Button
+              onClick={() => {
+                transactionStore.setShowPaymentModal(false);
+              }}
             >
-              <div className="w-full flex items-center justify-between">
-                <span className="text-2xl font-bold">Process Transaction</span>
-                <div>
-                  <Button
-                    onClick={() => {
-                      transactionStore.setShowPaymentModal(false);
-                    }}
-                  >
-                    Close
-                  </Button>
-                </div>
-              </div>
-              <div className="flex w-full justify-between">
-                <Button buttonColor="coal" onClick={addPayment}>
-                  <div className="flex gap-2 items-center justify-center">
-                    <span>Add payment </span>
-                    <PlusCircle color="white" />
-                  </div>
-                </Button>
-                <Button
-                  onClick={async () => {
-                    await processTransaction();
-                    transactionStore.setShowPaymentModal(false);
-                  }}
-                >
-                  <div className="flex gap-2 items-center justify-center">
-                    <span>Process</span>
-                    <BagSimple />
-                  </div>
-                </Button>
-              </div>
-              <div className="flex gap-2 w-3/12 justify-between">
-                <div className="flex flex-col gap-2">
-                  <span>Total: {transactionStore.total}</span>
-                  <span>Balance: {transactionStore.balance}</span>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span>Payment: {transactionStore.overAllPayment}</span>
-                  <span>Change: {transactionStore.change}</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 w-full p-3 border rounded-t-lg">
-                <span>Payment Type</span>
-                <span>Amount</span>
-                <span className="text-center">Remove</span>
-              </div>
-              <div className="flex flex-col gap-3">
-                {transactionStore.payments.map((_, idx) => (
-                  <PaymentCard key={idx} paymentIndex={idx} />
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+              Close
+            </Button>
+          </div>
+        </div>
+        <div className="flex w-full justify-between">
+          <Button buttonColor="coal" onClick={addPayment}>
+            <div className="flex gap-2 items-center justify-center">
+              <span>Add payment </span>
+              <PlusCircle color="white" />
+            </div>
+          </Button>
+          <Button
+            onClick={async () => {
+              await processTransaction();
+              transactionStore.setShowPaymentModal(false);
+            }}
+          >
+            <div className="flex gap-2 items-center justify-center">
+              <span>Process</span>
+              <BagSimple />
+            </div>
+          </Button>
+        </div>
+        <div className="flex gap-2 w-3/12 justify-between">
+          <div className="flex flex-col gap-2">
+            <span>Total: {transactionStore.total}</span>
+            <span>Balance: {transactionStore.balance}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span>Payment: {transactionStore.overAllPayment}</span>
+            <span>Change: {transactionStore.change}</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 w-full p-3 border rounded-t-lg">
+          <span>Payment Type</span>
+          <span>Amount</span>
+          <span className="text-center">Remove</span>
+        </div>
+        <div className="flex flex-col gap-3">
+          {transactionStore.payments.map((_, idx) => (
+            <PaymentCard key={idx} paymentIndex={idx} />
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 };
