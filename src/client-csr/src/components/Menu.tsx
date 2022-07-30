@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { Button } from "./Button";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -49,11 +50,19 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
         >
           {Look}
         </Button>
-        {showMenu && (
-          <ul className="absolute rounded-lg p-1 bg-coal-2 left-auto right-5 border-2 border-coal-1 z-10">
-            {children}
-          </ul>
-        )}
+        <AnimatePresence>
+          {showMenu && (
+            <motion.ul
+              className="absolute rounded-lg bg-coal-2 left-auto right-5 z-10 mt-1"
+              initial={{y:-10, opacity:0}}
+              animate={{y:0, opacity:1}}
+              exit={{y:-10, opacity:0}}
+              transition={{ duration: 0.1 }}
+            >
+              {children}
+            </motion.ul>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -61,7 +70,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
 
 export const MenuItems: FC<MenuItemProps> = ({ children, Icon }) => {
   return (
-    <li className="p-2 bg-coal-2 rounded-lg hover:bg-coal-3 shadow-lg cursor-pointer text-mallow-1">
+    <li className="m-1 px-3 py-1.5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold">
       {children}
     </li>
   );

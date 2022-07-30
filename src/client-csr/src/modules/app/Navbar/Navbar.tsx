@@ -58,8 +58,8 @@ export const Navbar = () => {
               </div>
             }
           >
-            <MenuItems>Profile</MenuItems>
-            <MenuItems>Settings</MenuItems>
+            <MenuItems>Your profile</MenuItems>
+            <MenuItems>Account settings</MenuItems>
             <MenuItems>Logout</MenuItems>
           </Menu>
         </div>
