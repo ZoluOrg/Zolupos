@@ -24,6 +24,7 @@ export const AssignCustomer = () => {
       enabled: false,
       onSuccess: (data: ICustomer) => {
         transactionStore.setCustomer(data);
+        setCustomerNameSearch("");
         transactionStore.setShouldShowCustomerModal(false);
       },
       onError: (error: AxiosError<IServerError>) => {
