@@ -51,8 +51,9 @@ export const Navbar = () => {
                       ? `https://avatars.dicebear.com/api/micah/${data?.fullName}.svg`
                       : `https://localhost:7073/static/Employees/ProfileImages/${data?.profile}`
                   }
-                  className="w-6 h-6 rounded-full"
+                  className="w-6 h-6 rounded-full border-green-400 border-2"
                 />
+                <span>{data?.firstName}</span>
                 <CaretDown weight="fill" />
               </div>
             }
