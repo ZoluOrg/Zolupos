@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Button } from "./Button";
 import { AnimatePresence, motion } from "framer-motion";
+import { CaretDown } from "phosphor-react";
 
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -48,15 +49,18 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
           {...props}
           onClick={() => setShowMenu(!showMenu)}
         >
-          {Look}
+          <div className="flex items-center gap-1">
+            {Look}
+            <CaretDown weight="fill" className={`transition ${showMenu ? "" : "rotate-180"}`} />
+          </div>
         </Button>
         <AnimatePresence>
           {showMenu && (
             <motion.ul
               className="absolute rounded-lg bg-coal-2 left-auto right-5 z-10 mt-1"
-              initial={{y:-10, opacity:0}}
-              animate={{y:0, opacity:1}}
-              exit={{y:-10, opacity:0}}
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.1 }}
             >
               {children}

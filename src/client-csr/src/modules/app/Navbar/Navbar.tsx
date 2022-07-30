@@ -53,8 +53,7 @@ export const Navbar = () => {
                   }
                   className="w-6 h-6 rounded-full border-green-400 border-2"
                 />
-                <span>{data?.firstName}</span>
-                <CaretDown weight="fill" />
+                <span>{data?.firstName}</span>{" "}
               </div>
             }
           >
