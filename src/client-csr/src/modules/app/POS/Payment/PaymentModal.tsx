@@ -90,7 +90,7 @@ export const PaymentModal = () => {
             </div>
           </Button>
         </div>
-        <div className="flex gap-2 w-3/12 justify-between">
+        <div className="flex gap-2 w-auto justify-evenl;y">
           <div className="flex flex-col gap-2">
             <span>Total: {transactionStore.total}</span>
             <span>Balance: {transactionStore.balance}</span>
