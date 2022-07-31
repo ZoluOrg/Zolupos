@@ -29,12 +29,10 @@ export const PaymentCard: React.FC<{
   };
 
   const tenderChange = (ev: React.FormEvent<HTMLInputElement>) => {
-    if (!isNaN(parseInt(ev.currentTarget.value))) {
-      transactionStore.setTender(
-        paymentIndex,
-        parseFloat(ev.currentTarget.value)
-      );
-    } else transactionStore.setTender(paymentIndex, 0);
+    transactionStore.setTender(
+      paymentIndex,
+      parseFloat(ev.currentTarget.value)
+    );
     transactionStore.updateChange(paymentIndex);
   };
   return (
@@ -44,7 +42,7 @@ export const PaymentCard: React.FC<{
           <select className="rounded-lg w-8/12" onChange={paymentTypeChange}>
             {Object.keys(PaymentTypes).map((adr, key) => (
               <option key={key} value={key}>
-                {adr} {key}
+                {adr}
               </option>
             ))}
           </select>
