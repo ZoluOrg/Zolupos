@@ -30,6 +30,15 @@ export const PaymentModal = () => {
     transactionStore.updatePaymentInfos();
   }, [transactionStore.payments]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.key == "q") transactionStore.setShowPaymentModal(true);
+      else if (event.key == "Escape") {
+        transactionStore.setShowPaymentModal(false);
+      }
+    });
+  }, []);
+
   const { mutateAsync, data, isLoading } = useMutation(addNewTransaction, {
     onSuccess: () => {
       toast.info("Transaction processed successfully");

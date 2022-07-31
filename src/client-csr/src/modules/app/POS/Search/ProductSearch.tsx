@@ -40,10 +40,6 @@ export const ProductSearch = () => {
   }, []);
 
   useEffect(() => {
-    // inputRef.current?.focus();
-  }, [inputRef.current]);
-
-  useEffect(() => {
     refetch();
   }, [searchStore.searchQuery]);
 
