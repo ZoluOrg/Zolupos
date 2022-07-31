@@ -40,7 +40,7 @@ export const ProductSearch = () => {
   }, []);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    // inputRef.current?.focus();
   }, [inputRef.current]);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export const ProductSearch = () => {
               searchStore.setSearchQuery(ev.currentTarget.value);
             }}
             onKeyDown={onSelectionDown}
-            ref={inputRef}
+            autoFocus={true}
           />
           <Button buttonColor="coal" onClick={() => addProduct()}>
             Add
