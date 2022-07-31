@@ -43,7 +43,7 @@ export const Navbar = () => {
         </div>
         <div className="profile">
           <Menu
-            Look={
+            Look={(show) => (
               <div className="flex items-center gap-[6px]">
                 <img
                   src={
@@ -53,9 +53,13 @@ export const Navbar = () => {
                   }
                   className="w-6 h-6 rounded-full border-green-400 border-2"
                 />
-                <span>{data?.firstName}</span>{" "}
+                <span>{data?.firstName}</span>
+                <CaretDown
+                  weight="fill"
+                  className={`transition ${show ? "" : "rotate-180"}`}
+                />
               </div>
-            }
+            )}
           >
             <MenuItems>Your profile</MenuItems>
             <MenuItems>Account settings</MenuItems>

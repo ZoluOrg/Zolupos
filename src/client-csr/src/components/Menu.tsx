@@ -12,7 +12,7 @@ import { CaretDown } from "phosphor-react";
 
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  Look: ReactNode;
+  Look(showMenu: boolean): ReactNode;
 }
 
 interface MenuItemProps {
@@ -50,8 +50,8 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
           onClick={() => setShowMenu(!showMenu)}
         >
           <div className="flex items-center gap-1">
-            {Look}
-            <CaretDown weight="fill" className={`transition ${showMenu ? "" : "rotate-180"}`} />
+            {Look(showMenu)}
+            
           </div>
         </Button>
         <AnimatePresence>
