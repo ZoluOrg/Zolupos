@@ -13,7 +13,7 @@ export const OrderList = () => {
                 Empty Cart
               </span>
               <span className="text-xl font-semibold text-black text-opacity-50">
-                Scan or search a product to add.
+                Use alt + a to open product search
               </span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
@@ -15,6 +15,7 @@ export const ProductSearch = () => {
   const [shouldShow, setShouldShow] = React.useState<boolean>(false);
   const searchStore = useSearchStore();
   const transactionStore = useTransactionStore();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading, refetch } = useQuery(
     ["product-search-result"],
@@ -31,9 +32,16 @@ export const ProductSearch = () => {
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
       if (event.altKey && event.key == "a") setShouldShow(true);
-      if (event.key == "Escape") setShouldShow(false);
+      else if (event.key == "Escape") {
+        setShouldShow(false);
+        reset();
+      }
     });
   }, []);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [inputRef.current]);
 
   useEffect(() => {
     refetch();
@@ -72,10 +80,12 @@ export const ProductSearch = () => {
     searchStore.setSelected(0);
     setShouldShow(false);
   };
-  //p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
   return (
     <div className="search-thing z-10">
-      <Modal className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2" isOpen = {shouldShow}>
+      <Modal
+        className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
+        isOpen={shouldShow}
+      >
         <div className="w-full flex items-center justify-between">
           <span className="text-2xl font-bold">Add Product</span>
           <div>
@@ -90,6 +100,7 @@ export const ProductSearch = () => {
               searchStore.setSearchQuery(ev.currentTarget.value);
             }}
             onKeyDown={onSelectionDown}
+            ref={inputRef}
           />
           <Button buttonColor="coal" onClick={() => addProduct()}>
             Add
