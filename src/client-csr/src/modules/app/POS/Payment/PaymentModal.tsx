@@ -32,7 +32,10 @@ export const PaymentModal = () => {
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
-      if (event.ctrlKey && event.key == "q") transactionStore.setShowPaymentModal(true);
+      if (event.ctrlKey && event.key == "q") {
+        console.log("bruh");
+        transactionStore.setShowPaymentModal(true);
+      }
       else if (event.key == "Escape") {
         transactionStore.setShowPaymentModal(false);
       }

@@ -7,7 +7,7 @@ import { Checkbox } from "../../components/Checkbox";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { z, ZodError } from "zod";
-import {useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 import Cookies from "js-cookie";
@@ -34,7 +34,9 @@ const authenticateResponseValidator = z.object({
   }),
 });
 
-export type authenticateResponse = z.infer<typeof authenticateResponseValidator>;
+export type authenticateResponse = z.infer<
+  typeof authenticateResponseValidator
+>;
 
 export const authenticateEmployee = async (
   employeeCredentials: employeeLogin
@@ -70,7 +72,9 @@ export const Form = () => {
         });
         toast.error(errorMessage);
       } else if (error instanceof AxiosError) {
-        toast.error(error.response?.data.ExceptionMessage);
+        error.response?.data
+          ? toast.error(error.response.data.ExceptionMessage)
+          : toast.error(error.message);
       }
     },
   });
