@@ -54,7 +54,6 @@ export const ProductSearch = () => {
   };
 
   const onSelectionDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(event.key);
     if (event.key == "ArrowUp") {
       if (searchStore.selectedResult == 0) return;
       searchStore.setSelected(searchStore.selectedResult - 1);
@@ -67,7 +66,6 @@ export const ProductSearch = () => {
     if (event.key == "Enter") {
       addProduct();
     }
-    console.log(searchStore.selectedResult);
   };
 
   const reset = () => {

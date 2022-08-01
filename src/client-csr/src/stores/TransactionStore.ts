@@ -71,7 +71,6 @@ interface ITransactionStore {
   //#endregion SusStuffs
 }
 
-console.log("new TransactionStore????");
 
 export const useTransactionStore = create<ITransactionStore>()((set) => ({
   transactionFinish: () => {
@@ -88,7 +87,6 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
         state.quantity = 0;
         state.discount = 0;
         state.assignedCustomer = null;
-        console.log("transaction finish store???");
       })
     );
   },
@@ -192,7 +190,6 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   setCustomer: (customer) =>
     set(
       produce((state) => {
-        console.log("set customer");
         state.assignedCustomer = customer;
       })
     ),

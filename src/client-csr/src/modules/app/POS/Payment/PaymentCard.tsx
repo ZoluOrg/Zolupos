@@ -11,7 +11,6 @@ export const PaymentCard: React.FC<{
   const transactionStore = useTransactionStore();
 
   const paymentTypeChange = (ev: React.FormEvent<HTMLSelectElement>) => {
-    console.log(parseInt(ev.currentTarget.value));
     transactionStore.setPaymentMethod(
       paymentIndex,
       parseInt(ev.currentTarget.value)

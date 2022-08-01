@@ -33,10 +33,8 @@ export const PaymentModal = () => {
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && event.key == "q") {
-        console.log("bruh");
         transactionStore.setShowPaymentModal(true);
-      }
-      else if (event.key == "Escape") {
+      } else if (event.key == "Escape") {
         transactionStore.setShowPaymentModal(false);
       }
     });
@@ -52,17 +50,22 @@ export const PaymentModal = () => {
   });
 
   const processTransaction = async () => {
-    let transaction: ITransaction = {
-      customerId: transactionStore.assignedCustomer?.customerId || null,
-      vat: transactionStore.vat,
-      total: transactionStore.total,
-      subTotal: transactionStore.subTotal,
-      discount: transactionStore.discount,
-      orderedProducts: transactionStore.orders,
-      payments: transactionStore.payments,
-    };
-    await mutateAsync(transaction).then(() => console.log("Transaction Added"));
-    transactionStore.transactionFinish();
+    if (transactionStore.overAllPayment < transactionStore.total)
+      toast.error("balance the payment");
+    else {
+      console.log(transactionStore.overAllPayment < transactionStore.total);
+      let transaction: ITransaction = {
+        customerId: transactionStore.assignedCustomer?.customerId || null,
+        vat: transactionStore.vat,
+        total: transactionStore.total,
+        subTotal: transactionStore.subTotal,
+        discount: transactionStore.discount,
+        orderedProducts: transactionStore.orders,
+        payments: transactionStore.payments,
+      };
+      await mutateAsync(transaction);
+      transactionStore.transactionFinish();
+    }
   };
 
   return (
