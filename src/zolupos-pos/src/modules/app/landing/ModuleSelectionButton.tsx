@@ -23,7 +23,7 @@ export const ModuleSelectionButton: FC<ModuleSelectionButtonProps> = ({
       onClick={() => navigate(actualHref)}
     >
       <div
-        className={`module-logo p-5 rounded-xl bg-coal-1 text-${buttonTailColor}`}
+        className={`module-logo p-5 rounded-xl bg-coal-1 text-${buttonTailColor} hover:shadow transition`}
       >
         {icon}
       </div>

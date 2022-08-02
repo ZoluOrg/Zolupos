@@ -3,6 +3,7 @@ import {
   Barcode,
   Cardholder,
   Person,
+  Receipt,
   Users,
   UsersThree,
 } from "phosphor-react";
@@ -26,20 +27,8 @@ export const ModuleSection = () => {
         />
 
         <ModuleSelectionButton
-          icon={<Cardholder size={60} weight="bold" />}
-          label="Invoice"
-          buttonTailColor="mallow-1"
-        />
-
-        <ModuleSelectionButton
-          icon={<Person size={60} weight="bold" />}
-          label="Customers"
-          buttonTailColor="mallow-1"
-        />
-
-        <ModuleSelectionButton
-          icon={<UsersThree size={60} weight="bold" />}
-          label="Employees"
+          icon={<Receipt size={60} weight="bold" />}
+          label="Reports"
           buttonTailColor="mallow-1"
         />
       </div>

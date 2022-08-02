@@ -16,10 +16,10 @@ module.exports = {
           3: "#393939",
         },
         mallow: {
-          1: "#f8f9fa",
-          2: "#e9ecef",
-          3: "#dee2e6",
-          4: "#ced4da",
+          1: "#F0F0F0",
+          2: "#E6E6E6",
+          3: "#DBDBDB",
+          4: "#D1D1D1",
         },
       },
       fontFamily: {
