@@ -45,7 +45,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
       <div className="menu">
         <Button
           buttonColor="coal"
-          buttonSpacing="xs"
+          buttonSize="small"
           {...props}
           onClick={() => setShowMenu(!showMenu)}
         >

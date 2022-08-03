@@ -11,7 +11,7 @@ export const Navbar = () => {
   const { data } = useEmployeeCreds();
 
   return (
-    <div className="bg-coal-1 pt-[14px] pb-[14px] px-6 w-full text-mallow-1 flex justify-between">
+    <div className="bg-coal-1 pt-[14px] pb-[14px] px-6 w-full text-mallow-1 flex justify-between max-h-[60px]">
       <div className="flex items-center gap-6">
         <div className="logo">
           <Zolulogo light />
@@ -19,14 +19,14 @@ export const Navbar = () => {
         <div className="flex gap-[14px]">
           <Button
             buttonColor="coal"
-            buttonSpacing="xs"
+            buttonSize="small"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft size={21} weight="bold" />
           </Button>
           <Button
             buttonColor="coal"
-            buttonSpacing="xs"
+            buttonSize="small"
             onClick={() => navigate(1)}
           >
             <ArrowRight size={21} weight="bold" />

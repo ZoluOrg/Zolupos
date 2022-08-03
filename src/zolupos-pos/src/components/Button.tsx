@@ -2,26 +2,27 @@ import React, { ButtonHTMLAttributes, FC } from "react";
 import { CustomSpinner } from "./CustomSpinner";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonColor?: keyof typeof backgroundSelection;
-  buttonSpacing?: keyof typeof spacingSelection;
+  buttonColor?: keyof typeof buttonColorSelection;
+  buttonSize?: keyof typeof buttonSizeSelection;
   isLoading?: boolean;
 }
 
-const backgroundSelection = {
+const buttonColorSelection = {
   accent: "bg-accent-1 hover:bg-accent-2 text-mallow-1",
   coal: "bg-coal-1 hover:bg-coal-2 text-mallow-1",
-  mallow: "border border-mallow-3 bg-mallow-1 hover:bg-mallow-2 text-coal-1",
+  mallow: "bg-mallow-2 hover:bg-mallow-3 text-black text-opacity-80",
 };
 
-const spacingSelection = {
-  xs: "py-1 px-1",
-  normal: "py-2 px-4",
+const buttonSizeSelection = {
+  small: "py-2 px-[8px] text-sm",
+  normal: "py-2 px-[18px] text-base",
+  large: "py-3 px-[24px] text-lg",
 };
 
 export const Button: FC<Props> = ({
   children,
   buttonColor: backgroundColor = "accent",
-  buttonSpacing = "normal",
+  buttonSize: buttonSpacing = "normal",
   isLoading = false,
   className,
   disabled,
@@ -29,7 +30,11 @@ export const Button: FC<Props> = ({
 }) => {
   return (
     <button
-      className={`${backgroundSelection[backgroundColor]} ${spacingSelection[buttonSpacing]} ${disabled || isLoading ? "cursor-not-allowed" : ""} rounded-lg font-bold transition flex items-center justify-center ${className}`}
+      className={`${buttonColorSelection[backgroundColor]} ${
+        buttonSizeSelection[buttonSpacing]
+      } ${
+        disabled || isLoading ? "cursor-not-allowed" : ""
+      } rounded-lg font-bold transition flex items-center justify-center ${className}`}
       {...props}
     >
       <span className={isLoading ? "opacity-0" : ""}>{children}</span>
