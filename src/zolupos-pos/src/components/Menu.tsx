@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { Button } from "./Button";
 import { AnimatePresence, motion } from "framer-motion";
-import { CaretDown } from "phosphor-react";
 
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -74,7 +73,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
 
 export const MenuItems: FC<MenuItemProps> = ({ children, Icon }) => {
   return (
-    <li className="m-1 px-3 py-1.5 pr-5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold">
+    <li className="m-1 px-3 py-2 pr-5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold">
       {children}
     </li>
   );

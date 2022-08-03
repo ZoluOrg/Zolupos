@@ -77,7 +77,7 @@ export const ProductSearch = () => {
   return (
     <div className="search-thing z-10">
       <Modal
-        className="p-[25px] w-2/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
+        className="p-[25px] w-2/4 bg-mallow-1 shadow rounded-lg z-50 flex flex-col gap-2"
         isOpen={shouldShow}
       >
         <div className="w-full flex items-center justify-between">

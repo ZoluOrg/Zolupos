@@ -15,7 +15,7 @@ export const Modal: React.FC<{
           exit={{ backdropFilter: "blur(0px)" }}
         >
           <motion.div
-            className={`bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 ${className}`}
+            className={`bg-mallow-1 shadow border border-mallow-5 rounded-lg z-50 ${className}`}
             initial={{ y: -60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -60, opacity: 0 }}

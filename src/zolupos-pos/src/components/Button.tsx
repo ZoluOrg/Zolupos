@@ -34,7 +34,7 @@ export const Button: FC<Props> = ({
         buttonSizeSelection[buttonSpacing]
       } ${
         disabled || isLoading ? "cursor-not-allowed" : ""
-      } rounded-lg font-bold transition flex items-center justify-center ${className}`}
+      } rounded-lg font-bold transition flex items-center justify-center shadow ${className}`}
       {...props}
     >
       <span className={isLoading ? "opacity-0" : ""}>{children}</span>
