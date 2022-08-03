@@ -6,9 +6,11 @@ module.exports = {
     extend: {
       colors: {
         accent: {
-          1: "#f71735",
-          2: "#de1530",
-          3: "#c6122a",
+          1: "#EB1632",
+          2: "#DE1530",
+          3: "#D2142D",
+          4: "#C6122A",
+          5: "#B91128"
         },
         coal: {
           1: "#000000",
@@ -16,10 +18,11 @@ module.exports = {
           3: "#393939",
         },
         mallow: {
-          1: "#F0F0F0",
-          2: "#E6E6E6",
-          3: "#DBDBDB",
-          4: "#D1D1D1",
+          1: "#FFFFFF",
+          2: "#F2F2F2",
+          3: "#D9D9D9",
+          4: "#BFBFBF",
+          5: "#A6A6A6",
         },
       },
       fontFamily: {
