@@ -15,7 +15,7 @@ const buttonColorSelection = {
 
 const buttonSizeSeletion = {
   small: "py-2 px-[8px] text-sm",
-  normal: "py-2 px-[18px] text-bases",
+  normal: "py-2 px-[18px] text-base",
   large: "py-3 px-[24px] text-lg",
 };
 
