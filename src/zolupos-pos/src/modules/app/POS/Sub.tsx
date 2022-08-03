@@ -22,7 +22,7 @@ export const Sub = () => {
     else transaction.setShowPaymentModal(true);
   };
   return (
-    <div className="rounded-lg bg-mallow-2 p-5 flex-grow flex flex-col justify-between bg-opacity-75 border border-mallow-2 shadow">
+    <div className="rounded-lg p-5 flex-grow flex flex-col justify-between bg-mallow-2 bg-opacity-20 border border-mallow-5 shadow">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <div className="titles gap-2 flex flex-col">

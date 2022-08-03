@@ -4,7 +4,7 @@ import { useTransactionStore } from "../../../stores/TransactionStore";
 export const OrderList = () => {
   const transactionStore = useTransactionStore((state) => state.orders);
   return (
-    <div className="bg-mallow-1 border-2 border-mallow-3 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
+    <div className="bg-mallow-2 bg-opacity-20 border border-mallow-5 shadow rounded-lg xl:w-9/12 lg:w-3/5 sm:w-6/12 flex flex-col overflow-hidden h-full">
       {transactionStore.length == 0 ? (
         <div className="h-full flex justify-center items-center gap-10">
           <div className="flex flex-col items-center justify-center gap-2">
@@ -21,7 +21,7 @@ export const OrderList = () => {
       ) : (
         <div>
           <div>
-            <div className="bg-mallow-2 p-3 grid grid-cols-6 font-bold">
+            <div className="bg-mallow-2 border-b border-mallow-5 p-3 grid grid-cols-6 font-bold">
               <span>Quantity</span>
               <span>Item</span>
               <span>Unit Price</span>
