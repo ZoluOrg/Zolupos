@@ -6,7 +6,7 @@ import { useTransactionStore } from "../../../stores/TransactionStore";
 export const CustomerInfo = () => {
   const transactionStore = useTransactionStore();
   return (
-    <div className="rounded-lg p-2 px-4 w-full bg-mallow-2 bg-opacity-20 border border-mallow-5 shadow">
+    <div className="rounded-lg p-2 px-4 w-full bg-mallow-bg-1 border border-mallow-5 shadow">
       {transactionStore.assignedCustomer != null ? (
         <div className="flex justify-between items-center">
           <div className="flex gap-2 items-center">

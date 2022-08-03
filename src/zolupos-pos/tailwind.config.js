@@ -23,6 +23,13 @@ module.exports = {
           3: "#D9D9D9",
           4: "#BFBFBF",
           5: "#A6A6A6",
+          bg : {
+            1: "#fcfcfc",
+            2: "#e3e3e3",
+            3: "#cacaca",
+            4: "#b0b0b0",
+            5: "#979797"
+          }
         },
       },
       fontFamily: {

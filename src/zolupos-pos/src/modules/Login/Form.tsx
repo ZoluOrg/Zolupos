@@ -80,7 +80,7 @@ export const Form = () => {
   });
 
   return (
-    <div className="border-2 bg-mallow-2 bg-opacity-20 border-mallow-3 rounded-lg py-8 px-6 flex">
+    <div className="border-2 bg-mallow-bg-1 border-mallow-3 rounded-lg py-8 px-6 flex">
       <div className="h-full flex flex-col items-center justify-center">
         <div className="logo">
           <Zolulogo />
