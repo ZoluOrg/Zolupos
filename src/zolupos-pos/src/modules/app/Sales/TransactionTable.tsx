@@ -28,9 +28,9 @@ export const TransactionTable = () => {
 
   return (
     <>
-      <div className="bg-mallow-bg-1 border border-mallow-5 rounded-lg h-[calc(100%-20px-60px)] ">
+      <div className="bg-mallow-bg-1 border border-mallow-5 rounded-lg h-[calc(100%-12px-60px)] shadow">
         <div className="h-full flex flex-col">
-          <div className="bg-mallow-2 rounded-t-lg border-b border-b-mallow-5 p-3 grid grid-cols-5 h-[50px]">
+          <div className="bg-mallow-2 rounded-t-lg border-b border-b-mallow-5 p-5 grid grid-cols-5 font-bold">
             <span>Transaction Id</span>
             <span>Ref GUID</span>
             <span>Total</span>

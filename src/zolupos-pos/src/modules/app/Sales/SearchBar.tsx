@@ -5,6 +5,7 @@ import { useSaleStore } from "../../../stores/SalesStore";
 
 export const SearchBar = () => {
   const saleStore = useSaleStore();
+  const [searchVal, setSearchVal] = React.useState<string>("");
   const [transition, startTransition] = useTransition();
   useEffect(() => {
     const stale = [...saleStore.transactions];
@@ -18,14 +19,20 @@ export const SearchBar = () => {
     });
   }, [saleStore.searchQuery]);
   return (
-    <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between">
+    <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between shadow">
       <div className="flex gap-2 items-center">
         <Input
-          placeholder="Transaction ID"
-          value={saleStore.searchQuery}
-          onChange={(ev) => saleStore.setSearchQuery(ev.currentTarget.value)}
+          placeholder="Transaction ID or Reference Id"
+          className="w-96"
+          value={searchVal}
+          onChange={(ev) => setSearchVal(ev.currentTarget.value)}
+          onKeyDown={(ev) =>
+            ev.key == "Enter" && saleStore.setSearchQuery(searchVal)
+          }
         />
-        <Button>Search</Button>
+        <Button onClick={() => saleStore.setSearchQuery(searchVal)}>
+          Search
+        </Button>
       </div>
       <div className="flex items-center gap-2">
         <span>Entries</span>
