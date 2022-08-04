@@ -34,7 +34,7 @@ export const AssignCustomer = () => {
   );
   return (
     <div className="assign-customer-modal">
-      <Modal className="p-[25px] w-1/4 bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2" isOpen={transactionStore.shouldShowCustomerModal}>
+      <Modal className="p-[25px] w-1/4 bg-mallow-1 rounded-lg z-50 flex flex-col gap-2" isOpen={transactionStore.shouldShowCustomerModal}>
         <div className="w-full flex items-center justify-between">
           <span className="text-2xl font-bold">Assign Customer</span>
           <div>

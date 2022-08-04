@@ -72,7 +72,7 @@ export const PaymentModal = () => {
     <div className="payment-modal">
       <Modal
         isOpen={transactionStore.showPaymentModal}
-        className=" p-[25px] w-[60%] bg-mallow-1 shadow border-2 border-mallow-3 rounded-lg z-50 flex flex-col gap-2"
+        className=" p-[25px] w-[60%] bg-mallow-1 rounded-lg z-50 flex flex-col gap-2"
       >
         <div className="w-full flex items-center justify-between">
           <span className="text-2xl font-bold">Process Transaction</span>
@@ -105,7 +105,7 @@ export const PaymentModal = () => {
             </div>
           </Button>
         </div>
-        <div className="flex gap-2 w-auto justify-evenl;y">
+        <div className="flex gap-2 w-auto">
           <div className="flex flex-col gap-2">
             <span>Total: {transactionStore.total}</span>
             <span>Balance: {transactionStore.balance}</span>
@@ -115,7 +115,7 @@ export const PaymentModal = () => {
             <span>Change: {transactionStore.change}</span>
           </div>
         </div>
-        <div className="grid grid-cols-3 w-full p-3 border rounded-t-lg">
+        <div className="grid grid-cols-3 w-full p-3 bg-mallow-bg-1 border border-mallow-5 rounded-t-lg">
           <span>Payment Type</span>
           <span>Amount</span>
           <span className="text-center">Remove</span>
