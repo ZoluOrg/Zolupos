@@ -11,6 +11,7 @@ import { POSComponent } from "./modules/app/POS/POSComponent";
 import { LoginComponent } from "./modules/Login/LoginComponent";
 import { TitleProvider } from "./context/TitleContext";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { SalesComponent } from "./modules/app/Sales/SalesComponent";
 
 const client = new QueryClient();
 
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/" element={<AppContainer />}>
                   <Route path="landing" element={<LandingComponent />} />
                   <Route path="POS" element={<POSComponent />} />
+                  <Route path="sales" element={<SalesComponent />} />
                 </Route>
                 <Route path="/login" element={<LoginComponent />} />
               </Routes>
