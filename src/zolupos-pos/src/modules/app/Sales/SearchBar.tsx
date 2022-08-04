@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useTransition } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { useSaleStore } from "../../../stores/SalesStore";
 
 export const SearchBar = () => {
+  const saleStore = useSaleStore();
+  const [transition, startTransition] = useTransition();
+  useEffect(() => {
+    const stale = [...saleStore.transactions];
+    startTransition(() => {
+      let toSave = stale.filter(
+        (tr) =>
+          tr.transactionId.toString().includes(saleStore.searchQuery) ||
+          tr.reference.includes(saleStore.searchQuery)
+      );
+      saleStore.setSearchResult(toSave);
+    });
+  }, [saleStore.searchQuery]);
   return (
     <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between">
       <div className="flex gap-2 items-center">
-        <Input placeholder="Transaction ID" />
+        <Input
+          placeholder="Transaction ID"
+          value={saleStore.searchQuery}
+          onChange={(ev) => saleStore.setSearchQuery(ev.currentTarget.value)}
+        />
         <Button>Search</Button>
       </div>
       <div className="flex items-center gap-2">
