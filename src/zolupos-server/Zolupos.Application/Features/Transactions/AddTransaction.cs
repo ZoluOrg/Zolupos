@@ -48,6 +48,7 @@ namespace Zolupos.Application.Features.Transactions
         public async Task<ResultWrapper<int?>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {
             var mappedTransaction = _mapper.Map<Transaction>(request);
+            mappedTransaction.Reference = Guid.NewGuid();
             mappedTransaction.TransactedAt = DateTime.UtcNow;
             await _context.Transactions.AddAsync(mappedTransaction);
             await _context.SaveChangesAsync();

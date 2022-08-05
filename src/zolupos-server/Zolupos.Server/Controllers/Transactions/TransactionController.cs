@@ -21,6 +21,13 @@ namespace Zolupos.Server.Controllers.Transactions
             return Ok(transaction);
         }
 
+        [HttpGet("paginated")]
+        public async Task<ActionResult> GetTransactionsPaginated([FromQuery(Name = "size")] int size, [FromQuery(Name = "startingId")] int startingId)
+        {
+            var transactions = await Mediator.Send(new FetchTransactionsPaginatedQuery(startingId, size));
+            return Ok(transactions);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddTransaction(AddTransactionCommand command)
         {

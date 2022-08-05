@@ -10,6 +10,7 @@ namespace Zolupos.Application.Common.DTO
     public class TransactionDTO
     {
         public int TransactionId { get; set; }
+        public Guid Reference { get; set; }
         public int? CustomerId { get; set; }
         public DateTime TransactedAt { get; set; }
         public int Discount { get; set; }
