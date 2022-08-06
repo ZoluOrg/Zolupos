@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Zolupos.Application.Common.Wrapper
 {
-    public class Pagination<TData>
+    public class Pagination<T>
     {
         public int PageSize { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
         public int TotalItems { get; set; }
-        public TData Data;
-        public Pagination(TData data, int pageSize, int currentPage, int totalItems)
+        public T Data { get; set; }
+        public Pagination(T data, int pageSize, int currentPage, int totalItems)
         {
             Data = data;
             PageSize = pageSize;
             CurrentPage = currentPage;
             TotalItems = totalItems;
-            TotalPages = (int)Math.Ceiling((double)totalItems / (double)pageSize);
+            TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
         }
     }
 
@@ -30,7 +30,7 @@ namespace Zolupos.Application.Common.Wrapper
 
         public PaginationFilter()
         {
-            CurrentPage= 1;
+            CurrentPage = 1;
             PageSize = 10;
         }
 

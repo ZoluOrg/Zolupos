@@ -12,13 +12,8 @@ using Zolupos.Application.Common.Wrapper;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchTransactionsPaginatedQuery(int page, int length) : IRequest<FetchTransactionPaginatedResponse>;
-    public class FetchTransactionPaginatedResponse
-    {
-        public Pagination<ICollection<TransactionDTO>> PaginationInfo { get; set; }
-        public ICollection<TransactionDTO> Data { get; set; }
-    }
-    public class FetchTransactionPaginatedHandler : IRequestHandler<FetchTransactionsPaginatedQuery, FetchTransactionPaginatedResponse>
+    public record FetchTransactionsPaginatedQuery(int page, int length) : IRequest<Pagination<ICollection<TransactionDTO>>>;
+    public class FetchTransactionPaginatedHandler : IRequestHandler<FetchTransactionsPaginatedQuery, Pagination<ICollection<TransactionDTO>>>
     {
         private IApplicationDbContext _context;
         private IMapper _mapper;
@@ -28,7 +23,7 @@ namespace Zolupos.Application.Features.Transactions
             _context = context;
             _mapper = mapper;
         }
-        public async Task<FetchTransactionPaginatedResponse> Handle(FetchTransactionsPaginatedQuery request, CancellationToken cancellationToken)
+        public async Task<Pagination<ICollection<TransactionDTO>>> Handle(FetchTransactionsPaginatedQuery request, CancellationToken cancellationToken)
         {
             var pagingValidator = new PaginationFilter(request.length, request.page);
             var results = await _context.Transactions.Include(tr => tr.Payments).Include(tr => tr.OrderedProducts)
@@ -36,13 +31,7 @@ namespace Zolupos.Application.Features.Transactions
             var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(results);
             var totalItems = await _context.Transactions.CountAsync();
             var response = new Pagination<ICollection<TransactionDTO>>(mappedResult, request.length, request.page, totalItems);
-            Console.WriteLine("bruh");
-            var actReponse = new FetchTransactionPaginatedResponse
-            {
-                PaginationInfo = response,
-                Data = mappedResult,
-            };
-            return actReponse;
+            return response;
         }
     }
 }
