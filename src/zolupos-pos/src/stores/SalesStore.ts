@@ -1,7 +1,8 @@
 import produce from "immer";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { IPaginationInfo } from "../interface/IPaginationInfo";
+import { mountStoreDevtool } from "simple-zustand-devtools";
+import { IPagination } from "../interface/IPagination";
 import { ITransaction } from "../interface/ITransaction";
 
 interface ISaleStore {
@@ -17,8 +18,6 @@ interface ISaleStore {
   searchQuery: string;
   setSearchQuery: (searchQuery: string) => void;
 
-  salePaginationInfo: IPaginationInfo | null;
-  setSalePaginationInfo: (salePaginationInfo: IPaginationInfo) => void;
 
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
@@ -27,7 +26,7 @@ interface ISaleStore {
   setTotalPages: (totalPages: number) => void;
 
   isLoading: boolean;
-  setIsLoading: (isFetching: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
 
   selectedPage: number;
   setSelectedPage: (selectedPage: number) => void;
@@ -64,13 +63,6 @@ export const useSaleStore = create<ISaleStore>()(
         })
       ),
 
-    salePaginationInfo: null,
-    setSalePaginationInfo: (salePaginationInfo: IPaginationInfo) =>
-      set(
-        produce((state) => {
-          state.salePaginationInfo = salePaginationInfo;
-        })
-      ),
     currentPage: 1,
     setCurrentPage: (currentPage: number) =>
       set(
@@ -85,11 +77,11 @@ export const useSaleStore = create<ISaleStore>()(
           state.totalPages = totalPages;
         })
       ),
-    isLoading: false,
-    setIsLoading: (isFetching: boolean) =>
+    isLoading: true,
+    setIsLoading: (isLoading: boolean) =>
       set(
         produce((state) => {
-          state.isFetching = isFetching;
+          state.isLoading = isLoading;
         })
       ),
     selectedPage: 0,
@@ -102,3 +94,6 @@ export const useSaleStore = create<ISaleStore>()(
     ),
   }))
 );
+
+
+mountStoreDevtool("Store", useSaleStore);

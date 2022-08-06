@@ -3,6 +3,8 @@ import ReactPaginate from "react-paginate";
 import { useQuery } from "react-query";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { IPagination } from "../../../interface/IPagination";
+import { ITransaction } from "../../../interface/ITransaction";
 import { getTransactionsPaginated } from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
 
@@ -30,10 +32,11 @@ export const SearchBar = () => {
     () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit),
     {
       refetchOnWindowFocus: false,
-      onSuccess: (data: any) => {
+      onSuccess: (data: IPagination<Array<ITransaction>>) => {
+        console.log("Get");
         console.log(data);
         saleStore.setSearchResult(data.data);
-        saleStore.setTotalPages(data.paginationInfo.totalPages);
+        saleStore.setTotalPages(data.totalPages);
       },
     }
   );
@@ -44,12 +47,7 @@ export const SearchBar = () => {
 
   useEffect(() => {
     refetch();
-  }, [saleStore.currentPage]);
-
-  useEffect(() => {
-    saleStore.setSelectedPage(0);
-    saleStore.setCurrentPage(1);
-  }, [saleStore.limit]);
+  }, [saleStore.currentPage, saleStore.limit]);
 
   return (
     <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between shadow">
@@ -73,7 +71,9 @@ export const SearchBar = () => {
           <select
             className="border border-mallow-5 rounded-lg"
             onChange={(e) => {
+              saleStore.setCurrentPage(1);
               saleStore.setLimit(parseInt(e.currentTarget.value));
+              saleStore.setSelectedPage(0);
             }}
           >
             <option>10</option>
@@ -92,7 +92,9 @@ export const SearchBar = () => {
             }}
             pageRangeDisplayed={5}
             pageCount={saleStore.totalPages}
-            forcePage={saleStore.selectedPage}
+            forcePage={
+              saleStore.selectedPage > 0 ? saleStore.selectedPage : 0
+            }
             previousLabel="<- back"
             className="flex border-mallow-5"
             pageClassName="p-1 border px-2"

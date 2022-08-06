@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IPagination } from "../interface/IPagination";
 import { ITransaction } from "../interface/ITransaction";
 import { getTokenAsBearer } from "../utils/TokenUtils";
 import ResultWrapper from "../wrappers/ResultWrapper";
@@ -20,7 +21,7 @@ export const getTransactionById = async (id: number) => {
 }
 
 export const getTransactionsPaginated = async (page: number, length: number) => {
-  let transactions = await axios.get<ResultWrapper<Array<ITransaction>>>(
+  let transactions = await axios.get<IPagination<Array<ITransaction>>>(
     `https://localhost:7073/api/Transaction/paginated?page=${page}&length=${length}`,
     { headers: getTokenAsBearer() }
   );
