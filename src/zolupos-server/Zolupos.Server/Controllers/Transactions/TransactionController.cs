@@ -4,7 +4,6 @@ using Zolupos.Application.Features.Transactions;
 
 namespace Zolupos.Server.Controllers.Transactions
 {
-    [Authorize]
     public class TransactionController : ApiControllerBase
     {
         [HttpGet]
@@ -22,9 +21,9 @@ namespace Zolupos.Server.Controllers.Transactions
         }
 
         [HttpGet("paginated")]
-        public async Task<ActionResult> GetTransactionsPaginated([FromQuery(Name = "size")] int size, [FromQuery(Name = "startingId")] int startingId)
+        public async Task<ActionResult> GetTransactionsPaginated([FromQuery(Name = "page")] int page, [FromQuery(Name = "length")] int length)
         {
-            var transactions = await Mediator.Send(new FetchTransactionsPaginatedQuery(startingId, size));
+            var transactions = await Mediator.Send(new FetchTransactionsPaginatedQuery(page, length));
             return Ok(transactions);
         }
 

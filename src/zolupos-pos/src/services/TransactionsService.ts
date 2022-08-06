@@ -19,6 +19,14 @@ export const getTransactionById = async (id: number) => {
   return transaction.data.receive;
 }
 
+export const getTransactionsPaginated = async (lastId: number, length: number) => {
+  let transactions = await axios.get<ResultWrapper<Array<ITransaction>>>(
+    `https://localhost:7073/api/Transaction/paginated?size${length}&startingId=${lastId}`,
+    { headers: getTokenAsBearer() }
+  );
+  return transactions.data.receive;
+}
+
 export const addNewTransaction = async (transaction: ITransaction) => {
   let response = await axios.post<ResultWrapper<number>>(
     "https://localhost:7073/api/Transaction/",
