@@ -27,6 +27,13 @@ namespace Zolupos.Server.Controllers.Transactions
             return Ok(transactions);
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult> SearchTransactions([FromQuery(Name = "page")] int page, [FromQuery(Name = "length")] int length, [FromQuery(Name ="query")] string query)
+        {
+            var transactions = await Mediator.Send(new SearchTransactionQuery(page, length, query));
+            return Ok(transactions);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddTransaction(AddTransactionCommand command)
         {
