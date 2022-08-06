@@ -28,6 +28,14 @@ export const getTransactionsPaginated = async (page: number, length: number) => 
   return transactions.data;
 }
 
+export const searchTransactions = async (page: number, length: number, query: string) => {
+  let transactions = await axios.get<IPagination<Array<ITransaction>>>(
+    `https://localhost:7073/api/Transaction/search?page=${page}&length=${length}&query=${query}`,
+    { headers: getTokenAsBearer() }
+  );
+  return transactions.data;
+}
+
 export const addNewTransaction = async (transaction: ITransaction) => {
   let response = await axios.post<ResultWrapper<number>>(
     "https://localhost:7073/api/Transaction/",

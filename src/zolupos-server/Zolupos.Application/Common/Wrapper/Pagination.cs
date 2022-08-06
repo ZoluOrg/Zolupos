@@ -19,7 +19,7 @@ namespace Zolupos.Application.Common.Wrapper
             PageSize = pageSize;
             CurrentPage = currentPage;
             TotalItems = totalItems;
-            TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            TotalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
         }
     }
 

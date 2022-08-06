@@ -5,7 +5,10 @@ import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { IPagination } from "../../../interface/IPagination";
 import { ITransaction } from "../../../interface/ITransaction";
-import { getTransactionsPaginated } from "../../../services/TransactionsService";
+import {
+  getTransactionsPaginated,
+  searchTransactions,
+} from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
 
 export const SearchBar = () => {
@@ -13,26 +16,32 @@ export const SearchBar = () => {
   const [searchVal, setSearchVal] = React.useState<string>("");
   const [transition, startTransition] = useTransition();
 
-  useEffect(() => {
-    const stale = [...saleStore.transactions];
-    startTransition(() => {
-      let toSave = stale.filter(
-        (tr) =>
-          tr.transactionId.toString().includes(saleStore.searchQuery) ||
-          tr.reference.includes(saleStore.searchQuery)
-      );
-      saleStore.setSearchResult(toSave);
-    });
-  }, [saleStore.searchQuery]);
+  const search = useQuery(
+    ["search-transaction"],
+    () => searchTransactions(saleStore.currentPage, saleStore.limit, searchVal),
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+      onSuccess: (data: IPagination<Array<ITransaction>>) => {
+        saleStore.setSearchResult(data.data);
+        saleStore.setTotalPages(data.totalPages);
+      },
+    }
+  );
 
-  const { data, isLoading, error, refetch, isRefetching } = useQuery(
+  const {
+    data,
+    isLoading,
+    error,
+    refetch: getAll,
+    isRefetching,
+  } = useQuery(
     ["all-transactions"],
     () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit),
     {
       refetchOnWindowFocus: false,
       onSuccess: (data: IPagination<Array<ITransaction>>) => {
         console.log("Get");
-        console.log(data);
         saleStore.setSearchResult(data.data);
         saleStore.setTransactions(data.data);
         saleStore.setTotalPages(data.totalPages);
@@ -45,8 +54,16 @@ export const SearchBar = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    refetch();
+    if (searchVal == "") {
+      getAll();
+    } else {
+      search.refetch();
+    }
   }, [saleStore.currentPage, saleStore.limit]);
+
+  useEffect(() => {
+    if (searchVal == "") getAll();
+  }, [searchVal]);
 
   return (
     <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between shadow">
@@ -56,9 +73,7 @@ export const SearchBar = () => {
           className="w-96"
           value={searchVal}
           onChange={(ev) => setSearchVal(ev.currentTarget.value)}
-          onKeyDown={(ev) =>
-            ev.key == "Enter" && saleStore.setSearchQuery(searchVal)
-          }
+          onKeyDown={(ev) => ev.key == "Enter" && search.refetch()}
         />
         <Button onClick={() => saleStore.setSearchQuery(searchVal)}>
           Search
@@ -91,9 +106,7 @@ export const SearchBar = () => {
             }}
             pageRangeDisplayed={5}
             pageCount={saleStore.totalPages}
-            forcePage={
-              saleStore.selectedPage > 0 ? saleStore.selectedPage : 0
-            }
+            forcePage={saleStore.selectedPage > 0 ? saleStore.selectedPage : 0}
             previousLabel="<- back"
             className="flex border-mallow-5"
             pageClassName="p-1 border px-2"
