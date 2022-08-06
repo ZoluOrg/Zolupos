@@ -6,24 +6,15 @@ import { useTable } from "react-table";
 import { Button } from "../../../components/Button";
 import { CustomSpinner } from "../../../components/CustomSpinner";
 import { ITransaction } from "../../../interface/ITransaction";
-import { getAllTransactions } from "../../../services/TransactionsService";
+import {
+  getAllTransactions,
+  getTransactionsPaginated,
+} from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
 import { TransactionCard } from "./TransactionCard";
 
 export const TransactionTable = () => {
-  const [limit, setLimit] = React.useState<number>(20);
-  const { data, isLoading, error, refetch, isRefetching } = useQuery(
-    ["all-transactions"],
-    getAllTransactions,
-    {
-      refetchOnWindowFocus: false,
-      onSuccess: (data: Array<ITransaction>) => {
-        saleStore.setTransactions(data);
-        saleStore.setSearchResult(data);
-      },
-    }
-  );
-
+  const [limit, setLimit] = React.useState<number>(10);
   const saleStore = useSaleStore();
 
   return (
@@ -38,25 +29,14 @@ export const TransactionTable = () => {
             <span className="text-center">View</span>
           </div>
           <div className="h-full overflow-y-auto rounded-b-lg">
-            {isLoading ? (
+            {saleStore.isLoading ? (
               <div className="h-full flex flex-col items-center justify-center gap-2">
                 <CustomSpinner dark />
                 <span className="font-bold text-2xl">Loading</span>
               </div>
-            ) : error ? (
-              <div className=" flex flex-col gap-2 h-full items-center justify-center">
-                <span className="text-xl font-bold">
-                  {error instanceof AxiosError ? (
-                    (error as AxiosError).message
-                  ) : (
-                    <p>An unkown error occured</p>
-                  )}
-                </span>
-                <Button onClick={() => refetch()}>Refetch</Button>
-              </div>
             ) : (
-              saleStore.searchResult?.map((tr,idx) => (
-                <TransactionCard transaction={tr} key={idx}/>
+              saleStore.searchResult?.map((tr, idx) => (
+                <TransactionCard transaction={tr} key={idx} />
               ))
             )}
           </div>

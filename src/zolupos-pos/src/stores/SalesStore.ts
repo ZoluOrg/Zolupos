@@ -1,6 +1,7 @@
 import produce from "immer";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import { IPaginationInfo } from "../interface/IPaginationInfo";
 import { ITransaction } from "../interface/ITransaction";
 
 interface ISaleStore {
@@ -15,6 +16,18 @@ interface ISaleStore {
 
   searchQuery: string;
   setSearchQuery: (searchQuery: string) => void;
+
+  salePaginationInfo: IPaginationInfo | null;
+  setSalePaginationInfo: (salePaginationInfo: IPaginationInfo) => void;
+
+  currentPage: number;
+  setCurrentPage: (currentPage: number) => void;
+
+  totalPages: number;
+  setTotalPages: (totalPages: number) => void;
+
+  isLoading: boolean;
+  setIsLoading: (isFetching: boolean) => void;
 }
 
 export const useSaleStore = create<ISaleStore>()(
@@ -45,6 +58,35 @@ export const useSaleStore = create<ISaleStore>()(
       set(
         produce((state) => {
           state.searchQuery = searchQuery;
+        })
+      ),
+
+    salePaginationInfo: null,
+    setSalePaginationInfo: (salePaginationInfo: IPaginationInfo) =>
+      set(
+        produce((state) => {
+          state.salePaginationInfo = salePaginationInfo;
+        })
+      ),
+    currentPage: 1,
+    setCurrentPage: (currentPage: number) =>
+      set(
+        produce((state) => {
+          state.currentPage = currentPage;
+        })
+      ),
+    totalPages: 1,
+    setTotalPages: (totalPages: number) =>
+      set(
+        produce((state) => {
+          state.totalPages = totalPages;
+        })
+      ),
+    isLoading: false,
+    setIsLoading: (isFetching: boolean) =>
+      set(
+        produce((state) => {
+          state.isFetching = isFetching;
         })
       ),
   }))

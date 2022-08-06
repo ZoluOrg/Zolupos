@@ -19,12 +19,12 @@ export const getTransactionById = async (id: number) => {
   return transaction.data.receive;
 }
 
-export const getTransactionsPaginated = async (lastId: number, length: number) => {
+export const getTransactionsPaginated = async (page: number, length: number) => {
   let transactions = await axios.get<ResultWrapper<Array<ITransaction>>>(
-    `https://localhost:7073/api/Transaction/paginated?size${length}&startingId=${lastId}`,
+    `https://localhost:7073/api/Transaction/paginated?page=${page}&length=${length}`,
     { headers: getTokenAsBearer() }
   );
-  return transactions.data.receive;
+  return transactions.data;
 }
 
 export const addNewTransaction = async (transaction: ITransaction) => {

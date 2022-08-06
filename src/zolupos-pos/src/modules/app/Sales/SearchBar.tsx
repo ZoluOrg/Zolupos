@@ -1,7 +1,9 @@
 import React, { useEffect, useTransition } from "react";
 import ReactPaginate from "react-paginate";
+import { useQuery } from "react-query";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { getTransactionsPaginated } from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
 
 export const SearchBar = () => {
@@ -22,7 +24,28 @@ export const SearchBar = () => {
       saleStore.setSearchResult(toSave);
     });
   }, [saleStore.searchQuery]);
-  
+
+  const { data, isLoading, error, refetch, isRefetching } = useQuery(
+    ["all-transactions"],
+    () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data: any) => {
+        console.log(data);
+        saleStore.setSearchResult(data.data);
+        saleStore.setTotalPages(data.paginationInfo.totalPages);
+      },
+    }
+  );
+
+  useEffect(() => {
+    saleStore.setIsLoading(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    refetch();
+  }, [saleStore.currentPage, saleStore.limit]);
+
   return (
     <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between shadow">
       <div className="flex gap-2 items-center">
@@ -42,7 +65,7 @@ export const SearchBar = () => {
       <div className="flex gap-3 items-center">
         <div className="flex items-center gap-2">
           <span>Entries</span>
-          <select className="border border-mallow-5 rounded-lg">
+          <select className="border border-mallow-5 rounded-lg" onChange={(e) => saleStore.setLimit(parseInt(e.currentTarget.value))}>
             <option>10</option>
             <option>20</option>
             <option>50</option>
@@ -53,9 +76,11 @@ export const SearchBar = () => {
           <ReactPaginate
             breakLabel="..."
             nextLabel="next >"
-            onPageChange={(e) => alert(e.selected)}
+            onPageChange={(e) => {
+              saleStore.setCurrentPage(e.selected + 1);
+            }}
             pageRangeDisplayed={5}
-            pageCount={50}
+            pageCount={saleStore.totalPages}
             previousLabel="< previous"
             className="flex border-mallow-5"
             pageClassName="p-1 border px-2"
