@@ -28,6 +28,9 @@ interface ISaleStore {
 
   isLoading: boolean;
   setIsLoading: (isFetching: boolean) => void;
+
+  selectedPage: number;
+  setSelectedPage: (selectedPage: number) => void;
 }
 
 export const useSaleStore = create<ISaleStore>()(
@@ -89,5 +92,13 @@ export const useSaleStore = create<ISaleStore>()(
           state.isFetching = isFetching;
         })
       ),
+    selectedPage: 0,
+    setSelectedPage: (selectedPage: number) =>
+      set(
+        produce((state) => {
+          state.selectedPage = selectedPage;
+        }
+      )
+    ),
   }))
 );

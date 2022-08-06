@@ -44,7 +44,12 @@ export const SearchBar = () => {
 
   useEffect(() => {
     refetch();
-  }, [saleStore.currentPage, saleStore.limit]);
+  }, [saleStore.currentPage]);
+
+  useEffect(() => {
+    saleStore.setSelectedPage(0);
+    saleStore.setCurrentPage(1);
+  }, [saleStore.limit]);
 
   return (
     <div className="w-full p-2 bg-mallow-bg-1 border border-mallow-5 rounded-lg flex items-center justify-between shadow">
@@ -65,7 +70,12 @@ export const SearchBar = () => {
       <div className="flex gap-3 items-center">
         <div className="flex items-center gap-2">
           <span>Entries</span>
-          <select className="border border-mallow-5 rounded-lg" onChange={(e) => saleStore.setLimit(parseInt(e.currentTarget.value))}>
+          <select
+            className="border border-mallow-5 rounded-lg"
+            onChange={(e) => {
+              saleStore.setLimit(parseInt(e.currentTarget.value));
+            }}
+          >
             <option>10</option>
             <option>20</option>
             <option>50</option>
@@ -75,13 +85,15 @@ export const SearchBar = () => {
         <div>
           <ReactPaginate
             breakLabel="..."
-            nextLabel="next >"
+            nextLabel="next ->"
             onPageChange={(e) => {
               saleStore.setCurrentPage(e.selected + 1);
+              saleStore.setSelectedPage(e.selected);
             }}
             pageRangeDisplayed={5}
             pageCount={saleStore.totalPages}
-            previousLabel="< previous"
+            forcePage={saleStore.selectedPage}
+            previousLabel="<- back"
             className="flex border-mallow-5"
             pageClassName="p-1 border px-2"
             nextClassName="p-1 px-2 border rounded-r-lg bg-accent-1 hover:bg-accent-3 text-white font-bold duration-100"
