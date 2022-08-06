@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { MagnifyingGlass } from "phosphor-react";
 import React from "react";
 import { Button } from "../../../components/Button";
@@ -11,7 +12,9 @@ export const TransactionCard: React.FC<{ transaction: ITransaction }> = ({
       <span>{transaction.transactionId}</span>
       <span>{transaction.reference}</span>
       <span>{transaction.total}</span>
-      <span>{transaction.transactedAt.toString()}</span>
+      <span>
+        {dayjs(transaction.transactedAt).format("YYYY-MM-DD-ddd H:m:s A")}
+      </span>
       <span className="flex justify-center">
         <Button>
           <MagnifyingGlass weight="bold" />

@@ -12,8 +12,6 @@ export const SearchBar = () => {
   const saleStore = useSaleStore();
   const [searchVal, setSearchVal] = React.useState<string>("");
   const [transition, startTransition] = useTransition();
-  const [currentPage, setCurrentPage] = React.useState<number>(0);
-  const [lastId, setLastId] = React.useState<number>(0);
 
   useEffect(() => {
     const stale = [...saleStore.transactions];
@@ -36,6 +34,7 @@ export const SearchBar = () => {
         console.log("Get");
         console.log(data);
         saleStore.setSearchResult(data.data);
+        saleStore.setTransactions(data.data);
         saleStore.setTotalPages(data.totalPages);
       },
     }
@@ -98,9 +97,9 @@ export const SearchBar = () => {
             previousLabel="<- back"
             className="flex border-mallow-5"
             pageClassName="p-1 border px-2"
-            nextClassName="p-1 px-2 border rounded-r-lg bg-accent-1 hover:bg-accent-3 text-white font-bold duration-100"
+            nextClassName="p-1 px-2 border rounded-r-lg bg-accent-1 hover:bg-accent-3 text-white font-bold duration-100 select-none"
             activeClassName="bg-coal-1 text-white font-bold"
-            previousClassName="p-1 px-2 border rounded-l-lg bg-accent-1 hover:bg-accent-3 text-white font-bold transition duration-100"
+            previousClassName="p-1 px-2 border rounded-l-lg bg-accent-1 hover:bg-accent-3 text-white font-bold transition duration-100 select-none"
             breakClassName="p-1 px-2 border"
           />
         </div>
