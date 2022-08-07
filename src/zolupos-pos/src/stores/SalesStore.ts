@@ -30,6 +30,15 @@ interface ISaleStore {
 
   selectedPage: number;
   setSelectedPage: (selectedPage: number) => void;
+
+  sort: number;
+  setSort: (sort: number) => void;
+
+  selected: number;
+  setSelected: (selected: number) => void;
+
+  shouldShowModal: boolean;
+  setShouldShowModal: (shouldShowModal: boolean) => void;
 }
 
 export const useSaleStore = create<ISaleStore>()(
@@ -89,6 +98,31 @@ export const useSaleStore = create<ISaleStore>()(
       set(
         produce((state) => {
           state.selectedPage = selectedPage;
+        }
+      )
+    ),
+    sort: 0,
+    setSort: (sort: number) =>
+      set(
+        produce((state) => {
+          state.sort = sort;
+        }
+      )
+    ),
+    selected: 0,
+    setSelected: (selected: number) =>
+      set(
+        produce((state) => {
+          state.selected = selected;
+        }
+      )
+    ),
+
+    shouldShowModal: false,
+    setShouldShowModal: (shouldShowModal: boolean) =>
+      set(
+        produce((state) => {
+          state.shouldShowModal = shouldShowModal;
         }
       )
     ),

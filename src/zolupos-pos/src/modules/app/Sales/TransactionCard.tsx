@@ -3,10 +3,13 @@ import { MagnifyingGlass } from "phosphor-react";
 import React from "react";
 import { Button } from "../../../components/Button";
 import { ITransaction } from "../../../interface/ITransaction";
+import { useSaleStore } from "../../../stores/SalesStore";
 
-export const TransactionCard: React.FC<{ transaction: ITransaction }> = ({
+export const TransactionCard: React.FC<{ transaction: ITransaction, id: number }> = ({
   transaction,
+  id
 }) => {
+  const saleStore = useSaleStore();
   return (
     <div className="grid grid-cols-5 px-5 py-[19px] bg-mallow-bg-1 items-center">
       <span>{transaction.transactionId}</span>
@@ -17,7 +20,13 @@ export const TransactionCard: React.FC<{ transaction: ITransaction }> = ({
       </span>
       <span className="flex justify-center">
         <Button>
-          <MagnifyingGlass weight="bold" />
+          <MagnifyingGlass
+            weight="bold"
+            onClick={() => {
+              saleStore.setSelected(id)
+              saleStore.setShouldShowModal(true);
+            }}
+          />
         </Button>
       </span>
     </div>
