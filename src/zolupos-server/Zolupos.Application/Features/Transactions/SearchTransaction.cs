@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.DTO;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Common.Wrapper;
+using System.Linq;
 
 namespace Zolupos.Application.Features.Transactions
 {
@@ -27,11 +28,18 @@ namespace Zolupos.Application.Features.Transactions
         public async Task<Pagination<ICollection<TransactionDTO>>> Handle(SearchTransactionQuery request, CancellationToken cancellationToken)
         {
             var pagingValidator = new PaginationFilter(request.length, request.page);
-            var transactions = await _context.Transactions.Where(tr => tr.TransactionId.ToString().ToLower().Contains(request.query) 
-                || tr.Reference.ToString().ToLower().Contains(request.query)).Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
-                .Include(tr => tr.Payments).Include(tr => tr.OrderedProducts).Take(request.length).ToListAsync();
-            var totalItems = await _context.Transactions.Where(tr => tr.TransactionId.ToString().ToLower().Contains(request.query)
-                || tr.Reference.ToString().ToLower().Contains(request.query)).CountAsync();
+            var transactions = await (from tr in _context.Transactions
+                                      where tr.TransactionId.ToString().ToLower().Contains(request.query) || tr.Reference.ToString().ToLower().Contains(request.query)
+                                      select tr)
+                                .Include(tr => tr.OrderedProducts)
+                                .Include(tr => tr.Payments)
+                                .Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
+                                .Take(pagingValidator.PageSize)
+                                .ToListAsync();
+            var totalItems = await (from tr in _context.Transactions
+                                    where tr.TransactionId.ToString().ToLower().Contains(request.query) || tr.Reference.ToString().ToLower().Contains(request.query)
+                                    select tr).CountAsync();
+
             var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(transactions);
             return new Pagination<ICollection<TransactionDTO>>(mappedResult, pagingValidator.PageSize, pagingValidator.CurrentPage, totalItems);
         }
