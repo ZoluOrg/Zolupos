@@ -28,7 +28,7 @@ namespace Zolupos.Application.Features.Transactions
         {
             var pagingValidator = new PaginationFilter(request.length, request.page);
             var transactions = await _context.Transactions.Where(tr => tr.TransactionId.ToString().ToLower().Contains(request.query) 
-                || tr.Reference.ToString().ToLower().Contains(request.query)).Where(tr => tr.TransactionId > (pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
+                || tr.Reference.ToString().ToLower().Contains(request.query)).Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
                 .Include(tr => tr.Payments).Include(tr => tr.OrderedProducts).Take(request.length).ToListAsync();
             var totalItems = await _context.Transactions.Where(tr => tr.TransactionId.ToString().ToLower().Contains(request.query)
                 || tr.Reference.ToString().ToLower().Contains(request.query)).CountAsync();

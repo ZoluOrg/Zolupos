@@ -36,8 +36,8 @@ namespace Zolupos.Application.Common.Wrapper
 
         public PaginationFilter(int pageSize, int currentPage)
         {
-            PageSize = pageSize < 10 ? 10 : pageSize;
+            PageSize = pageSize > 100 ? 100 : pageSize;
             CurrentPage = currentPage < 1 ? 1 : currentPage;
-        }
+            }
     }
 }
