@@ -21,9 +21,10 @@ namespace Zolupos.Server.Controllers.Transactions
         }
 
         [HttpGet("paginated")]
-        public async Task<ActionResult> GetTransactionsPaginated([FromQuery(Name = "page")] int page, [FromQuery(Name = "length")] int length)
+        public async Task<ActionResult> GetTransactionsPaginated([FromQuery(Name = "page")] int page, 
+            [FromQuery(Name = "length")] int length, [FromQuery(Name = "sortby")] string sortby, [FromQuery(Name = "isAscending")] bool isAscending)
         {
-            var transactions = await Mediator.Send(new FetchTransactionsPaginatedQuery(page, length));
+            var transactions = await Mediator.Send(new FetchTransactionsPaginatedQuery(page, length, sortby));
             return Ok(transactions);
         }
 

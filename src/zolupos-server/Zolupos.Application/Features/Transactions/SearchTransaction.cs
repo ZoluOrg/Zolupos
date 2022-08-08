@@ -30,6 +30,7 @@ namespace Zolupos.Application.Features.Transactions
             var pagingValidator = new PaginationFilter(request.length, request.page);
             var transactions = await (from tr in _context.Transactions
                                       where tr.TransactionId.ToString().ToLower().Contains(request.query) || tr.Reference.ToString().ToLower().Contains(request.query)
+                                      orderby tr.TransactionId descending
                                       select tr)
                                 .Include(tr => tr.OrderedProducts)
                                 .Include(tr => tr.Payments)

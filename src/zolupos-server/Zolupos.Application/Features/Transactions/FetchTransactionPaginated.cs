@@ -9,10 +9,11 @@ using Zolupos.Application.Common.DTO;
 using Zolupos.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Zolupos.Application.Common.Wrapper;
+using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchTransactionsPaginatedQuery(int page, int length) : IRequest<Pagination<ICollection<TransactionDTO>>>;
+    public record FetchTransactionsPaginatedQuery(int page, int length, string sortby) : IRequest<Pagination<ICollection<TransactionDTO>>>;
     public class FetchTransactionPaginatedHandler : IRequestHandler<FetchTransactionsPaginatedQuery, Pagination<ICollection<TransactionDTO>>>
     {
         private IApplicationDbContext _context;
@@ -23,11 +24,32 @@ namespace Zolupos.Application.Features.Transactions
             _context = context;
             _mapper = mapper;
         }
+
+
         public async Task<Pagination<ICollection<TransactionDTO>>> Handle(FetchTransactionsPaginatedQuery request, CancellationToken cancellationToken)
         {
             var pagingValidator = new PaginationFilter(request.length, request.page);
-            var results = await _context.Transactions.Include(tr => tr.Payments).Include(tr => tr.OrderedProducts)
-                .Where(tr => tr.TransactionId > (pagingValidator.CurrentPage - 1) * pagingValidator.PageSize).Take(request.length).OrderBy(tr => tr.TransactionId).ToListAsync();
+            var transactions = (from tr in _context.Transactions
+                                select tr);
+
+            switch (request.sortby)
+            {
+                case "by_id":
+                    transactions = transactions.OrderBy(tr => tr.TransactionId);
+                    break;
+                case "by_date":
+                    transactions = transactions.OrderBy(tr => tr.TransactedAt);
+                    break;
+                case "by_id_dsc":
+                    transactions = transactions.OrderByDescending(tr => tr.TransactionId);
+                    break;
+                case "by_date_dsc":
+                    transactions = transactions.OrderByDescending(tr => tr.TransactedAt);
+                    break;
+            }
+
+            var results = await transactions.AsNoTracking().Include(tr => tr.Payments).Include(tr => tr.OrderedProducts)
+                .Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize).Take(request.length).ToListAsync(cancellationToken);
             var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(results);
             var totalItems = await _context.Transactions.CountAsync();
             var response = new Pagination<ICollection<TransactionDTO>>(mappedResult, pagingValidator.PageSize, pagingValidator.CurrentPage, totalItems);
