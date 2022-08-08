@@ -48,10 +48,13 @@ namespace Zolupos.Application.Features.Transactions
                     break;
             }
 
-            var results = await transactions.AsNoTracking().Include(tr => tr.Payments).Include(tr => tr.OrderedProducts)
-                .Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize).Take(request.length).ToListAsync(cancellationToken);
-            var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(results);
-            var totalItems = await _context.Transactions.CountAsync();
+            var totalItems = await (from tr in _context.Transactions
+                                    select tr).CountAsync();
+
+            var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(await transactions.AsNoTracking()
+                .Include(tr => tr.Payments).Include(tr => tr.OrderedProducts).Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
+                .Take(request.length).ToListAsync(cancellationToken));
+            
             var response = new Pagination<ICollection<TransactionDTO>>(mappedResult, pagingValidator.PageSize, pagingValidator.CurrentPage, totalItems);
             return response;
         }
