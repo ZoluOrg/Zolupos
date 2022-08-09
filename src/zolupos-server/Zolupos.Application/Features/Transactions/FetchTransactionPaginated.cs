@@ -13,7 +13,7 @@ using Zolupos.Application.Entities;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record FetchTransactionsPaginatedQuery(int page, int length, string sortby) : IRequest<Pagination<ICollection<TransactionDTO>>>;
+    public record FetchTransactionsPaginatedQuery(int page, int length, string sortby, bool isDescending) : IRequest<Pagination<ICollection<TransactionDTO>>>;
     public class FetchTransactionPaginatedHandler : IRequestHandler<FetchTransactionsPaginatedQuery, Pagination<ICollection<TransactionDTO>>>
     {
         private IApplicationDbContext _context;
@@ -35,16 +35,12 @@ namespace Zolupos.Application.Features.Transactions
             switch (request.sortby)
             {
                 case "by_id":
-                    transactions = transactions.OrderBy(tr => tr.TransactionId);
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactionId) : 
+                        transactions.OrderBy(tr => tr.TransactionId);
                     break;
                 case "by_date":
-                    transactions = transactions.OrderBy(tr => tr.TransactedAt);
-                    break;
-                case "by_id_dsc":
-                    transactions = transactions.OrderByDescending(tr => tr.TransactionId);
-                    break;
-                case "by_date_dsc":
-                    transactions = transactions.OrderByDescending(tr => tr.TransactedAt);
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactedAt) : 
+                        transactions.OrderBy(tr => tr.TransactedAt);
                     break;
             }
 
@@ -54,7 +50,7 @@ namespace Zolupos.Application.Features.Transactions
             var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(await transactions.AsNoTracking()
                 .Include(tr => tr.Payments).Include(tr => tr.OrderedProducts).Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
                 .Take(request.length).ToListAsync(cancellationToken));
-            
+
             var response = new Pagination<ICollection<TransactionDTO>>(mappedResult, pagingValidator.PageSize, pagingValidator.CurrentPage, totalItems);
             return response;
         }

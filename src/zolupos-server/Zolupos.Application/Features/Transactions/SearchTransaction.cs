@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Zolupos.Application.Features.Transactions
 {
-    public record SearchTransactionQuery(int page, int length, string sortby, string query) : IRequest<Pagination<ICollection<TransactionDTO>>>;
+    public record SearchTransactionQuery(int page, int length, string sortby, bool isDescending, string query) : IRequest<Pagination<ICollection<TransactionDTO>>>;
     public class SearchTransactionQueryHandler : IRequestHandler<SearchTransactionQuery, Pagination<ICollection<TransactionDTO>>>
     {
         private IApplicationDbContext _context;
@@ -35,16 +35,12 @@ namespace Zolupos.Application.Features.Transactions
             switch (request.sortby)
             {
                 case "by_id":
-                    transactions = transactions.OrderBy(tr => tr.TransactionId);
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactionId) :
+                        transactions.OrderBy(tr => tr.TransactionId);
                     break;
                 case "by_date":
-                    transactions = transactions.OrderBy(tr => tr.TransactedAt);
-                    break;
-                case "by_id_dsc":
-                    transactions = transactions.OrderByDescending(tr => tr.TransactionId);
-                    break;
-                case "by_date_dsc":
-                    transactions = transactions.OrderByDescending(tr => tr.TransactedAt);
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactedAt) :
+                        transactions.OrderBy(tr => tr.TransactedAt);
                     break;
             }
 
