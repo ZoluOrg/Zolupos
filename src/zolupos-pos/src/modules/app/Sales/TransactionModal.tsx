@@ -6,13 +6,9 @@ import { useSaleStore } from "../../../stores/SalesStore";
 
 export const TransactionModal = () => {
   const saleStore = useSaleStore();
-  const transaction = saleStore.transactions[saleStore.selected];
+  const transaction = saleStore.selected;
   const [selected, setSelected] = React.useState<number>(0);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
-
-  React.useEffect(() => {
-    if (transaction) setIsLoading(false);
-  }, [transaction]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   return (
     <Modal isOpen={saleStore.shouldShowModal} className="p-[25px] w-5/12">
@@ -29,16 +25,16 @@ export const TransactionModal = () => {
           <div className="info text-lg">
             <div className="flex gap-2">
               <span className="font-bold">Transaction ID:</span>
-              <span>{transaction.transactionId}</span>
+              <span>{transaction?.transactionId}</span>
             </div>
             <div className="flex gap-2">
               <span className="font-bold">Reference GUID:</span>
-              <span>{transaction.reference}</span>
+              <span>{transaction?.reference}</span>
             </div>
             <div className="flex gap-2">
               <span className="font-bold">Transacted at:</span>
               <span>
-                {dayjs(transaction.transactedAt).format(
+                {dayjs(transaction?.transactedAt).format(
                   "YYYY-MM-DD-dddd H:m:s A"
                 )}
               </span>
@@ -55,7 +51,7 @@ export const TransactionModal = () => {
             </ul>
           </div>
           {selected == 0 ? (
-            <p>{JSON.stringify(transaction.orderedProducts)}</p>
+            <p>{JSON.stringify(transaction?.orderedProducts)}</p>
           ) : (
             <p></p>
           )}

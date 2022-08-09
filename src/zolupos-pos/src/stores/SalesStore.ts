@@ -18,7 +18,6 @@ interface ISaleStore {
   searchQuery: string;
   setSearchQuery: (searchQuery: string) => void;
 
-
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
 
@@ -37,110 +36,107 @@ interface ISaleStore {
   isDescending: boolean;
   setIsDescending: (isDescending: boolean) => void;
 
-  selected: number;
-  setSelected: (selected: number) => void;
+  selected: ITransaction | null;
+  setSelected: (selected: ITransaction) => void;
 
   shouldShowModal: boolean;
   setShouldShowModal: (shouldShowModal: boolean) => void;
 }
 
-export const useSaleStore = create<ISaleStore>()(
-  devtools((set) => ({
-    transactions: [],
-    setTransactions: (transactions: Array<ITransaction>) =>
-      set(
-        produce((state) => {
-          state.transactions = transactions;
-        })
-      ),
-    searchResult: [],
-    setSearchResult: (searchResult: Array<ITransaction>) =>
-      set(
-        produce((state) => {
-          state.searchResult = searchResult;
-        })
-      ),
-    limit: 10,
-    setLimit: (limit: number) =>
-      set(
-        produce((state) => {
-          state.limit = limit;
-        })
-      ),
-    searchQuery: "",
-    setSearchQuery: (searchQuery: string) =>
-      set(
-        produce((state) => {
-          state.searchQuery = searchQuery;
-        })
-      ),
-
-    currentPage: 1,
-    setCurrentPage: (currentPage: number) =>
-      set(
-        produce((state) => {
-          state.currentPage = currentPage;
-        })
-      ),
-    totalPages: 1,
-    setTotalPages: (totalPages: number) =>
-      set(
-        produce((state) => {
-          state.totalPages = totalPages;
-        })
-      ),
-    isLoading: true,
-    setIsLoading: (isLoading: boolean) =>
-      set(
-        produce((state) => {
-          state.isLoading = isLoading;
-        })
-      ),
-    selectedPage: 0,
-    setSelectedPage: (selectedPage: number) =>
-      set(
-        produce((state) => {
-          state.selectedPage = selectedPage;
-        }
-      )
+export const useSaleStore = create<ISaleStore>((set) => ({
+  transactions: [],
+  setTransactions: (transactions: Array<ITransaction>) =>
+    set(
+      produce((state) => {
+        state.transactions = transactions;
+      })
     ),
-    sort: "by_id",
-    setSort: (sort: string) =>
-      set(
-        produce((state) => {
-          state.sort = sort;
-        }
-      )
+  searchResult: [],
+  setSearchResult: (searchResult: Array<ITransaction>) =>
+    set(
+      produce((state) => {
+        state.searchResult = searchResult;
+      })
+    ),
+  limit: 10,
+  setLimit: (limit: number) =>
+    set(
+      produce((state) => {
+        state.limit = limit;
+      })
+    ),
+  searchQuery: "",
+  setSearchQuery: (searchQuery: string) =>
+    set(
+      produce((state) => {
+        state.searchQuery = searchQuery;
+      })
     ),
 
-    isDescending: true,
-    setIsDescending: (isDescending: boolean) =>
-      set(
-        produce((state) => {
-          state.isDescending = isDescending;
-        }
-      )
+  currentPage: 1,
+  setCurrentPage: (currentPage: number) =>
+    set(
+      produce((state) => {
+        state.currentPage = currentPage;
+      })
     ),
-
-    selected: 0,
-    setSelected: (selected: number) =>
-      set(
-        produce((state) => {
-          state.selected = selected;
-        }
-      )
+  totalPages: 1,
+  setTotalPages: (totalPages: number) =>
+    set(
+      produce((state) => {
+        state.totalPages = totalPages;
+      })
     ),
-
-    shouldShowModal: false,
-    setShouldShowModal: (shouldShowModal: boolean) =>
-      set(
-        produce((state) => {
-          state.shouldShowModal = shouldShowModal;
-        }
-      )
+  isLoading: true,
+  setIsLoading: (isLoading: boolean) =>
+    set(
+      produce((state) => {
+        state.isLoading = isLoading;
+      })
     ),
-  }))
-);
+  selectedPage: 0,
+  setSelectedPage: (selectedPage: number) =>
+    set(
+      produce((state) => {
+        state.selectedPage = selectedPage;
+      }
+    )
+  ),
+  sort: "by_id",
+  setSort: (sort: string) =>
+    set(
+      produce((state) => {
+        state.sort = sort;
+      }
+    )
+  ),
 
+  isDescending: true,
+  setIsDescending: (isDescending: boolean) =>
+    set(
+      produce((state) => {
+        state.isDescending = isDescending;
+      }
+    )
+  ),
+
+  selected: null,
+  setSelected: (selected: ITransaction) =>
+    set(
+      produce((state) => {  
+        state.selected = selected;
+      }
+    )
+  ),
+
+  shouldShowModal: false,
+  setShouldShowModal: (shouldShowModal: boolean) =>
+    set(
+      produce((state) => {
+        state.shouldShowModal = shouldShowModal;
+      }
+    )
+  ),
+}));
 
 mountStoreDevtool("Store", useSaleStore);

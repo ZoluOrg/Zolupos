@@ -23,7 +23,7 @@ export const TransactionCard: React.FC<{ transaction: ITransaction, id: number }
           <MagnifyingGlass
             weight="bold"
             onClick={() => {
-              saleStore.setSelected(id)
+              saleStore.setSelected(transaction);
               saleStore.setShouldShowModal(true);
             }}
           />
