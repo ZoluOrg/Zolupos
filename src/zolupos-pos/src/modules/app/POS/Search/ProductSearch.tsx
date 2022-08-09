@@ -31,6 +31,7 @@ export const ProductSearch = () => {
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
+      console.log(event);
       if (event.altKey && event.key == "a") setShouldShow(true);
       else if (event.key == "Escape") {
         setShouldShow(false);

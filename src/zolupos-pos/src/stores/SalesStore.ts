@@ -31,8 +31,11 @@ interface ISaleStore {
   selectedPage: number;
   setSelectedPage: (selectedPage: number) => void;
 
-  sort: number;
-  setSort: (sort: number) => void;
+  sort: string;
+  setSort: (sort: string) => void;
+
+  isDescending: boolean;
+  setIsDescending: (isDescending: boolean) => void;
 
   selected: number;
   setSelected: (selected: number) => void;
@@ -101,14 +104,24 @@ export const useSaleStore = create<ISaleStore>()(
         }
       )
     ),
-    sort: 0,
-    setSort: (sort: number) =>
+    sort: "by_id",
+    setSort: (sort: string) =>
       set(
         produce((state) => {
           state.sort = sort;
         }
       )
     ),
+
+    isDescending: true,
+    setIsDescending: (isDescending: boolean) =>
+      set(
+        produce((state) => {
+          state.isDescending = isDescending;
+        }
+      )
+    ),
+
     selected: 0,
     setSelected: (selected: number) =>
       set(

@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { SortAscending, Spinner } from "phosphor-react";
+import { SortAscending, SortDescending, Spinner } from "phosphor-react";
 import React from "react";
 import { useQuery } from "react-query";
 import { useTable } from "react-table";
@@ -17,6 +17,22 @@ export const TransactionTable = () => {
   const [limit, setLimit] = React.useState<number>(10);
   const saleStore = useSaleStore();
 
+  const onSortTransactionId = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    saleStore.setSort("by_id");
+    saleStore.sort == "by_id"
+      ? saleStore.setIsDescending(!saleStore.isDescending)
+      : saleStore.setIsDescending(false);
+  };
+
+  const onSortDate = () => {
+    saleStore.setSort("by_date");
+    saleStore.sort == "by_date"
+      ? saleStore.setIsDescending(!saleStore.isDescending)
+      : saleStore.setIsDescending(false);
+  };
+
   return (
     <>
       <div className="bg-mallow-bg-1 border border-mallow-5 rounded-lg h-[calc(100%-12px-60px)] shadow">
@@ -24,13 +40,25 @@ export const TransactionTable = () => {
           <div className="bg-mallow-2 rounded-t-lg border-b border-b-mallow-5 p-5 grid grid-cols-5 font-bold">
             <div className="flex items-center gap-3">
               <span>Transaction Id</span>
-              <Button buttonColor="coal" buttonSize="small"><SortAscending weight="bold"/></Button>
+              <Button
+                buttonColor={saleStore.sort == "by_id" ? "accent" : "coal"}
+                buttonSize="small"
+                onClick={onSortTransactionId}
+              >
+                {saleStore.sort == "by_id" ? saleStore.isDescending ? (<SortDescending/>) : (<SortAscending/>): <SortAscending/>}
+              </Button>
             </div>
             <span>Ref GUID</span>
             <span>Total</span>
             <div className="flex items-center gap-3">
               <span>Transacted at</span>
-              <Button buttonColor="coal" buttonSize="small"><SortAscending weight="bold"/></Button>
+              <Button
+                buttonColor={saleStore.sort == "by_date" ? "accent" : "coal"}
+                buttonSize="small"
+                onClick={onSortDate}
+              >
+                {saleStore.sort == "by_date" ? saleStore.isDescending ? (<SortDescending/>) : (<SortAscending/>): <SortAscending/>}
+              </Button>
             </div>
             <span className="text-center">View</span>
           </div>
@@ -42,7 +70,7 @@ export const TransactionTable = () => {
               </div>
             ) : (
               saleStore.searchResult?.map((tr, idx) => (
-                <TransactionCard transaction={tr} key={idx} id={idx}/>
+                <TransactionCard transaction={tr} key={idx} id={idx} />
               ))
             )}
           </div>

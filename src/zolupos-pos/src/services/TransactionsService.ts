@@ -20,17 +20,17 @@ export const getTransactionById = async (id: number) => {
   return transaction.data.receive;
 }
 
-export const getTransactionsPaginated = async (page: number, length: number) => {
+export const getTransactionsPaginated = async (page: number, length: number, sortby: string, isDescending: boolean) => {
   let transactions = await axios.get<IPagination<Array<ITransaction>>>(
-    `https://localhost:7073/api/Transaction/paginated?page=${page}&length=${length}`,
+    `https://localhost:7073/api/Transaction/paginated?page=${page}&length=${length}&sortby=${sortby}&isDescending=${isDescending}`,
     { headers: getTokenAsBearer() }
   );
   return transactions.data;
 }
 
-export const searchTransactions = async (page: number, length: number, query: string) => {
+export const searchTransactions = async (page: number, length: number, sortby: string, isDescending: boolean, query: string) => {
   let transactions = await axios.get<IPagination<Array<ITransaction>>>(
-    `https://localhost:7073/api/Transaction/search?page=${page}&length=${length}&query=${query}`,
+    `https://localhost:7073/api/Transaction/search?page=${page}&length=${length}&sortby=${sortby}&isDescending=${isDescending}&query=${query}`,
     { headers: getTokenAsBearer() }
   );
   return transactions.data;

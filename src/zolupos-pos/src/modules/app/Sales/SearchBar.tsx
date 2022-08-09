@@ -18,7 +18,7 @@ export const SearchBar = () => {
 
   const search = useQuery(
     ["search-transaction"],
-    () => searchTransactions(saleStore.currentPage, saleStore.limit, searchVal),
+    () => searchTransactions(saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending, searchVal),
     {
       enabled: false,
       refetchOnWindowFocus: false,
@@ -37,7 +37,7 @@ export const SearchBar = () => {
     isRefetching,
   } = useQuery(
     ["all-transactions"],
-    () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit),
+    () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending),
     {
       refetchOnWindowFocus: false,
       onSuccess: (data: IPagination<Array<ITransaction>>) => {
@@ -51,7 +51,7 @@ export const SearchBar = () => {
 
   useEffect(() => {
     saleStore.setIsLoading(isLoading);
-  }, [isLoading]);
+  }, [isLoading]);  
 
   useEffect(() => {
     if (searchVal == "") {
@@ -59,7 +59,7 @@ export const SearchBar = () => {
     } else {
       search.refetch();
     }
-  }, [saleStore.currentPage, saleStore.limit]);
+  }, [saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending]);
 
   useEffect(() => {
     if (searchVal == "") getAll();
