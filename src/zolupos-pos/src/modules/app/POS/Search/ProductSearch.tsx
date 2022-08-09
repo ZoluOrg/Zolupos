@@ -10,6 +10,7 @@ import { useSearchStore } from "../../../../stores/SearchStore";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
 import { IOrderedProduct } from "../OrderedProduct";
 import { Modal } from "../../../../components/Modal";
+import { CustomSpinner } from "../../../../components/CustomSpinner";
 
 export const ProductSearch = () => {
   const [shouldShow, setShouldShow] = React.useState<boolean>(false);
@@ -107,7 +108,10 @@ export const ProductSearch = () => {
           ) : (
             <div>
               {isLoading ? (
-                <span>Loading</span>
+                <div className="flex gap-2 items-center font-bold">
+                  <CustomSpinner dark/>
+                  <span>Fetching from server</span>
+                </div>
               ) : (
                 <div>
                   {searchStore.searchResult.length > 0 ? (

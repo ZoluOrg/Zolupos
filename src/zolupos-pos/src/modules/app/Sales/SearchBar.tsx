@@ -104,7 +104,7 @@ export const SearchBar = () => {
               saleStore.setCurrentPage(e.selected + 1);
               saleStore.setSelectedPage(e.selected);
             }}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={2}
             pageCount={saleStore.totalPages}
             forcePage={saleStore.selectedPage > 0 ? saleStore.selectedPage : 0}
             previousLabel="<- back"
