@@ -30,9 +30,10 @@ namespace Zolupos.Server.Controllers.Transactions
 
         [HttpGet("search")]
         public async Task<ActionResult> SearchTransactions([FromQuery(Name = "page")] int page,
-            [FromQuery(Name = "length")] int length, [FromQuery(Name = "sortby")] string sortby, [FromQuery(Name = "query")] string query)
+            [FromQuery(Name = "length")] int length, [FromQuery(Name = "sortby")] string sortby, [FromQuery(Name = "isDescending")] bool isDescending,
+            [FromQuery(Name = "query")] string query)
         {
-            var transactions = await Mediator.Send(new SearchTransactionQuery(page, length, sortby, query));
+            var transactions = await Mediator.Send(new SearchTransactionQuery(page, length, sortby, isDescending, query));
             return Ok(transactions);
         }
 

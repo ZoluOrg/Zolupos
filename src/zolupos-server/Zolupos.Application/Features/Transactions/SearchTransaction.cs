@@ -42,6 +42,10 @@ namespace Zolupos.Application.Features.Transactions
                     transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactedAt) :
                         transactions.OrderBy(tr => tr.TransactedAt);
                     break;
+                case "by_total":
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.Total) :
+                        transactions.OrderBy(tr => tr.Total);
+                    break;
             }
 
             var totalItems = await (from tr in _context.Transactions

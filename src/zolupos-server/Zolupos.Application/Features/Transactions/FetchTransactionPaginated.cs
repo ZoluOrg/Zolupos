@@ -42,6 +42,10 @@ namespace Zolupos.Application.Features.Transactions
                     transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.TransactedAt) : 
                         transactions.OrderBy(tr => tr.TransactedAt);
                     break;
+                case "by_total":
+                    transactions = request.isDescending ? transactions.OrderByDescending(tr => tr.Total) :
+                        transactions.OrderBy(tr => tr.Total);
+                    break;
             }
 
             var totalItems = await (from tr in _context.Transactions
@@ -49,7 +53,7 @@ namespace Zolupos.Application.Features.Transactions
 
             var mappedResult = _mapper.Map<ICollection<TransactionDTO>>(await transactions.AsNoTracking()
                 .Include(tr => tr.Payments).Include(tr => tr.OrderedProducts).Skip((pagingValidator.CurrentPage - 1) * pagingValidator.PageSize)
-                .Take(request.length).ToListAsync(cancellationToken));
+                .Take(request.length).AsSplitQuery().ToListAsync(cancellationToken));
 
             var response = new Pagination<ICollection<TransactionDTO>>(mappedResult, pagingValidator.PageSize, pagingValidator.CurrentPage, totalItems);
             return response;
