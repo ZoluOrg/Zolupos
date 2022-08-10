@@ -19,13 +19,12 @@ export const TransactionCard: React.FC<{ transaction: ITransaction, id: number }
         {dayjs(transaction.transactedAt).format("YYYY-MM-DD-ddd H:m:s A")}
       </span>
       <span className="flex justify-center">
-        <Button>
-          <MagnifyingGlass
-            weight="bold"
-            onClick={() => {
+        <Button onClick={() => {
               saleStore.setSelected(transaction);
               saleStore.setShouldShowModal(true);
-            }}
+            }}>
+          <MagnifyingGlass
+            weight="bold"
           />
         </Button>
       </span>
