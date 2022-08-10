@@ -33,6 +33,13 @@ export const TransactionTable = () => {
       : saleStore.setIsDescending(false);
   };
 
+  const onSortTotal = () => {
+    saleStore.setSort("by_total");
+    saleStore.sort == "by_total"
+      ? saleStore.setIsDescending(!saleStore.isDescending)
+      : saleStore.setIsDescending(false);
+  };
+
   return (
     <>
       <div className="bg-mallow-bg-1 border border-mallow-5 rounded-lg h-[calc(100%-12px-60px)] shadow">
@@ -45,11 +52,36 @@ export const TransactionTable = () => {
                 buttonSize="small"
                 onClick={onSortTransactionId}
               >
-                {saleStore.sort == "by_id" ? saleStore.isDescending ? (<SortDescending/>) : (<SortAscending/>): <SortAscending/>}
+                {saleStore.sort == "by_id" ? (
+                  saleStore.isDescending ? (
+                    <SortDescending />
+                  ) : (
+                    <SortAscending />
+                  )
+                ) : (
+                  <SortAscending />
+                )}
               </Button>
             </div>
             <span>Ref GUID</span>
-            <span>Total</span>
+            <div className="flex items-center gap-3">
+              <span>Total</span>
+              <Button
+                buttonColor={saleStore.sort == "by_total" ? "accent" : "coal"}
+                buttonSize="small"
+                onClick={onSortTotal}
+              >
+                {saleStore.sort == "by_total" ? (
+                  saleStore.isDescending ? (
+                    <SortDescending />
+                  ) : (
+                    <SortAscending />
+                  )
+                ) : (
+                  <SortAscending />
+                )}
+              </Button>
+            </div>
             <div className="flex items-center gap-3">
               <span>Transacted at</span>
               <Button
@@ -57,7 +89,15 @@ export const TransactionTable = () => {
                 buttonSize="small"
                 onClick={onSortDate}
               >
-                {saleStore.sort == "by_date" ? saleStore.isDescending ? (<SortDescending/>) : (<SortAscending/>): <SortAscending/>}
+                {saleStore.sort == "by_date" ? (
+                  saleStore.isDescending ? (
+                    <SortDescending />
+                  ) : (
+                    <SortAscending />
+                  )
+                ) : (
+                  <SortAscending />
+                )}
               </Button>
             </div>
             <span className="text-center">View</span>
