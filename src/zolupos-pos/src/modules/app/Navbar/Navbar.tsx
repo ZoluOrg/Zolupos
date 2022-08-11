@@ -43,6 +43,7 @@ export const Navbar = () => {
         </div>
         <div className="profile">
           <Menu
+            menuClassName="left-auto right-5"
             Look={(show) => (
               <div className="flex items-center gap-[6px]">
                 <img

@@ -16,6 +16,7 @@ interface addItemProps {
 
 export interface IOrderedProduct {
   productName: string;
+  productUnitPrice: number;
   productUnitCost: number;
   withVat: boolean;
   quantity: number;

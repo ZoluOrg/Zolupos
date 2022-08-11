@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  menuClassName?: string;
   Look(showMenu: boolean): ReactNode;
 }
 
@@ -19,7 +20,7 @@ interface MenuItemProps {
   Icon?: ReactNode;
 }
 
-export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
+export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   let cont = useRef<HTMLDivElement>(null);
 
@@ -38,7 +39,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
 
   return (
     <div
-      className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1"
+      className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1 "
       ref={cont}
     >
       <div className="menu">
@@ -56,7 +57,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
         <AnimatePresence>
           {showMenu && (
             <motion.ul
-              className="absolute rounded-lg bg-coal-2 left-auto right-5 z-10 mt-1"
+              className={`absolute z-10 bg-coal-2 rounded-lg mt-1 ${menuClassName}`}
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
@@ -73,7 +74,8 @@ export const Menu: FC<MenuProps> = ({ children, Look, ...props }) => {
 
 export const MenuItems: FC<MenuItemProps> = ({ children, Icon }) => {
   return (
-    <li className="m-1 px-3 py-2 pr-5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold">
+    <li className="m-1 px-3 py-2 pr-5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold flex items-center gap-2">
+      {Icon}
       {children}
     </li>
   );
