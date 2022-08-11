@@ -14,7 +14,10 @@ interface addItemProps {
   keydx: number;
 }
 
-export interface IOrderedProduct extends ISearchResponse {
+export interface IOrderedProduct {
+  productName: string;
+  productUnitCost: number;
+  withVat: boolean;
   quantity: number;
   bunchTotal: number;
 }

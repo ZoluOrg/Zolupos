@@ -5,10 +5,10 @@ import { Button } from "../../../components/Button";
 import { ITransaction } from "../../../interface/ITransaction";
 import { useSaleStore } from "../../../stores/SalesStore";
 
-export const TransactionCard: React.FC<{ transaction: ITransaction, id: number }> = ({
-  transaction,
-  id
-}) => {
+export const TransactionCard: React.FC<{
+  transaction: ITransaction;
+  id: number;
+}> = ({ transaction, id }) => {
   const saleStore = useSaleStore();
   return (
     <div className="grid grid-cols-5 px-5 py-[19px] bg-mallow-bg-1 items-center">
@@ -19,13 +19,13 @@ export const TransactionCard: React.FC<{ transaction: ITransaction, id: number }
         {dayjs(transaction.transactedAt).format("YYYY-MM-DD-ddd H:m:s A")}
       </span>
       <span className="flex justify-center">
-        <Button onClick={() => {
-              saleStore.setSelected(transaction);
-              saleStore.setShouldShowModal(true);
-            }}>
-          <MagnifyingGlass
-            weight="bold"
-          />
+        <Button
+          onClick={() => {
+            saleStore.setSelected(transaction);
+            saleStore.setShouldShowModal(true);
+          }}
+        >
+          <MagnifyingGlass weight="bold" />
         </Button>
       </span>
     </div>

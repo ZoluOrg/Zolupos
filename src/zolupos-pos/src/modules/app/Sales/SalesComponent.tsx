@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchBar } from "./SearchBar";
-import { TransactionModal } from "./TransactionModal";
+import { TransactionModal } from "./TransactionModal/TransactionModal";
 import { TransactionTable } from "./TransactionTable";
 
 export const SalesComponent = () => {
