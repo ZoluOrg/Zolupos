@@ -11,6 +11,7 @@ import { useTransactionStore } from "../../../../stores/TransactionStore";
 import { IOrderedProduct } from "../OrderedProduct";
 import { Modal } from "../../../../components/Modal";
 import { CustomSpinner } from "../../../../components/CustomSpinner";
+import { debounce } from "lodash";
 
 export const ProductSearch = () => {
   const [shouldShow, setShouldShow] = React.useState<boolean>(false);
@@ -32,7 +33,6 @@ export const ProductSearch = () => {
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
-      console.log(event);
       if (event.altKey && event.key == "a") setShouldShow(true);
       else if (event.key == "Escape") {
         setShouldShow(false);
@@ -44,6 +44,11 @@ export const ProductSearch = () => {
   useEffect(() => {
     refetch();
   }, [searchStore.searchQuery]);
+
+  const changeQuery = (ev: string) => {
+    const deb = debounce(() => searchStore.setSearchQuery(ev), 150);
+    deb();
+  };
 
   const addProduct = () => {
     let toSave: IOrderedProduct = {
@@ -76,6 +81,7 @@ export const ProductSearch = () => {
     searchStore.setSelected(0);
     setShouldShow(false);
   };
+
   return (
     <div className="search-thing z-10">
       <Modal
@@ -91,10 +97,7 @@ export const ProductSearch = () => {
         <div className="w-full flex gap-2">
           <Input
             className="w-full"
-            value={searchStore.searchQuery}
-            onChange={(ev) => {
-              searchStore.setSearchQuery(ev.currentTarget.value);
-            }}
+            onChange={(e) => changeQuery(e.currentTarget.value)}
             onKeyDown={onSelectionDown}
             autoFocus={true}
           />
@@ -109,7 +112,7 @@ export const ProductSearch = () => {
             <div>
               {isLoading ? (
                 <div className="flex gap-2 items-center font-bold">
-                  <CustomSpinner dark/>
+                  <CustomSpinner dark />
                   <span>Fetching from server</span>
                 </div>
               ) : (

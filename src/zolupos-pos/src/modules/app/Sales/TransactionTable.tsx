@@ -12,6 +12,8 @@ import {
 } from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
 import { TransactionCard } from "./TransactionCard";
+import { FixedSizeList as List } from 'react-window';
+
 
 export const TransactionTable = () => {
   const [limit, setLimit] = React.useState<number>(10);

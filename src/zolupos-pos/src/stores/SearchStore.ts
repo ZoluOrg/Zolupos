@@ -1,5 +1,6 @@
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import { IOrderedProduct } from "../interface/IOrderedProduct";
@@ -27,3 +28,5 @@ export const useSearchStore = create<ISearch>()(
       set((state) => ({ selectedResult: selectedResult })),
   }))
 );
+
+mountStoreDevtool("SearchStore", useSearchStore);
