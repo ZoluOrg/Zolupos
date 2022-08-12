@@ -1,19 +1,11 @@
-import { AxiosError } from "axios";
 import { SortAscending, SortDescending, Spinner } from "phosphor-react";
 import React from "react";
-import { useQuery } from "react-query";
-import { useTable } from "react-table";
 import { Button } from "../../../components/Button";
 import { CustomSpinner } from "../../../components/CustomSpinner";
-import { ITransaction } from "../../../interface/ITransaction";
-import {
-  getAllTransactions,
-  getTransactionsPaginated,
-} from "../../../services/TransactionsService";
 import { useSaleStore } from "../../../stores/SalesStore";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { FixedSizeList as List } from "react-window";
 import { TransactionCard } from "./TransactionCard";
-import { FixedSizeList as List } from 'react-window';
-
 
 export const TransactionTable = () => {
   const [limit, setLimit] = React.useState<number>(10);
@@ -111,9 +103,19 @@ export const TransactionTable = () => {
                 <span className="font-bold text-2xl">Loading</span>
               </div>
             ) : (
-              saleStore.searchResult?.map((tr, idx) => (
-                <TransactionCard transaction={tr} key={idx} id={idx} />
-              ))
+              <AutoSizer>
+                {({ height, width }) => (
+                  <List
+                    height={height}
+                    className="w-full h-full"
+                    width={width}
+                    itemCount={saleStore.transactions.length}
+                    itemSize={71}
+                  >
+                    {TransactionCard}
+                  </List>
+                )}
+              </AutoSizer>
             )}
           </div>
         </div>

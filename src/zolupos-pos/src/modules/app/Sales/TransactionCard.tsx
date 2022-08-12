@@ -6,12 +6,13 @@ import { ITransaction } from "../../../interface/ITransaction";
 import { useSaleStore } from "../../../stores/SalesStore";
 
 export const TransactionCard: React.FC<{
-  transaction: ITransaction;
-  id: number;
-}> = ({ transaction, id }) => {
+  index: number;
+  style: string;
+}> = ({ index, style }) => {
   const saleStore = useSaleStore();
+  const transaction = saleStore.transactions[index];
   return (
-    <div className="grid grid-cols-5 px-5 py-[19px] bg-mallow-bg-1 items-center">
+    <div className="grid grid-cols-5 px-5 py-[19px]bg-mallow-bg-1 items-center h-[71]" style={style}>
       <span>{transaction.transactionId}</span>
       <span>{transaction.reference}</span>
       <span>{transaction.total}</span>
