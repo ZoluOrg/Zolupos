@@ -6,12 +6,13 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppContainer } from "./modules/app/AppContainer";
-import { LandingComponent } from "./modules/app/landing/LandingComponent";
+import { LandingComponent } from "./modules/app/Landing/LandingComponent";
 import { POSComponent } from "./modules/app/POS/POSComponent";
 import { LoginComponent } from "./modules/Login/LoginComponent";
 import { TitleProvider } from "./context/TitleContext";
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from "react-query/devtools";
 import { SalesComponent } from "./modules/app/Sales/SalesComponent";
+import { TransactionComponent } from "./modules/app/Sales/TransactionInfo/TransactionComponent";
 
 const client = new QueryClient();
 
@@ -21,17 +22,21 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <div className="h-screen bg-mallow-1">
         <ToastContainer />
         <TitleProvider>
-            <QueryClientProvider client={client}>
-              <ReactQueryDevtools initialIsOpen={false} />
-              <Routes>
-                <Route path="/" element={<AppContainer />}>
-                  <Route path="landing" element={<LandingComponent />} />
-                  <Route path="POS" element={<POSComponent />} />
-                  <Route path="sales" element={<SalesComponent />} />
-                </Route>
-                <Route path="/login" element={<LoginComponent />} />
-              </Routes>
-            </QueryClientProvider>
+          <QueryClientProvider client={client}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Routes>
+              <Route path="/" element={<AppContainer />}>
+                <Route path="landing" element={<LandingComponent />} />
+                <Route path="POS" element={<POSComponent />} />
+                <Route path="sales" element={<SalesComponent />} />
+                <Route
+                  path="sales/transaction/:id"
+                  element={<TransactionComponent />}
+                />
+              </Route>
+              <Route path="/login" element={<LoginComponent />} />
+            </Routes>
+          </QueryClientProvider>
         </TitleProvider>
       </div>
     </BrowserRouter>

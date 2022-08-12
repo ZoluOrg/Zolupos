@@ -39,7 +39,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props })
 
   return (
     <div
-      className="profile-dropdown rounded-lg shadow-xl right-4 left-auto flex flex-col gap-1 "
+      className="profile-dropdown rounded-lg right-4 left-auto flex flex-col gap-1 "
       ref={cont}
     >
       <div className="menu">
