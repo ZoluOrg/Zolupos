@@ -1,5 +1,6 @@
 import React from "react";
 import { OrderView } from "./OrderView";
+import { PaymentView } from "./PaymentView";
 
 export const CategoryView: React.FC = () => {
   const [selected, setSelected] = React.useState<number>(0);
@@ -23,7 +24,7 @@ export const CategoryView: React.FC = () => {
           PAYMENTS
         </span>
       </div>
-      <OrderView />
+      {selected == 0 ? <OrderView /> : <PaymentView />}
     </div>
   );
 };
