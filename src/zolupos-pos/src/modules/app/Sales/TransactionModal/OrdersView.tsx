@@ -10,8 +10,8 @@ export const OrdersView = () => {
   const transaction = saleStore.selected;
 
   return (
-    <div>
-      <div className="grid grid-cols-6 p-5 border rounded-t-lg border-mallow-5 bg-mallow-bg-1">
+    <div className="border rounded-lg border-mallow-5">
+      <div className="grid grid-cols-6 p-5 bg-mallow-bg-1 rounded-t-lg border border-b-mallow-5">
         <span>Quantity</span>
         <span>Item</span>
         <span>Unit Price</span>

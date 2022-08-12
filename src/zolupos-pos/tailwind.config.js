@@ -33,7 +33,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Manrope", ...defaultTheme.fontFamily.sans],
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
     },
   },
