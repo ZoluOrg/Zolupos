@@ -11,7 +11,7 @@ export const OrdersView = () => {
 
   return (
     <div className="border rounded-lg border-mallow-5">
-      <div className="grid grid-cols-6 p-5 bg-mallow-bg-1 rounded-t-lg border border-b-mallow-5">
+      <div className="grid grid-cols-6 p-5 bg-mallow-bg-1 rounded-t-lg border-b border-b-mallow-5">
         <span>Quantity</span>
         <span>Item</span>
         <span>Unit Price</span>

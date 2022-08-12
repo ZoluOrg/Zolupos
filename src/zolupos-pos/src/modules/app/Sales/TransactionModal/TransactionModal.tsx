@@ -5,6 +5,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { useSaleStore } from "../../../../stores/SalesStore";
 import { OrdersView } from "./OrdersView";
+import { PaymentView } from "./PaymentView";
 
 export const TransactionModal = () => {
   const saleStore = useSaleStore();
@@ -70,7 +71,7 @@ export const TransactionModal = () => {
             </div>
           </div>
           <div className="mt-4 overflow-y-auto">
-            <OrdersView />
+            {selected == 0 ? <OrdersView /> : <PaymentView />}
           </div>
         </div>
       )}
