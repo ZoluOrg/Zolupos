@@ -1,10 +1,13 @@
+import { AxiosError } from "axios";
 import React, { useEffect, useState, useTransition } from "react";
 import ReactPaginate from "react-paginate";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { IPagination } from "../../../interface/IPagination";
 import { ITransaction } from "../../../interface/ITransaction";
+import { IServerError } from "../../../interface/ServerError";
 import {
   getTransactionsPaginated,
   searchTransactions,
@@ -18,13 +21,33 @@ export const SearchBar = () => {
 
   const search = useQuery(
     ["search-transaction"],
-    () => searchTransactions(saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending, searchVal),
+    () =>
+      searchTransactions(
+        saleStore.currentPage,
+        saleStore.limit,
+        saleStore.sort,
+        saleStore.isDescending,
+        searchVal
+      ),
     {
       enabled: false,
       refetchOnWindowFocus: false,
       onSuccess: (data: IPagination<Array<ITransaction>>) => {
+        saleStore.setError("");
         saleStore.setSearchResult(data.data);
         saleStore.setTotalPages(data.totalPages);
+      },
+      onError: (error: AxiosError<IServerError>) => {
+        saleStore.setError(
+          error.response?.data
+            ? error.response.data.ExceptionMessage
+            : error.message
+        );
+        toast.error(
+          error.response?.data
+            ? error.response.data.ExceptionMessage
+            : error.message
+        );
       },
     }
   );
@@ -37,21 +60,36 @@ export const SearchBar = () => {
     isRefetching,
   } = useQuery(
     ["all-transactions"],
-    () => getTransactionsPaginated(saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending),
+    () =>
+      getTransactionsPaginated(
+        saleStore.currentPage,
+        saleStore.limit,
+        saleStore.sort,
+        saleStore.isDescending
+      ),
     {
       refetchOnWindowFocus: false,
       onSuccess: (data: IPagination<Array<ITransaction>>) => {
         console.log("Get");
+        saleStore.setError("");
         saleStore.setSearchResult(data.data);
         saleStore.setTransactions(data.data);
         saleStore.setTotalPages(data.totalPages);
       },
+      onError: (error: AxiosError<IServerError>) => {
+        saleStore.setError(
+          error.response?.data
+            ? error.response.data.ExceptionMessage
+            : error.message
+        );
+        toast.error(
+          error.response?.data
+            ? error.response.data.ExceptionMessage
+            : error.message
+        );
+      },
     }
   );
-
-  useEffect(() => {
-    saleStore.setIsLoading(isLoading);
-  }, [isLoading]);  
 
   useEffect(() => {
     if (searchVal == "") {
@@ -59,7 +97,12 @@ export const SearchBar = () => {
     } else {
       search.refetch();
     }
-  }, [saleStore.currentPage, saleStore.limit, saleStore.sort, saleStore.isDescending]);
+  }, [
+    saleStore.currentPage,
+    saleStore.limit,
+    saleStore.sort,
+    saleStore.isDescending,
+  ]);
 
   useEffect(() => {
     if (searchVal == "") getAll();
@@ -97,24 +140,40 @@ export const SearchBar = () => {
           </select>
         </div>
         <div>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next ->"
-            onPageChange={(e) => {
-              saleStore.setCurrentPage(e.selected + 1);
-              saleStore.setSelectedPage(e.selected);
-            }}
-            pageRangeDisplayed={2}
-            pageCount={saleStore.totalPages}
-            forcePage={saleStore.selectedPage > 0 ? saleStore.selectedPage : 0}
-            previousLabel="<- back"
-            className="flex border-mallow-5"
-            pageClassName="p-1 border px-2"
-            nextClassName="p-1 px-2 border rounded-r-lg bg-accent-1 hover:bg-accent-3 text-white font-bold duration-100 select-none"
-            activeClassName="bg-coal-1 text-white font-bold"
-            previousClassName="p-1 px-2 border rounded-l-lg bg-accent-1 hover:bg-accent-3 text-white font-bold transition duration-100 select-none"
-            breakClassName="p-1 px-2 border"
-          />
+          {saleStore.error ? (
+            <Button
+              onClick={() => {
+                if (searchVal == "") {
+                  getAll();
+                } else {
+                  search.refetch();
+                }
+              }}
+            >
+              Refetch
+            </Button>
+          ) : (
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="next ->"
+              onPageChange={(e) => {
+                saleStore.setCurrentPage(e.selected + 1);
+                saleStore.setSelectedPage(e.selected);
+              }}
+              pageRangeDisplayed={2}
+              pageCount={saleStore.totalPages}
+              forcePage={
+                saleStore.selectedPage > 0 ? saleStore.selectedPage : 0
+              }
+              previousLabel="<- back"
+              className="flex border-mallow-5"
+              pageClassName="p-1 border px-2"
+              nextClassName="p-1 px-2 border rounded-r-lg bg-accent-1 hover:bg-accent-3 text-white font-bold duration-100 select-none"
+              activeClassName="bg-coal-1 text-white font-bold"
+              previousClassName="p-1 px-2 border rounded-l-lg bg-accent-1 hover:bg-accent-3 text-white font-bold transition duration-100 select-none"
+              breakClassName="p-1 px-2 border"
+            />
+          )}
         </div>
       </div>
     </div>

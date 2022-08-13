@@ -6,6 +6,7 @@ import { useSaleStore } from "../../../stores/SalesStore";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { TransactionCard } from "./TransactionCard";
+import { useIsFetching, useQueryClient } from "react-query";
 
 export const TransactionTable = () => {
   const [limit, setLimit] = React.useState<number>(10);
@@ -33,6 +34,9 @@ export const TransactionTable = () => {
       ? saleStore.setIsDescending(!saleStore.isDescending)
       : saleStore.setIsDescending(false);
   };
+
+  const allTransactionRefetching = useIsFetching(["all-transactions"]);
+  const searchTransactionRefetching = useIsFetching(["search-transaction"]);
 
   return (
     <>
@@ -97,10 +101,26 @@ export const TransactionTable = () => {
             <span className="text-center">View</span>
           </div>
           <div className="h-full overflow-y-auto rounded-b-lg">
-            {saleStore.isLoading ? (
+            {allTransactionRefetching || searchTransactionRefetching ? (
               <div className="h-full flex flex-col items-center justify-center gap-2">
                 <CustomSpinner dark />
-                <span className="font-bold text-2xl">Loading</span>
+                <div className="flex flex-col items-center">
+                  <span className="font-bold text-xl">Fetching Data</span>
+                  <div>
+                    {allTransactionRefetching ? (
+                      <span>Fetching transactions for table</span>
+                    ) : (
+                      <span>Fetching transactions for search</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : saleStore.error ? (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="flex flex-col text-center">
+                  <span className="font-bold text-xl w-full">{saleStore.error}</span>
+                  <span>Check if the server is running or refetch.</span>
+                </div>
               </div>
             ) : (
               <AutoSizer>

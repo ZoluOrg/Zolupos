@@ -24,9 +24,6 @@ interface ISaleStore {
   totalPages: number;
   setTotalPages: (totalPages: number) => void;
 
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
-
   selectedPage: number;
   setSelectedPage: (selectedPage: number) => void;
 
@@ -41,6 +38,9 @@ interface ISaleStore {
 
   shouldShowModal: boolean;
   setShouldShowModal: (shouldShowModal: boolean) => void;
+
+  error: string;
+  setError: (error: string) => void;
 }
 
 export const useSaleStore = create<ISaleStore>((set) => ({
@@ -87,56 +87,53 @@ export const useSaleStore = create<ISaleStore>((set) => ({
         state.totalPages = totalPages;
       })
     ),
-  isLoading: true,
-  setIsLoading: (isLoading: boolean) =>
-    set(
-      produce((state) => {
-        state.isLoading = isLoading;
-      })
-    ),
+
   selectedPage: 0,
   setSelectedPage: (selectedPage: number) =>
     set(
       produce((state) => {
         state.selectedPage = selectedPage;
-      }
-    )
-  ),
+      })
+    ),
   sort: "by_id",
   setSort: (sort: string) =>
     set(
       produce((state) => {
         state.sort = sort;
-      }
-    )
-  ),
+      })
+    ),
 
   isDescending: true,
   setIsDescending: (isDescending: boolean) =>
     set(
       produce((state) => {
         state.isDescending = isDescending;
-      }
-    )
-  ),
+      })
+    ),
 
   selected: null,
   setSelected: (selected: ITransaction) =>
     set(
-      produce((state) => {  
+      produce((state) => {
         state.selected = selected;
-      }
-    )
-  ),
+      })
+    ),
 
   shouldShowModal: false,
   setShouldShowModal: (shouldShowModal: boolean) =>
     set(
       produce((state) => {
         state.shouldShowModal = shouldShowModal;
-      }
-    )
-  ),
+      })
+    ),
+
+  error: "",
+  setError: (error: string) =>
+    set(
+      produce((state) => {
+        state.error = error;
+      })
+    ),
 }));
 
 mountStoreDevtool("Store", useSaleStore);

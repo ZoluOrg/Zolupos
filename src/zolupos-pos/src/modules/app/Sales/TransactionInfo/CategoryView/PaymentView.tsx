@@ -11,14 +11,14 @@ export const PaymentView = () => {
   const saleStore = useSaleStore();
   return (
     <>
-      <div className="grid grid-cols-5 text-lg p-2 font-bold bg-mallow-2 border-b border-x border-mallow-5">
+      <div className="grid grid-cols-5 text-lg p-2 font-bold bg-mallow-2 rounded-t-lg border border-x border-mallow-5">
         <span>Payment Type</span>
         <span>Tendered</span>
         <span>Change</span>
         <span>Amount</span>
         <span>Actions</span>
       </div>
-      <div className="w-full overflow-y-auto h-[calc(100%-90px)] border border-mallow-5 rounded-b-lg p-2 shadow">
+      <div className="w-full overflow-y-auto h-[calc(100%-90px)] border-x border-b border-mallow-5 rounded-b-lg p-2 shadow">
         {saleStore.selected?.payments.map((val, idx) => (
           <PaymentCard idx={idx} payment={val} />
         ))}
@@ -32,7 +32,7 @@ const PaymentCard: React.FC<{ idx: number; payment: IPayment }> = ({
   payment,
 }) => {
   return (
-    <div className="grid grid-cols-5 py-2">
+    <div className="grid grid-cols-5 py-2 items-center">
       <span>{Object.keys(PaymentTypes)[payment.paymentType]}</span>
       <span>{payment.tendered}</span>
       <span>{payment.change}</span>
