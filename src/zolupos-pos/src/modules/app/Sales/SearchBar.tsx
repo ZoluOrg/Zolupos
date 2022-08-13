@@ -57,7 +57,7 @@ export const SearchBar = () => {
     isLoading,
     error,
     refetch: getAll,
-    isRefetching,
+    isFetching
   } = useQuery(
     ["all-transactions"],
     () =>
@@ -149,6 +149,7 @@ export const SearchBar = () => {
                   search.refetch();
                 }
               }}
+              disabled={isFetching || search.isFetching}
             >
               Refetch
             </Button>
