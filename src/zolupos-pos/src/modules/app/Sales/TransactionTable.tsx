@@ -119,7 +119,7 @@ export const TransactionTable = () => {
               <div className="w-full h-full flex items-center justify-center">
                 <div className="flex flex-col text-center">
                   <span className="font-bold text-xl w-full">{saleStore.error}</span>
-                  <span>Check if the server is running or refetch.</span>
+                  <span>Check if the server is running then refetch.</span>
                 </div>
               </div>
             ) : (

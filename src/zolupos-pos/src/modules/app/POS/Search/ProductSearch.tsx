@@ -42,7 +42,7 @@ export const ProductSearch = () => {
   }, []);
 
   useEffect(() => {
-    refetch();
+    if (searchStore.searchQuery != "") refetch();
   }, [searchStore.searchQuery]);
 
   const changeQuery = (ev: string) => {
