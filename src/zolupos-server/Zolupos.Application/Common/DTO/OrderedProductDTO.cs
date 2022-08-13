@@ -10,6 +10,10 @@ namespace Zolupos.Application.Common.DTO
     {
         public int Quantity { get; set; }
         public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int ProductUnitPrice { get; set; }
+        public int ProductUnitCost { get; set; }
+
         public bool WithVat { get; set; }
         public float BunchTotal { get; set; }
     }

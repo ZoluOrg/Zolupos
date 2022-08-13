@@ -27,6 +27,10 @@ namespace Zolupos.Application.Features.Transactions
         public float BunchTotal { get; set; }
         public bool WithVat { get; set; }
         public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int ProductUnitPrice { get; set; }
+        public int ProductUnitCost { get; set; }
+
     }
     public class AddPayment
     {

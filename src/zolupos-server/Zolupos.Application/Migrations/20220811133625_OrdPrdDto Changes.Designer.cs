@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zolupos.Application.Infrastructure.Context;
@@ -11,9 +12,10 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220811133625_OrdPrdDto Changes")]
+    partial class OrdPrdDtoChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,7 +121,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 8, 11, 13, 45, 57, 8, DateTimeKind.Utc).AddTicks(6601),
+                            LastLogin = new DateTime(2022, 8, 11, 13, 36, 25, 89, DateTimeKind.Utc).AddTicks(9038),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -144,9 +146,6 @@ namespace Zolupos.Application.Migrations
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("ProductUnitCost")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ProductUnitPrice")
                         .HasColumnType("integer");
