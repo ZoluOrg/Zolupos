@@ -17,7 +17,7 @@ export const AssignCustomer = () => {
   const transactionStore = useTransactionStore();
   const [customerName, setCustomerNameSearch] = useState<string>("");
 
-  const { data, isLoading, error, refetch } = useQuery(
+  const { data, isLoading, error, refetch, isFetching } = useQuery(
     ["customer"],
     () => getCustomerByName(customerName),
     {
@@ -60,7 +60,7 @@ export const AssignCustomer = () => {
           />
           <Button
             buttonColor="coal"
-            isLoading={isLoading}
+            isLoading={isFetching}
             onClick={() => refetch()}
           >
             Assign
