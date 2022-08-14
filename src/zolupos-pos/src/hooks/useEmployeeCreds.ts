@@ -13,7 +13,7 @@ export const employeeValidator = z.object({
   role: z.string(),
   phoneNumber: z.number(),
   lastLogin: z.string(),
-  profile: z.string(),
+  profile: z.string().nullable(),
 });
 
 export type employee = z.infer<typeof employeeValidator>;
@@ -24,11 +24,13 @@ export const useEmployeeCreds = () => {
   return useQuery("employee-creds", () => {
     const empCreds = Cookies.get("zolupos-employee-creds");
     const empToken = Cookies.get("zolupos-employee-token");
+    console.log(empToken);
     if ((empToken && empCreds != null) || (empCreds && empToken != undefined)) {
       try {
         let res = JSON.parse(empCreds);
         return employeeValidator.parse(res);
-      } catch {
+      } catch(e) {
+        console.log(e);
         toast.warning("Employee credentials are invalid. Login again.");
         navigate("/login");
       }

@@ -129,7 +129,7 @@ export const TransactionTable = () => {
                     height={height}
                     className="w-full h-full"
                     width={width}
-                    itemCount={saleStore.transactions.length}
+                    itemCount={saleStore.searchResult.length}
                     itemSize={71}
                   >
                     {TransactionCard}

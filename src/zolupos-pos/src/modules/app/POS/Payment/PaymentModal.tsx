@@ -55,6 +55,12 @@ export const PaymentModal = () => {
     else {
       console.log(transactionStore.overAllPayment < transactionStore.total);
       let transaction: ITransaction = {
+        // Fake data
+        transactionId: 0,
+        reference: "",
+        transactedAt: new Date(),
+
+        // Real data
         customerId: transactionStore.assignedCustomer?.customerId || null,
         vat: transactionStore.vat,
         total: transactionStore.total,

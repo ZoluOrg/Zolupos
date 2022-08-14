@@ -271,9 +271,9 @@ const addOrderFn = (
 ) => {
   let idx = state.orders.findIndex(
     (punchedProduct) =>
-      punchedProduct.productBarcode == order.productBarcode &&
       punchedProduct.productId == order.productId
   );
+  console.log(idx);
   if (idx > -1) state.orders[idx].quantity += 1;
   else {
     state.orders.push(order);

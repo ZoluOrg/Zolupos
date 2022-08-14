@@ -11,7 +11,7 @@ export const TransactionCard: React.FC<{
   style: React.CSSProperties;
 }> = ({ index, style }) => {
   const saleStore = useSaleStore();
-  const transaction = saleStore.transactions[index];
+  const transaction = saleStore.searchResult[index];
   const navigate = useNavigate();
   return (
     <div

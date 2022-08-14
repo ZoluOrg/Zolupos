@@ -34,7 +34,7 @@ const OrderCard: React.FC<{ idx: number; order: IOrderedProduct }> = ({
     <div className="grid grid-cols-6 py-2 items-center">
       <span>{order.quantity}</span>
       <span>{order.productName}</span>
-      <span>{order.productUnitCost}</span>
+      <span>{order.productUnitPrice}</span>
       <div>
         {order.withVat ? (
           <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">

@@ -15,9 +15,9 @@ interface addItemProps {
 }
 
 export interface IOrderedProduct {
+  productId: number;
   productName: string;
   productUnitPrice: number;
-  productUnitCost: number;
   withVat: boolean;
   quantity: number;
   bunchTotal: number;
@@ -41,7 +41,7 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
         />
       </div>
       <div className="font-bold">{transactionStore.orders[keydx].productName}</div>
-      <div>{transactionStore.orders[keydx].productUnitCost}</div>
+      <div>{transactionStore.orders[keydx].productUnitPrice}</div>
       <div>
         {transactionStore.orders[keydx].withVat ? (
           <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">

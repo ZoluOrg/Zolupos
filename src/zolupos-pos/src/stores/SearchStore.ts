@@ -3,7 +3,6 @@ import { WritableDraft } from "immer/dist/internal";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { IOrderedProduct } from "../interface/IOrderedProduct";
 import { ISearchResponse } from "../interface/ISearchResponse";
 
 interface ISearch {
