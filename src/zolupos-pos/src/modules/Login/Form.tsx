@@ -62,6 +62,7 @@ export const Form = () => {
       );
       Cookies.set("zolupos-employee-token", data.receive.requestedToken);
       queryClient.invalidateQueries("employee-creds");
+      toast(`Welcome Back ${data.receive.employee.fullName}`, { icon: "👋" });
       navigate("/landing");
     },
     onError: (error: any) => {
