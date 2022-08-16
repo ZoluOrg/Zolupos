@@ -15,3 +15,13 @@ export interface ITransaction {
   orderedProducts: Array<IOrderedProduct>;
   payments: Array<IPayment>;
 }
+
+export interface IAddTransaction {
+  customerId: number | null;
+  vat: number;
+  total: number;
+  subTotal: number;
+  discount: number;
+  orderedProducts: Array<IOrderedProduct>;
+  payments: Array<IPayment>;
+}

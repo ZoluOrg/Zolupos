@@ -8,7 +8,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
-import { ITransaction } from "../../../../interface/ITransaction";
+import { IAddTransaction, ITransaction } from "../../../../interface/ITransaction";
 import { IServerError } from "../../../../interface/ServerError";
 import { addNewTransaction } from "../../../../services/TransactionsService";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
@@ -54,11 +54,7 @@ export const PaymentModal = () => {
       toast.error("balance the payment");
     else {
       console.log(transactionStore.overAllPayment < transactionStore.total);
-      let transaction: ITransaction = {
-        // Fake data
-        transactionId: 0,
-        reference: "",
-        transactedAt: new Date(),
+      let transaction: IAddTransaction = {
 
         // Real data
         customerId: transactionStore.assignedCustomer?.customerId || null,

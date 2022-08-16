@@ -24,13 +24,11 @@ export const useEmployeeCreds = () => {
   return useQuery("employee-creds", () => {
     const empCreds = Cookies.get("zolupos-employee-creds");
     const empToken = Cookies.get("zolupos-employee-token");
-    console.log(empToken);
     if ((empToken && empCreds != null) || (empCreds && empToken != undefined)) {
       try {
         let res = JSON.parse(empCreds);
         return employeeValidator.parse(res);
       } catch(e) {
-        console.log(e);
         toast.warning("Employee credentials are invalid. Login again.");
         navigate("/login");
       }

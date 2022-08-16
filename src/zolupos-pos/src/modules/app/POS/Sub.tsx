@@ -1,10 +1,14 @@
+import { random } from "lodash";
 import { Percent } from "phosphor-react";
 import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { IAddTransaction } from "../../../interface/ITransaction";
+import { addNewTransaction } from "../../../services/TransactionsService";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 
+let tries = 0;
 export const Sub = () => {
   const transaction = useTransactionStore();
   const onDiscountChanging = (event: FormEvent<HTMLInputElement>) => {
@@ -58,7 +62,7 @@ export const Sub = () => {
       <div>
         <Button
           className="w-full bg-green-700 hover:bg-green-800"
-          onClick={() => onProcessClick()}
+          onClick={onProcessClick}
         >
           Purchase
         </Button>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IPagination } from "../interface/IPagination";
-import { ITransaction } from "../interface/ITransaction";
+import { IAddTransaction, ITransaction } from "../interface/ITransaction";
 import { getTokenAsBearer } from "../utils/TokenUtils";
 import ResultWrapper from "../wrappers/ResultWrapper";
 
@@ -36,7 +36,7 @@ export const searchTransactions = async (page: number, length: number, sortby: s
   return transactions.data;
 }
 
-export const addNewTransaction = async (transaction: ITransaction) => {
+export const addNewTransaction = async (transaction: IAddTransaction) => {
   let response = await axios.post<ResultWrapper<number>>(
     "https://localhost:7073/api/Transaction/",
     transaction,
