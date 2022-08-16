@@ -18,6 +18,7 @@ namespace Zolupos.Application.Features.Transactions
         public float Vat { get; set; }
         public float Total { get; set; }
         public float SubTotal { get; set; }
+        public int Discount { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
         public virtual List<AddPayment> Payments { get; set; }
     }
@@ -30,7 +31,6 @@ namespace Zolupos.Application.Features.Transactions
         public string ProductName { get; set; }
         public int ProductUnitPrice { get; set; }
         public int ProductUnitCost { get; set; }
-
     }
     public class AddPayment
     {

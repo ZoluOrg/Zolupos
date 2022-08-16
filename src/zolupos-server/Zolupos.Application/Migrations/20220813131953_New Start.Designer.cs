@@ -12,8 +12,8 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220728030532_Bruh")]
-    partial class Bruh
+    [Migration("20220813131953_New Start")]
+    partial class NewStart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,7 +121,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 7, 28, 3, 5, 31, 724, DateTimeKind.Utc).AddTicks(7976),
+                            LastLogin = new DateTime(2022, 8, 13, 13, 19, 52, 609, DateTimeKind.Utc).AddTicks(4069),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -141,6 +141,16 @@ namespace Zolupos.Application.Migrations
                         .HasColumnType("real");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductUnitCost")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductUnitPrice")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
@@ -271,6 +281,9 @@ namespace Zolupos.Application.Migrations
 
                     b.Property<int>("Discount")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("Reference")
+                        .HasColumnType("uuid");
 
                     b.Property<float>("SubTotal")
                         .HasColumnType("real");

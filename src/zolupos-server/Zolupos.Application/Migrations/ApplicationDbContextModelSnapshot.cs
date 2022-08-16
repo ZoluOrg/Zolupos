@@ -119,7 +119,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 8, 11, 13, 45, 57, 8, DateTimeKind.Utc).AddTicks(6601),
+                            LastLogin = new DateTime(2022, 8, 13, 13, 19, 52, 609, DateTimeKind.Utc).AddTicks(4069),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Application.Migrations
 {
-    public partial class Initial : Migration
+    public partial class NewStart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,8 @@ namespace Zolupos.Application.Migrations
                     CustomerFullName = table.Column<string>(type: "text", nullable: false),
                     CustomerEmail = table.Column<string>(type: "text", nullable: false),
                     CustomerPhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    CustomerSpent = table.Column<int>(type: "integer", nullable: false)
+                    CustomerSpent = table.Column<int>(type: "integer", nullable: false),
+                    CustomerProfile = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +41,8 @@ namespace Zolupos.Application.Migrations
                     Pin = table.Column<int>(type: "integer", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<int>(type: "integer", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Profile = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,6 +75,7 @@ namespace Zolupos.Application.Migrations
                 {
                     TransactionId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Reference = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: true),
                     TransactedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Vat = table.Column<float>(type: "real", nullable: false),
@@ -98,6 +101,9 @@ namespace Zolupos.Application.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
+                    ProductName = table.Column<string>(type: "text", nullable: false),
+                    ProductUnitPrice = table.Column<int>(type: "integer", nullable: false),
+                    ProductUnitCost = table.Column<int>(type: "integer", nullable: false),
                     WithVat = table.Column<bool>(type: "boolean", nullable: false),
                     BunchTotal = table.Column<float>(type: "real", nullable: false),
                     TransactionId = table.Column<int>(type: "integer", nullable: false)
@@ -126,9 +132,9 @@ namespace Zolupos.Application.Migrations
                     PaymentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PaymentType = table.Column<int>(type: "integer", nullable: false),
-                    Tendered = table.Column<int>(type: "integer", nullable: false),
-                    Change = table.Column<int>(type: "integer", nullable: false),
-                    Amount = table.Column<int>(type: "integer", nullable: false),
+                    Tendered = table.Column<float>(type: "real", nullable: false),
+                    Change = table.Column<float>(type: "real", nullable: false),
+                    Amount = table.Column<float>(type: "real", nullable: false),
                     TransactionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -144,13 +150,13 @@ namespace Zolupos.Application.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "CustomerId", "CustomerEmail", "CustomerFirstName", "CustomerFullName", "CustomerLastName", "CustomerPhoneNumber", "CustomerSpent" },
-                values: new object[] { 1, "Sample@customer.com", "Sample", "Sample Customer", "Customer", "0925", 0 });
+                columns: new[] { "CustomerId", "CustomerEmail", "CustomerFirstName", "CustomerFullName", "CustomerLastName", "CustomerPhoneNumber", "CustomerProfile", "CustomerSpent" },
+                values: new object[] { 1, "Sample@customer.com", "Sample", "Sample Customer", "Customer", "0925", null, 0 });
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "EmployeeId", "FirstName", "FullName", "LastLogin", "PhoneNumber", "Pin", "Role", "SurName" },
-                values: new object[] { 1, "Sample", "Sample Employee", new DateTime(2022, 7, 25, 4, 56, 57, 582, DateTimeKind.Utc).AddTicks(7423), 81234567, 1989, "Admin", "Employee" });
+                columns: new[] { "EmployeeId", "FirstName", "FullName", "LastLogin", "PhoneNumber", "Pin", "Profile", "Role", "SurName" },
+                values: new object[] { 1, "Sample", "Sample Employee", new DateTime(2022, 8, 13, 13, 19, 52, 609, DateTimeKind.Utc).AddTicks(4069), 81234567, 1989, null, "Admin", "Employee" });
 
             migrationBuilder.InsertData(
                 table: "Products",
