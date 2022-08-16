@@ -22,7 +22,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <div className="h-screen bg-mallow-1">
         <ToastContainer />
-        <Toaster/>
+        <Toaster toastOptions={{
+          style: {
+            fontWeight: "bold",
+            background: "#fcfcfc",
+            padding: "8px 18px",
+            boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+            border: "1px solid #a6a6a6",
+          },
+        }}/>
         <TitleProvider>
           <QueryClientProvider client={client}>
             <ReactQueryDevtools initialIsOpen={false} />

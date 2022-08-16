@@ -18,7 +18,7 @@ export const Sub = () => {
 
   const processClick = () => {
     if (transaction.orders.length == 0)
-      toast("Shopping Cart Empty", { icon: "🛒" });
+      toast.success("Shopping Cart Empty");
     else if (transaction.discount > 99) toast.error("Discount to high");
     else transaction.setShowPaymentModal(true);
   };

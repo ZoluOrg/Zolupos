@@ -66,12 +66,13 @@ export const Form = () => {
     },
     onError: (error: any) => {
       let errorMessage = "";
+      console.log(error);
       if (error instanceof ZodError) {
         toast.error(error.errors[0].message);
       } else if (error instanceof AxiosError) {
         error.response?.data
           ? toast.error(error.response.data.ExceptionMessage)
-          : toast.error(error.message);
+          : toast.error(error.message!);
       }
     },
   });

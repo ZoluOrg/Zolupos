@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import React, { useEffect, useState, useTransition } from "react";
+import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
 import { useQuery } from "react-query";
-import { toast } from "react-toastify";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { IPagination } from "../../../interface/IPagination";

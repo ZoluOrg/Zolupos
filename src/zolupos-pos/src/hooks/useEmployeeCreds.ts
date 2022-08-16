@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { z } from "zod";
 import { Router, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export const employeeValidator = z.object({
   employeeId: z.number(),
@@ -29,11 +29,11 @@ export const useEmployeeCreds = () => {
         let res = JSON.parse(empCreds);
         return employeeValidator.parse(res);
       } catch(e) {
-        toast.warning("Employee credentials are invalid. Login again.");
+        toast.error("Employee credentials are invalid. Login again.");
         navigate("/login");
       }
     } else {
-      toast.warning("Please login first");
+      toast.error("Unauthorized. Login again.");
       navigate("/login");
     }
   });

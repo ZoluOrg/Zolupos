@@ -7,11 +7,11 @@ import { useMutation, useQuery } from "react-query";
 import { getCustomerByName } from "../../../../services/CustomerService";
 import { ICustomer } from "../../../../interface/ICustomer";
 import ResultWrapper from "../../../../wrappers/ResultWrapper";
-import { toast } from "react-toastify";
 import { Axios, AxiosError } from "axios";
 import { IServerError } from "../../../../interface/ServerError";
 import { LinkSimpleHorizontalBreak } from "phosphor-react";
 import { Modal } from "../../../../components/Modal";
+import toast from "react-hot-toast";
 
 export const AssignCustomer = () => {
   const transactionStore = useTransactionStore();
@@ -28,7 +28,7 @@ export const AssignCustomer = () => {
         transactionStore.setShouldShowCustomerModal(false);
       },
       onError: (error: AxiosError<IServerError>) => {
-        toast.error(error.response?.data.ExceptionMessage);
+        toast.error(error.response?.data.ExceptionMessage!);
       },
     }
   );

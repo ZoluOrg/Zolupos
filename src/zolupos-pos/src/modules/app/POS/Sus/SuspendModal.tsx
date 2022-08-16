@@ -1,6 +1,5 @@
 import { Formik, Form as FormikForm, Field } from "formik";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { Button } from "../../../../components/Button";
 import { Checkbox } from "../../../../components/Checkbox";
 import { Input } from "../../../../components/Input";
