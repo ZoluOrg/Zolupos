@@ -5,12 +5,12 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Checkbox } from "../../components/Checkbox";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { z, ZodError } from "zod";
 import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import ResultWrapper from "../../wrappers/ResultWrapper";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const employeeLoginValidator = z.object({
   fullName: z.string().min(3, "Full name must be at least 3 characters. \n"),
@@ -67,10 +67,7 @@ export const Form = () => {
     onError: (error: any) => {
       let errorMessage = "";
       if (error instanceof ZodError) {
-        error.errors.forEach((error) => {
-          errorMessage += error.message;
-        });
-        toast.error(errorMessage);
+        toast.error(error.errors[0].message);
       } else if (error instanceof AxiosError) {
         error.response?.data
           ? toast.error(error.response.data.ExceptionMessage)
