@@ -13,14 +13,14 @@ export const ModuleSelectionButton: FC<ModuleSelectionButtonProps> = ({
   label,
   buttonTailColor = "mallow-1",
 }) => {
-  const actualHref = `/${label}`;
+  const nextLink = `/${label}`;
   const navigate = useNavigate();
   return (
     <motion.div
       whileHover={{ scale: 1.09 }}
       whileTap={{ scale: 0.9 }}
       className="module-button flex flex-col gap-1"
-      onClick={() => navigate(actualHref)}
+      onClick={() => navigate(nextLink)}
     >
       <div
         className={`module-logo p-5 rounded-xl bg-coal-1 text-${buttonTailColor} hover:shadow transition`}

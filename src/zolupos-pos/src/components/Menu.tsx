@@ -22,7 +22,7 @@ interface MenuItemProps {
 
 export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  let cont = useRef<HTMLDivElement>(null);
+  let container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.addEventListener("mousedown", clickedOutside);
@@ -32,7 +32,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props })
   });
 
   const clickedOutside = (Event: MouseEvent) => {
-    if (!cont.current?.contains(Event.target as Node) && cont.current) {
+    if (!container.current?.contains(Event.target as Node) && container.current) {
       setShowMenu(false);
     }
   };
@@ -40,7 +40,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props })
   return (
     <div
       className="profile-dropdown rounded-lg right-4 left-auto flex flex-col gap-1 "
-      ref={cont}
+      ref={container}
     >
       <div className="menu">
         <Button

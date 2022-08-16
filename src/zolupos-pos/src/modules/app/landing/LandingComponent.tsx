@@ -7,9 +7,5 @@ import { ModuleSection } from "./ModuleSection";
 export const LandingComponent = () => {
   const titleContext = useTitleContext();
   titleContext.setTitle("Landing");
-  return (
-    <div className="">
-      <ModuleSection />
-    </div>
-  );
+  return <ModuleSection />;
 };

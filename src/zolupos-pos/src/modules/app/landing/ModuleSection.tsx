@@ -1,13 +1,8 @@
 import {
   Bag,
   Barcode,
-  Cardholder,
-  Person,
   Receipt,
-  Users,
-  UsersThree,
 } from "phosphor-react";
-import React from "react";
 import { ModuleSelectionButton } from "./ModuleSelectionButton";
 
 export const ModuleSection = () => {
