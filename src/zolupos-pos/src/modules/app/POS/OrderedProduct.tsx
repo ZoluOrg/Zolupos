@@ -1,18 +1,9 @@
-import {
-  X,
-} from "phosphor-react";
-import React, {
-  FC,
-  FormEvent,
-} from "react";
+import { X } from "phosphor-react";
+import React, { FC, FormEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { ISearchResponse } from "../../../interface/ISearchResponse";
 import { useTransactionStore } from "../../../stores/TransactionStore";
-
-interface addItemProps {
-  keydx: number;
-}
 
 export interface IOrderedProduct {
   productId: number;
@@ -23,27 +14,33 @@ export interface IOrderedProduct {
   bunchTotal: number;
 }
 
-export const AddedItem: FC<addItemProps> = ({ keydx }) => {
+export const AddedItem: FC<{
+  keyIndex: number;
+}> = ({ keyIndex }) => {
   const transactionStore = useTransactionStore();
+
   const onChangingInputQuantity = (event: FormEvent<HTMLInputElement>) => {
-    transactionStore.qtyChanging(keydx, parseInt(event.currentTarget.value));
-    transactionStore.calculateBunchPrice(keydx);
+    transactionStore.qtyChanging(keyIndex, parseInt(event.currentTarget.value));
+    transactionStore.calculateBunchPrice(keyIndex);
   };
+
   return (
     <div className="p-3 grid grid-cols-6 items-center text-sm">
       <div>
         <Input
           className="w-8/12"
-          value={transactionStore.orders[keydx].quantity}
+          value={transactionStore.orders[keyIndex].quantity}
           onChange={onChangingInputQuantity}
           type="number"
           min={1}
         />
       </div>
-      <div className="font-bold">{transactionStore.orders[keydx].productName}</div>
-      <div>{transactionStore.orders[keydx].productUnitPrice}</div>
+      <div className="font-bold">
+        {transactionStore.orders[keyIndex].productName}
+      </div>
+      <div>{transactionStore.orders[keyIndex].productUnitPrice}</div>
       <div>
-        {transactionStore.orders[keydx].withVat ? (
+        {transactionStore.orders[keyIndex].withVat ? (
           <span className="px-3 py-1 bg-accent-1 bg-opacity-30 text-accent-3 rounded-lg">
             VAT
           </span>
@@ -53,9 +50,9 @@ export const AddedItem: FC<addItemProps> = ({ keydx }) => {
           </span>
         )}
       </div>
-      <div>{transactionStore.orders[keydx].bunchTotal}</div>
+      <div>{transactionStore.orders[keyIndex].bunchTotal}</div>
       <div className="w-full flex justify-center">
-        <Button onClick={() => transactionStore.removeOrder(keydx)}>
+        <Button onClick={() => transactionStore.removeOrder(keyIndex)}>
           <X />
         </Button>
       </div>

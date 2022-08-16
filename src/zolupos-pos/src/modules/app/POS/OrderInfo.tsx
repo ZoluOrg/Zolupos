@@ -6,15 +6,12 @@ import { CustomerInfo } from "./CustomerInfo";
 import { Sub } from "./Sub";
 
 export const OrderInfo = () => {
-  const [isPending, startTransition] = useTransition();
   const transaction = useTransactionStore();
   const transactionStore = useTransactionStore();
 
   useEffect(() => {
     transaction.calculateInfo(transactionStore.orders);
   }, [transactionStore.orders, transaction.discount]);
-
-  const onCancelClick = (e: React.MouseEventHandler<HTMLButtonElement>) => {};
 
   return (
     <div className="rounded-lg flex-grow">

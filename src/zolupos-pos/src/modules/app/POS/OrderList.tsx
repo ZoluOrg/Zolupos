@@ -31,8 +31,8 @@ export const OrderList = () => {
             </div>
           </div>
           <div className="h-full overflow-y-auto">
-            {transactionStore.map((_, idx) => (
-              <AddedItem key={idx} keydx={idx} />
+            {transactionStore.map((_, index) => (
+              <AddedItem key={index} keyIndex={index} />
             ))}
           </div>
         </div>

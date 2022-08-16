@@ -2,13 +2,16 @@ import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { BagSimple, Money, Plus, PlusCircle, X } from "phosphor-react";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../interface/IPayment";
-import { IAddTransaction, ITransaction } from "../../../../interface/ITransaction";
+import {
+  IAddTransaction,
+  ITransaction,
+} from "../../../../interface/ITransaction";
 import { IServerError } from "../../../../interface/ServerError";
 import { addNewTransaction } from "../../../../services/TransactionsService";
 import { useTransactionStore } from "../../../../stores/TransactionStore";
@@ -40,12 +43,12 @@ export const PaymentModal = () => {
     });
   }, []);
 
-  const { mutateAsync, data, isLoading } = useMutation(addNewTransaction, {
+  const { mutateAsync, data, status } = useMutation(addNewTransaction, {
     onSuccess: () => {
-      toast.info("Transaction processed successfully");
+      toast.success("Transaction processed successfully");
     },
     onError: (error: AxiosError<IServerError>) => {
-      toast.error(error.response?.data.ExceptionMessage);
+      toast.error(error.response?.data.ExceptionMessage!);
     },
   });
 
@@ -55,7 +58,6 @@ export const PaymentModal = () => {
     else {
       console.log(transactionStore.overAllPayment < transactionStore.total);
       let transaction: IAddTransaction = {
-
         // Real data
         customerId: transactionStore.assignedCustomer?.customerId || null,
         vat: transactionStore.vat,
@@ -65,8 +67,13 @@ export const PaymentModal = () => {
         orderedProducts: transactionStore.orders,
         payments: transactionStore.payments,
       };
-      await mutateAsync(transaction);
-      transactionStore.transactionFinish();
+      await toast
+        .promise(mutateAsync(transaction), {
+          loading: "Processing transaction...",
+          success: "Transaction processed successfully",
+          error: "Error processing transaction",
+        })
+        .then(() => transactionStore.transactionFinish());
     }
   };
 
@@ -80,6 +87,7 @@ export const PaymentModal = () => {
           <span className="text-2xl font-bold">Process Transaction</span>
           <div>
             <Button
+              disabled={status=="loading"}
               onClick={() => {
                 transactionStore.setShowPaymentModal(false);
               }}

@@ -13,6 +13,7 @@ import { TitleProvider } from "./context/TitleContext";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { SalesComponent } from "./modules/app/Sales/SalesComponent";
 import { TransactionComponent } from "./modules/app/Sales/TransactionInfo/TransactionComponent";
+import { Toaster } from "react-hot-toast";
 
 const client = new QueryClient();
 
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <div className="h-screen bg-mallow-1">
         <ToastContainer />
+        <Toaster/>
         <TitleProvider>
           <QueryClientProvider client={client}>
             <ReactQueryDevtools initialIsOpen={false} />

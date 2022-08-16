@@ -1,27 +1,24 @@
 import { random } from "lodash";
 import { Percent } from "phosphor-react";
-import React, { FormEvent } from "react";
-import { toast } from "react-toastify";
+import { FormEvent } from "react";
+import toast from "react-hot-toast";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
-import { IAddTransaction } from "../../../interface/ITransaction";
-import { addNewTransaction } from "../../../services/TransactionsService";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 
-let tries = 0;
 export const Sub = () => {
   const transaction = useTransactionStore();
-  const onDiscountChanging = (event: FormEvent<HTMLInputElement>) => {
-    if (!isNaN(parseInt(event.currentTarget.value))) {
-      transaction.setDiscount(parseFloat(event.currentTarget.value));
-    } else {
-      transaction.setDiscount(0);
+
+  const discountChange = (event: FormEvent<HTMLInputElement>) => {
+    if (isNaN(parseInt(event.currentTarget.value))) {
+      toast.error("Discount must be a number");
     }
+    transaction.setDiscount(parseFloat(event.currentTarget.value));
   };
 
-  const onProcessClick = () => {
-    // Checks
-    if (transaction.orders.length == 0) toast.error("Add items");
+  const processClick = () => {
+    if (transaction.orders.length == 0)
+      toast("Shopping Cart Empty", { icon: "🛒" });
     else if (transaction.discount > 99) toast.error("Discount to high");
     else transaction.setShowPaymentModal(true);
   };
@@ -55,14 +52,14 @@ export const Sub = () => {
             max={100}
             type="number"
             value={transaction.discount}
-            onChange={onDiscountChanging}
+            onChange={discountChange}
           />
         </div>
       </div>
       <div>
         <Button
           className="w-full bg-green-700 hover:bg-green-800"
-          onClick={onProcessClick}
+          onClick={processClick}
         >
           Purchase
         </Button>
