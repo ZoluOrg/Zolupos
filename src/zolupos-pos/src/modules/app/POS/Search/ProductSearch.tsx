@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
@@ -31,7 +31,7 @@ export const ProductSearch = () => {
     }
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.addEventListener("keydown", (event) => {
       if (event.altKey && event.key == "a") setShouldShow(true);
       else if (event.key == "Escape") {

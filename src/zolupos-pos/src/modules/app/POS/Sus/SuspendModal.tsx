@@ -1,5 +1,6 @@
 import { Formik, Form as FormikForm, Field } from "formik";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Button } from "../../../../components/Button";
 import { Checkbox } from "../../../../components/Checkbox";
 import { Input } from "../../../../components/Input";
@@ -20,7 +21,10 @@ export const SuspendModal = () => {
       toast.error("Invalid full name");
     else if (employee.data?.pin != parseInt(values.pin))
       toast.error("Invalid pin");
-    else transactionStore.setShouldShowSusModal(false);
+    else {
+      transactionStore.setShouldShowSusModal(false);
+      toast("POS Unlocked", {icon: "🔓"})
+    }
   };
 
   return (
