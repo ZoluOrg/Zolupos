@@ -47,7 +47,7 @@ export const PaymentCard: React.FC<{
             ))}
           </select>
         </div>
-        {transactionStore.payments[paymentIndex].paymentType == 0 && (
+        {transactionStore.payments[paymentIndex].paymentType == PaymentTypes.Cash && (
           <div>
             <div className="flex flex-col gap-1">
               <span>Tendered: </span>

@@ -1,5 +1,6 @@
 import { ArrowArcLeft, DotsThree, TrashSimple } from "phosphor-react";
 import React from "react";
+import { object } from "zod";
 import { Menu, MenuItems } from "../../../../../components/Menu";
 import { PaymentTypes } from "../../../../../enums/PaymentTypes";
 import { IPayment } from "../../../../../interface/IPayment";
@@ -31,14 +32,15 @@ const PaymentCard: React.FC<{ idx: number; payment: IPayment }> = ({
   idx,
   payment,
 }) => {
+  console.log(typeof payment.paymentType);
   return (
     <div className="grid grid-cols-5 py-2 items-center">
-      <span>{Object.keys(PaymentTypes)[payment.paymentType]}</span>
+      <span>{Object.values(PaymentTypes)[parseInt(payment.paymentType)]}</span>
       <span>{payment.tendered}</span>
       <span>{payment.change}</span>
       <span>{payment.amount}</span>
       <div>
-        <Menu Look={() => <DotsThree size={24}/>}>
+        <Menu Look={() => <DotsThree size={24} />}>
           <MenuItems Icon={<TrashSimple size={24} />}>Delete</MenuItems>
         </Menu>
       </div>

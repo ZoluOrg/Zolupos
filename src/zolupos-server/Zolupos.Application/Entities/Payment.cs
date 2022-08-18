@@ -10,7 +10,7 @@ namespace Zolupos.Application.Entities
     public class Payment
     {
         public int PaymentId { get; set; }
-        public int PaymentType { get; set; }
+        public PaymentType PaymentType { get; set; }
         public float Tendered { get; set; }
         public float Change { get; set; }
         public float Amount { get; set; }
