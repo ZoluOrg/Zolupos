@@ -8,16 +8,22 @@ import { OrderInfo } from "./OrderInfo";
 import { OrderList } from "./OrderList";
 import { PaymentModal } from "./Payment/PaymentModal";
 import { ProductSearch } from "./Search/ProductSearch";
-import { CancelModal } from "./Sus/CancelModal";
-import { SuspendModal } from "./Sus/SuspendModal";
+import { CancelModal } from "./OtherModals/CancelModal";
+import { SuspendModal } from "./OtherModals/SuspendModal";
+import { FundsModal } from "./Search/FundsModal";
+import { useSessionStore } from "../../../stores/SessionStore";
 
 export const POSContainer = () => {
   const titleContext = useTitleContext();
   titleContext.setTitle("POS");
 
   const transactionStore = useTransactionStore();
+  const sessionStore = useSessionStore();
 
   useEffect(() => {
+    if(!sessionStore.askedForFunds){
+      sessionStore.setShouldShowSessionModal(true);
+    }
     return () => {
       transactionStore.transactionFinish;
     };
@@ -29,6 +35,7 @@ export const POSContainer = () => {
       <PaymentModal />
       <AssignCustomer />
       <CancelModal />
+      <FundsModal />
       <div className="h-full flex px-[25px] py-[22px] gap-[25px]">
         <OrderList />
         <OrderInfo />
