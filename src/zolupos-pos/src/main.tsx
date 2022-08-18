@@ -35,7 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <QueryClientProvider client={client}>
             <ReactQueryDevtools initialIsOpen={false} />
             <Routes>
-              <Route path="/" element={<AppContainer />}>
+              <Route element={<AppContainer />}>
                 <Route path="landing" element={<LandingComponent />} />
                 <Route path="POS" element={<POSComponent />} />
                 <Route path="sales" element={<SalesComponent />} />

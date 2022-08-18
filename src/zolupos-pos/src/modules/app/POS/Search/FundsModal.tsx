@@ -10,10 +10,13 @@ export const FundsModal = () => {
   const [inputVal, setInputVal] = useState<number>(0);
 
   const finish = () => {
-    sessionStore.setFunds(inputVal);
-    sessionStore.setAskedForFunds(true);
-    sessionStore.setShouldShowSessionModal(false);
-    toast.success("Funds Set");
+    if (isNaN(inputVal)) toast.error("Funds Not a Number");
+    else {
+      sessionStore.setFunds(inputVal);
+      sessionStore.setAskedForFunds(true);
+      sessionStore.setShouldShowSessionModal(false);
+      toast.success("Funds Set");
+    }
   };
 
   return (
