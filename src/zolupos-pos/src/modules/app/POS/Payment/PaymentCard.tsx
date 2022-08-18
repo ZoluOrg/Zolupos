@@ -36,10 +36,11 @@ export const PaymentCard: React.FC<{
   };
   return (
     <div className="payment grid grid-cols-3 w-full bg-mallow-bg-1 border border-mallow-5 rounded-lg p-3 shadow hover:shadow-lg hover:scale-[1.005] transition ">
+
       <div className="flex flex-col gap-2">
         <div>
           <select className="rounded-lg w-8/12" onChange={paymentTypeChange}>
-            {Object.keys(PaymentTypes).map((adr, key) => (
+            {Object.values(PaymentTypes).map((adr, key) => (
               <option key={key} value={key}>
                 {adr}
               </option>

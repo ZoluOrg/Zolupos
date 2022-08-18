@@ -14,6 +14,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { SalesComponent } from "./modules/app/Sales/SalesComponent";
 import { TransactionComponent } from "./modules/app/Sales/TransactionInfo/TransactionComponent";
 import { Toaster } from "react-hot-toast";
+import { ReportComponent } from "./modules/app/Reconciliation/ReconciliationComponent";
 
 const client = new QueryClient();
 
@@ -22,15 +23,18 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <div className="h-screen bg-mallow-1">
         <ToastContainer />
-        <Toaster toastOptions={{
-          style: {
-            fontWeight: "bold",
-            background: "#fcfcfc",
-            padding: "8px 18px",
-            boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-            border: "1px solid #a6a6a6",
-          },
-        }}/>
+        <Toaster
+          toastOptions={{
+            style: {
+              fontWeight: "bold",
+              background: "#fcfcfc",
+              padding: "8px 18px",
+              boxShadow:
+                "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+              border: "1px solid #a6a6a6",
+            },
+          }}
+        />
         <TitleProvider>
           <QueryClientProvider client={client}>
             <ReactQueryDevtools initialIsOpen={false} />
@@ -39,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="landing" element={<LandingComponent />} />
                 <Route path="POS" element={<POSComponent />} />
                 <Route path="sales" element={<SalesComponent />} />
+                <Route path="reconciliation" element={<ReportComponent />} />
                 <Route
                   path="sales/transaction/:id"
                   element={<TransactionComponent />}

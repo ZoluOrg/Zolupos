@@ -2,6 +2,7 @@ import { X } from "phosphor-react";
 import React, { FC, FormEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
+import { PaymentTypes } from "../../../enums/PaymentTypes";
 import { ISearchResponse } from "../../../interface/ISearchResponse";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 
@@ -26,6 +27,7 @@ export const AddedItem: FC<{
 
   return (
     <div className="p-3 grid grid-cols-6 items-center text-sm">
+      
       <div>
         <Input
           className="w-8/12"

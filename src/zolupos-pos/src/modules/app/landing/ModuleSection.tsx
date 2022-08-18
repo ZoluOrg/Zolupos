@@ -1,7 +1,8 @@
 import {
   Bag,
   Barcode,
-  Receipt,
+
+  Tag,
 } from "phosphor-react";
 import { ModuleSelectionButton } from "./ModuleSelectionButton";
 
@@ -22,8 +23,8 @@ export const ModuleSection = () => {
         />
 
         <ModuleSelectionButton
-          icon={<Receipt size={60} weight="bold" />}
-          label="Reports"
+          icon={<Tag size={60} weight="bold" />}
+          label="Reconciliation"
           buttonTailColor="mallow-1"
         />
       </div>
