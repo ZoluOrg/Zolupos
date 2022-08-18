@@ -10,6 +10,7 @@ namespace Zolupos.Application.Common.Interfaces
         DbSet<OrderedProduct> OrderedProducts { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<Transaction> Transactions { get; set; }
+        DbSet<Device> Devices { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

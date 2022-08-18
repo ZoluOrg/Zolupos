@@ -22,12 +22,13 @@ namespace Zolupos.Application.Infrastructure.Context
         public virtual DbSet<OrderedProduct> OrderedProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0, CustomerProfile = null, CustomerFullName="Sample Customer"});
+            modelBuilder.Entity<Customer>().HasData(new Customer { CustomerId = 1, CustomerFirstName = "Sample", CustomerLastName = "Customer", CustomerEmail = "Sample@customer.com", CustomerPhoneNumber = "0925", CustomerSpent = 0, CustomerProfile = null, CustomerFullName = "Sample Customer" });
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 1, ProductBarcode = "00001", ProductName = "Sample Product", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = true });
             modelBuilder.Entity<Product>().HasData(new Product { ProductId = 2, ProductBarcode = "00001", ProductName = "Sample Product With Out Vat", ProductUnitPrice = 10, ProductUnitCost = 5, ProductQuantity = 10, ProductManufacturer = "Zolu", ProductType = "Sample", WithVat = false });
 
@@ -36,6 +37,8 @@ namespace Zolupos.Application.Infrastructure.Context
 
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.Payments).WithOne(py => py.Transaction);
             modelBuilder.Entity<Payment>().HasOne(py => py.Transaction).WithMany(tr => tr.Payments);
+
+            modelBuilder.Entity<Device>().HasData(new Device { DeviceId = 1, DeviceName = "Default", LastUsed = DateTime.UtcNow, RegistrationDate = DateTime.UtcNow });
 
             modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", FullName = "Sample Employee", Pin = 1989, Role = "Admin", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow, Profile = null });
         }
