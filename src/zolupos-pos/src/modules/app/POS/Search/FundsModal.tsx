@@ -11,6 +11,7 @@ export const FundsModal = () => {
 
   const finish = () => {
     if (isNaN(inputVal)) toast.error("Funds Not a Number");
+    if (inputVal == 0) toast.error("Invalid Empty");
     else {
       sessionStore.setFunds(inputVal);
       sessionStore.setAskedForFunds(true);
@@ -22,15 +23,10 @@ export const FundsModal = () => {
   return (
     <Modal
       isOpen={sessionStore.shouldShowSessionModal}
-      className="p-[25px] w-96"
+      className="p-[25px] w-[512px]"
     >
       <div className="w-full flex items-center justify-between">
         <span className="text-2xl font-bold">Input Funds</span>
-        <div>
-          <Button onClick={() => sessionStore.setShouldShowSessionModal(false)}>
-            Close
-          </Button>
-        </div>
       </div>
       <div className="mt-3">
         <div className="flex gap-2">
