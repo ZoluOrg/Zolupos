@@ -19,6 +19,13 @@ namespace Zolupos.Server.Controllers.Devices
             return Ok(results);
         }
 
+        [HttpGet("/setup")]
+        public async Task<ActionResult> RegisterDevice([FromQuery(Name = "devName")] string devId)
+        {
+            var results = await Mediator.Send(new RegisterDeviceQuery(devId));
+            return Ok(results);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddDevice(AddDeviceCommand command)
         {
