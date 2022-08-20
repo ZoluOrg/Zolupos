@@ -24,7 +24,7 @@ namespace Zolupos.Application.Features.Devices
         public async Task<ResultWrapper<Device>> Handle(RegisterDeviceQuery request, CancellationToken cancellationToken)
         {
             var device = await _context.Devices.Where(device => device.DeviceName == request.deviceName).FirstOrDefaultAsync();
-            if (device == null) throw new CustomError(Message: "Device not found", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
+            if (device == null) throw new CustomError(Message: "Device not found. Contact administrator.", Errors: "", StatusCode: System.Net.HttpStatusCode.NotFound);
             return new ResultWrapper<Device> { Message = "", Receive = device };
         }
     }

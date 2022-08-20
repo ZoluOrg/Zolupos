@@ -16,6 +16,5 @@ namespace Zolupos.Application.Common.Abstractions
             services.AddDbContext<T>(op => op.UseNpgsql("Host=Localhost;Database=Zolupos.Database;Username=postgres;Password=postgres7207"));
             return services;
         }
-
     }
 }
