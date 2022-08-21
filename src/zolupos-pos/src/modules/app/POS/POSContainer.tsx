@@ -21,12 +21,9 @@ export const POSContainer = () => {
   const sessionStore = useSessionStore();
 
   useEffect(() => {
-    if(!sessionStore.askedForFunds){
+    if (!sessionStore.askedForFunds) {
       sessionStore.setShouldShowSessionModal(true);
     }
-    return () => {
-      transactionStore.transactionFinish;
-    };
   }, []);
 
   return (
