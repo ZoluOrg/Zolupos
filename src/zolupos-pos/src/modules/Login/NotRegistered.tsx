@@ -22,7 +22,7 @@ export const NotRegisteredModal = () => {
   const regis = useQuery(["device"], () => setup(selected), {
     enabled: false,
     onSuccess: (data: ResultWrapper<device>) => {
-      toast.success("Device Registered as" + data.receive.deviceName);
+      toast(`Registered as ${data.receive.deviceName}`, { icon: "📡" });
       Cookies.set("zolupos-device-creds", JSON.stringify(data.receive!));
     },
     onError: (e) => {
@@ -30,7 +30,10 @@ export const NotRegisteredModal = () => {
     },
   });
   return (
-    <Modal isOpen={Cookies.get("zolupos-device-creds") == null} className="p-5 w-96">
+    <Modal
+      isOpen={Cookies.get("zolupos-device-creds") == null}
+      className="p-5 w-96"
+    >
       <div className="w-full flex items-center justify-between">
         <span className="text-xl font-bold">Register Terminal</span>
       </div>
