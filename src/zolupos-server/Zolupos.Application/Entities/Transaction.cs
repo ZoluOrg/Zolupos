@@ -23,5 +23,8 @@ namespace Zolupos.Application.Entities
 
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
         public virtual List<Payment> Payments { get; set; }
+
+        public int DeviceId { get; set; }
+        public virtual Device Device { get; set; }
     }
 }
