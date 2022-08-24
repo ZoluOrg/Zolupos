@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 using TheArcher.Context;
 using TheArcher.Entities;
 
-namespace TheArcher.Queries
+namespace TheArcher.Features.Employees
 {
     public class EmployeeQuery
     {
         [UseOffsetPaging(IncludeTotalCount = true)]
-        public IQueryable<Employee> GetEmployees (ApplicationDbContext context)
+        public IQueryable<Employee> GetEmployees(ApplicationDbContext context)
         {
             return context.Employees;
         }
-        
-        public async Task<Employee?> GetEmployee (ApplicationDbContext context, int id)
+
+        public async Task<Employee?> GetEmployee(ApplicationDbContext context, int id)
         {
             return await context.Employees.Where(emp => emp.Id == id).FirstOrDefaultAsync();
         }
