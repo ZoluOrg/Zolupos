@@ -74,7 +74,7 @@ export const Menu: FC<MenuProps> = ({ children, Look, menuClassName, ...props })
 
 export const MenuItems: FC<MenuItemProps> = ({ children, Icon }) => {
   return (
-    <li className="m-1 px-3 py-2 pr-5 bg-coal-2 rounded-lg hover:bg-coal-3 cursor-pointer text-mallow-1 font-bold flex items-center gap-2">
+    <li className="m-1 px-3 py-2 pr-5 bg-coal-2 rounded-lg hover:bg-accent-1 cursor-pointer text-mallow-1 font-bold flex items-center gap-2 transition duration-100">
       {Icon}
       {children}
     </li>

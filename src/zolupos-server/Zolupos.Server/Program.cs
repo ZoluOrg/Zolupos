@@ -7,7 +7,10 @@ using Microsoft.OpenApi.Models;
 using System.Net;
 using System.Text;
 using Zolupos.Application;
+using Zolupos.Application.Common.Interfaces;
+using Zolupos.Application.Infrastructure.Context;
 using Zolupos.Application.Middleware;
+using Zolupos.Application.Queries;
 using Zolupos.Shared.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,7 +44,9 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddTransient<ExceptionHandler>();
 
-    builder.Services.UseZoluposApplication();   
+    builder.Services.UseZoluposApplication();
+
+    builder.Services.AddGraphQLServer().RegisterDbContext<ApplicationDbContext>().AddQueryType<Customers>();
 
     var settingSection = builder.Configuration.GetSection("Settings");
     builder.Services.Configure<Settings>(settingSection);
@@ -93,7 +98,7 @@ var app = builder.Build();
     app.UseStaticFiles(new StaticFileOptions
     {
         FileProvider = new PhysicalFileProvider(
-            Path.Combine(builder.Environment.ContentRootPath, "Static")),
+            System.IO.Path.Combine(builder.Environment.ContentRootPath, "Static")),
         RequestPath = "/static"
     });
 
@@ -104,6 +109,7 @@ var app = builder.Build();
         cors.AllowAnyHeader();
     });
 
+    app.MapGraphQL();
     app.Run();
 }
 

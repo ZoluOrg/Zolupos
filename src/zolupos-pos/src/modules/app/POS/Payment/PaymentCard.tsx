@@ -9,10 +9,16 @@ export const PaymentCard: React.FC<{
   paymentIndex: number;
 }> = ({ paymentIndex }) => {
   const transactionStore = useTransactionStore();
+  console.log(transactionStore.payments[paymentIndex].paymentType);
 
   const paymentTypeChange = (ev: React.FormEvent<HTMLSelectElement>) => {
+    console.log(
+      Object.keys(PaymentTypes)[
+        Object.keys(PaymentTypes).indexOf(ev.currentTarget.value)
+      ]
+    );
     transactionStore.setPaymentMethod(
-      paymentIndex,
+      paymentIndex, 
       parseInt(ev.currentTarget.value)
     );
   };
@@ -36,7 +42,6 @@ export const PaymentCard: React.FC<{
   };
   return (
     <div className="payment grid grid-cols-3 w-full bg-mallow-bg-1 border border-mallow-5 rounded-lg p-3 shadow hover:shadow-lg hover:scale-[1.005] transition ">
-
       <div className="flex flex-col gap-2">
         <div>
           <select className="rounded-lg w-8/12" onChange={paymentTypeChange}>
@@ -47,7 +52,8 @@ export const PaymentCard: React.FC<{
             ))}
           </select>
         </div>
-        {transactionStore.payments[paymentIndex].paymentType == PaymentTypes.Cash && (
+        {transactionStore.payments[paymentIndex].paymentType ==
+          PaymentTypes.Cash && (
           <div>
             <div className="flex flex-col gap-1">
               <span>Tendered: </span>

@@ -10,7 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const buttonColorSelection = {
   accent: "bg-accent-1 hover:bg-accent-2 text-mallow-1",
   coal: "bg-coal-1 hover:bg-coal-2 text-mallow-1",
-  mallow: "bg-mallow-2 hover:bg-mallow-3 text-black text-opacity-80  border border-mallow-5",
+  mallow: "bg-mallow-2 hover:bg-mallow-3 text-black text-opacity-80 border border-mallow-5",
 };
 
 const buttonSizeSelection = {
