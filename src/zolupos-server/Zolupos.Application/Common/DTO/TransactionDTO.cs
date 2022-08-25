@@ -17,7 +17,7 @@ namespace Zolupos.Application.Common.DTO
         public float Vat { get; set; }
         public float Total { get; set; }
         public float SubTotal { get; set; }
-
+        public int DeviceId { get; set; }
         public virtual List<OrderedProductDTO> OrderedProducts { get; set; }
         public virtual List<PaymentDTO> Payments { get; set; }
     }

@@ -12,5 +12,7 @@ namespace Zolupos.Application.Entities
         public string DeviceName { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime LastUsed { get; set; }
+
+        public virtual List<Transaction> Transactions { get; set; }
     }
 }

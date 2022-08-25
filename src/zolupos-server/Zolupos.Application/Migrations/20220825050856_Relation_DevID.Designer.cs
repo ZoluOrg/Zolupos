@@ -12,14 +12,14 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220813131953_New Start")]
-    partial class NewStart
+    [Migration("20220825050856_Relation_DevID")]
+    partial class Relation_DevID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -75,6 +75,38 @@ namespace Zolupos.Application.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Zolupos.Application.Entities.Device", b =>
+                {
+                    b.Property<int>("DeviceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DeviceId"));
+
+                    b.Property<string>("DeviceName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastUsed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("DeviceId");
+
+                    b.ToTable("Devices");
+
+                    b.HasData(
+                        new
+                        {
+                            DeviceId = 1,
+                            DeviceName = "Default",
+                            LastUsed = new DateTime(2022, 8, 25, 5, 8, 55, 197, DateTimeKind.Utc).AddTicks(2495),
+                            RegistrationDate = new DateTime(2022, 8, 25, 5, 8, 55, 197, DateTimeKind.Utc).AddTicks(2498)
+                        });
+                });
+
             modelBuilder.Entity("Zolupos.Application.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
@@ -121,7 +153,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 8, 13, 13, 19, 52, 609, DateTimeKind.Utc).AddTicks(4069),
+                            LastLogin = new DateTime(2022, 8, 25, 5, 8, 55, 197, DateTimeKind.Utc).AddTicks(2574),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -279,6 +311,9 @@ namespace Zolupos.Application.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Discount")
                         .HasColumnType("integer");
 
@@ -300,6 +335,8 @@ namespace Zolupos.Application.Migrations
                     b.HasKey("TransactionId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("DeviceId");
 
                     b.ToTable("Transactions");
                 });
@@ -340,7 +377,20 @@ namespace Zolupos.Application.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("Zolupos.Application.Entities.Device", "Device")
+                        .WithMany("Transactions")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
+
                     b.Navigation("TransactionCustomer");
+                });
+
+            modelBuilder.Entity("Zolupos.Application.Entities.Device", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Zolupos.Application.Entities.Transaction", b =>

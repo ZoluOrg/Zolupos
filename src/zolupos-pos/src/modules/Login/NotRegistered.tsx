@@ -23,6 +23,7 @@ export const NotRegisteredModal = () => {
     enabled: false,
     onSuccess: (data: ResultWrapper<device>) => {
       toast(`Registered as ${data.receive.deviceName}`, { icon: "📡" });
+      console.log(data.receive);
       Cookies.set("zolupos-device-creds", JSON.stringify(data.receive!));
     },
     onError: (e) => {

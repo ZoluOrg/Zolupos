@@ -5,7 +5,6 @@ using System.Reflection;
 using Zolupos.Application.Common.Abstractions;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Infrastructure.Context;
-using Zolupos.Application.Queries;
 
 namespace Zolupos.Application
 {

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Zolupos.Application.Migrations
 {
-    public partial class NewStart : Migration
+    public partial class Relation_With_dev_transact_pls_work : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,21 @@ namespace Zolupos.Application.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Devices",
+                columns: table => new
+                {
+                    DeviceId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DeviceName = table.Column<string>(type: "text", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastUsed = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devices", x => x.DeviceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +96,8 @@ namespace Zolupos.Application.Migrations
                     Vat = table.Column<float>(type: "real", nullable: false),
                     Discount = table.Column<int>(type: "integer", nullable: false),
                     Total = table.Column<float>(type: "real", nullable: false),
-                    SubTotal = table.Column<float>(type: "real", nullable: false)
+                    SubTotal = table.Column<float>(type: "real", nullable: false),
+                    DeviceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,6 +107,12 @@ namespace Zolupos.Application.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId");
+                    table.ForeignKey(
+                        name: "FK_Transactions_Devices_DeviceId",
+                        column: x => x.DeviceId,
+                        principalTable: "Devices",
+                        principalColumn: "DeviceId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,9 +176,14 @@ namespace Zolupos.Application.Migrations
                 values: new object[] { 1, "Sample@customer.com", "Sample", "Sample Customer", "Customer", "0925", null, 0 });
 
             migrationBuilder.InsertData(
+                table: "Devices",
+                columns: new[] { "DeviceId", "DeviceName", "LastUsed", "RegistrationDate" },
+                values: new object[] { 1, "Default", new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2196), new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2199) });
+
+            migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "EmployeeId", "FirstName", "FullName", "LastLogin", "PhoneNumber", "Pin", "Profile", "Role", "SurName" },
-                values: new object[] { 1, "Sample", "Sample Employee", new DateTime(2022, 8, 13, 13, 19, 52, 609, DateTimeKind.Utc).AddTicks(4069), 81234567, 1989, null, "Admin", "Employee" });
+                values: new object[] { 1, "Sample", "Sample Employee", new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2238), 81234567, 1989, null, "Admin", "Employee" });
 
             migrationBuilder.InsertData(
                 table: "Products",
@@ -186,6 +213,11 @@ namespace Zolupos.Application.Migrations
                 name: "IX_Transactions_CustomerId",
                 table: "Transactions",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_DeviceId",
+                table: "Transactions",
+                column: "DeviceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -207,6 +239,9 @@ namespace Zolupos.Application.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Devices");
         }
     }
 }

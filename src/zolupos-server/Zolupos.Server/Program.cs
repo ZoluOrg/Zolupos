@@ -10,7 +10,6 @@ using Zolupos.Application;
 using Zolupos.Application.Common.Interfaces;
 using Zolupos.Application.Infrastructure.Context;
 using Zolupos.Application.Middleware;
-using Zolupos.Application.Queries;
 using Zolupos.Shared.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,8 +44,6 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<ExceptionHandler>();
 
     builder.Services.UseZoluposApplication();
-
-    builder.Services.AddGraphQLServer().RegisterDbContext<ApplicationDbContext>().AddQueryType<Customers>();
 
     var settingSection = builder.Configuration.GetSection("Settings");
     builder.Services.Configure<Settings>(settingSection);
@@ -109,7 +106,6 @@ var app = builder.Build();
         cors.AllowAnyHeader();
     });
 
-    app.MapGraphQL();
     app.Run();
 }
 

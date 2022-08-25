@@ -21,6 +21,7 @@ namespace Zolupos.Application.Features.Transactions
         public int Discount { get; set; }
         public virtual List<AddOrderedProduct> OrderedProducts { get; set; }
         public virtual List<AddPayment> Payments { get; set; }
+        public int DeviceId { get; set; }
     }
     public class AddOrderedProduct
     {

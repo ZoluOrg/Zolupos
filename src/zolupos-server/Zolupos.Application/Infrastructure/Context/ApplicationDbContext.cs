@@ -38,6 +38,9 @@ namespace Zolupos.Application.Infrastructure.Context
             modelBuilder.Entity<Transaction>().HasMany(tr => tr.Payments).WithOne(py => py.Transaction);
             modelBuilder.Entity<Payment>().HasOne(py => py.Transaction).WithMany(tr => tr.Payments);
 
+            modelBuilder.Entity<Transaction>().HasOne(tr => tr.Device).WithMany(dv => dv.Transactions);
+            modelBuilder.Entity<Device>().HasMany(dv => dv.Transactions).WithOne(tr => tr.Device);
+
             modelBuilder.Entity<Device>().HasData(new Device { DeviceId = 1, DeviceName = "Default", LastUsed = DateTime.UtcNow, RegistrationDate = DateTime.UtcNow });
 
             modelBuilder.Entity<Employee>().HasData(new Employee { EmployeeId = 1, FirstName = "Sample", SurName = "Employee", FullName = "Sample Employee", Pin = 1989, Role = "Admin", PhoneNumber = 81234567, LastLogin = DateTime.UtcNow, Profile = null });

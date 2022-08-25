@@ -1,16 +1,16 @@
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
-import { useQuery } from "react-query"
+import { useQuery } from "react-query";
 import { z } from "zod";
+import { ITransaction } from "../interface/ITransaction";
 
-const deviceValidator = z.object({
-  deviceId: z.number(),
-  deviceName: z.string(),
-  RegistrationDate: z.date(),
-  lastUsed: z.date(),
-})
-
-export type device = z.infer<typeof deviceValidator>;
+export interface device {
+  deviceId: number;
+  deviceName: string;
+  lastUsed: Date;
+  registrationDate: Date;
+  transactions: ITransaction | null;
+}
 
 export const useDevice = () => {
   return useQuery(["device"], () => {
@@ -18,12 +18,12 @@ export const useDevice = () => {
     if (deviceCredentials != null) {
       try {
         let res = JSON.parse(deviceCredentials);
-        return deviceValidator.parse(res);
-      } catch(e) {
-        console.log(e);
+        return res;
+      } catch (e) {
+        toast.error("Unkown Error Occured");
       }
     } else {
       toast.error("Device is not registered.");
     }
-  })
-}
+  });
+};

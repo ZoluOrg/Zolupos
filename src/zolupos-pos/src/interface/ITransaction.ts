@@ -22,6 +22,7 @@ export interface IAddTransaction {
   total: number;
   subTotal: number;
   discount: number;
+  deviceId: number;
   orderedProducts: Array<IOrderedProduct>;
   payments: Array<IPayment>;
 }

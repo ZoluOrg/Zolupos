@@ -12,14 +12,14 @@ using Zolupos.Application.Infrastructure.Context;
 namespace Zolupos.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220818105821_Device")]
-    partial class Device
+    [Migration("20220825035741_Relation_With_dev_transact_pls_work")]
+    partial class Relation_With_dev_transact_pls_work
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -102,8 +102,8 @@ namespace Zolupos.Application.Migrations
                         {
                             DeviceId = 1,
                             DeviceName = "Default",
-                            LastUsed = new DateTime(2022, 8, 18, 10, 58, 20, 450, DateTimeKind.Utc).AddTicks(1583),
-                            RegistrationDate = new DateTime(2022, 8, 18, 10, 58, 20, 450, DateTimeKind.Utc).AddTicks(1586)
+                            LastUsed = new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2196),
+                            RegistrationDate = new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2199)
                         });
                 });
 
@@ -153,7 +153,7 @@ namespace Zolupos.Application.Migrations
                             EmployeeId = 1,
                             FirstName = "Sample",
                             FullName = "Sample Employee",
-                            LastLogin = new DateTime(2022, 8, 18, 10, 58, 20, 450, DateTimeKind.Utc).AddTicks(1629),
+                            LastLogin = new DateTime(2022, 8, 25, 3, 57, 40, 941, DateTimeKind.Utc).AddTicks(2238),
                             PhoneNumber = 81234567,
                             Pin = 1989,
                             Role = "Admin",
@@ -311,6 +311,9 @@ namespace Zolupos.Application.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Discount")
                         .HasColumnType("integer");
 
@@ -332,6 +335,8 @@ namespace Zolupos.Application.Migrations
                     b.HasKey("TransactionId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("DeviceId");
 
                     b.ToTable("Transactions");
                 });
@@ -372,7 +377,20 @@ namespace Zolupos.Application.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("Zolupos.Application.Entities.Device", "Device")
+                        .WithMany("Transactions")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
+
                     b.Navigation("TransactionCustomer");
+                });
+
+            modelBuilder.Entity("Zolupos.Application.Entities.Device", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Zolupos.Application.Entities.Transaction", b =>

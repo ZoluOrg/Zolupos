@@ -7,6 +7,7 @@ import { useMutation } from "react-query";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
+import { useDevice } from "../../../../hooks/useDevice";
 import { IPayment } from "../../../../interface/IPayment";
 import {
   IAddTransaction,
@@ -19,9 +20,10 @@ import { PaymentCard } from "./PaymentCard";
 
 export const PaymentModal = () => {
   const transactionStore = useTransactionStore();
+  const device = useDevice();
   const addPayment = () => {
     const newPayment: IPayment = {
-      paymentType: 0,
+      paymentType: PaymentTypes.Cash,
       tendered: 0,
       change: 0,
       amount: 0,
@@ -64,9 +66,11 @@ export const PaymentModal = () => {
         total: transactionStore.total,
         subTotal: transactionStore.subTotal,
         discount: transactionStore.discount,
+        deviceId: device.data?.deviceId!,
         orderedProducts: transactionStore.orders,
         payments: transactionStore.payments,
       };
+      console.log(transaction);
       await toast
         .promise(mutateAsync(transaction), {
           loading: "Processing transaction...",
