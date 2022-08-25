@@ -11,6 +11,7 @@ namespace PaperRings.Context
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> context) : base(context) { }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) { }

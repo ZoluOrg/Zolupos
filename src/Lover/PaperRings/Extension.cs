@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace PaperRings
 {
@@ -15,6 +16,7 @@ namespace PaperRings
         public static IServiceCollection AddPaperRings(this IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql("Host=Localhost;Database=Lover.PaperRings.Database;Username=postgres;Password=postgres7207"));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddGraphQLServer().AddQueryType<EmployeeQueries>().AddMutationType<EmployeeMutation>();
             return services;
         }
