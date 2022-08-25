@@ -18,7 +18,7 @@ export const PaymentCard: React.FC<{
       ]
     );
     transactionStore.setPaymentMethod(
-      paymentIndex, 
+      paymentIndex,
       parseInt(ev.currentTarget.value)
     );
   };
@@ -52,10 +52,9 @@ export const PaymentCard: React.FC<{
             ))}
           </select>
         </div>
-        {transactionStore.payments[paymentIndex].paymentType ==
-          PaymentTypes.Cash && (
+        {transactionStore.payments[paymentIndex].paymentType == 0 && (
           <div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap- 1">
               <span>Tendered: </span>
               <Input
                 className="w-6/12"

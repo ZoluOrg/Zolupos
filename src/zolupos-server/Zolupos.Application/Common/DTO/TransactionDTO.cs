@@ -20,5 +20,6 @@ namespace Zolupos.Application.Common.DTO
         public int DeviceId { get; set; }
         public virtual List<OrderedProductDTO> OrderedProducts { get; set; }
         public virtual List<PaymentDTO> Payments { get; set; }
+
     }
 }
