@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PaperRings.Mapper
 {
-    internal class ApplicationMapper : Profile
+    public class ApplicationMapper : Profile
     {
         public ApplicationMapper()
         {

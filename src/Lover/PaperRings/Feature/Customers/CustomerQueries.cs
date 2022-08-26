@@ -9,11 +9,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PaperRings.Feature.Customers
 {
+    [ExtendObjectType("Query")]
     public class CustomerQueries
     {
-        public async Task<Customer> GetCustomers([Service] ApplicationDbContext context)
+        public IQueryable<Customer> GetCustomers([Service] ApplicationDbContext context)
         {
-            return await context.Customers.FirstOrDefaultAsync();
+            return context.Customers;
         }
+        
+        public IQueryable<Customer> GetCustomers([Service] ApplicationDbContext context, int id)
+        {
+            return context.Customers.Where(cust => cust.CustomerId == id);
+        } 
     }
 }

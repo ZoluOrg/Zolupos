@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using PaperRings.Feature.Customers;
 
 namespace PaperRings
 {
@@ -17,7 +18,13 @@ namespace PaperRings
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql("Host=Localhost;Database=Lover.PaperRings.Database;Username=postgres;Password=postgres7207"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddGraphQLServer().AddQueryType<EmployeeQueries>().AddMutationType<EmployeeMutation>();
+            services.AddGraphQLServer()
+                .AddQueryType(q => q.Name("Query"))
+                .AddType<CustomerQueries>()
+                .AddType<EmployeeQueries>()
+                .AddMutationType(m => m.Name("Mutation"))
+                .AddType<CustomerMutation>()
+                .AddType<EmployeeMutation>();
             return services;
         }
     }

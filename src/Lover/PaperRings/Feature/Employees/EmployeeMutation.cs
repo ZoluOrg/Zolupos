@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PaperRings.Feature.Employees
 {
+    [ExtendObjectType("Mutation")]
     public class EmployeeMutation
     {
         public async Task<Employee> AddEmployee([Service] ApplicationDbContext context, string firstName, string lastName, string fullName, int pin, string role, int phoneNumber)

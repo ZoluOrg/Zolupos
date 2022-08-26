@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PaperRings.Feature.Employees
 {
+    [ExtendObjectType("Query")]
     public class EmployeeQueries
     {
         public async Task<ICollection<Employee>> GetEmployees([Service] ApplicationDbContext context) {
