@@ -21,6 +21,7 @@ namespace PaperRings.Feature.Employees
                 Pin = pin,
                 Role = role,
                 PhoneNumber = phoneNumber,
+                LastLogin = DateTime.UtcNow,
             };
 
             await context.Employees.AddAsync(newEmployee);

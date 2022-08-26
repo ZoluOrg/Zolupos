@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CruelSummer\CruelSummer.csproj" />
     <ProjectReference Include="..\PaperRings\PaperRings.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using PaperRings.Feature.Customers;
+using PaperRings.Feature.JWT;
 
 namespace PaperRings
 {
@@ -24,7 +25,8 @@ namespace PaperRings
                 .AddType<EmployeeQueries>()
                 .AddMutationType(m => m.Name("Mutation"))
                 .AddType<CustomerMutation>()
-                .AddType<EmployeeMutation>();
+                .AddType<EmployeeMutation>()
+                .AddType<JWTMutation>();
             return services;
         }
     }
