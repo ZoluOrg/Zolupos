@@ -1,4 +1,5 @@
-﻿using PaperRings.Context;
+﻿using HotChocolate.AspNetCore.Authorization;
+using PaperRings.Context;
 using PaperRings.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace PaperRings.Feature.Employees
 {
     [ExtendObjectType("Mutation")]
+    [Authorize]
     public class EmployeeMutation
     {
         public async Task<Employee> AddEmployee([Service] ApplicationDbContext context, string firstName, string lastName, string fullName, int pin, string role, int phoneNumber)

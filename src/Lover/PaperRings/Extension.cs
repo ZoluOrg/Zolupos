@@ -20,6 +20,7 @@ namespace PaperRings
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql("Host=Localhost;Database=Lover.PaperRings.Database;Username=postgres;Password=postgres7207"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddGraphQLServer()
+                .AddAuthorization()
                 .AddQueryType(q => q.Name("Query"))
                 .AddType<CustomerQueries>()
                 .AddType<EmployeeQueries>()
