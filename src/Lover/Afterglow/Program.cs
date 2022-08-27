@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PaperRings;
 using System.Text;
-{
-    var builder = WebApplication.CreateBuilder(args);
-    builder.Services.AddPaperRings();
 
+var builder = WebApplication.CreateBuilder(args);
+{
     var settingSection = builder.Configuration.GetSection("Settings");
     builder.Services.Configure<Settings>(settingSection);
     var settings = settingSection.Get<Settings>();
@@ -29,10 +28,20 @@ using System.Text;
         };
     });
 
-    var app = builder.Build();
-    app.MapGet("/", () => "Hola");
-    app.MapGraphQL();
-    app.UseAuthentication();
-    app.Run();
+    builder.Services.AddAuthorization();
 
+    builder.Services.AddPaperRings();
+}
+
+var app = builder.Build();
+{
+    app.UseRouting();
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.UseEndpoints(eps =>
+    {
+        eps.MapGraphQL();
+        eps.MapGraphQLSchema();
+    });
+    app.Run();
 }

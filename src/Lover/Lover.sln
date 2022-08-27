@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Afterglow", "Lover\Afterglow.csproj", "{DC622AB0-4740-48C9-AD50-08415BC117B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Afterglow", "Afterglow\Afterglow.csproj", "{DC622AB0-4740-48C9-AD50-08415BC117B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaperRings", "PaperRings\PaperRings.csproj", "{F0B931A7-D971-4760-8A39-E0CBB192AD14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CruelSummer", "CruelSummer\CruelSummer.csproj", "{B87F2A50-5756-4C34-BA89-952EFB2B47EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CruelSummer", "CruelSummer\CruelSummer.csproj", "{B87F2A50-5756-4C34-BA89-952EFB2B47EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

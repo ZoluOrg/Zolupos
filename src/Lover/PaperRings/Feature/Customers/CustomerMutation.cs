@@ -11,7 +11,7 @@ namespace PaperRings.Feature.Customers
     [ExtendObjectType("Mutation")]
     public class CustomerMutation
     {
-        public async Task<Customer> AddCustomer([Service] ApplicationDbContext context, string customerFirstName, string customerLastName, string customerEmail, string customerPhoneNumber)
+        public async Task<Customer> AddCustomer(ApplicationDbContext context, string customerFirstName, string customerLastName, string customerEmail, string customerPhoneNumber)
         {
             var newCustomer = new Customer
             {

@@ -12,12 +12,12 @@ namespace PaperRings.Feature.Customers
     [ExtendObjectType("Query")]
     public class CustomerQueries
     {
-        public IQueryable<Customer> GetCustomers([Service] ApplicationDbContext context)
+        public IQueryable<Customer> GetCustomers(ApplicationDbContext context)
         {
             return context.Customers;
         }
         
-        public IQueryable<Customer> GetCustomers([Service] ApplicationDbContext context, int id)
+        public IQueryable<Customer> GetCustomers(ApplicationDbContext context, int id)
         {
             return context.Customers.Where(cust => cust.CustomerId == id);
         } 

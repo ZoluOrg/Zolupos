@@ -21,6 +21,10 @@ namespace PaperRings
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddGraphQLServer()
                 .AddAuthorization()
+                .InitializeOnStartup()
+                .AddFiltering()
+                .AddSorting()
+                .RegisterDbContext<ApplicationDbContext>()
                 .AddQueryType(q => q.Name("Query"))
                 .AddType<CustomerQueries>()
                 .AddType<EmployeeQueries>()

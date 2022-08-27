@@ -12,11 +12,13 @@ namespace PaperRings.Feature.Employees
     [ExtendObjectType("Query")]
     public class EmployeeQueries
     {
-        public async Task<ICollection<Employee>> GetEmployees([Service] ApplicationDbContext context) {
-            return await context.Employees.ToListAsync();
+        [UseSorting]
+        [UseFiltering]
+        public IEnumerable<Employee> GetEmployees(ApplicationDbContext context) {
+            return context.Employees;
         }
 
-        public async Task<Employee> GetEmployee([Service] ApplicationDbContext context, int id)
+        public async Task<Employee> GetEmployee(ApplicationDbContext context, int id)
         {
             return await context.Employees.Where(emp => emp.EmployeeId == id).FirstOrDefaultAsync();
         }
