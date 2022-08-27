@@ -22,5 +22,7 @@ namespace PaperRings.Entities
         public int CustomerSpent { get; set; }
 
         public string? CustomerProfile { get; set; }
+
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }
