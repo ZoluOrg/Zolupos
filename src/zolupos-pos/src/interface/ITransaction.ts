@@ -12,6 +12,7 @@ export interface ITransaction {
   vat: number;
   total: number;
   subTotal: number;
+  status: number;
   orderedProducts: Array<IOrderedProduct>;
   payments: Array<IPayment>;
 }

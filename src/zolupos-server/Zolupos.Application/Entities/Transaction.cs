@@ -20,6 +20,7 @@ namespace Zolupos.Application.Entities
         public int Discount { get; set; }
         public float Total { get; set; }
         public float SubTotal { get; set; }
+        public TransactionStatus Status { get; set; }
 
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
         public virtual List<Payment> Payments { get; set; }

@@ -15,6 +15,8 @@ interface ITransactionStore {
   vat: number;
   quantity: number;
   discount: number;
+  status: number;
+  setStatus: (status: number) => void;
   setTotal: (total: number) => void;
   setSubTotal: (subTotal: number) => void;
   setVat: (vat: number) => void;
@@ -96,6 +98,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   vat: 0,
   quantity: 0,
   discount: 0,
+  status: 0,
   setTotal: (total) => set((state) => ({ total: total })),
   setSubTotal: (subTotal) => set((state) => ({ subTotal: subTotal })),
   setVat: (vat) => set((state) => ({ vat: vat })),
@@ -103,6 +106,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   setDiscount: (discount) => set((state) => ({ discount: discount })),
   calculateInfo: (orders) =>
     set(produce((state) => calculateInfoFn(state, orders))),
+  setStatus: (status) => set(produce(state => state.status = status)),
   //#endregion TransactionStuffs
 
   //#region PaymentStuffsStore

@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { BagSimple, Money, Plus, PlusCircle, X } from "phosphor-react";
+import { BagSimple, Money, Plus, PlusCircle, ShoppingBag, X } from "phosphor-react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
@@ -23,7 +23,7 @@ export const PaymentModal = () => {
   const device = useDevice();
   const addPayment = () => {
     const newPayment: IPayment = {
-      paymentType: PaymentTypes.Cash,
+      paymentType: 0,
       tendered: 0,
       change: 0,
       amount: 0,
@@ -91,7 +91,7 @@ export const PaymentModal = () => {
           <span className="text-2xl font-bold">Process Transaction</span>
           <div>
             <Button
-              disabled={status=="loading"}
+              disabled={status == "loading"}
               onClick={() => {
                 transactionStore.setShowPaymentModal(false);
               }}
@@ -101,12 +101,21 @@ export const PaymentModal = () => {
           </div>
         </div>
         <div className="flex w-full justify-between">
-          <Button buttonColor="coal" onClick={addPayment}>
-            <div className="flex gap-2 items-center justify-center">
-              <span>Add payment </span>
-              <PlusCircle color="white" />
-            </div>
-          </Button>
+          <div className="flex gap-2">
+            <Button buttonColor="coal" onClick={addPayment}>
+              <div className="flex gap-2 items-center justify-center">
+                <span>Complete Payment</span>
+                <PlusCircle color="white" />
+              </div>
+            </Button>
+            <Button buttonColor="mallow" onClick={addPayment}>
+              <div className="flex gap-2 items-center justify-center">
+                <span>Add Order</span>
+                <ShoppingBag color="black"/>
+              </div>
+            </Button>
+          </div>
+
           <Button
             onClick={async () => {
               await processTransaction();
