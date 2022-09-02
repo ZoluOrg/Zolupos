@@ -9,16 +9,17 @@ export const Modal: React.FC<{
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="modal-bruh absolute h-full w-full flex justify-center items-center bg-mallow-1 bg-opacity-5"
-          initial={{ backdropFilter: "blur(0px)" }}
-          animate={{ backdropFilter: "blur(3px)" }}
-          exit={{ backdropFilter: "blur(0px)" }}
+          className="modal-bruh absolute h-full w-full flex justify-center items-center bg-coal-1 bg-opacity-20 shadow-lg"
+          initial={{ backdropFilter: "blur(0px)", opacity:0}}
+          animate={{ backdropFilter: "blur(1px)", opacity:1 }}
+          exit={{ backdropFilter: "blur(0px)", opacity: 0 }}
         >
           <motion.div
             className={`bg-mallow-1 shadow border border-mallow-5 rounded-lg z-50 ${className}`}
-            initial={{ y: -60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -60, opacity: 0 }}
+            transition={{type:"spring"}}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity:0}}
           >
             {children}
           </motion.div>
