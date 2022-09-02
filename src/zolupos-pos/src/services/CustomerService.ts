@@ -12,7 +12,8 @@ export const getAllCustomer = async () => {
 
 export const getCustomerById = async (ID: number) => {
   let response = await axios.get<ResultWrapper<ICustomer>>(
-    `https://localhost:7073/api/Customer/${ID}`
+    `https://localhost:7073/api/Customer/${ID}`,
+    {headers: getTokenAsBearer()}
   );
   return response.data;
 };

@@ -7,6 +7,7 @@ export interface ITransaction {
   transactionId: number;
   reference: string;
   customerId: number | null;
+  deviceId: number;
   transactedAt: Date;
   discount: number;
   vat: number;
