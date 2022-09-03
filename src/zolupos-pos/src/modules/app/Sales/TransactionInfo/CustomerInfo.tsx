@@ -14,6 +14,7 @@ export const CustomerInfo = () => {
     "customer-info",
     () => getCustomerById(saleStore.selected?.customerId!),
     {
+      enabled: saleStore.selected?.customerId != null,
       refetchOnWindowFocus: false,
       onError: (err: AxiosError) => {
         toast.error(err.message);
@@ -27,7 +28,7 @@ export const CustomerInfo = () => {
           <CustomSpinner dark />
           <span className="font-bold">Loading Customer Data</span>
         </div>
-      ) : (
+      ) : saleStore.selected?.customerId != null ? (
         <div className="w-full flex flex-col space-y-2">
           <div className="img-cont flex w-full items-center space-x-2">
             <img
@@ -52,6 +53,8 @@ export const CustomerInfo = () => {
             </div>
           </Button>
         </div>
+      ) : (
+        <span>No Customer Assigned</span>
       )}
     </div>
   );
