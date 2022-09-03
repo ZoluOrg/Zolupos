@@ -1,6 +1,15 @@
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { BagSimple, Money, Plus, PlusCircle, ShoppingBag, X } from "phosphor-react";
+import {
+  Bag,
+  BagSimple,
+  Money,
+  Plus,
+  PlusCircle,
+  ShoppingBag,
+  ShoppingCart,
+  X,
+} from "phosphor-react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
@@ -54,7 +63,7 @@ export const PaymentModal = () => {
     },
   });
 
-  const processTransaction = async () => {
+  const processTransaction = async (tansactionStatus: number) => {
     if (transactionStore.overAllPayment < transactionStore.total)
       toast.error("balance the payment");
     else {
@@ -101,32 +110,38 @@ export const PaymentModal = () => {
           </div>
         </div>
         <div className="flex w-full justify-between">
-          <div className="flex gap-2">
-            <Button buttonColor="coal" onClick={addPayment}>
-              <div className="flex gap-2 items-center justify-center">
-                <span>Complete Payment</span>
-                <PlusCircle color="white" />
-              </div>
-            </Button>
-            <Button buttonColor="mallow" onClick={addPayment}>
+          <Button buttonColor="coal" onClick={addPayment}>
+            <div className="flex gap-2 items-center justify-center">
+              <span>Add Payment</span>
+              <PlusCircle color="white" />
+            </div>
+          </Button>
+
+          <div className="flex space-x-2">
+            <Button
+              buttonColor="mallow"
+              onClick={async () => {
+                await processTransaction(1);
+                transactionStore.setShowPaymentModal(false);
+              }}
+            >
               <div className="flex gap-2 items-center justify-center">
                 <span>Add Order</span>
-                <ShoppingBag color="black"/>
+                <ShoppingCart />
+              </div>
+            </Button>
+            <Button
+              onClick={async () => {
+                await processTransaction(0);
+                transactionStore.setShowPaymentModal(false);
+              }}
+            >
+              <div className="flex gap-2 items-center justify-center">
+                <span>Complete</span>
+                <BagSimple />
               </div>
             </Button>
           </div>
-
-          <Button
-            onClick={async () => {
-              await processTransaction();
-              transactionStore.setShowPaymentModal(false);
-            }}
-          >
-            <div className="flex gap-2 items-center justify-center">
-              <span>Process</span>
-              <BagSimple />
-            </div>
-          </Button>
         </div>
         <div className="flex gap-2 w-auto">
           <div className="flex flex-col gap-2">
