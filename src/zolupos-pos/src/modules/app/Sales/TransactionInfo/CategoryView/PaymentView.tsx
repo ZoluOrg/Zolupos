@@ -35,7 +35,7 @@ const PaymentCard: React.FC<{ idx: number; payment: IPayment }> = ({
   console.log(typeof payment.paymentType);
   return (
     <div className="grid grid-cols-5 py-2 items-center">
-      <span>{Object.values(PaymentTypes)[parseInt(payment.paymentType)]}</span>
+      <span>{Object.values(PaymentTypes)[payment.paymentType]}</span>
       <span>{payment.tendered}</span>
       <span>{payment.change}</span>
       <span>{payment.amount}</span>

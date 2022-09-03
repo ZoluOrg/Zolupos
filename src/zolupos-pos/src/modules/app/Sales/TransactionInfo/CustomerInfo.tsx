@@ -14,6 +14,7 @@ export const CustomerInfo = () => {
     "customer-info",
     () => getCustomerById(saleStore.selected?.customerId!),
     {
+      refetchOnWindowFocus: false,
       onError: (err: AxiosError) => {
         toast.error(err.message);
       },
