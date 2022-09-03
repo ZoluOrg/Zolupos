@@ -18,7 +18,7 @@ export const TransactionInfo = () => {
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
-          <span>{dayjs(saleStore.selected?.transactionId).format("YYYY-MM-DD-ddd H:m:s A")}</span>
+          <span>{dayjs(saleStore.selected?.transactionId).format("YYYY-MM-DD-ddd H:mm:ss A")}</span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Total:</span>

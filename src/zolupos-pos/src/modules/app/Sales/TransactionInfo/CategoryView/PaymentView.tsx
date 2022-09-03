@@ -11,20 +11,20 @@ import { IOrderedProduct } from "../../../POS/OrderedProduct";
 export const PaymentView = () => {
   const saleStore = useSaleStore();
   return (
-    <>
-      <div className="grid grid-cols-5 text-lg p-2 font-bold bg-mallow-2 rounded-t-lg border border-x border-mallow-5">
+    <React.Fragment>
+      <div className="grid grid-cols-5 text-lg p-2 h-[47px] font-bold bg-mallow-2 rounded-t-lg border border-x border-mallow-5">
         <span>Payment Type</span>
         <span>Tendered</span>
         <span>Change</span>
         <span>Amount</span>
         <span>Actions</span>
       </div>
-      <div className="w-full overflow-y-auto h-[calc(100%-90px)] border-x border-b border-mallow-5 rounded-b-lg p-2 shadow">
+      <div className="w-full overflow-y-auto h-[calc(100%-47px)] border-x border-b border-mallow-5 rounded-b-lg p-2 shadow">
         {saleStore.selected?.payments.map((val, idx) => (
           <PaymentCard idx={idx} payment={val} />
         ))}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

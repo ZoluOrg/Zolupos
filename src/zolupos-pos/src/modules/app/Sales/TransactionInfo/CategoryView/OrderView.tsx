@@ -9,7 +9,7 @@ export const OrderView = () => {
   const saleStore = useSaleStore();
   return (
     <>
-      <div className="grid grid-cols-6 text-lg p-2 font-bold bg-mallow-2 border rounded-t-lg border-mallow-5">
+      <div className="grid grid-cols-6 text-lg p-2 h-[47px] font-bold bg-mallow-2 border rounded-t-lg border-mallow-5">
         <span>Quantity</span>
         <span>Item</span>
         <span>Unit Cost</span>
@@ -17,7 +17,7 @@ export const OrderView = () => {
         <span>Price</span>
         <span>Actions</span>
       </div>
-      <div className="w-full overflow-y-auto h-[calc(100%-90px)] border-b border-x border-mallow-5 rounded-b-lg p-2 shadow">
+      <div className="w-full overflow-y-auto h-[calc(100%-47px)] border-b border-x border-mallow-5 rounded-b-lg p-2 shadow">
         {saleStore.selected?.orderedProducts.map((val, idx) => (
           <OrderCard idx={idx} order={val} />
         ))}

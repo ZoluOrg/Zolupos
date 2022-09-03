@@ -13,6 +13,7 @@ export const TransactionComponent: React.FC = () => {
           <TransactionInfo />
           <CustomerInfo/>
         </div>
+        <CategoryView/>
       </div>
     </div>
   );
