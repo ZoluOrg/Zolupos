@@ -25,6 +25,7 @@ export interface IAddTransaction {
   subTotal: number;
   discount: number;
   deviceId: number;
+  status: number;
   orderedProducts: Array<IOrderedProduct>;
   payments: Array<IPayment>;
 }

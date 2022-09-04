@@ -34,6 +34,13 @@ export const TransactionTable = () => {
       ? saleStore.setIsDescending(!saleStore.isDescending)
       : saleStore.setIsDescending(false);
   };
+  
+  const onSortStatus = () => {
+    saleStore.setSort("by_status");
+    saleStore.sort == "by_status"
+      ? saleStore.setIsDescending(!saleStore.isDescending)
+      : saleStore.setIsDescending(false);
+  };
 
   const allTransactionRefetching = useIsFetching(["all-transactions"]);
   const searchTransactionRefetching = useIsFetching(["search-transaction"]);
@@ -42,7 +49,7 @@ export const TransactionTable = () => {
     <>
       <div className="bg-mallow-bg-1 border border-mallow-5 rounded-lg h-[calc(100%-12px-60px)] shadow">
         <div className="h-full flex flex-col">
-          <div className="bg-mallow-2 rounded-t-lg border-b border-b-mallow-5 p-5 grid grid-cols-5 font-bold">
+          <div className="bg-mallow-2 rounded-t-lg border-b border-b-mallow-5 p-5 grid grid-cols-6 font-bold">
             <div className="flex items-center gap-3">
               <span>Transaction Id</span>
               <Button
@@ -88,6 +95,24 @@ export const TransactionTable = () => {
                 onClick={onSortDate}
               >
                 {saleStore.sort == "by_date" ? (
+                  saleStore.isDescending ? (
+                    <SortDescending />
+                  ) : (
+                    <SortAscending />
+                  )
+                ) : (
+                  <SortAscending />
+                )}
+              </Button>
+            </div>
+            <div className="flex items-center gap-3">
+              <span>Status</span>
+              <Button
+                buttonColor={saleStore.sort == "by_status" ? "accent" : "coal"}
+                buttonSize="small"
+                onClick={onSortDate}
+              >
+                {saleStore.sort == "by_status" ? (
                   saleStore.isDescending ? (
                     <SortDescending />
                   ) : (

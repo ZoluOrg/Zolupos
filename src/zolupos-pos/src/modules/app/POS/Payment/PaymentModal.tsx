@@ -16,6 +16,7 @@ import { useMutation } from "react-query";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { PaymentTypes } from "../../../../enums/PaymentTypes";
+import { TransactionStatus } from "../../../../enums/TransactionStatus";
 import { useDevice } from "../../../../hooks/useDevice";
 import { IPayment } from "../../../../interface/IPayment";
 import {
@@ -70,6 +71,7 @@ export const PaymentModal = () => {
       console.log(transactionStore.overAllPayment < transactionStore.total);
       let transaction: IAddTransaction = {
         // Real data
+        status: tansactionStatus,
         customerId: transactionStore.assignedCustomer?.customerId || null,
         vat: transactionStore.vat,
         total: transactionStore.total,

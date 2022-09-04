@@ -1,12 +1,24 @@
 import dayjs from "dayjs";
 import React from "react";
+import { TransactionStatus } from "../../../../enums/TransactionStatus";
 import { useSaleStore } from "../../../../stores/SalesStore";
 
 export const TransactionInfo = () => {
   const saleStore = useSaleStore();
   return (
     <div className="border border-mallow-5 h-full rounded-lg w-[512px] p-5 bg-mallow-bg-1 shadow">
-      <span className="text-xl font-bold">Transaction Info</span>
+      <div className="flex gap-2">
+        <span className="text-xl font-bold">Transaction Info</span>
+        <span
+          className={`px-3 py-1 bg-opacity-30 rounded-lg ${
+            saleStore.selected?.status == 0 && "bg-green-500 text-green-700"
+          } ${saleStore.selected?.status == 1 && "bg-blue-500 text-blue-700"} ${
+            saleStore.selected?.status == 1 && "bg-red-500 text-red-700"
+          }`}
+        >
+          {Object.values(TransactionStatus)[saleStore.selected?.status!]}
+        </span>
+      </div>
       <div className="flex flex-col mt-2 space-y-2">
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
@@ -18,7 +30,11 @@ export const TransactionInfo = () => {
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
-          <span>{dayjs(saleStore.selected?.transactionId).format("YYYY-MM-DD-ddd H:mm:ss A")}</span>
+          <span>
+            {dayjs(saleStore.selected?.transactionId).format(
+              "YYYY-MM-DD-ddd H:mm:ss A"
+            )}
+          </span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Total:</span>
