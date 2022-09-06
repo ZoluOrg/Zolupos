@@ -11,6 +11,8 @@ const buttonColorSelection = {
   accent: "bg-accent-1 hover:bg-accent-2 text-mallow-1",
   coal: "bg-coal-1 hover:bg-coal-2 text-mallow-1",
   mallow: "bg-mallow-2 hover:bg-mallow-3 text-black text-opacity-80 border border-mallow-5",
+  leaf: "bg-leaf-1 hover:bg-leaf-2 text-mallow-1",
+  sun: "bg-sun-1 hover:bg-sun-2 text-mallow-1"
 };
 
 const buttonSizeSelection = {
