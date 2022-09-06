@@ -1,5 +1,6 @@
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
+import toast from "react-hot-toast";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { PaymentTypes } from "../enums/PaymentTypes";
@@ -73,7 +74,6 @@ interface ITransactionStore {
   //#endregion SusStuffs
 }
 
-
 export const useTransactionStore = create<ITransactionStore>()((set) => ({
   transactionFinish: () => {
     set(
@@ -106,7 +106,7 @@ export const useTransactionStore = create<ITransactionStore>()((set) => ({
   setDiscount: (discount) => set((state) => ({ discount: discount })),
   calculateInfo: (orders) =>
     set(produce((state) => calculateInfoFn(state, orders))),
-  setStatus: (status) => set(produce(state => state.status = status)),
+  setStatus: (status) => set(produce((state) => (state.status = status))),
   //#endregion TransactionStuffs
 
   //#region PaymentStuffsStore
@@ -274,12 +274,13 @@ const addOrderFn = (
   order: IOrderedProduct
 ) => {
   let idx = state.orders.findIndex(
-    (punchedProduct) =>
-      punchedProduct.productId == order.productId
+    (punchedProduct) => punchedProduct.productId == order.productId
   );
   console.log(idx);
-  if (idx > -1) state.orders[idx].quantity += 1;
-  else {
+  if (idx > -1) {
+    toast.success("Product already. Increased the quantity");
+    state.orders[idx].quantity += 1;
+  } else {
     state.orders.push(order);
   }
 };
