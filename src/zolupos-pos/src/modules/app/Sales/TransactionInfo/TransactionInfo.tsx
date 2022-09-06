@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
+import { ArrowArcLeft, Printer, TrashSimple } from "phosphor-react";
 import React from "react";
+import { Button } from "../../../../components/Button";
 import { TransactionStatus } from "../../../../enums/TransactionStatus";
 import { useSaleStore } from "../../../../stores/SalesStore";
 
@@ -47,6 +49,26 @@ export const TransactionInfo = () => {
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Device:</span>
           <span>{saleStore.selected?.deviceId}</span>
+        </div>
+        <div className="flex space-x-2">
+          <Button>
+            <div className="flex items-center gap-2">
+              <TrashSimple />
+              <span>Void</span>
+            </div>
+          </Button>
+          <Button buttonColor="sun">
+            <div className="flex items-center gap-2">
+              <ArrowArcLeft />
+              <span>Return</span>
+            </div>
+          </Button>
+          <Button buttonColor="mallow">
+            <div className="flex items-center gap-2">
+              <Printer/>
+              <span>Print</span>
+            </div>
+          </Button>
         </div>
       </div>
     </div>
