@@ -38,6 +38,7 @@ export const FundsModal = () => {
               console.log(ev.key);
               if (ev.key == "Enter") finish();
             }}
+            type="number"
           />
           <Button buttonColor="coal" onClick={finish}>
             Use
