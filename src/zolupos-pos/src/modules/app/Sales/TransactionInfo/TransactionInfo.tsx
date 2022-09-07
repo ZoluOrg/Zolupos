@@ -1,12 +1,18 @@
 import dayjs from "dayjs";
 import { ArrowArcLeft, Printer, TrashSimple } from "phosphor-react";
 import React from "react";
+import { useReactToPrint } from "react-to-print";
 import { Button } from "../../../../components/Button";
 import { TransactionStatus } from "../../../../enums/TransactionStatus";
+import { usePrintService } from "../../../../stores/PrintService";
 import { useSaleStore } from "../../../../stores/SalesStore";
 
 export const TransactionInfo = () => {
   const saleStore = useSaleStore();
+  const printer = usePrintService();
+  const handlePrint = useReactToPrint({
+    content: () => printer.toPrint?.current,
+  });
   return (
     <div className="border border-mallow-5 h-full rounded-lg w-[512px] p-5 bg-mallow-bg-1 shadow">
       <div className="flex gap-2">
@@ -63,9 +69,9 @@ export const TransactionInfo = () => {
               <span>Return</span>
             </div>
           </Button>
-          <Button buttonColor="mallow">
+          <Button buttonColor="mallow" onClick={handlePrint}>
             <div className="flex items-center gap-2">
-              <Printer/>
+              <Printer />
               <span>Print</span>
             </div>
           </Button>

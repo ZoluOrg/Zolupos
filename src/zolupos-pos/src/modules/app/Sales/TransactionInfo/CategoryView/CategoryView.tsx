@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { usePrintService } from "../../../../../stores/PrintService";
 import { OrderView } from "./OrderView";
 import { PaymentView } from "./PaymentView";
 
 export const CategoryView: React.FC = () => {
   const [selected, setSelected] = React.useState<number>(0);
+  const printer = usePrintService();
+  const printRef = useRef(null);
+
+  useEffect(() => {
+    printer.setToPrint(printRef);
+  }, [printRef]);
+
   return (
-    <div className="w-full h-full flex flex-col space-y-2">
+    <div className="w-full h-full flex flex-col space-y-2" ref={printRef}>
       <div className="flex space-x-2 w-auto border border-mallow-5 rounded-lg p-1 text-center shadow">
         <span
           className={`${
@@ -24,7 +32,9 @@ export const CategoryView: React.FC = () => {
           Payments
         </span>
       </div>
-      <div className="h-full">{selected == 0 ? <OrderView /> : <PaymentView />}</div>
+      <div className="h-full">
+        {selected == 0 ? <OrderView /> : <PaymentView />}
+      </div>
     </div>
   );
 };
