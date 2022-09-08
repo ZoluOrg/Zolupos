@@ -54,6 +54,7 @@ export const NotRegisteredModal = () => {
         )}
         <Button
           buttonColor="coal"
+          isLoading={devices.isFetching}
           onClick={() => {
             regis.refetch();
           }}
