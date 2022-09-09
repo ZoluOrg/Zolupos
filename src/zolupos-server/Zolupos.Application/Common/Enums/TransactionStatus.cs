@@ -10,6 +10,7 @@ namespace Zolupos.Application.Common.Enums
     {
         COMPLETE,
         ORDER,
+        RETURN,
         VOID,
     }
 }

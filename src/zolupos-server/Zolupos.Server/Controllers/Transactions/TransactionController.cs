@@ -37,6 +37,13 @@ namespace Zolupos.Server.Controllers.Transactions
             return Ok(transactions);
         }
 
+        [HttpPost("status")]
+        public async Task<ActionResult> ChangeTransactionStatus([FromQuery (Name = "id")] int transactionId, [FromQuery(Name = "status")] string status)
+        {
+            var response = await Mediator.Send(new ChangeTransactionStatusCommand(transactionId, status));
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddTransaction(AddTransactionCommand command)
         {
