@@ -26,8 +26,13 @@ export const TransactionCard: React.FC<{
         {dayjs(transaction.transactedAt).format("YYYY-MM-DD-ddd H:m:s A")}
       </span>
       <span className="p-2">
-        <span className={`px-3 py-1 bg-opacity-30 rounded-lg ${transaction.status == 0 && "bg-green-500 text-green-700"} 
-        ${transaction.status == 1 && "bg-blue-500 text-blue-700"} ${transaction.status == 1 && "bg-red-500 text-red-700"}`}>
+        <span
+          className={`px-3 py-1 bg-opacity-30 rounded-lg 
+          ${transaction.status == 0 && "bg-green-500 text-green-700"} 
+          ${transaction.status == 1 && "bg-blue-500 text-blue-700"}
+          ${transaction.status == 2 && "bg-orange-500 text-orange-700"}
+          ${transaction.status == 3 && "bg-red-500 text-red-700"}`}
+        >
           {Object.values(TransactionStatus)[transaction.status]}
         </span>
       </span>

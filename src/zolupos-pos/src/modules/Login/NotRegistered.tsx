@@ -32,7 +32,6 @@ export const NotRegisteredModal = () => {
     },
   });
 
-
   return (
     <Modal
       isOpen={Cookies.get("zolupos-device-creds") == null}

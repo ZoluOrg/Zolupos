@@ -33,11 +33,11 @@ export const TransactionInfo = () => {
       <div className="flex gap-2">
         <span className="text-xl font-bold">Transaction Info</span>
         <span
-          className={`px-3 py-1 bg-opacity-30 rounded-lg ${
-            saleStore.selected?.status == 0 && "bg-green-500 text-green-700"
-          } ${saleStore.selected?.status == 1 && "bg-blue-500 text-blue-700"} ${
-            saleStore.selected?.status == 1 && "bg-red-500 text-red-700"
-          }`}
+          className={`px-3 py-1 bg-opacity-30 rounded-lg 
+          ${saleStore.selected?.status == 0 && "bg-green-500 text-green-700"} 
+          ${saleStore.selected?.status == 1 && "bg-blue-500 text-blue-700"}
+          ${saleStore.selected?.status == 2 && "bg-orange-500 text-orange-700"}
+          ${saleStore.selected?.status == 3 && "bg-red-500 text-red-700"}`}
         >
           {Object.values(TransactionStatus)[saleStore.selected?.status!]}
         </span>
