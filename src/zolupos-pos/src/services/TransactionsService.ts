@@ -10,7 +10,7 @@ export const getAllTransactions = async () => {
     { headers: getTokenAsBearer() }
   );
   return transactions.data.receive;
-}
+};
 
 export const getTransactionById = async (id: number) => {
   let transaction = await axios.get<ResultWrapper<ITransaction>>(
@@ -18,23 +18,48 @@ export const getTransactionById = async (id: number) => {
     { headers: getTokenAsBearer() }
   );
   return transaction.data.receive;
-}
+};
 
-export const getTransactionsPaginated = async (page: number, length: number, sortby: string, isDescending: boolean) => {
+export const getTransactionsPaginated = async (
+  page: number,
+  length: number,
+  sortby: string,
+  isDescending: boolean
+) => {
   let transactions = await axios.get<IPagination<Array<ITransaction>>>(
     `https://localhost:7073/api/Transaction/paginated?page=${page}&length=${length}&sortby=${sortby}&isDescending=${isDescending}`,
     { headers: getTokenAsBearer() }
   );
   return transactions.data;
-}
+};
 
-export const searchTransactions = async (page: number, length: number, sortby: string, isDescending: boolean, query: string) => {
+export const searchTransactions = async (
+  page: number,
+  length: number,
+  sortby: string,
+  isDescending: boolean,
+  query: string
+) => {
   let transactions = await axios.get<IPagination<Array<ITransaction>>>(
     `https://localhost:7073/api/Transaction/search?page=${page}&length=${length}&sortby=${sortby}&isDescending=${isDescending}&query=${query}`,
     { headers: getTokenAsBearer() }
   );
   return transactions.data;
-}
+};
+
+export const changeTransactionStatus = async (
+  changeStatus: {
+    transactionId: number,
+    status: string
+  }
+) => {
+  let response = await axios.post(
+    `https://localhost:7073/api/Transaction/status?id=${changeStatus.transactionId}&status=${changeStatus.status}`,
+    { headers: getTokenAsBearer() }
+  );
+
+  return response.data.receive;
+};
 
 export const addNewTransaction = async (transaction: IAddTransaction) => {
   let response = await axios.post<ResultWrapper<number>>(
@@ -44,7 +69,7 @@ export const addNewTransaction = async (transaction: IAddTransaction) => {
   );
 
   return response.data.receive;
-}
+};
 
 export const deleteTransaction = async (id: number) => {
   let response = await axios.delete<ResultWrapper<number>>(
@@ -53,4 +78,4 @@ export const deleteTransaction = async (id: number) => {
   );
 
   return response.data.receive;
-}
+};

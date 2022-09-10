@@ -50,6 +50,7 @@ export const ProductSearch = () => {
     deb();
   };
 
+  
   const addProduct = () => {
     let toSave: IOrderedProduct = {
       ...searchStore.searchResult[searchStore.selectedResult],

@@ -14,7 +14,7 @@ import ResultWrapper from "../../wrappers/ResultWrapper";
 export const NotRegisteredModal = () => {
   const [devicesList, setDevicesList] = useState<Array<device>>([]);
   const [selected, setSelected] = useState<string>("");
-
+  
   const devices = useQuery(["devices"], getAllDevices, {
     onSuccess: (data: ResultWrapper<Array<device>>) => {
       setDevicesList(data.receive);
@@ -31,6 +31,7 @@ export const NotRegisteredModal = () => {
       if (axios.isAxiosError(e)) toast.error(e.message);
     },
   });
+
 
   return (
     <Modal

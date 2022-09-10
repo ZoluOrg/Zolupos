@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
 import { ArrowArcLeft, Printer, TrashSimple } from "phosphor-react";
 import React from "react";
+import { useMutation, useQuery } from "react-query";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "../../../../components/Button";
 import { TransactionStatus } from "../../../../enums/TransactionStatus";
+import { changeTransactionStatus } from "../../../../services/TransactionsService";
 import { usePrintService } from "../../../../stores/PrintService";
 import { useSaleStore } from "../../../../stores/SalesStore";
 
@@ -12,6 +14,9 @@ export const TransactionInfo = () => {
   const printer = usePrintService();
   const handlePrint = useReactToPrint({
     content: () => printer.toPrint?.current,
+  });
+  const { mutateAsync, data, status } = useMutation(changeTransactionStatus, {
+    onSuccess: () => {},
   });
   return (
     <div className="border border-mallow-5 h-full rounded-lg w-[512px] p-5 bg-mallow-bg-1 shadow">
@@ -63,7 +68,12 @@ export const TransactionInfo = () => {
               <span>Void</span>
             </div>
           </Button>
-          <Button buttonColor="sun">
+          <Button
+            buttonColor="sun"
+            onClick={async () =>
+              await mutateAsync({transactionId: saleStore.selected?.transactionId!, status: "return"})
+            }
+          >
             <div className="flex items-center gap-2">
               <ArrowArcLeft />
               <span>Return</span>
