@@ -56,9 +56,7 @@ export const PaymentModal = () => {
   }, []);
 
   const { mutateAsync, data, status } = useMutation(addNewTransaction, {
-    onSuccess: () => {
-      toast.success("Transaction processed successfully");
-    },
+
     onError: (error: AxiosError<IServerError>) => {
       toast.error(error.response?.data.ExceptionMessage!);
     },
