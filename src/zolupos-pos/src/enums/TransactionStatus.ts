@@ -1,5 +1,6 @@
 export enum TransactionStatus {
   COMPLETE = "Complete",
   ORDER = "Order",
-  VOID = "Void"
+  RETURN = "Returned",
+  VOID = "Void",
 }

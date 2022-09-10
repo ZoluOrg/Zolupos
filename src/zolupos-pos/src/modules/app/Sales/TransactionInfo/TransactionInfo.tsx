@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
 import { ArrowArcLeft, Printer, TrashSimple } from "phosphor-react";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
@@ -8,16 +9,25 @@ import { TransactionStatus } from "../../../../enums/TransactionStatus";
 import { changeTransactionStatus } from "../../../../services/TransactionsService";
 import { usePrintService } from "../../../../stores/PrintService";
 import { useSaleStore } from "../../../../stores/SalesStore";
+import {
+  shouldOpenReturnModal,
+  shouldOpenVoidModal,
+} from "./TransactionComponent";
 
 export const TransactionInfo = () => {
+  const [shouldOpenReturnModalVal, setShouldOpenReturnModal] = useAtom(
+    shouldOpenReturnModal
+  );
+
+  const [shouldOpenVoidModalVal, setShouldOpenVoidModal] =
+    useAtom(shouldOpenVoidModal);
+
   const saleStore = useSaleStore();
   const printer = usePrintService();
   const handlePrint = useReactToPrint({
     content: () => printer.toPrint?.current,
   });
-  const { mutateAsync, data, status } = useMutation(changeTransactionStatus, {
-    onSuccess: () => {},
-  });
+
   return (
     <div className="border border-mallow-5 h-full rounded-lg w-[512px] p-5 bg-mallow-bg-1 shadow">
       <div className="flex gap-2">
@@ -62,7 +72,7 @@ export const TransactionInfo = () => {
           <span>{saleStore.selected?.deviceId}</span>
         </div>
         <div className="flex space-x-2">
-          <Button>
+          <Button onClick={() => setShouldOpenVoidModal(true)}>
             <div className="flex items-center gap-2">
               <TrashSimple />
               <span>Void</span>
@@ -70,9 +80,7 @@ export const TransactionInfo = () => {
           </Button>
           <Button
             buttonColor="sun"
-            onClick={async () =>
-              await mutateAsync({transactionId: saleStore.selected?.transactionId!, status: "return"})
-            }
+            onClick={() => setShouldOpenReturnModal(true)}
           >
             <div className="flex items-center gap-2">
               <ArrowArcLeft />

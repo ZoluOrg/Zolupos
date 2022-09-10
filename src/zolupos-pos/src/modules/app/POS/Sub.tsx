@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import { random } from "lodash";
 import { Percent } from "phosphor-react";
 import { FormEvent } from "react";
@@ -5,6 +6,7 @@ import toast from "react-hot-toast";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { useTransactionStore } from "../../../stores/TransactionStore";
+import { shouldOpenVoidModal } from "../Sales/TransactionInfo/TransactionComponent";
 
 export const Sub = () => {
   const transaction = useTransactionStore();
@@ -17,8 +19,7 @@ export const Sub = () => {
   };
 
   const processClick = () => {
-    if (transaction.orders.length == 0)
-      toast.error("Shopping Cart Empty");
+    if (transaction.orders.length == 0) toast.error("Shopping Cart Empty");
     else if (transaction.discount > 99) toast.error("Discount to high");
     else transaction.setShowPaymentModal(true);
   };
@@ -57,6 +58,7 @@ export const Sub = () => {
         </div>
       </div>
       <div>
+        
         <Button
           className="w-full bg-green-700 hover:bg-green-800"
           onClick={processClick}
