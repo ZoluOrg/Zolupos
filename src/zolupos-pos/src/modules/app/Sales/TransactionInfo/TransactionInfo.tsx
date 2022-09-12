@@ -42,7 +42,7 @@ export const TransactionInfo = () => {
           {Object.values(TransactionStatus)[saleStore.selected?.status!]}
         </span>
       </div>
-      <div className="flex flex-col mt-2 space-y-2">
+      <div className="flex flex-col mt-2 space-y-2"> 
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
           <span>{saleStore.selected?.transactionId}</span>

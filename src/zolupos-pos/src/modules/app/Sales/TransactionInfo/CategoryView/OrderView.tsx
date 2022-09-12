@@ -9,13 +9,12 @@ export const OrderView = () => {
   const saleStore = useSaleStore();
   return (
     <>
-      <div className="grid grid-cols-6 text-lg p-2 h-[47px] font-bold bg-mallow-2 border rounded-t-lg border-mallow-5">
+      <div className="grid grid-cols-5 text-lg p-2 h-[47px] font-bold bg-mallow-2 border rounded-t-lg border-mallow-5">
         <span>Quantity</span>
         <span>Item</span>
         <span>Unit Cost</span>
         <span>With Vat</span>
         <span>Price</span>
-        <span>Actions</span>
       </div>
       <div className="w-full overflow-y-auto h-[calc(100%-47px)] border-b border-x border-mallow-5 rounded-b-lg p-2 shadow">
         {saleStore.selected?.orderedProducts.map((val, idx) => (
@@ -31,7 +30,7 @@ const OrderCard: React.FC<{ idx: number; order: IOrderedProduct }> = ({
   order,
 }) => {
   return (
-    <div className="grid grid-cols-6 py-2 items-center">
+    <div className="grid grid-cols-5 py-2 items-center">
       <span>{order.quantity}</span>
       <span>{order.productName}</span>
       <span>{order.productUnitPrice}</span>
@@ -47,12 +46,6 @@ const OrderCard: React.FC<{ idx: number; order: IOrderedProduct }> = ({
         )}
       </div>
       <span>{order.bunchTotal}</span>
-      <div>
-        <Menu Look={() => <DotsThree size={24}/>}>
-          <MenuItems Icon={<ArrowArcLeft size={24} />}>Return</MenuItems>
-          <MenuItems Icon={<TrashSimple size={24} />}>Delete</MenuItems>
-        </Menu>
-      </div>
     </div>
   );
 };
