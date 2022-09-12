@@ -42,7 +42,7 @@ export const TransactionInfo = () => {
           {Object.values(TransactionStatus)[saleStore.selected?.status!]}
         </span>
       </div>
-      <div className="flex flex-col mt-2 space-y-2"> 
+      <div className="flex flex-col mt-2 space-y-2">
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
           <span>{saleStore.selected?.transactionId}</span>
@@ -72,21 +72,26 @@ export const TransactionInfo = () => {
           <span>{saleStore.selected?.deviceId}</span>
         </div>
         <div className="flex space-x-2">
-          <Button onClick={() => setShouldOpenVoidModal(true)}>
-            <div className="flex items-center gap-2">
-              <TrashSimple />
-              <span>Void</span>
-            </div>
-          </Button>
-          <Button
-            buttonColor="sun"
-            onClick={() => setShouldOpenReturnModal(true)}
-          >
-            <div className="flex items-center gap-2">
-              <ArrowArcLeft />
-              <span>Return</span>
-            </div>
-          </Button>
+          {!(saleStore.selected?.status == 3) && (
+            <Button onClick={() => setShouldOpenVoidModal(true)}>
+              <div className="flex items-center gap-2">
+                <TrashSimple />
+                <span>Void</span>
+              </div>
+            </Button>
+          )}
+          {(saleStore.selected?.status == 0 ||
+            saleStore.selected?.status == 1) && (
+            <Button
+              buttonColor="sun"
+              onClick={() => setShouldOpenReturnModal(true)}
+            >
+              <div className="flex items-center gap-2">
+                <ArrowArcLeft />
+                <span>Return</span>
+              </div>
+            </Button>
+          )}
           <Button buttonColor="mallow" onClick={handlePrint}>
             <div className="flex items-center gap-2">
               <Printer />

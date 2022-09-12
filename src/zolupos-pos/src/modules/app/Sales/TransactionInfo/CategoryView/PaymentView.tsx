@@ -17,7 +17,6 @@ export const PaymentView = () => {
         <span>Tendered</span>
         <span>Change</span>
         <span>Amount</span>
-        <span>Actions</span>
       </div>
       <div className="w-full overflow-y-auto h-[calc(100%-47px)] border-x border-b border-mallow-5 rounded-b-lg p-2 shadow">
         {saleStore.selected?.payments.map((val, idx) => (
@@ -39,11 +38,6 @@ const PaymentCard: React.FC<{ idx: number; payment: IPayment }> = ({
       <span>{payment.tendered}</span>
       <span>{payment.change}</span>
       <span>{payment.amount}</span>
-      <div>
-        <Menu Look={() => <DotsThree size={24} />}>
-          <MenuItems Icon={<TrashSimple size={24} />}>Delete</MenuItems>
-        </Menu>
-      </div>
     </div>
   );
 };
