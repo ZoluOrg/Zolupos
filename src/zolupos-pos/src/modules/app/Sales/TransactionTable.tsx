@@ -110,7 +110,7 @@ export const TransactionTable = () => {
               <Button
                 buttonColor={saleStore.sort == "by_status" ? "accent" : "coal"}
                 buttonSize="small"
-                onClick={onSortDate}
+                onClick={onSortStatus}
               >
                 {saleStore.sort == "by_status" ? (
                   saleStore.isDescending ? (

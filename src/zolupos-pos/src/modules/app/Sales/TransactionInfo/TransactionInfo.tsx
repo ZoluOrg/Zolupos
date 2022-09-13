@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
-import { ArrowArcLeft, Printer, TrashSimple } from "phosphor-react";
+import { ArrowArcLeft, Check, Printer, TrashSimple } from "phosphor-react";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useReactToPrint } from "react-to-print";
@@ -10,6 +10,7 @@ import { changeTransactionStatus } from "../../../../services/TransactionsServic
 import { usePrintService } from "../../../../stores/PrintService";
 import { useSaleStore } from "../../../../stores/SalesStore";
 import {
+  shouldOpenCompleteModal,
   shouldOpenReturnModal,
   shouldOpenVoidModal,
 } from "./TransactionComponent";
@@ -21,6 +22,10 @@ export const TransactionInfo = () => {
 
   const [shouldOpenVoidModalVal, setShouldOpenVoidModal] =
     useAtom(shouldOpenVoidModal);
+
+  const [shouldShowOpenCompleteVal, setShouldOpenCompleteModal] = useAtom(
+    shouldOpenCompleteModal
+  );
 
   const saleStore = useSaleStore();
   const printer = usePrintService();
@@ -71,7 +76,7 @@ export const TransactionInfo = () => {
           <span className="font-bold">Transaction Device:</span>
           <span>{saleStore.selected?.deviceId}</span>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-1">
           {!(saleStore.selected?.status == 3) && (
             <Button onClick={() => setShouldOpenVoidModal(true)}>
               <div className="flex items-center gap-2">
@@ -89,6 +94,17 @@ export const TransactionInfo = () => {
               <div className="flex items-center gap-2">
                 <ArrowArcLeft />
                 <span>Return</span>
+              </div>
+            </Button>
+          )}
+          {saleStore.selected?.status == 1 && (
+            <Button
+              buttonColor="leaf"
+              onClick={() => setShouldOpenCompleteModal(true)}
+            >
+              <div className="flex items-center gap-2">
+                <Check />
+                <span>Complete</span>
               </div>
             </Button>
           )}
