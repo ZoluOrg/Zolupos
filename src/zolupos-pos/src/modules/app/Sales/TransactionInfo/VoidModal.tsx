@@ -2,16 +2,22 @@ import { useAtom } from "jotai";
 import { ArrowArcLeft, Warning } from "phosphor-react";
 import React from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { changeTransactionStatus } from "../../../../services/TransactionsService";
 import { useSaleStore } from "../../../../stores/SalesStore";
-import { shouldOpenReturnModal, shouldOpenVoidModal } from "./TransactionComponent";
+import {
+  shouldOpenReturnModal,
+  shouldOpenVoidModal,
+} from "./TransactionComponent";
 
 export const VoidModal = () => {
   const saleStore = useSaleStore();
   const [shouldOpen, setShouldOpen] = useAtom(shouldOpenVoidModal);
+  const queryClient = useQueryClient();
+  let { id } = useParams();
 
   const { mutateAsync, data, status } = useMutation(changeTransactionStatus, {
     onSuccess: () => {},
@@ -20,7 +26,7 @@ export const VoidModal = () => {
   const handleVoid = async () => {
     toast.promise(
       mutateAsync({
-        transactionId: saleStore.selected?.transactionId!,
+        transactionId: parseInt(id!),
         status: "void",
       }),
       {
@@ -30,6 +36,7 @@ export const VoidModal = () => {
       }
     );
     setShouldOpen(false);
+    queryClient.refetchQueries("transaction-info");
   };
 
   return (
@@ -38,7 +45,7 @@ export const VoidModal = () => {
       className="flex items-center justify-center p-5 flex-col space-y-2"
     >
       <div className="flex flex-col items-center">
-        <Warning size={64} color="red"/>
+        <Warning size={64} color="red" />
         <span className="font-bold text-lg">Warning</span>
         <span className="">Voiding this transaction is irreversible.</span>
       </div>

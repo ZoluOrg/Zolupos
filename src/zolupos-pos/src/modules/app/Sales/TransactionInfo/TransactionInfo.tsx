@@ -1,12 +1,17 @@
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
 import { ArrowArcLeft, Check, Printer, TrashSimple } from "phosphor-react";
-import React from "react";
-import { useMutation, useQuery } from "react-query";
+import React, { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import { toast } from "react-hot-toast";
 import { Button } from "../../../../components/Button";
 import { TransactionStatus } from "../../../../enums/TransactionStatus";
-import { changeTransactionStatus } from "../../../../services/TransactionsService";
+import {
+  changeTransactionStatus,
+  getTransactionById,
+} from "../../../../services/TransactionsService";
 import { usePrintService } from "../../../../stores/PrintService";
 import { useSaleStore } from "../../../../stores/SalesStore";
 import {
@@ -16,18 +21,24 @@ import {
 } from "./TransactionComponent";
 
 export const TransactionInfo = () => {
-  const [shouldOpenReturnModalVal, setShouldOpenReturnModal] = useAtom(
-    shouldOpenReturnModal
+  let { id } = useParams();
+
+  const [, setShouldOpenReturnModal] = useAtom(shouldOpenReturnModal);
+
+  const [, setShouldOpenVoidModal] = useAtom(shouldOpenVoidModal);
+
+  const [, setShouldOpenCompleteModal] = useAtom(shouldOpenCompleteModal);
+
+  const { data } = useQuery(
+    ["transaction-info"],
+    () => getTransactionById(parseInt(id!)),
+    {
+      onError: () => {
+        toast.error("Error");
+      },
+    }
   );
 
-  const [shouldOpenVoidModalVal, setShouldOpenVoidModal] =
-    useAtom(shouldOpenVoidModal);
-
-  const [shouldShowOpenCompleteVal, setShouldOpenCompleteModal] = useAtom(
-    shouldOpenCompleteModal
-  );
-
-  const saleStore = useSaleStore();
   const printer = usePrintService();
   const handlePrint = useReactToPrint({
     content: () => printer.toPrint?.current,
@@ -39,45 +50,43 @@ export const TransactionInfo = () => {
         <span className="text-xl font-bold">Transaction Info</span>
         <span
           className={`px-3 py-1 bg-opacity-30 rounded-lg 
-          ${saleStore.selected?.status == 0 && "bg-green-500 text-green-700"} 
-          ${saleStore.selected?.status == 1 && "bg-blue-500 text-blue-700"}
-          ${saleStore.selected?.status == 2 && "bg-orange-500 text-orange-700"}
-          ${saleStore.selected?.status == 3 && "bg-red-500 text-red-700"}`}
+          ${data?.status == 0 && "bg-green-500 text-green-700"} 
+          ${data?.status == 1 && "bg-blue-500 text-blue-700"}
+          ${data?.status == 2 && "bg-orange-500 text-orange-700"}
+          ${data?.status == 3 && "bg-red-500 text-red-700"}`}
         >
-          {Object.values(TransactionStatus)[saleStore.selected?.status!]}
+          {Object.values(TransactionStatus)[data?.status!]}
         </span>
       </div>
       <div className="flex flex-col mt-2 space-y-2">
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
-          <span>{saleStore.selected?.transactionId}</span>
+          <span>{data?.transactionId}</span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Reference:</span>
-          <span>{saleStore.selected?.reference}</span>
+          <span>{data?.reference}</span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Id:</span>
           <span>
-            {dayjs(saleStore.selected?.transactionId).format(
-              "YYYY-MM-DD-ddd H:mm:ss A"
-            )}
+            {dayjs(data?.transactionId).format("YYYY-MM-DD-ddd H:mm:ss A")}
           </span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Total:</span>
-          <span>{saleStore.selected?.total}</span>
+          <span>{data?.total}</span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction SubTotal:</span>
-          <span>{saleStore.selected?.subTotal}</span>
+          <span>{data?.subTotal}</span>
         </div>
         <div className="flex space-x-2">
           <span className="font-bold">Transaction Device:</span>
-          <span>{saleStore.selected?.deviceId}</span>
+          <span>{data?.deviceId}</span>
         </div>
         <div className="flex space-x-1">
-          {!(saleStore.selected?.status == 3) && (
+          {!(data?.status == 3) && (
             <Button onClick={() => setShouldOpenVoidModal(true)}>
               <div className="flex items-center gap-2">
                 <TrashSimple />
@@ -85,8 +94,7 @@ export const TransactionInfo = () => {
               </div>
             </Button>
           )}
-          {(saleStore.selected?.status == 0 ||
-            saleStore.selected?.status == 1) && (
+          {(data?.status == 0 || data?.status == 1) && (
             <Button
               buttonColor="sun"
               onClick={() => setShouldOpenReturnModal(true)}
@@ -97,7 +105,7 @@ export const TransactionInfo = () => {
               </div>
             </Button>
           )}
-          {saleStore.selected?.status == 1 && (
+          {data?.status == 1 && (
             <Button
               buttonColor="leaf"
               onClick={() => setShouldOpenCompleteModal(true)}
